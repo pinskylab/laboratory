@@ -3,5 +3,5 @@ navbar:
   title: "HOME"
   left:
     - text: "Extraction"
-      href: extract_ali.html
+      href: laboratory-notebooks/extract_ali.html
 output_dir: "."

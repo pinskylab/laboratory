@@ -232,3 +232,4 @@ kable(low_te) %>%
   add_header_above(c("Low TE buffer" = 5))
 ```
 
+# Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.

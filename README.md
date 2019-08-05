@@ -114,7 +114,7 @@ Qiagen DNeasy 96
 
 <td style="text-align:left;">
 
-no robot and
+no robot
 
 </td>
 

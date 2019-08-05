@@ -12,7 +12,7 @@ knitr::kable(
 readr::read_csv("field season, extraction method, ligation setup, baits
           2012, Qiagen DNeasy 96, no robot, no baits
           2013, Qiagen DNeasy 96, no robot, no baits
-          2014, Qiagen DNeasy 96, no robot and, no baits
+          2014, Qiagen DNeasy 96, no robot, no baits
           2015, Qiagen DNeasy 96, no robot and robot, no baits
           2016, Qiagen DNeasy 96, robot, baits
           2017, Qiagen DNeasy 96, robot, baits

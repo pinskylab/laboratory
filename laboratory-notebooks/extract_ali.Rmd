@@ -16,20 +16,14 @@ library(kableExtra)
 # library(clownfishr)
 library(tidyverse)
 
-read_db <- function(db_name){
-  con <- DBI::dbConnect(RMySQL::MySQL(),
-                        dbname = db_name,
-                        host = "amphiprion.deenr.rutgers.edu",
-                        username = rstudioapi::askForPassword("Username"),
-                        password = rstudioapi::askForPassword("Password"))
-  return(con)
-}
-
-
+source("~/db-connections.R")
 leyte <- read_db("Leyte")
 lab <- read_db("Laboratory")
 ```
-# Extraction Protocol
+
+# Extraction Methods
+The Pinsky Lab has been using the extraction method described by [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665) since June 2018.  Before that we used Qiagen DNEasy 96 well kits. *If you are writing a manuscript about data collected between 2012 and 2015, use the Qiagen kits in your methods section.  If you are writing a manuscript about data collected from 2016 to present, use this method as described by Ali et al.*
+
 **Load samples for lysis**  
 
 1. Add 80uL Lifton's buffer to each well of a 96 well plate.  
@@ -228,4 +222,6 @@ kable(low_te) %>%
   kable_styling() %>%
   add_header_above(c("Low TE buffer" = 5))
 ```
+
+# Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.
 

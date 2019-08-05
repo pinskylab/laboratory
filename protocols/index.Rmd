@@ -1,0 +1,7 @@
+---
+title: "Pinsky Laboratory Methods"
+author:  "[Michelle Stuart](https://github.com/mstuart1) at [Rutgers](http://pinsky.marine.rutgers.edu), 2019-07-17, updated `r Sys.Date()`"
+output: html_document
+---
+
+Click on the protocol above to see the methods.

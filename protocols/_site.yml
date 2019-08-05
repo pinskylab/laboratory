@@ -1,0 +1,11 @@
+name: "Pinsky Lab Methods"
+navbar:
+  title: "Home"
+  left:
+    - text: "1. Extraction"
+      href: "protocols/01_extract_ali.nb.html"
+    - text: "2. Quantify"
+      href: "protocols/02_quant_extract.nb.html"
+    - text: "3. Digest"
+      href: "protocols/03_digest.nb.html"
+output_dir: "."

@@ -2,8 +2,8 @@
 title: "Digest Method"
 output: html_notebook
 params:
-  first: NA
-  last: NA
+  first: E2968
+  last: E3063
   num_samples: NA
   num_plate: NA
 ---
@@ -11,7 +11,6 @@ params:
 
 **This protocol assumes that you have read and understand the manufacturer’s instructions attached below.  Please read the full manufacturer’s instructions before using this abbreviated protocol.**
 
-## Prep for digest
 ```{r setup, include = FALSE}
 
 # load libraries
@@ -26,14 +25,60 @@ source("~/db-connections.R")
 lab <- read_db("Laboratory")
 ```
 
-If a range of samples is specified in the header, find those samples.  Otherwise, examine the extraction table, find candidates for future digests, create a plan and send proposed locations to the database.  
-Extractions that have less than 5ng/uL DNA concentration are unlikely to succeed in a digest and are excluded when using the code.
 
-```{r echo=FALSE}
+## Prep for digest
+The most difficult part of the digest is figuring out where to put the samples.  In most cases, it is very straightforward.  You pull the sample from the extraction plate and place it in the same well on the digest plate.  For example, if an extract is in A4 of the extraction plate, run the digestion reaction in well A4 of the digest plate.  
+
+If this is the case, the source plate map would look like this:
+```{r}
+need_digest <- lab %>% tbl("extraction") %>% collect() %>% 
+  # hasn't been digested
+  filter(extraction_id >= params$first & extraction_id <= params$last) %>% 
+  # select columns
+  select(extraction_id, well, plate, quant) %>% 
+  # need enough material to work with
+  filter(quant > 5) %>% 
+  # sort by extraction id
+  arrange(extraction_id) %>% 
+  # create row and column ids from well
+  mutate(row = substr(well, 1,1), 
+         col = as.numeric(substr(well, 2,3))) %>% 
+  select(row, col, extraction_id)
+
+# define wells
+plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>% 
+  mutate(extraction_id = ifelse(row == "D" & col == 2, "XXXX", NA), 
+    extraction_id = ifelse(row == "E" & col == 8, "XXXX", extraction_id))
+
+# if the plate is not full
+x <- nrow(need_digest) + 2
+if (x < 96) {
+  plate <- plate %>% 
+    slice(1:x)
+}
+
+# remove the non-blank wells from the plate table
+plate <- anti_join(plate, need_digest, by = c("row", "col"))
+
+# rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks.
+plate <- rbind(plate, need_digest) %>% 
+  arrange(col, row)
+
+platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction)
+knitr::kable(platemap, booktabs = T) %>% 
+  # use scale_down to get map to fit within the bounds of the pdf
+  kable_styling(latex_options = "scale_down")
+
+ 
+```
+
+
+
+However, sometimes we skip some samples that did not perform well, or we want to digest a bunch of extracts from random plates.  If it is not a simple plate to plate transfer, the source plate map would look like this:
+```{r}
 digested <- lab %>% tbl("digest") %>% collect()
 # TODO: should filter this for successful digests
 
-if (params$first=="NA"){
   need_digest <- lab %>% tbl("extraction") %>% collect() %>% 
   # hasn't been digested
   filter(!extraction_id %in% digested$extraction_id) %>% 
@@ -45,81 +90,82 @@ if (params$first=="NA"){
   filter(!is.na(plate)) %>% 
   # sort by extraction id
   arrange(extraction_id)
-}else{
-  need_digest <- lab %>% tbl("extraction") %>% collect() %>% 
-  # hasn't been digested
-  filter(extraction_id >= params$first & extraction_id <= params$last) %>% 
-  # select columns
-  select(extraction_id, well, plate, quant) %>% 
-  # need enough material to work with
-  filter(quant > 5) %>% 
-  # sort by extraction id
-  arrange(extraction_id)
+  
+  # define wells
+plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>% 
+  mutate(extraction_id = ifelse(row == "D" & col == 2, "XXXX", NA), 
+    extraction_id = ifelse(row == "E" & col == 8, "XXXX", extraction_id))
+
+# if the plate is not full
+x <- nrow(need_digest) + 2
+if (x < 96) {
+  if(x < 48){
+    plate <- plate %>% 
+      slice(1:x-1)
+  }else{
+    plate <- plate %>% 
+    slice(1:x)
+  }
 }
 
-kable_styling(kable(need_digest))
+# move all of the non-blank wells into their own table
+samples <- plate %>% 
+  filter(is.na(extraction_id)) %>% 
+  select(-extraction_id)
+
+# remove the non-blank wells from the plate table
+plate <- anti_join(plate, samples, by = c("row", "col"))
+
+# join the work sample_ids to the sample table well definitions
+samples <- cbind(samples, need_digest) %>% 
+  select(row, col, extraction_id)
+
+# rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks.
+plate <- rbind(plate, samples) %>% 
+  arrange(col, row)
+
+source_map <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction)
+knitr::kable(source_map, booktabs = T) %>% 
+  # use scale_down to get map to fit within the bounds of the pdf
+  kable_styling(latex_options = "scale_down")
 ```
 
-For each plate in the database, generate plate maps of source extract plates and destination digest plates.
+A digest id must be created for these samples.  **Only do this step once!**  It creates new digest_ids for the database.
+The destination plate map would look like this:
 ```{r}
+### ONLY DO THIS ONCE ###
+dig_max <- lab %>% tbl("digest") %>% 
+  summarise(last = max(digest_id, na.rm = T)) %>% 
+  collect() %>% 
+  mutate(last = as.numeric(substr(last, 2,5)))
+
+x <- dig_max$last+1
+y <- dig_max$last+nrow(plate)
+id_range <- x:y
+
+plate <- plate %>% 
+  mutate(digest_id = paste0("D", id_range),
+         well = paste(row, col, sep = ""), 
+         enzymes = "PstI-MluCI",
+         vol_in = 30,
+         final_vol = 45)
+
+plate_name <- plate %>% 
+  summarise(first = min(digest_id), 
+    last = max(digest_id, na.rm = T))
+
+plate <- plate %>% 
+  mutate(plate = paste(plate_name$first, plate_name$last, sep = "-")) %>% 
+  select(row, col, digest_id)
+
+dest_map <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$digest_id)
+
+knitr::kable(dest_map, booktabs = T) %>% 
+  kable_styling()
 
 ```
 
 
-# counts <- extr %>% 
-#   group_by(plate) %>% 
-#   summarise(samples = n()) %>% # count the number of samples to be digested on each plate
-#   filter(samples > 80) %>%  # remove plates that are not full or not almost full
-#   arrange(plate)
-# 
-# # get a list of the extraction samples that are in these plates
-# in_plates <- extr %>% 
-#   filter(plate %in% counts$plate)
-# 
-# # get a list of samples that are available to fill in the gaps
-# fills <- anti_join(extr, in_plates, by = "extraction_id")
-# 
-# rm(dig)
-# 
-# digest <- data.frame()
-# # set up the plates
-# for (i in 1:nrow(counts)){ # for all of the plates listed in the counts table
-#   temp <- in_plates %>%
-#     filter(plate == counts$plate[i]) %>% # find the extracts in that plate
-#     mutate(dig_plate = paste("plate", i, sep = "")) %>% # add a digest plate name
-#     mutate(dig_well = well) # add a destination well
-#   x <- nrow(temp)
-#   temp[x+1, ] <- c("XXXX", "D2", "blank", 0, paste("plate", i, sep = ""), "D2") # add blanks
-#   temp[x+2, ] <- c("XXXX", "E8", "blank", 0, paste("plate", i, sep = ""), "E8")
-#   temp <- temp %>% 
-#     mutate(row = substr(dig_well, 1, 1),
-#       col = substr(dig_well, 2, 3)) 
-#   if(nrow(temp) < 96){ # if the plate is not full
-#     # find the empty wells
-#     plate_master <- data.frame( row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8)))
-#     plate_master <- plate_master %>% 
-#       mutate(well = paste(row, col, sep = ""))
-#     holes <- anti_join(plate_master, temp, by = "well") %>% 
-#       rename(dig_well = well)
-#     # fill in the holes
-#     for (j in 1:nrow(holes)){
-#       temp2 <- fills[j, ] # take the first row of fills
-#       temp2 <- temp2 %>% 
-#         mutate(
-#           dig_plate = temp$dig_plate[1], # add the needed columns for the digest plate
-#           dig_well = holes$dig_well[j], 
-#           row = holes$row[j], 
-#           col = holes$col[j])
-#       fills <- anti_join(fills, temp2) # remove the fill from the fill table
-#       temp <- rbind(temp, temp2) # add it to the digest plate
-#     }
-#   }
-#   digest <- rbind(digest, temp) 
-#   digest <- digest %>%   # attach to master list of digests
-#     mutate(col = formatC(as.numeric(col), width = 2, format = "d", flag = "0")) %>% 
-#     arrange(dig_plate, col, row) 
-#   rm(temp, i, x)
-# }
 
 
 Print out plate maps and highlight source maps for ease of loading.  Make sure to note any samples that are heavily concentrated and need to be diluted.

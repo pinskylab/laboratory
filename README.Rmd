@@ -14,9 +14,9 @@ readr::read_csv("field season, extraction method, ligation setup, baits
           2013, Qiagen DNeasy 96, no robot, no baits
           2014, Qiagen DNeasy 96, no robot, no baits
           2015, Qiagen DNeasy 96, no robot and robot, no baits
-          2016, Qiagen DNeasy 96, robot, baits
-          2017, Qiagen DNeasy 96, robot, baits
-          2018, Qiagen DNeasy 96 and Ali, robot, baits")
+          2016, Ali, robot, baits
+          2017, Ali, robot, baits
+          2018, Ali, robot, baits")
 )
 )
 

@@ -4,15 +4,28 @@ output: html_notebook
 params:
   first: E2968
   last: E3063
-  num_samples: NA
-  num_plate: NA
+  digest_rxn_size: 30
 ---
 *Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.*  
+
+Explanation of parameters:
+```{r}
+(params)
+```
+first: the first extraction in the range of samples for this plate
+last: the last extraciton in the range of samples for this plate
+digest_rxn_size: the size in uL of each digest reaction.
+
+
 
 **This protocol assumes that you have read and understand the manufacturer’s instructions attached below.  Please read the full manufacturer’s instructions before using this abbreviated protocol.**
 
 ```{r setup, include = FALSE}
-
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
 # load libraries
 library(tidyverse)
 library(kableExtra)
@@ -130,8 +143,11 @@ knitr::kable(source_map, booktabs = T) %>%
   kable_styling(latex_options = "scale_down")
 ```
 
-A digest id must be created for these samples.  **Only do this step once!**  It creates new digest_ids for the database.
-The destination plate map would look like this:
+A digest id must be created for these samples.  
+**Only do this step once!**  
+It creates new digest_ids for the database.  
+The destination plate map would look like this:  
+
 ```{r}
 ### ONLY DO THIS ONCE ###
 dig_max <- lab %>% tbl("digest") %>% 
@@ -154,11 +170,11 @@ plate_name <- plate %>%
   summarise(first = min(digest_id), 
     last = max(digest_id, na.rm = T))
 
-plate <- plate %>% 
+dest_map <- plate %>% 
   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-")) %>% 
   select(row, col, digest_id)
 
-dest_map <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$digest_id)
+dest_map <- as.matrix(reshape2::acast(dest_map, dest_map$row ~ dest_map$col), value.var = dest_map$digest_id)
 
 knitr::kable(dest_map, booktabs = T) %>% 
   kable_styling()
@@ -174,18 +190,57 @@ Prepare digest plate by loading 30uL of sample in to the plate.
 
 For the October 2017 set of plates, I highlighted the 15uL samples on the maps in orange and the “hole-fillers” in pink, then any samples I could take with a multichannel with a blue line down the column.
 
-To load, I first used a single channel pipet to fill in the 15uL samples, pulling the tips from the same location they were on the plate.  Then I filled in the water for the 15uL wells and change the pipet to 30uL to fill the blanks.
+To load, I first used a single channel pipet to fill in the 15uL samples (extra concentrated samples), pulling the tips from the same location they were on the plate.  Then I filled in the water for the 15uL wells and change the pipet to 30uL to fill the blanks.
 Then I added any 30uL “hole fillers” - again using the tips from the same location in the tip box.
 
 At this point, any empty wells on the plate correspond to tips in the tip box.  I used the multichannel pipet to pick up the tips and held them up to the plate to make sure no tips were going into already filled wells, and no empty wells were being left empty.  Then I filled the rest of the plate.
 
-Fill in the digest page of the PCR worksheet
-(PCR worksheet
 
-)  
+## Make the master mix recipe in a falcon tube or smaller tube if possible:
+```{r}
+num_samples <- nrow(plate)
 
-* Make the master mix recipe in 15mL falcon tube:
-    * split the master mix into 8 wells, use a multichannel pipet to pipet 20µL of master mix into each sample well. 
+# make some room for error 15%
+samples_with_error <- floor(num_samples * 1.15)
+
+# use a total of 10 enzyme Units per 50uL reaction, 5 of each enzyme.
+
+digest_rxn <- read_csv("item, concentration, per_reaction
+                       sample, NA, NA
+                       enzyme1, NA, NA
+                       enzyme2, NA, NA
+                       buffer, NA, NA
+                       pH2O, NA, NA") %>% 
+  mutate(per_reaction = ifelse(item == "sample", params$digest_rxn_size/1.6666, per_reaction), 
+         concentration = ifelse(item =="enzyme1", 100000, concentration),
+         per_reaction = ifelse(item == "enzyme1", (params$digest_rxn_size)/10/(concentration/1000), per_reaction),
+         concentration = ifelse(item =="enzyme2", 10000, concentration),
+          per_reaction = ifelse(item == "enzyme2", (params$digest_rxn_size)/10/(concentration/1000), per_reaction),
+         concentration = ifelse(item =="buffer", 10, concentration),
+          per_reaction = ifelse(item == "buffer", params$digest_rxn_size/concentration, per_reaction))
+
+pH2O <- digest_rxn %>% 
+  summarise(this = params$digest_rxn_size-sum(per_reaction, na.rm=T))
+
+digest_rxn <- digest_rxn %>% 
+  mutate(per_reaction = ifelse(item == "pH2O", pH2O$this, per_reaction),
+         master_mix = per_reaction * samples_with_error, 
+         master_mix = ifelse(item == "sample", NA, master_mix))
+
+# double check the math - should return TRUE
+(params$digest_rxn_size*samples_with_error)-(params$digest_rxn_size*.6*samples_with_error) == round(sum(digest_rxn$master_mix, na.rm=T))
+
+print(paste0("Total master mix volume is ", round(sum(digest_rxn$master_mix, na.rm=T)), "mL"))
+```
+```{r}
+kable_styling(kable(digest_rxn))
+```
+
+    * split the master mix into 8 wells, use a multichannel pipet to pipet 12µL of master mix into each sample well. 
+```{r}
+print(paste0("Split into 8 wells by pipetting ", (round(sum(digest_rxn$master_mix, na.rm=T)))/8, "ul into each well"))
+```
+
         * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation.
 * Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI longer than one hour, PstI is active 2-4 hours, don’t need to heat kill digests
 
@@ -202,146 +257,6 @@ Quantifiy - quant-it pico green - import the quantification results into the Sam
 
 
 
-Samples have been:
-Extracted - Extraction Qiagen DNeasy Protocol
-Run Gel - Gels
-Quantified - quant-it pico green
-
-Prepare a digest plate map:
-* In Sample_Data file, on the Extractions sheet, select all and hit the filter button
-* filter for samples have FALSE in the Digested column, then filter by Species and year (samples with a TRUE in this column have a digest_ID associated with the extraction_ID.  Samples with N/A are samples that have been determined to be failed extractions).
-* Copy the desired extraction IDs from extraction sheet to digest sheet - it is possible that some decision making is necessary at this point.  If there are more than 96 candidates to be digested, copy all of the possibilities over into the digest sheet - extraction_ID column
-Digest_ID
-Extraction_ID
-date
-sample_vol_in
-sample_ng_in
-enzymes
-buffer
-
-APCL14_560E1878
-
-
-
-
-
-
-APCL14_513E1354
-
-
-
-
-
-
-APCL14_519E1360
-
-
-
-
-
-
-APCL14_521E1362
-
-
-
-
-
-
-APCL14_109E0879
-
-
-
-
-
-    * 
-    * 
-    * Fill in the sample_vol column on the digest sheet
-Digest_ID
-Extraction_ID
-date
-sample_vol_in
-sample_ng_in
-enzymes
-buffer
-
-APCL14_560E1878
-
-30.0
-
-
-
-
-APCL14_513E1354
-
-30.0
-
-
-
-
-APCL14_519E1360
-
-30.0
-
-
-
-
-APCL14_521E1362
-
-30.0
-
-
-
-
-APCL14_109E0879
-
-30.0
-
-
-
-    * 
-    * 
-    * Drag in the formula and Sort by sample_ng (largest to smallest)
-Digest_ID
-Extraction_ID
-date
-sample_vol_in
-sample_ng_in
-enzymes
-buffer
-
-APCL14_560E1878
-
-30.0
-4137
-
-
-
-APCL14_513E1354
-
-30.0
-2412
-
-
-
-APCL14_519E1360
-
-30.0
-2093
-
-
-
-APCL14_521E1362
-
-30.0
-2055
-
-
-
-APCL14_109E0879
-
-30.0
-1989
-
 
     * More decision making is necessary at this point.  If an extract has less than 5ng/ul DNA, it will most likely fail to digest well.  This is a tough call, some digests with much less than 5ng/ul have ligated successfully and others have not.  Proceed with caution. If there are plenty of samples to choose from, choose the desired number with the most “sample_ng_in”.
         * As of 8/19/2014 
@@ -357,97 +272,7 @@ APCL14_109E0879
 * pipeted aliquot to digest plate for a 50µL digestion reaction
 * Print a plate map and determine which samples can be digested as is, and which need to be diluted - highlight accordingly
 
-Prepare digestion plate by adding 30µL of sample to each well according to the digest map prepared above.
 
-Digestion recipe 50µL rxn - use digestion sheet in PCR worksheet, double check math:
-(https://docs.google.com/spreadsheets/d/1LGt2WziwmGoJMluBcwmKfhZrGjZOlJLkVHf59-5cOV4/edit?usp=sharing)  
-number of samples
-10% error
-reaction size
-enzyme 1 original conc U/mL
-enzyme 2 original conc
-pipette master mix into each rxn:
-# of units of each enzyme per 50uL rxn
-96
-106
-50
-20000
-10000
-20
-20
-
-
-
-
-
-
-
-
-
-µL sample
-enzyme 1
-enzyme 2
-µL pH20
-µL buffer
-
-per sample
-30
-1
-2
-12
-5
-
-
-
-
-
-
-
-1,920
-master mix
-
-96
-192
-1,152
-480
-
-
-
-
-
-
-
-divide final master mix into 8 wells:
-240
-
-
-
-
-
-
-* Make the master mix recipe in 15mL falcon tube:
-    * for the above example, combine:
-        * 1152 µL pH2O
-        * 480 µL digest buffer
-        * 96 µL of enzyme 1
-        * 192 µL of enzyme 2
-    * split the master mix into 8 wells, use a multichannel pipet to pipet 20µL of master mix into each sample well. 
-        * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation.
-* Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI longer than one hour, PstI is active 2-4 hours, don’t need to heat kill digests
-
-Clean the digests using 1.5x the volume of the digest (75µL) Ampure per sample. Put the plates on yellow lifts on the magnet so that the pellet is lower before you finish the alcohol steps.   Because these are in plates and it is difficult to get all of the elute out of the well, elute in 45µL of buffer and pull 40µL from the well to place in a new cleaned digest plate.  Record this volume of 40 on the Sample_Data spreadsheet, Digests Page in the buffer column - Ampure clean up protocol
-
-Quantifiy - quant-it pico green - import the quantification results into the Sample_Data spreadsheet, Digests Page quant column.  For any sample with a negative quantification value, change the Ligated? column value to N/A (the rest should contain a formula that results in the value “FALSE”).  Also, add an “_F” to the extraction ID (not the digest ID) in the extraction ID column (example: PADE14_093E1516 becomes PADE14_093E1516_F).  This digest failed and so the sample should not reflect that a successful digest exits.
-
-Next samples will be:
-Cleaned - Ampure clean up protocol
-Ligated and Pooled- Ligation
-Cleaned 2X - Ampure clean up protocol
-Pippin - Pippin Prep
-PCR'd - PCR
-Cleaned - Ampure clean up protocol
-Quantified - Qubit Protocol
-Prepared for sequencing - Preparing samples for sequencing
 
 Optimizing Restriction Endonuclease Reactions | New England Biolabs
 For a 50µL rxn, use:

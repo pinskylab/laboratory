@@ -23,6 +23,7 @@ lab <- read_db("Laboratory")
 
 ## Special notes:  
 **There is no APCL18_703 tube in the box.  Replaced in extraction database with XXXX.**  
+**In the 12th column of the plate, the second halves of some fin clips were used to test the Ali extraction method.  These samples had been previously extracted in Qiagen, so we could see the difference in extraction performance.**
 
 _________  
 
@@ -81,7 +82,20 @@ kable(hybrid) %>%
   kable_styling("bordered") %>%
   add_header_above(c("Hybridization Buffer" = 5))
 ```
+**Prepare low TE solution**
+```{r low_TE, echo=FALSE}
+low_te <- readr::read_csv("ingredient, initial_conc, initial_vol, final_conc, final_vol
+mM_Tris-HCl_pH7.5, 1000, NA, 10, NA
+mM_EDTA, 500, NA, 0.1, NA
+pH2O, NA, NA, NA, NA") %>% 
+  mutate(final_vol = 15000, 
+         initial_vol= final_conc*final_vol/initial_conc, 
+         initial_vol = ifelse(ingredient == "pH2O",final_vol - sum(initial_vol, na.rm = T), initial_vol))
 
+kable(low_te) %>%
+  kable_styling() %>%
+  add_header_above(c("Low TE buffer" = 5))
+```
 
 ## 2018-07-26
 **Load samples for lysis**  
@@ -169,6 +183,9 @@ samples <- cbind(samples, work)
 plate <- rbind(plate, samples) %>% 
   arrange(col, row)
 
+## Special fix, because there is no APCL18_703
+plate <- plate %>% 
+  mutate(sample_id = ifelse(sample_id == "APCL18_703", "XXXX", sample_id))
 ```
 1. Sample_id plate locations
 ```{r sample_map, echo=FALSE, message=FALSE}
@@ -176,37 +193,50 @@ platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var =
 knitr::kable(platemap, booktabs = T) %>% 
   # use scale_down to get map to fit within the bounds of the pdf
   kable_styling(latex_options = "scale_down")
+
+
 ```
 ```{r extr_ids, echo=FALSE}
-### ONLY DO THIS ONCE ###
-extracted <- lab %>% tbl("extraction") %>% 
-  summarise(last = max(extraction_id, na.rm = T)) %>% 
-  collect() %>% 
-  mutate(last = substr(last, 2,5))
+# ### ONLY DO THIS ONCE ###
+# extracted <- lab %>% tbl("extraction") %>% 
+#   summarise(last = max(extraction_id, na.rm = T)) %>% 
+#   collect() %>% 
+#   mutate(last = substr(last, 2,5))
+# 
+# extr_plate <- plate %>% 
+#   mutate(well = 1:nrow(plate)) %>% 
+#   mutate(extraction_id = paste("E", well + as.numeric(extracted$last), sep = "")) %>% 
+#   mutate(well = paste(row, col, sep = "")) %>% 
+#   mutate(method = "Ali", 
+#     final_vol = "45")
+# 
+# plate_name <- extr_plate %>% 
+#   summarise(first = min(extraction_id), 
+#     last = max(extraction_id, na.rm = T))
+# 
+# extr_plate <- extr_plate %>% 
+#   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
 
-plate <- plate %>% 
-  mutate(well = 1:nrow(plate)) %>% 
-  mutate(extraction_id = paste("E", well + as.numeric(extracted$last), sep = "")) %>% 
-  mutate(well = paste(row, col, sep = "")) %>% 
-  mutate(method = "Ali", 
-    final_vol = "45")
+# To generate plate map if extract_ids have already been assigned
+extr_plate <- lab %>% tbl("extraction") %>%  collect() %>% 
+  filter(sample_id %in% !!plate$sample_id & sample_id != "XXXX") 
 
-plate_name <- plate %>% 
-  summarise(first = min(extraction_id), 
-    last = max(extraction_id, na.rm = T))
-
-plate <- plate %>% 
-  mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
+extr_plate <- lab %>% tbl("extraction") %>%  collect() %>% 
+  filter(plate %in% extr_plate$plate) %>% 
+  arrange(sample_id) %>%
+  mutate(row = substr(well, 1,1), 
+         col = as.numeric(substr(well, 2,3))) %>% 
+  arrange(col, row)
 ```
 2. Extraction_id plate locations
 ```{r extr_map, echo=FALSE, message=FALSE}
 # created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
-map <- plate %>%
+map <- extr_plate %>%
   select(row, col, extraction_id)
 platemap <- as.matrix(reshape2::acast(map, map$row ~ map$col), value.var = map$extraction_id)
 
 # remove row and col from plate
-plate <- select(plate, -row, -col)
+extr_plate <- select(extr_plate, -row, -col)
 
 knitr::kable(platemap, booktabs = T) %>% 
   kable_styling()
@@ -215,26 +245,13 @@ knitr::kable(platemap, booktabs = T) %>%
 Write the newly assigned extraction_ids to the database
 ```{r write}
 
-# dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
+# dbWriteTable(lab, "extraction", extr_plate, row.names = F, overwrite = F, append = T)
 
 ```
 
 
 
-**Prepare low TE solution**
-```{r low_TE, echo=FALSE}
-low_te <- readr::read_csv("ingredient, initial_conc, initial_vol, final_conc, final_vol
-mM_Tris-HCl_pH7.5, 1000, NA, 10, NA
-mM_EDTA, 500, NA, 0.1, NA
-pH2O, NA, NA, NA, NA") %>% 
-  mutate(final_vol = 15000, 
-         initial_vol= final_conc*final_vol/initial_conc, 
-         initial_vol = ifelse(ingredient == "pH2O",final_vol - sum(initial_vol, na.rm = T), initial_vol))
 
-kable(low_te) %>%
-  kable_styling() %>%
-  add_header_above(c("Low TE buffer" = 5))
-```
 
 *Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.*
 

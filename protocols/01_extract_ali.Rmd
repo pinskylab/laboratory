@@ -21,14 +21,16 @@ leyte <- read_db("Leyte")
 lab <- read_db("Laboratory")
 ```
 
+## Example manuscript text:  
+**Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
+
 # Extraction Methods
 *Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.*  
 
 The Pinsky Lab has been using the extraction method described by [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665) since June 2018.  Before that we used Qiagen DNEasy 96 well kits.  
 *If you are writing a manuscript about data collected between 2012 and 2015, use the Qiagen kits in your methods section.  If you are writing a manuscript about data collected from 2016 to present, use this method as described by Ali et al.*  
 
-## Example manuscript text:  
-**Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
+
 
 **Load samples for lysis**  
 

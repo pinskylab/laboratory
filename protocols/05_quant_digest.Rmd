@@ -1,11 +1,11 @@
 ---
 title: "Prep plates `r params$first_plate` through `r params$last_plate` for quantification"
 params:
-  first_plate: E6432-E6496
-  last_plate: E6432-E6496
-  id: extraction_id
+  first_sample: D6432
+  last_sample: D6496
+  id: digest_id
   num_plates: 1
-  type: extraction
+  type: digest
 output:
   html_notebook:
     code_folding: hide

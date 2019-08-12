@@ -1,6 +1,9 @@
 ---
 title: "Digest Method"
-output: html_notebook
+output:
+  html_notebook:
+    code_folding: hide
+    df_print: paged
 params:
   first: E2968
   last: E3063

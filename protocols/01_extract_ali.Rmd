@@ -2,7 +2,8 @@
 title: "Extraction plan for `r params$first` - `r params$last`"
 output:
   html_notebook:
-    df_print: paged 
+    code_folding: hide
+    df_print: paged
 params:
   first: APCL18_659
   last: APCL18_732

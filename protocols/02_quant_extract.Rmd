@@ -6,9 +6,10 @@ params:
   id: extraction_id
   num_plates: 1
   type: extraction
-output: html_notebook
-
-  
+output:
+  html_notebook:
+    code_folding: hide
+    df_print: paged
 ---
 
 ```{r echo=FALSE, message=FALSE}

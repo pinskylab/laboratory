@@ -4,7 +4,7 @@ output: html_notebook
 params:
   first: E2968
   last: E3063
-  digest_rxn_size: 30
+  digest_rxn_size: 50
 ---
 *Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.*  
 
@@ -240,6 +240,20 @@ kable_styling(kable(digest_rxn))
 ```{r}
 print(paste0("Split into 8 wells by pipetting ", (round(sum(digest_rxn$master_mix, na.rm=T)))/8, "ul into each well"))
 ```
+
+# Supplies needed plus the volumes on the master mix recipe.
+```{r}
+digest <- tibble(
+  plates = num_samples/96,
+  tubes = num_samples/96, 
+  plate_seals = num_samples/96, 
+  tips_100 = num_samples * 2 + (ceiling(digest_rxn$master_mix[3]/100)),# referring to enzyme2
+  tips_10 = ceiling(digest_rxn$master_mix[2]/10), # referring to enzyme1
+  tips_300 = ceiling(digest_rxn$master_mix[4]/100), # referring to buffer
+  tips_1000 = ceiling(digest_rxn$master_mix[5]/1000) # referring to pH2O
+  )
+```
+
 
         * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation.
 * Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI longer than one hour, PstI is active 2-4 hours, don’t need to heat kill digests

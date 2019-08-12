@@ -8,4 +8,6 @@ navbar:
       href: "02_quant_extract.nb.html"
     - text: "3. Digest"
       href: "03_digest.nb.html"
+    - text: "4. Clean"
+      href: "04_clean_digest.nb.html"
 output_dir: "."

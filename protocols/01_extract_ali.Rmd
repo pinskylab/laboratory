@@ -3,6 +3,7 @@ title: "Extraction plan for `r params$first` - `r params$last`"
 output:
   html_notebook:
     code_folding: hide
+    df_print: paged
 params:
   first: first_id
   last: last_id

@@ -23,7 +23,12 @@ lab <- read_db("Laboratory")
 
 ## Special notes:  
 **There is no APCL18_703 tube in the box.  Replaced in extraction database with XXXX.**  
-**In the 12th column of the plate, the second halves of some fin clips were used to test the Ali extraction method.  These samples had been previously extracted in Qiagen, so we could see the difference in extraction performance.**
+
+
+**In the 12th column of the plate, the second halves of some fin clips were used to test the Ali extraction method.  These samples had been previously extracted in Qiagen, so we could see the difference in extraction performance.** 
+
+
+**75uL of crude lysate per sample is still in the fridge. All processed extract went into digest.**
 
 _________  
 
@@ -109,7 +114,7 @@ kable(low_te) %>%
 **Extract DNA from lysate**  
 1. To a new plate add 45uL hybridization buffer to each well.  
 2. Add 15uL Agencourt Ampure beads.  
-3. Add 45uL of the lysate and pipet up and down to mix.  
+3. Add 45uL of the lysate and pipet up and down to mix.  The rest of crude lysate (75uL) is in the fridge.
 4. Incubate at room temperature for 5 minutes, then place on magnet and allow the wells to clear.  
 5.  Remove supernatant.  
 6. Remove from the magnet and use 150uL freshly prepared 80% EtOH to resuspend the beads.  

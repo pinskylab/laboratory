@@ -1,0 +1,262 @@
+---
+title: "Extraction plan for `r params$first` - `r params$last`"
+output:
+  html_notebook:
+    df_print: paged 
+params:
+  first: APCL18_659
+  last: APCL18_732
+---
+```{r setup, echo=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+# library(clownfishr)
+library(tidyverse)
+
+source("~/db-connections.R")
+leyte <- read_db("Leyte")
+lab <- read_db("Laboratory")
+```
+
+
+**Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
+
+## Special notes:  
+**There is no APCL18_703 tube in the box.  Replaced in extraction database with XXXX.**  
+
+
+**In the 12th column of the plate, the second halves of some fin clips were used to test the Ali extraction method.  These samples had been previously extracted in Qiagen, so we could see the difference in extraction performance.** 
+
+
+**75uL of crude lysate per sample is still in the fridge. All processed extract went into digest.**
+
+_________  
+
+
+# Extraction Methods
+
+
+## 2018-07-25
+**Prepare a solution of Lifton's Buffer**
+```{r liftons, echo=FALSE}
+liftons <- readr::read_csv("ingredient, initial_conc, initial_vol_mL, final_conc, final_vol_mL
+mM_EDTA, 500, NA, 100, NA
+mM_Tris-HCl_pH7.5, 1000, NA, 25, NA
+perc_SDS, 20, NA, 1, NA
+pH2O, NA, NA, NA, NA
+") %>% 
+  mutate(final_vol_mL = 250, 
+         initial_vol_mL = final_conc* final_vol_mL/initial_conc,
+         initial_vol_mL = ifelse(ingredient == "pH2O",final_vol_mL - sum(initial_vol_mL, na.rm = T), initial_vol_mL))
+ 
+         
+kable(liftons) %>%
+  kable_styling("bordered") %>%
+  add_header_above(c("Lifton's Buffer" = 5))
+```
+
+**Prepare Lifton's buffer with proteinase K**
+```{r enzyme, echo=FALSE}
+enzyme <- readr::read_csv("ingredient, initial_conc, initial_vol_uL, final_conc, final_vol_uL
+mM_DTT, 1000, NA, 75, NA
+mg/ml_ProteinaseK, 20, NA, 4.2, NA
+Liftons, NA, NA, NA, NA
+") %>% 
+  mutate(final_vol_uL = 3500, 
+         initial_vol_uL = final_conc*as.numeric(final_vol_uL)/initial_conc, 
+         initial_vol_uL = ifelse(ingredient == "Liftons",as.numeric(final_vol_uL) - sum(initial_vol_uL, na.rm = T), initial_vol_uL))
+
+kable(enzyme) %>%
+  kable_styling("bordered") %>%
+  add_header_above(c("Lifton's with Proteinase K" = 5))
+```
+**Prepare hybridization solution**
+```{r hybrid, echo=FALSE}
+hybrid <- readr::read_csv("ingredient, initial_conc, initial_vol, final_conc, final_vol
+M_NaCl, 4.45, NA, 2.5, NA
+perc_PEG_8000, 50, NA, 20, NA
+mM_DTT, 1000, NA, 25, NA
+pH2O, NA, NA, NA, NA
+") %>% 
+
+  mutate(final_vol = 15000,
+         initial_vol = final_conc*final_vol/initial_conc, 
+         initial_vol = ifelse(ingredient == "pH2O",final_vol - sum(initial_vol, na.rm = T), initial_vol))
+
+kable(hybrid) %>%
+  kable_styling("bordered") %>%
+  add_header_above(c("Hybridization Buffer" = 5))
+```
+**Prepare low TE solution**
+```{r low_TE, echo=FALSE}
+low_te <- readr::read_csv("ingredient, initial_conc, initial_vol, final_conc, final_vol
+mM_Tris-HCl_pH7.5, 1000, NA, 10, NA
+mM_EDTA, 500, NA, 0.1, NA
+pH2O, NA, NA, NA, NA") %>% 
+  mutate(final_vol = 15000, 
+         initial_vol= final_conc*final_vol/initial_conc, 
+         initial_vol = ifelse(ingredient == "pH2O",final_vol - sum(initial_vol, na.rm = T), initial_vol))
+
+kable(low_te) %>%
+  kable_styling() %>%
+  add_header_above(c("Low TE buffer" = 5))
+```
+
+## 2018-07-26
+**Load samples for lysis**  
+1. Add 80uL Lifton's buffer to each well of a 96 well plate.  
+2. Add fin clips measuring 2-25mm^2 to each well.  
+3. Add 40uL enzyme solution to each well, pipet up and down to mix.  
+4. Seal plate and incubate at 55C overnight.  
+  
+
+## 2018-07-27  
+**Extract DNA from lysate**  
+1. To a new plate add 45uL hybridization buffer to each well.  
+2. Add 15uL Agencourt Ampure beads.  
+3. Add 45uL of the lysate and pipet up and down to mix.  The rest of crude lysate (75uL) is in the fridge.
+4. Incubate at room temperature for 5 minutes, then place on magnet and allow the wells to clear.  
+5.  Remove supernatant.  
+6. Remove from the magnet and use 150uL freshly prepared 80% EtOH to resuspend the beads.  
+7. Wash with ethanol again  
+8. wash with ethanol a 3rd time.  
+9. Allow beads to air dry on the magnet   
+10. Add 45uL low TE to elute DNA from the beads  
+
+# Supplies needed
+```{r, echo=FALSE}
+(extr <- tibble(
+  liftons_ul = (80*params$num_samples)*1.1,
+  tips_100 = 8*params$num_samples,
+  plates = 2*ceiling(params$num_samples/96),
+  prot_K_ul = (40*params$num_samples)*1.1,
+  seals = plates,
+  hybr_buffer = (45*params$num_samples)*1.1,
+  ampure_ul = (15*params$num_samples)*1.1,
+  tips_300 = 6*params$num_samples,
+  ethanol_ul = 3*(150*params$num_samples)*1.1,
+  low_te = (45*params$num_samples)*1.1) %>% 
+   gather(item, quantity)) %>% 
+  mutate(ml = quantity/1000, 
+         ml = ifelse(ml < 1, NA, ml))
+```
+
+
+Organize samples into plate format: 
+
+```{r data, echo=FALSE}
+# this code gets all sample_ids within the range stated in the params above.
+
+# connect to clownfish table in the db
+work <- leyte %>% tbl("clownfish") %>%
+  # choose only the sample_id column
+  select(sample_id)  %>% 
+  # pull the data into R
+  collect()%>% 
+  # choose only the rows that meet our requirements
+  filter(sample_id >= params$first, 
+    sample_id <= params$last, 
+    !is.na(sample_id)) %>% 
+  # make sure there aren't any duplicates
+  distinct(sample_id) %>% 
+  arrange(sample_id)
+
+# define wells
+plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>% 
+  mutate(sample_id = ifelse(row == "D" & col == 2, "XXXX", NA), 
+    sample_id = ifelse(row == "E" & col == 8, "XXXX", sample_id))
+
+# if the plate is not full
+x <- nrow(work) + 2
+if (x < 96) {
+  plate <- plate %>% 
+    slice(1:x)
+}
+
+# move all of the non-blank wells into their own table
+samples <- plate %>% 
+  filter(is.na(sample_id)) %>% 
+  select(-sample_id)
+
+# remove the non-blank wells from the plate table
+plate <- anti_join(plate, samples, by = c("row", "col"))
+
+# join the work sample_ids to the sample table well definitions
+samples <- cbind(samples, work)
+
+# rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks.
+plate <- rbind(plate, samples) %>% 
+  arrange(col, row)
+
+## Special fix, because there is no APCL18_703
+plate <- plate %>% 
+  mutate(sample_id = ifelse(sample_id == "APCL18_703", "XXXX", sample_id))
+```
+1. Sample_id plate locations
+```{r sample_map, echo=FALSE, message=FALSE}
+platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$sample_id)
+knitr::kable(platemap, booktabs = T) %>% 
+  # use scale_down to get map to fit within the bounds of the pdf
+  kable_styling(latex_options = "scale_down")
+
+
+```
+```{r extr_ids, echo=FALSE}
+# ### ONLY DO THIS ONCE ###
+# extracted <- lab %>% tbl("extraction") %>% 
+#   summarise(last = max(extraction_id, na.rm = T)) %>% 
+#   collect() %>% 
+#   mutate(last = substr(last, 2,5))
+# 
+# extr_plate <- plate %>% 
+#   mutate(well = 1:nrow(plate)) %>% 
+#   mutate(extraction_id = paste("E", well + as.numeric(extracted$last), sep = "")) %>% 
+#   mutate(well = paste(row, col, sep = "")) %>% 
+#   mutate(method = "Ali", 
+#     final_vol = "45")
+# 
+# plate_name <- extr_plate %>% 
+#   summarise(first = min(extraction_id), 
+#     last = max(extraction_id, na.rm = T))
+# 
+# extr_plate <- extr_plate %>% 
+#   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
+
+# To generate plate map if extract_ids have already been assigned
+extr_plate <- lab %>% tbl("extraction") %>%  collect() %>% 
+  filter(sample_id %in% !!plate$sample_id & sample_id != "XXXX") 
+
+extr_plate <- lab %>% tbl("extraction") %>%  collect() %>% 
+  filter(plate %in% extr_plate$plate) %>% 
+  arrange(sample_id) %>%
+  mutate(row = substr(well, 1,1), 
+         col = as.numeric(substr(well, 2,3))) %>% 
+  arrange(col, row)
+```
+2. Extraction_id plate locations
+```{r extr_map, echo=FALSE, message=FALSE}
+# created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
+map <- extr_plate %>%
+  select(row, col, extraction_id)
+platemap <- as.matrix(reshape2::acast(map, map$row ~ map$col), value.var = map$extraction_id)
+
+# remove row and col from plate
+extr_plate <- select(extr_plate, -row, -col)
+
+knitr::kable(platemap, booktabs = T) %>% 
+  kable_styling()
+
+```
+Write the newly assigned extraction_ids to the database
+```{r write}
+
+# dbWriteTable(lab, "extraction", extr_plate, row.names = F, overwrite = F, append = T)
+
+```
+
+
+
+
+
+*Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.*
+

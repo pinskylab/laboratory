@@ -3,10 +3,10 @@ title: "Extraction plan for `r params$first` - `r params$last`"
 output:
   html_notebook:
     code_folding: hide
-    df_print: paged
 params:
-  first: APCL18_659
-  last: APCL18_732
+  first: first_id
+  last: last_id
+  
 ---
 ```{r setup, echo=FALSE, message=FALSE}
 library(knitr)
@@ -18,7 +18,7 @@ source("~/db-connections.R")
 leyte <- read_db("Leyte")
 lab <- read_db("Laboratory")
 ```
-
+*Before the summer of 2018, we used [Qiagen DNeasy 96 well extraction kits](01_extract_qiagen.nb.html)*
 
 **Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
 

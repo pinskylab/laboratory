@@ -6,7 +6,6 @@ output:
 params:
   first: first_id
   last: last_id
-  
 ---
 ```{r setup, echo=FALSE, message=FALSE}
 library(knitr)

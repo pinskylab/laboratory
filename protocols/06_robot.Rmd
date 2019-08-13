@@ -18,6 +18,7 @@ output:
   html_notebook:
     code_folding: hide
     df_print: paged
+    
 ---
 
 ## Prep

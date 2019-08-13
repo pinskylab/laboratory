@@ -5,7 +5,6 @@ output:
   html_notebook:
     code_folding: hide
     df_print: paged
-    
 ---
 *This protocol assumes that you have read and understand the manufacturer’s instructions attached below.  Please read the full manufacturer’s instructions before using this abbreviated protocol.*
 

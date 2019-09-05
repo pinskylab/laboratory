@@ -1,0 +1,10 @@
+---
+title: "Pinsky Laboratory Methods"
+author:  "[Michelle Stuart](https://github.com/mstuart1) at [Rutgers](http://pinsky.marine.rutgers.edu), 2019-07-17, updated `r Sys.Date()`"
+output: html_document
+---
+
+Click on the protocol above to see the methods.
+
+
+**Libraries were prepared following a modified version of Peterson et al. 2012.  Specifically, we extracted DNA following the extraction protocol in Ali et al. 2016 and quantified the DNA using a plate reader and pico dye.  We then double digested the DNA following the manufacturers recommendations using PstI and MluCI from New England Biolabs and cleaned the samples using Ampure from Beckman Coulter.  Cleaned digests were quantified using a plate reader and pico dye.  Barcoded adapters were added following the manufacturers recommendations using ligase from New England Biolabs and the help of a Biomek pipetting robot.  Barcoded samples were pooled, cleaned using Ampure, and size selected using a 2% gel cassette and Pippin Prep from Sage Science.  Pools were PCR'd using the manufacturers instructions for the New England Biolabs Phusion kit and cleaned with Ampure.  Baits from Arbor Bioscience were used to select specific SNPs following the manufacturers protocol.  Libraries were quantified using a Qubit and sent to Princeton for sequencing on an Illumina HiSeq.**

@@ -23,6 +23,22 @@ source("~/db-connections.R")
 
 ```
 
+# Supplies needed
+```{r, echo=FALSE}
+(quant <- tibble(
+  lambda_DNA_ul = (20)*1.1,
+  TE_1x_ul = ((980)*1.1)+((params$num_samples + (params$num_plates*8))*1.1*200/2/1000)+2989,
+  tips_10 = 2 + params$num_samples, 
+  tips_100 = 1 + (params$num_samples + 8)*2,
+  tips_1000 = 4,
+  tubes = 5,
+  gren_plates = ceiling(params$num_samples/96) + 1,
+  foil_seals = 1, 
+  pico_ul = (params$num_samples + (params$num_plates*8))*1.1/2) %>% gather(item, quantity) %>% 
+  mutate(ml = quantity/1000, 
+         ml = ifelse(ml < 1, NA, ml)))
+```
+
 **Prepare the first standard**
 Combine 20uL of 100ug/mL lambda DNA from the Quant-IT PicoGreen dsDNA assay kit (Fisher P7589) with 980uL 1X TE to create a 2ug/mL standard.  
 This is Standard 1 which will have a final concentration of 1 ug/mL

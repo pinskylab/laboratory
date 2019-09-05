@@ -1,7 +1,0 @@
-name: "Pinsky Lab Methods"
-navbar:
-  title: "Home"
-  left:
-    - text: "Extraction"
-      href: "laboratory-notebooks/extract_ali.html"
-output_dir: "."

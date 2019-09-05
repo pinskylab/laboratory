@@ -22,4 +22,5 @@ readr::read_csv("field season, extraction method, ligation setup, baits
 
 
 ```
+# [Click here for Methods!](https://pinskylab.github.io/laboratory/protocols/index.html)
 

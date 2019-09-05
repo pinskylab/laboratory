@@ -164,7 +164,7 @@ no baits
 
 <td style="text-align:left;">
 
-Qiagen DNeasy 96
+Qiagen DNeasy 96 and Ali
 
 </td>
 
@@ -192,7 +192,7 @@ baits
 
 <td style="text-align:left;">
 
-Qiagen DNeasy 96
+Ali
 
 </td>
 
@@ -220,7 +220,7 @@ baits
 
 <td style="text-align:left;">
 
-Qiagen DNeasy 96 and Ali
+Ali
 
 </td>
 
@@ -241,3 +241,5 @@ baits
 </tbody>
 
 </table>
+
+# [Click here for Methods\!](https://pinskylab.github.io/laboratory/protocols/index.html)

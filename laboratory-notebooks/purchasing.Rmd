@@ -4,8 +4,6 @@ author: "Michelle Stuart"
 date: "6/13/2018, updated `r Sys.Date()`"
 params:
   num_sample: 4416
-  num_plate: 46
-  num_pool: 92
 output:
   html_document: default
   pdf_document: default
@@ -19,14 +17,19 @@ library(tidyverse)
 
 Calculate a budget for processing samples - there is a 2 plate minimum for the process
 
+
+
+
 ####Extract 
-```{r, echo=FALSE}
-(extr <- tibble(qiagen_kits = ceiling((params$num_plate)/12), 
-              tips_300 = 7*(params$num_sample), 
-              plates = (params$num_plate), 
-              seals = (params$num_plate)) %>% 
-   gather(item, quantity))
+```{r}
+rmarkdown::render("~/Documents/laboratory_pinskylab/protocols/01_extract_ali.Rmd", params = params)
+rm(enzyme, extr_wide, hybrid, lab, leyte, liftons, params, plate, samples, work, low_te)
 ```
+#### Quant
+```{r}
+rmarkdown::render(here::here("protocols", "02_quant_extract.Rmd"), params = params)
+```
+
 
 ####Digest 
 ```{r, echo=FALSE}

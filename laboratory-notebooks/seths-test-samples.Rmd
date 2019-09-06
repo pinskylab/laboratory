@@ -41,7 +41,7 @@ _________
   ampure_ul = (15*params$num_samples)*1.1,
   tips_300 = 6*params$num_samples,
   ethanol_ul = 3*(150*params$num_samples)*1.1,
-  low_te = (45*params$num_samples)*1.1) %>% 
+  low_te_ul = (45*params$num_samples)*1.1) %>% 
    gather(item, quantity)) %>% 
   mutate(ml = quantity/1000, 
          ml = ifelse(ml < 1, NA, ml))
@@ -126,111 +126,13 @@ Turn on the incubator
 9. Allow beads to air dry on the magnet   
 10. Add 45uL low TE to elute DNA from the beads  
 
-Organize samples into plate format: 
-
-```{r data, echo=FALSE}
-# this code gets all sample_ids within the range stated in the params above.
-
-# connect to clownfish table in the db
-work <- leyte %>% tbl("clownfish") %>%
-  # choose only the sample_id column
-  select(sample_id)  %>% 
-  # pull the data into R
-  collect()%>% 
-  # choose only the rows that meet our requirements
-  filter(sample_id >= params$first, 
-    sample_id <= params$last, 
-    !is.na(sample_id)) %>% 
-  # make sure there aren't any duplicates
-  distinct(sample_id) %>% 
-  arrange(sample_id)
-
-# define wells
-plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>% 
-  mutate(sample_id = ifelse(row == "D" & col == 2, "XXXX", NA), 
-    sample_id = ifelse(row == "E" & col == 8, "XXXX", sample_id))
-
-# if the plate is not full
-x <- nrow(work) + 2
-if (x < 96) {
-  plate <- plate %>% 
-    slice(1:x)
-}
-
-# move all of the non-blank wells into their own table
-samples <- plate %>% 
-  filter(is.na(sample_id)) %>% 
-  select(-sample_id)
-
-# remove the non-blank wells from the plate table
-plate <- anti_join(plate, samples, by = c("row", "col"))
-
-# join the work sample_ids to the sample table well definitions
-samples <- cbind(samples, work)
-
-# rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks.
-plate <- rbind(plate, samples) %>% 
-  arrange(col, row)
-
-```
-1. Sample_id plate locations
-```{r sample_map, echo=FALSE, message=FALSE}
-platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$sample_id)
-knitr::kable(platemap, booktabs = T) %>% 
-  # use scale_down to get map to fit within the bounds of the pdf
-  kable_styling(latex_options = "scale_down")
-```
-```{r extr_ids, echo=FALSE}
-### ONLY DO THIS ONCE ###
-extracted <- lab %>% tbl("extraction") %>% 
-  summarise(last = max(extraction_id, na.rm = T)) %>% 
-  collect() %>% 
-  mutate(last = substr(last, 2,5))
-
-plate <- plate %>% 
-  mutate(well = 1:nrow(plate)) %>% 
-  mutate(extraction_id = paste("E", well + as.numeric(extracted$last), sep = "")) %>% 
-  mutate(well = paste(row, col, sep = "")) %>% 
-  mutate(method = "Ali", 
-    final_vol = "45")
-
-plate_name <- plate %>% 
-  summarise(first = min(extraction_id), 
-    last = max(extraction_id, na.rm = T))
-
-plate <- plate %>% 
-  mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
-```
-2. Extraction_id plate locations
-```{r extr_map, echo=FALSE, message=FALSE}
-# created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
-map <- plate %>%
-  select(row, col, extraction_id)
-platemap <- as.matrix(reshape2::acast(map, map$row ~ map$col), value.var = map$extraction_id)
-
-# remove row and col from plate
-plate <- select(plate, -row, -col)
-
-knitr::kable(platemap, booktabs = T) %>% 
-  kable_styling()
-
-```
-Write the newly assigned extraction_ids to the database
-```{r write}
-
-# dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
-
-```
-
-
-
 **Prepare low TE solution**
 ```{r low_TE, echo=FALSE}
 low_te <- readr::read_csv("ingredient, initial_conc, initial_vol, final_conc, final_vol
 mM_Tris-HCl_pH7.5, 1000, NA, 10, NA
 mM_EDTA, 500, NA, 0.1, NA
 pH2O, NA, NA, NA, NA") %>% 
-  mutate(final_vol = 15000, 
+  mutate(final_vol = extr_wide$low_te_ul, 
          initial_vol= final_conc*final_vol/initial_conc, 
          initial_vol = ifelse(ingredient == "pH2O",final_vol - sum(initial_vol, na.rm = T), initial_vol))
 

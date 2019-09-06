@@ -7,7 +7,7 @@ output:
 params:
   first: first_id
   last: last_id
-  num_sample: 96
+  num_samples: 96
 ---
 ```{r setup, echo=FALSE, message=FALSE}
 library(knitr)
@@ -16,7 +16,7 @@ library(kableExtra)
 library(tidyverse)
 
 source("~/db-connections.R")
-# leyte <- read_db("Leyte")
+leyte <- read_db("Leyte")
 lab <- read_db("Laboratory")
 ```
 *Before the summer of 2018, we used [Qiagen DNeasy 96 well extraction kits](01_extract_qiagen.nb.html)*
@@ -31,17 +31,17 @@ _________
 # Supplies needed
 ```{r, echo=FALSE}
 (extr <- tibble(
-  liftons_ul = (80*params$num_sample)*1.1,
-  enzyme_ul = (40*params$num_sample)*1.1,
-  tips_100 = 8*params$num_sample,
-  plates = 2*ceiling(params$num_sample/96),
-  prot_K_ul = (40*params$num_sample)*1.1,
+  liftons_ul = (80*params$num_samples)*1.1,
+  enzyme_ul = (40*params$num_samples)*1.1,
+  tips_100 = 8*params$num_samples,
+  plates = 2*ceiling(params$num_samples/96),
+  prot_K_ul = (40*params$num_samples)*1.1,
   seals = plates,
-  hybr_buffer = (45*params$num_sample)*1.1,
-  ampure_ul = (15*params$num_sample)*1.1,
-  tips_300 = 6*params$num_sample,
-  ethanol_ul = 3*(150*params$num_sample)*1.1,
-  low_te = (45*params$num_sample)*1.1) %>% 
+  hybr_buffer = (45*params$num_samples)*1.1,
+  ampure_ul = (15*params$num_samples)*1.1,
+  tips_300 = 6*params$num_samples,
+  ethanol_ul = 3*(150*params$num_samples)*1.1,
+  low_te = (45*params$num_samples)*1.1) %>% 
    gather(item, quantity)) %>% 
   mutate(ml = quantity/1000, 
          ml = ifelse(ml < 1, NA, ml))
@@ -56,8 +56,14 @@ extr_wide = spread(extr, key = item, value = quantity)
 ## 2019-09-05
 **Prepare a solution of Lifton's Buffer**
 ```{r liftons, echo=FALSE}
-liftons <- tibble(ingredient = c("mMEDTA", "mM_Tris-HCl_pH7.5", "perc_SDS", "pH2O"), initial_conc = c(500, 1000, 20, NA),final_conc = c(100, 25, 1, NA), final_vol_mL = extr_wide$liftons_ul/1000) %>% 
-  mutate(initial_vol_mL = final_conc* final_vol_mL/initial_conc,
+liftons <- readr::read_csv("ingredient, initial_conc, initial_vol_mL, final_conc, final_vol_mL
+mM_EDTA, 500, NA, 100, NA
+mM_Tris-HCl_pH7.5, 1000, NA, 25, NA
+perc_SDS, 20, NA, 1, NA
+pH2O, NA, NA, NA, NA
+") %>% 
+  mutate(final_vol_mL = (extr_wide$liftons_ul/1000), 
+         initial_vol_mL = final_conc* final_vol_mL/initial_conc,
          initial_vol_mL = ifelse(ingredient == "pH2O",final_vol_mL - sum(initial_vol_mL, na.rm = T), initial_vol_mL))
  
          
@@ -115,16 +121,16 @@ Turn on the incubator
 # Supplies needed
 ```{r, echo=FALSE}
 (extr <- tibble(
-  liftons_ul = (80*params$num_sample)*1.1,
-  tips_100 = 8*params$num_sample,
-  plates = 2*ceiling(params$num_sample/96),
-  prot_K_ul = (40*params$num_sample)*1.1,
+  liftons_ul = (80*params$num_samples)*1.1,
+  tips_100 = 8*params$num_samples,
+  plates = 2*ceiling(params$num_samples/96),
+  prot_K_ul = (40*params$num_samples)*1.1,
   seals = plates,
-  hybr_buffer = (45*params$num_sample)*1.1,
-  ampure_ul = (15*params$num_sample)*1.1,
-  tips_300 = 6*params$num_sample,
-  ethanol_ul = 3*(150*params$num_sample)*1.1,
-  low_te = (45*params$num_sample)*1.1) %>% 
+  hybr_buffer = (45*params$num_samples)*1.1,
+  ampure_ul = (15*params$num_samples)*1.1,
+  tips_300 = 6*params$num_samples,
+  ethanol_ul = 3*(150*params$num_samples)*1.1,
+  low_te = (45*params$num_samples)*1.1) %>% 
    gather(item, quantity)) %>% 
   mutate(ml = quantity/1000, 
          ml = ifelse(ml < 1, NA, ml))
@@ -133,7 +139,7 @@ Turn on the incubator
 
 Organize samples into plate format: 
 
-```{r data, echo=FALSE, eval=FALSE}
+```{r data, echo=FALSE}
 # this code gets all sample_ids within the range stated in the params above.
 
 # connect to clownfish table in the db
@@ -179,13 +185,13 @@ plate <- rbind(plate, samples) %>%
 
 ```
 1. Sample_id plate locations
-```{r sample_map, echo=FALSE, message=FALSE, eval=FALSE}
+```{r sample_map, echo=FALSE, message=FALSE}
 platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$sample_id)
 knitr::kable(platemap, booktabs = T) %>% 
   # use scale_down to get map to fit within the bounds of the pdf
   kable_styling(latex_options = "scale_down")
 ```
-```{r extr_ids, echo=FALSE, eval=FALSE}
+```{r extr_ids, echo=FALSE}
 ### ONLY DO THIS ONCE ###
 extracted <- lab %>% tbl("extraction") %>% 
   summarise(last = max(extraction_id, na.rm = T)) %>% 
@@ -207,7 +213,7 @@ plate <- plate %>%
   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
 ```
 2. Extraction_id plate locations
-```{r extr_map, echo=FALSE, message=FALSE, eval=FALSE}
+```{r extr_map, echo=FALSE, message=FALSE}
 # created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
 map <- plate %>%
   select(row, col, extraction_id)
@@ -221,7 +227,7 @@ knitr::kable(platemap, booktabs = T) %>%
 
 ```
 Write the newly assigned extraction_ids to the database
-```{r write, eval=FALSE}
+```{r write}
 
 # dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
 

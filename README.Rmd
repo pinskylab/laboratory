@@ -4,23 +4,13 @@ output: github_document
 always_allow_html: yes
 ---
 
-## Sample provenance
-Some of our methods have changed over time.  Here is a very simplified breakdown of which protocols were used with which samples.
-```{r echo=FALSE}
-kableExtra::kable_styling(
-knitr::kable(
-readr::read_csv("field season, extraction method, ligation setup, baits
-          2012, Qiagen DNeasy 96, no robot, no baits
-          2013, Qiagen DNeasy 96, no robot, no baits
-          2014, Qiagen DNeasy 96, no robot, no baits
-          2015, Qiagen DNeasy 96, no robot and robot, no baits
-          2016, Ali, robot, baits
-          2017, Ali, robot, baits
-          2018, Ali, robot, baits")
-)
-)
+## This repository holds the methods we use for sequencing library preparation. 
 
+### [ddRADSeq](ddRADSeq)  
+This method is used in our *Amphiprion clarkii* clownfish project and our *Paralichthys dentatus* summer flounder project.  
 
-```
-# [Click here for Methods!](https://pinskylab.github.io/laboratory/protocols/index.html)
+### [Nexterra](Nexterra)  
+This method is used in our *Myotis lucificus* little brown bat project.  
 
+### [EecSeq](EecSeq)  
+This method is used in our *Amphiprion percula* clownfish project.

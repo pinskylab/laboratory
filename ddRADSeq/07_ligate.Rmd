@@ -15,7 +15,7 @@ library(kableExtra)
 print(params)
 ```
 
-
+[Working with adapters](https://pinskylab.github.io/laboratory/protocols/00_working-with-adapters.nb.html)
 
 # Make a master mix
 ```{r mix, echo=FALSE}

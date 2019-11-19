@@ -14,7 +14,7 @@ library(tidyverse)
 ```{r}
 ampure <- tribble(~item, ~quantity,
                   # make room for small or large numbers of samples
-                  ifelse(params$num_samples <20, "tube_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples * 2, ceiling(params$num_samples/96) * 2),
+                  ifelse(params$num_samples <20, "tubes_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples * 2, ceiling(params$num_samples/96) * 2),
                   "tips_100", params$num_samples * 5, 
                   "tips_1000", params$num_samples * 5, 
                   "ethanol_ul", params$num_samples * 400, 

@@ -15,13 +15,12 @@ library(tidyverse)
 # add an extra 10th of a sample for error
 qubit_samples <- (params$num_samples + 2)*1.1
 
-qubit_supplies <- tibble(
-  qubit_tubes = qubit_samples,
-  qubit_dye_ul = qubit_samples,
-  qubit_buffer_ul = 199 * qubit_samples,
-  qubit_std1_ul = 10,
-  qubit_std2_ul = 10
-    )
+qubit <- tribble(~item, ~quantity, 
+                 "qubit_tubes", qubit_samples,
+                 "qubit_dye_ul", qubit_samples,
+                 "qubit_buffer_ul", 199 * qubit_samples,
+                 "qubit_std1_ul", 10,
+                 "qubit_std2_ul", 10)
 
 ```
 

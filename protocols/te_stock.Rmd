@@ -1,0 +1,21 @@
+---
+title: "TE stock solution"
+params:
+  initial_conc: 20
+  final_conc: 1
+  final_vol_ml: 500
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+## Prepare a stock solution of TE buffer
+- Normally, the pico kit sends a 25mL bottle of 20x TE that can be dumped into a 500 mL flask and filled to the 500 line with distilled water from the special tap.
+```{r edta, echo=FALSE}
+
+te <- tribble(~item, ~quantity,
+                      "1x_te_buffer_ul", (params$final_vol_ml*params$final_conc)/params$initial_conc)
+```
+
+TE can also be made in the lab with Tris-HCl and EDTA.

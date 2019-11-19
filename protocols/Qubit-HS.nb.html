@@ -1762,17 +1762,16 @@ summary {
 <h2>Supplies Needed</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBhZGQgYW4gZXh0cmEgMTB0aCBvZiBhIHNhbXBsZSBmb3IgZXJyb3JcbnF1Yml0X3NhbXBsZXMgPC0gKHBhcmFtcyRudW1fc2FtcGxlcyArIDIpKjEuMVxuXG5xdWJpdF9zdXBwbGllcyA8LSB0aWJibGUoXG4gIHF1Yml0X3R1YmVzID0gcXViaXRfc2FtcGxlcyxcbiAgcXViaXRfZHllX3VsID0gcXViaXRfc2FtcGxlcyxcbiAgcXViaXRfYnVmZmVyX3VsID0gMTk5ICogcXViaXRfc2FtcGxlcyxcbiAgcXViaXRfc3RkMV91bCA9IDEwLFxuICBxdWJpdF9zdGQyX3VsID0gMTBcbiAgICApXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBhZGQgYW4gZXh0cmEgMTB0aCBvZiBhIHNhbXBsZSBmb3IgZXJyb3JcbnF1Yml0X3NhbXBsZXMgPC0gKHBhcmFtcyRudW1fc2FtcGxlcyArIDIpKjEuMVxuXG5xdWJpdCA8LSB0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksIFxuICAgICAgICAgICAgICAgICBcXHF1Yml0X3R1YmVzXFwsIHF1Yml0X3NhbXBsZXMsXG4gICAgICAgICAgICAgICAgIFxccXViaXRfZHllX3VsXFwsIHF1Yml0X3NhbXBsZXMsXG4gICAgICAgICAgICAgICAgIFxccXViaXRfYnVmZmVyX3VsXFwsIDE5OSAqIHF1Yml0X3NhbXBsZXMsXG4gICAgICAgICAgICAgICAgIFxccXViaXRfc3RkMV91bFxcLCAxMCxcbiAgICAgICAgICAgICAgICAgXFxxdWJpdF9zdGQyX3VsXFwsIDEwKVxuYGBgIn0= -->
 <pre class="r"><code># add an extra 10th of a sample for error
 qubit_samples &lt;- (params$num_samples + 2)*1.1
 
-qubit_supplies &lt;- tibble(
-  qubit_tubes = qubit_samples,
-  qubit_dye_ul = qubit_samples,
-  qubit_buffer_ul = 199 * qubit_samples,
-  qubit_std1_ul = 10,
-  qubit_std2_ul = 10
-    )</code></pre>
+qubit &lt;- tribble(~item, ~quantity, 
+                 \qubit_tubes\, qubit_samples,
+                 \qubit_dye_ul\, qubit_samples,
+                 \qubit_buffer_ul\, 199 * qubit_samples,
+                 \qubit_std1_ul\, 10,
+                 \qubit_std2_ul\, 10)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1780,7 +1779,7 @@ qubit_supplies &lt;- tibble(
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUXViaXQgLSBIaWdoIFNlbnNpdGl2aXR5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKcGFyYW1zOgogIG51bV9zYW1wbGVzOiAxCi0tLQoKIyBFbnRlciB0aGUgbnVtYmVyIG9mIHNhbXBsZXMgdG8gYmUgcXVhbnRpZmllZCBhYm92ZQpgYGB7ciBzZXR1cH0KbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKIyMgU3VwcGxpZXMgTmVlZGVkCmBgYHtyfQojIGFkZCBhbiBleHRyYSAxMHRoIG9mIGEgc2FtcGxlIGZvciBlcnJvcgpxdWJpdF9zYW1wbGVzIDwtIChwYXJhbXMkbnVtX3NhbXBsZXMgKyAyKSoxLjEKCnF1Yml0IDwtIHRyaWJibGUofml0ZW0sIH5xdWFudGl0eSwgCiAgICAgICAgICAgICAgICAgInF1Yml0X3R1YmVzIiwgcXViaXRfc2FtcGxlcywKICAgICAgICAgICAgICAgICAicXViaXRfZHllX3VsIiwgcXViaXRfc2FtcGxlcywKICAgICAgICAgICAgICAgICAicXViaXRfYnVmZmVyX3VsIiwgMTk5ICogcXViaXRfc2FtcGxlcywKICAgICAgICAgICAgICAgICAicXViaXRfc3RkMV91bCIsIDEwLAogICAgICAgICAgICAgICAgICJxdWJpdF9zdGQyX3VsIiwgMTApCgpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUXViaXQgLSBIaWdoIFNlbnNpdGl2aXR5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKcGFyYW1zOgogIG51bV9zYW1wbGVzOiAxCi0tLQoKIyBFbnRlciB0aGUgbnVtYmVyIG9mIHNhbXBsZXMgdG8gYmUgcXVhbnRpZmllZCBhYm92ZQpgYGB7ciBzZXR1cH0KbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKIyMgU3VwcGxpZXMgTmVlZGVkCmBgYHtyfQpxdWJpdCA8LSB0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksIAogICAgICAgICAgICAgICAgICJxdWJpdF90dWJlcyIsIHBhcmFtcyRudW1fc2FtcGxlcyArIDIsCiAgICAgICAgICAgICAgICAgInF1Yml0X2R5ZV91bCIsIHBhcmFtcyRudW1fc2FtcGxlcyArIDIsCiAgICAgICAgICAgICAgICAgInF1Yml0X2J1ZmZlcl91bCIsIDE5OSAqIChwYXJhbXMkbnVtX3NhbXBsZXMgKyAyKSwKICAgICAgICAgICAgICAgICAicXViaXRfc3RkMV91bCIsIDEwLAogICAgICAgICAgICAgICAgICJxdWJpdF9zdGQyX3VsIiwgMTApCgpgYGAKCg==</div>
 
 
 

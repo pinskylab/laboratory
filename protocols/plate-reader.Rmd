@@ -1,0 +1,23 @@
+---
+title: "Plate reader DNA quantifiation"
+params:
+  num_samples: 160
+  num_stds: 8
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+```{r}
+plate <- tribble(~item, ~quantity,
+                 "tubes_1.7ml", 4, 
+                 "1x_TE_ul", 980 + (params$num_samples + params$num_stds)*100,
+                 "100_ug/ml_lambda_dna_ul", 20,
+                 "pico_ul", (params$num_samples + params$num_stds)*100/200, 
+                 "grenier_plates", ceiling((params$num_samples + params$num_stds)/96), 
+                 "tips_100",3 + (params$num_samples * 2) + params$num_stds,
+                 "tips_10", 2 + params$num_samples,
+                 "tips_1000",4)
+```
+

@@ -1,6 +1,5 @@
 ---
 title: "Ampure SPRI cleanup"
-output: html_notebook
 params:
   sample_vol_ul: 25
   num_samples: 1
@@ -18,7 +17,8 @@ ampure <- tribble(~item, ~quantity,
                   "tips_100", params$num_samples * 5, 
                   "tips_1000", params$num_samples * 5, 
                   "ethanol_ul", params$num_samples * 400, 
-                  "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25)
+                  "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25, 
+                  "ampure_ul", params$ampure_vol_ul)
 ```
 
 

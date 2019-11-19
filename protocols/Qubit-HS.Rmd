@@ -1,6 +1,5 @@
 ---
 title: "Qubit - High Sensitivity"
-output: html_notebook
 params:
   num_samples: 1
 ---

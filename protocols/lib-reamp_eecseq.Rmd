@@ -1,6 +1,5 @@
 ---
 title: "Library Reamplification"
-output: html_notebook
 params:
   num_seq_lib: 1
 ---
@@ -19,7 +18,7 @@ reamp <- tribble(~item, ~quantity,
                  "tips_100", 1,
                  "tips_10", 3 * params$num_seq_lib,
                  # make room for small or large numbers of samples
-                  ifelse(params$num_seq_lib <20, "tube_200ul", "plates"), ifelse(params$num_seq_lib < 20, params$num_seq_lib * 2, ceiling(params$num_seq_lib/96) * 2))
+                  ifelse(params$num_seq_lib <20, "tubes_200ul", "plates"), ifelse(params$num_seq_lib < 20, params$num_seq_lib * 2, ceiling(params$num_seq_lib/96) * 2))
 ```
 - Assemble each library amplifcation reaction as follows
 ```{r}

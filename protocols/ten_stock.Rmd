@@ -1,6 +1,5 @@
 ---
 title: "TEN Stock Solution"
-output: html_notebook
 params:
   final_vol_ul: 50000
 ---

@@ -1,6 +1,5 @@
 ---
 title: "Hybridization"
-output: html_notebook
 params:
   lib_size_ng: 500
   num_seq_lib: 1

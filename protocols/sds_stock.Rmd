@@ -1,6 +1,5 @@
 ---
 title: "SDS stock solution"
-output: html_notebook
 params:
   final_conc_perc: 10
   final_vol_ml: 50

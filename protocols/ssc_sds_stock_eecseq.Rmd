@@ -1,6 +1,5 @@
 ---
 title: "SSC / 0.1% SDS Stock Solution"
-output: html_notebook
 params:
   final_vol_ul: 500
   perc_ssc: 1

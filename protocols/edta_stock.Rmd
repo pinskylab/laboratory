@@ -1,6 +1,5 @@
 ---
 title: "EDTA stock solution"
-output: html_notebook
 params:
   final_conc_M: 0.500
   pH: 8.0

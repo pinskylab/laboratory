@@ -1,6 +1,5 @@
 ---
 title: "Library Amplification"
-output: html_notebook
 params:
   num_seq_lib: 1
 ---

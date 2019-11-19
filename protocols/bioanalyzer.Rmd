@@ -1,0 +1,20 @@
+---
+title: "Bioanalyzerr"
+output: html_notebook
+params:
+  num_samples: 1
+---
+# Enter the number of libraries to be analyzed in the chip above
+Contact Nichole Wagner (new39@rutgers.edu) to schedule a bioanalyzer run and get instructions from her regarding how to give her a sample of your library.
+
+The High Sensitivity Chip can handle 12 libraries up to 7 kilobases.  If your library is larger, contact Nicole for pricing of a different chip.
+
+```{r setup}
+library(tidyverse)
+```
+
+```{r}
+bioanalyzer <- tribble(~item, ~quantity,
+                       "bioanalyzer", params$num_samples)
+```
+

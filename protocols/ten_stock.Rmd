@@ -1,0 +1,36 @@
+---
+title: "TEN Stock Solution"
+output: html_notebook
+params:
+  final_vol_ul: 50000
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+```{r TEN, echo=FALSE}
+TEN_guide <- tribble(~item, ~initial_conc, ~final_conc, 
+                   "500_mM_edta_ul", 500,1,
+                   "1000_mM_Tris-HCl_pH7.5_ul", 1000,10,
+                   "4.45_M_NaCl_ul", 4450, 1,
+                   "ph2o_ul", 0, 0 ) %>% 
+  mutate(final_vol_uL = params$final_vol_ul,
+    initial_vol_uL = final_conc* final_vol_uL/initial_conc,
+         initial_vol_uL = ifelse(item == "ph2o_ul",final_vol_uL - sum(initial_vol_uL, na.rm = T), initial_vol_uL))
+ 
+TEN <- TEN_guide %>% 
+  select(item, initial_vol_uL, initial_conc) %>% 
+  rename(quantity = initial_vol_uL) %>% 
+  mutate(item = ifelse(item == "ph2o_ul", "ph2o_ml", item), 
+         quantity = ifelse(item == "ph2o_ml", quantity/1000, quantity))
+         
+kable(TEN_guide) %>%
+  kable_styling("bordered") %>%
+  add_header_above(c("TEN stock solution" = 5))
+```
+```{r}
+rm(TEN_guide)
+```
+

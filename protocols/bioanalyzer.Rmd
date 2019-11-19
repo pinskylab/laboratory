@@ -15,6 +15,6 @@ library(tidyverse)
 
 ```{r}
 bioanalyzer <- tribble(~item, ~quantity,
-                       "bioanalyzer", params$num_samples)
+                       "bioanalyzer_wells", params$num_samples)
 ```
 

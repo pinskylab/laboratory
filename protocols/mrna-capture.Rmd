@@ -1,0 +1,153 @@
+---
+title: "mRNA Capture"
+params:
+  num_samples: 4
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+```{r}
+mrna_capture <- tribble(~item, ~quantity,
+                     "kapa_mrna_capture_beads_ul", 26.25* params$num_samples,
+                     "tubes_200ul", 1, 
+                     "tips_100", 2,
+                     "kapa_mrna_bead_binding_buffer_ul", 26.25* params$num_samples*2,
+                   "tubes_200ul", params$num_samples,
+                   "tips_100", 8 * params$num_samples,
+                   "kapa_fragment_elute_buffer_ul", 5.5 * params$num_samples, 
+                   "kapa_mrna_bead_wash_ul", 200*params$num_samples, 
+                   "ph2o_ml", 0.025 * params$num_samples,
+                   "kapa_mrna_bead_binding_buffer_ul", 25 * params$num_samples)
+```
+
+#### Adapter concentration will vary depending on overall RNA yield, see table below:
+|Quantity of starting material|Adapter stock concentration|Adapter concentration in ligation reaction|
+|----|----|-----|
+|100 – 250 ng|140 nM| 10 nM|
+|251 – 500 ng|350 nM|25 nM|
+|501 – 2000 ng|700 nM|50 nM|
+|2001 – 4000 ng|1400 nM|100 nM|
+
+For Puritz and Lotterhos 2017, we used 4000 ng starting RNA, but because of difficulties assessing and quantifying molluscan RNA, we chose to use a 700 nM working stock with a final reaction concentration of 50 nM.
+
+--Procedure:--
+- Prepare mastermixes for number of libraries (individual RNA extractions)
+  - See tables in manual and tables below for guidelines (We are using 1/2 reactions):
+
+|Component| Total Volume Needed for 4 RXNs (Includes 20% excess)|
+|---------|--------------------|
+|--1st Strand Synthesis Master Mix:--|--|
+|1st Strand Synthesis Buffer|22 μl|
+|KAPA Script|2 μl|
+|--Total Master Mix Volume--| --24 μl--|
+|--Final reaction composition:--|--|
+|1st Strand Synthesis Master Mix| 5 μl|
+|Fragmented, primed RNA|10 μl| 
+|--Total Reaction Volume--| --15 μl--|
+
+|Component| Total Volume Needed for 4 RXNs (Includes 10% excess)|
+|---------|--------------------|
+|--2nd Strand Synthesis and Marking Master Mix:--|--|
+|2nd Strand Marking Buffer|62 μl|
+|2nd Strand Synthesis Enzyme Mix|4 μl|
+|--Total Master Mix Volume--| --66 μl--|
+|--Final reaction composition:--|--|
+|2nd Strand Synthesis and Marking Master Mix| 15 μl|
+|Fragmented, primed RNA|15 μl| 
+|--Total Reaction Volume--| --30 μl--|
+
+|Component| Total Volume Needed for 4 RXNs (Includes 10% excess)|
+|---------|--------------------|
+|--A-Tailing Master Mix:--|--|
+|Water|52.8 μl|
+|10X KAPA A-Tailing Buffer|6.6 μl|
+|KAPA A-Tailing Enzyme|6.6 μl|
+|--Total Master Mix Volume--| --66 μl--|
+|--Resuspend beads in a volume of:--|-- 15 μl-- |
+
+|Component| Total Volume Needed for 4 RXNs (Includes 10% excess)|
+|---------|--------------------|
+|--Adapter Ligation Master Mix:--|--|
+|Water|35.2 μl|
+|5X KAPA Ligation Buffer| 30.8μl|
+|KAPA T4 DNA Ligase|11 μl|
+|--Total Master Mix Volume--| --77 μl--|
+|--Final reaction composition:--|--|
+|Beads with A-tailed DNA|15 μl|
+|Adapter Ligation Master Mix|17.5 μl|
+|Adapter (350 nM – 1400 nM, as appropriate)|2.5 μl|
+|--Total Reaction Volume--| --35 μl--|
+
+|Component| Total Volume Needed for 4 RXNs (Includes 10% excess)|
+|---------|--------------------|
+|--Library Amplification Master Mix:--|--|
+|2X KAPA HiFi HotStart ReadyMix|55 μl|
+|10X KAPA Library Amplication Primer Mix|11 μl|
+|--Total Master Mix Volume--| --66 μl--|
+|--Final reaction composition:--|--|
+|Adapter-ligated library DNA|10 μl|
+|Library Amplification Master Mix|15 μl|
+|Balance of water (if required)|5 μl|
+|--Total Reaction Volume--| --30 μl--|
+
+- Before mRNA capture beads can be used they must be washed with mRNA Bead Binding Buffer
+	- Resuspend beads thoroughly by gentle pipetting or vortexing
+	- For each library to be prepared, transfer 26.25 uL of the resuspended mRNA Capture beads into an appropriate tube
+		- Up to 48 libraries (1,260 uL) can be washed in a single tube
+	- Place the tube on a magnet holder and incubate at room temperature until solution is clear.
+	- Discard supernatant and replace with an equal volume of mRNA Bead Binding Buffer.
+	- Remove tube from magent and again resuspend the beads.
+	- Place the tube on a magnet holder and incubate at room temperature until solution is clear.
+	- Discard supernatant and replace with an equal volume of mRNA Bead Binding Buffer.
+	- Remove tube from magent and again resuspend the beads.
+
+- Combine the following for each RNA sample to be captured:
+
+|Component|Volume|
+|---------|------|
+|RNA sample (in RNase-free water)| 25 μl|
+|KAPA mRNA Capture Beads| 25 μl|
+|--Total Volume--| --50 μl--|
+
+- Mix thoroughly by gently pipetting up and down several times.
+- Place the plate/tube in a thermal cycler and carry out the 1st mRNA capture program as follows:
+
+|Step|Temp.|Duration|
+|----|-----|--------|
+|1st mRNA capture|65 °C|2 min|
+|Cool|20 °C|5 min|
+
+
+- Place the plate/tube containing the mixture of KAPA mRNA Capture Beads and RNA on a magnet and incubate at room temperature until the solution is clear. Remove and discard the supernatant.
+- Remove the plate/tube from the magnet and resuspend thoroughly in 100 μl of KAPA mRNA Bead Wash Buffer by pipetting up and down several times.
+- Place the plate/tube on the magnet and incubate at room temperature until the solution is clear. Remove and discard the supernatant.
+- Resuspend the beads in 25 μl of RNase-free water.
+- Place the plate/tube in a thermal cycler and carry out the 2nd mRNA capture program as follows:
+
+|Step|Temp.|Duration|
+|----|-----|--------|
+|2nd mRNA capture|70 °C|2 min|
+|Cool|20 °C|5 min|
+
+- Add 25 μl of KAPA Bead Binding Buffer to the mixture of KAPA mRNA Capture Beads and RNA and mix thoroughly by gently pipetting up and down several times.
+- Incubate the plate/tube at 20 °C for 5 min.
+- Place the plate/tube on the magnet and incubate at room temperature until the solution is clear. Remove and discard the supernatant.
+- Remove the beads from the magnet and resuspend in 100 μl of KAPA mRNA Bead Wash Buffer by pipetting up and down several times.
+- Place the plate/tube on the magnet and incubate at room temperature until the solution is clear. Remove and discard the entire volume of supernatant.
+
+### mRNA Elution, Fragmentation, and Priming
+- Prepare the required volume of 1X Fragment, Prime and Elute Buffer as follows:
+
+|Component|Volume per sample|
+|---------|------|
+|Water| 5.5 μl|
+|Fragment, Prime and Elute Buffer (2X)| 5.5 μl|
+|--Total Volume--| --11 μl--|
+
+- Thoroughly resuspend the KAPA mRNA Capture Beads with captured mRNA in 11 μl of 1X Fragment, Prime and Elute Buffer.
+
+---
+
+### Safe Stopping Point
+Resuspended beads with captured mRNA may be stored at 4 oC for up to 24 hours. Do not freeze the samples as this will damage the beads. When ready, proceed to step below.

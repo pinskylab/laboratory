@@ -1,0 +1,27 @@
+---
+title: "Tris-HCl stock solution"
+output: html_notebook
+params:
+  final_conc_M: 0.010
+  pH: 8.0
+  final_vol_l: 0.050
+  mol_wt: 121.1
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+## Prepare a stock solution of Tris-HCl  
+- usually don't need more than 50mL of solution, it is ok to prepare this in a small, clean, beaker, and transfer to a 50mL falcon tube.  
+- the molecular weight of Tris-HCl is 121.1g
+```{r tris, echo=FALSE}
+
+tris_hcl <- tribble(~item, ~quantity,
+                      "tris-hcl_g", params$final_vol_l * params$mol_wt * params$final_conc_M,
+                    "ph2o_ml", params$final_vol_l*1000)
+
+kable(tris_hcl)
+
+```
+## Adjust pH to `r params$pH` using HCl or NaOH.

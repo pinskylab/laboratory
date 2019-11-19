@@ -1,0 +1,40 @@
+---
+title: "Ampure SPRI cleanup"
+output: html_notebook
+params:
+  sample_vol_ul: 25
+  num_samples: 1
+  ampure_vol_ul: 25
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+# Perform a 1X SPRI® cleanup by combining the following:
+```{r}
+ampure <- tribble(~item, ~quantity,
+                  # make room for small or large numbers of samples
+                  ifelse(params$num_samples <20, "tube_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples * 2, ceiling(params$num_samples/96) * 2),
+                  "tips_100", params$num_samples * 5, 
+                  "tips_1000", params$num_samples * 5, 
+                  "ethanol_ul", params$num_samples * 400, 
+                  "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25)
+```
+
+
+* Thoroughly resuspend the beads by pipetting up and down multiple times.
+* Incubate the plate/tube at room temperature for 5 – 15 min to allow the DNA to bind to the beads.
+* Place the plate/tube on a magnet to capture the beads. Incubate until the liquid is clear.
+* Carefully remove and discard 115 μl of supernatant.
+* Keeping the plate/tube on the magnet, add 200 μl of 80% ethanol.
+* Incubate the plate/tube at room temperature for ≥30 sec.
+* Carefully remove and discard the ethanol.
+* Keeping the plate/tube on the magnet, add 200 μl of 80% ethanol.
+* Incubate the plate/tube at room temperature for ≥30 sec.
+* Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.
+* Dry the beads at room temperature, until all of the ethanol has evaporated. **Caution: over-drying the beads may result in dramatic yield loss.**
+* Remove the plate/tube from the magnet.
+* Thoroughly resuspend the beads in 25 μl of 10 mM Tris-HCl (pH 8.0). 
+* Incubate the plate/tube at room temperature for 2 min to allow the DNA to elute off the beads.
+* Place the plate/tube on a magnet to capture the beads. Incubate until the liquid is clear.
+* Transfer 24 μl of the clear supernatant to a new plate/tube and proceed to next step.

@@ -1,19 +1,76 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "Synthesis EecSeq"
+params:
+  num_samples: 4
 ---
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
-```{r}
-plot(cars)
+```{r setup}
+library(tidyverse)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+```{r}
+synthesis <- tribble(~item, ~quantity,
+                     "tips_10", 2 * params$num_samples,
+                     "tips_100", 4 * params$num_samples,
+                     "tubes_200ul", 1 * params$num_samples,
+                     "kapa_stranded_mrna_kit_script", 2 * params$num_samples,
+                     "kapa_first_synthesis_buffer_ul", 22 * params$num_samples,
+                     "kapa_second_strand_marking_ul", 62 * params$num_samples, 
+                     "kapa_second_enzyme_ul", 4 * params$num_samples)
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+---
 
+- Place the plate/tubes in a thermal cycler and carry out the fragmentation and priming program as follows:
+
+|Desired Fragment Size| Temp.| Duration|
+|---------------------|------|---------|
+|100 – 200 bp|94 °C|8 min|
+|200 – 300 bp|94 °C|6 min|
+|300 – 400 bp|85 °C|6 min|
+
+##### For Puritz and Lotterhos (2017), we chose 94 °C for 7 mins to have fragments between 150-250 bp, approximately the same size distribution as planned for our DNA libraries.
+
+- Immediately place the plate/tube on a magnet to capture the beads, and incubate until the liquid is clear. **Caution: To prevent hybridization of poly(A)- rich RNA to the capture beads, do not allow the sample to cool before placing on the magnet**-
+- Carefully remove 10 μl of the supernatant containing the eluted, fragmented, and primed RNA into a separate plate or tube.
+- Proceed immediately to **1st Strand Synthesis**.
+
+### 1st Strand Synthesis
+- On ice, assemble the 1st Strand Synthesis reaction as follows:
+
+|Component|Volume|
+|---------|------|
+|Fragmented, primed RNA eluted from beads| 10 μl|
+|1st Strand Synthesis Master Mix| 5 μl|
+|--Total Volume--| --15 μl--|
+
+- Keeping the plate/tube on ice, mix thoroughly by gently pipetting the reaction up and down several times.
+- Incubate the plate/tube using the following protocol:
+
+|Step|Temp.|Duration|
+|----|-----|--------|
+|Primer extension|25 °C|10 min|
+|1st Strand synthesis|42 °C|15 min|
+|Enzyme inactivation|70 °C|15 min|
+|HOLD|4 °C|∞|
+
+- Place the plate/tube on ice and proceed immediately to --2nd Strand Synthesis and Marking--.
+
+### 2nd Strand Synthesis and Marking
+- Assemble the 2nd Strand Synthesis and Marking reaction as follows:
+
+|Component|Volume|
+|---------|------|
+|1st Strand cDNA| 15 μl|
+|2nd Strand Synthesis and Marking Master Mix| 15 μl|
+|--Total Volume--| --30 μl--|
+
+- Mix thoroughly by gently pipetting the reaction up and down several times.
+- Incubate the plate/tube using the following protocol:
+
+|Step|Temp.|Duration|
+|----|-----|--------|
+|2nd Strand synthesis and marking|16 °C|60 min|
+|HOLD|4 °C|∞|
+
+- Place the plate/tube on ice and proceed immediately to --2nd Strand Synthesis and Marking Cleanup--.

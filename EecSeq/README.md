@@ -10,7 +10,8 @@ alleles at expressed genes.
 
 ## \[RNA Prep\]
 
-  - [RNA Extraction](../protocols/rna_extraction_tri.nb.html)
+  - [RNA
+    Extraction](pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
   - [Quantify](#quantify-all-rna-samples)
   - [Visualize](#visualize-rna-on-bioanalyzer)
   - [mRNA Library Prep](#stranded-mrna-seq-library-prep)

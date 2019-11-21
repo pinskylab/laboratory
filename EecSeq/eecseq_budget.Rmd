@@ -44,17 +44,10 @@ render(here("protocols", "rna_extraction_tri.Rmd"), params = list(
 	
 ### 2. Quantify all RNA samples
 ```{r quant1}
-if(params$num_rna_samples >= 20){
-  render(here("protocols", "plate-reader.Rmd"), params = list(
+render(here("protocols", "quant_dna.Rmd"), params = list(
   num_samples = params$num_rna_samples), run_pandoc = F)
-  plate1 <- plate
-  rm(plate)
-}else{
-  render(here("protocols", "Qubit-HS.Rmd"), params = list(
-  num_samples = params$num_rna_samples), run_pandoc = F)
-  qubit1 <- qubit
-  rm(qubit)
-}
+  quant1 <- quant
+  rm(quant)
 ```
 
 
@@ -185,17 +178,10 @@ rm(ampure)
 
 ## 14. Quant libraries
 ```{r quant2}
-if(params$num_rna_samples >= 20){
-  render(here("protocols", "plate-reader.Rmd"), params = list(
+render(here("protocols", "quant_dna.Rmd"), params = list(
   num_samples = params$num_rna_samples), run_pandoc = F)
-  plate2 <- plate
-  rm(plate)
-}else{
-  render(here("protocols", "Qubit-HS.Rmd"), params = list(
-  num_samples = params$num_rna_samples), run_pandoc = F)
-  qubit2 <- qubit
-  rm(qubit)
-}
+  quant2 <- quant
+  rm(quant)
 ```
 
 ---
@@ -248,17 +234,10 @@ rm(ampure)
 
 ### 19. Quantify
 ```{r quant3}
-if(params$num_rna_lib >= 20){
-  render(here("protocols", "plate-reader.Rmd"), params = list(
-  num_samples = params$num_rna_lib), run_pandoc = F)
-  plate3 <- plate
-  rm(plate)
-}else{
-  render(here("protocols", "Qubit-HS.Rmd"), params = list(
-  num_samples = params$num_rna_lib), run_pandoc = F)
-  qubit3 <- qubit
-  rm(qubit)
-}
+render(here("protocols", "quant_dna.Rmd"), params = list(
+  num_samples = params$num_rna_samples), run_pandoc = F)
+  quant3 <- quant
+  rm(quant)
 ```
 
 
@@ -330,17 +309,10 @@ rm(ampure)
 
 ### Quant Probes
 ```{r quant4}
-if(params$num_rna_lib >= 20){
-  render(here("protocols", "plate-reader.Rmd"), params = list(
-  num_samples = params$num_rna_lib), run_pandoc = F)
-  plate4 <- plate
-  rm(plate)
-}else{
-  render(here("protocols", "Qubit-HS.Rmd"), params = list(
-  num_samples = params$num_rna_lib), run_pandoc = F)
-  qubit4 <- qubit
-  rm(qubit)
-}
+render(here("protocols", "quant_dna.Rmd"), params = list(
+  num_samples = params$num_rna_samples), run_pandoc = F)
+  quant4 <- quant
+  rm(quant)
 ```
 
 
@@ -474,17 +446,10 @@ render(here("protocols", "digest_dna.Rmd"),params = list(
 
 ### Quant samples
 ```{r quant5}
-if(params$num_dna_samples >= 20){
-  render(here("protocols", "plate-reader.Rmd"), params = list(
-  num_samples = params$num_dna_samples), run_pandoc = F)
-  plate5 <- plate
-  rm(plate)
-}else{
-  render(here("protocols", "Qubit-HS.Rmd"), params = list(
-  num_samples = params$num_dna_samples), run_pandoc = F)
-  qubit5 <- qubit
-  rm(qubit)
-}
+render(here("protocols", "quant_dna.Rmd"), params = list(
+  num_samples = params$num_rna_samples), run_pandoc = F)
+  quant5 <- quant
+  rm(quant)
 ```
 
 
@@ -643,17 +608,10 @@ render(here("protocols", "tris-hcl_stock.Rmd"), params = list(
 
 ### Quant samples
 ```{r quant6}
-if(params$num_dna_samples >= 20){
-  render(here("protocols", "plate-reader.Rmd"), params = list(
-  num_samples = params$num_dna_samples), run_pandoc = F)
-  plate6 <- plate
-  rm(plate)
-}else{
-  render(here("protocols", "Qubit-HS.Rmd"), params = list(
-  num_samples = params$num_dna_samples), run_pandoc = F)
-  qubit6 <- qubit
-  rm(qubit)
-}
+render(here("protocols", "quant_dna.Rmd"), params = list(
+  num_samples = params$num_rna_samples), run_pandoc = F)
+  quant6 <- quant
+  rm(quant)
 ```
 
 ### Verify  
@@ -673,7 +631,7 @@ seq <- tribble(~item, ~quantity,
 
 # Combine the lists
 ```{r combine}
-all_lists <- bind_rows(a_tailing, amp, ampure1, ampure2, ampure3, ampure4, ampure5, ampure6, ampure7, ampure8, ampure9, ampure10, ampure11,  anneal1, anneal2, anneal3, annealing, bioanalyzer1, bioanalyzer2, bioanalyzer3, bioanalyzer4, biotin, clean, digest_dna, dsn_norm, dsn_pcr, dyna, edta, enzyme, extr, hybrid, kapa_clean, liftons, ligation, mrna_capture, nacl, plate5, plate6, pool, qubit1, qubit2, qubit3, qubit4, reamp, remove, rna_amp, rna_extr, rna_ligation, sds, synthesis, TEN, tris_hcl, wash3, wash1, wash2, working1, working2, working3, working4, working5, working6, working7, seq)
+all_lists <- bind_rows(a_tailing, amp, ampure1, ampure2, ampure3, ampure4, ampure5, ampure6, ampure7, ampure8, ampure9, ampure10, ampure11,  anneal1, anneal2, anneal3, annealing, bioanalyzer1, bioanalyzer2, bioanalyzer3, bioanalyzer4, biotin, clean, digest_dna, dsn_norm, dsn_pcr, dyna, edta, enzyme, extr, hybrid, kapa_clean, liftons, ligation, mrna_capture, nacl, quant5, quant6, pool, quant1, quant2, quant3, quant4, reamp, remove, rna_amp, rna_extr, rna_ligation, sds, synthesis, TEN, tris_hcl, wash3, wash1, wash2, working1, working2, working3, working4, working5, working6, working7, seq)
 
 all_sum <- all_lists %>% 
   group_by(item) %>% 

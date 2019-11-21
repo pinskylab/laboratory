@@ -5,8 +5,10 @@ Laboratory Work
 
 ### [ddRADSeq](ddRADSeq)
 
-This method is used in our *Amphiprion clarkii* clownfish project and
-our *Paralichthys dentatus* summer flounder project.
+This
+[method](https://pinskylab.github.io/laboratory/ddRADSeq/index.html) is
+used in our *Amphiprion clarkii* clownfish project and our *Paralichthys
+dentatus* summer flounder project.
 
 ### [Nexterra](Nexterra)
 
@@ -15,3 +17,7 @@ This method is used in our *Myotis lucificus* little brown bat project.
 ### [EecSeq](EecSeq)
 
 This method is used in our *Amphiprion percula* clownfish project.
+
+### [protocols](protocols)
+
+Ala carte menu of procedures used in the lab.

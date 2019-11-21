@@ -1,5 +1,6 @@
 ---
 title: "A-Tailing"
+output: html_notebook
 params:
   num_samples: 4
   stopped: yes

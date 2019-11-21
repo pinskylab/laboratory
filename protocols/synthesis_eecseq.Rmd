@@ -1,5 +1,6 @@
 ---
 title: "Synthesis EecSeq"
+output: html_notebook
 params:
   num_samples: 4
 ---

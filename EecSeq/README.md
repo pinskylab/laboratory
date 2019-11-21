@@ -11,19 +11,19 @@ alleles at expressed genes.
 ## \[RNA Prep\]
 
   - [RNA
-    Extraction](pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
-  - [Quantify](#quantify-all-rna-samples)
-  - [Visualize](#visualize-rna-on-bioanalyzer)
-  - [mRNA Library Prep](#stranded-mrna-seq-library-prep)
-      - [Anneal adapters](#anneal-rna-adapters)
-      - [mRNA capture](#mrna-capture)
-      - [mRNA Elution, Fragmentation, and
-        Priming](#mrna-elution-fragmentation-and-priming)
-      - [1st Strand Synthesis](#1st-strand-synthesis)
-      - [2nd Strand Synthesis](#2nd-strand-synthesis-and-marking)
-      - [A-tailing](#a-tailing)
-      - [Adapter Ligation](#adapter-ligation)
-      - [Library Enrichment](#library-amplificiation)
+    Extraction](https://pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
+  - [Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
+  - [Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
+  - [Anneal
+    adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+  - [mRNA
+    capture](https://pinskylab.github.io/laboratory/protocols/mrna-capture.nb.html)
+  - [Synthesis](https://pinskylab.github.io/laboratory/protocols/synthesis_eecseq.nb.html)
+  - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+  - [A-tailing](https://pinskylab.github.io/laboratory/protocols/a-tailing.nb.html)
+  - [RNA Adapter
+    Ligation](https://pinskylab.github.io/laboratory/protocols/rna_ligation_eecseq.nb.html)
+  - [Library Enrichment](#library-amplificiation)
   - [Quant](#quant-libraries)
   - [DSN Normalization](#dsn-normalization)
       - [Enrichment](#pcr-enrichment)
@@ -31,19 +31,18 @@ alleles at expressed genes.
   - [Split
     libraries](#split-finished-cdna-library-for-each-sample-into-two-vials)
 
-[Probe Synthesis](#probe-synthesis) \* [Remove sequencing
-adapters](#remove-adapters-from-cdna) \* [Biotin
+[Probe Synthesis](#probe-synthesis) - [Remove sequencing
+adapters](#remove-adapters-from-cdna) - [Biotin
 Labeling](#biotin-labeling)
 
-[Genomic Library Prep](#preparation-of-whole-genome-libraries) \*
-[Anneal Adapters](#anneal-adapters) \* [End Repair](#end-repair) \*
-[Adapter ligation](#adapter-ligation) \*
-[Quantification](#quant-samples) \*
+[Genomic Library Prep](#preparation-of-whole-genome-libraries) - [Anneal
+Adapters](#anneal-adapters) - [End Repair](#end-repair) - [Adapter
+ligation](#adapter-ligation) - [Quantification](#quant-samples) -
 [Amplification](#library-amplification)
 
-[Hybridization and Capture](#hybridization-and-capture) \* [Blocking
-Oligos](#blocking-oligos) \* [Hybridization](#hybridization) \*
-[Preparation of DynaBeads](#preparation-of-dynabeads) \*
-[Washes](#washes) \* [Library
-Re-amplification](#library-re-amplification) \* [Quant Final
-Libraries](#quant-samples) \* [Verify](#verify)
+[Hybridization and Capture](#hybridization-and-capture) - [Blocking
+Oligos](#blocking-oligos) - [Hybridization](#hybridization) -
+[Preparation of DynaBeads](#preparation-of-dynabeads) -
+[Washes](#washes) - [Library
+Re-amplification](#library-re-amplification) - [Quant Final
+Libraries](#quant-samples) - [Verify](#verify)

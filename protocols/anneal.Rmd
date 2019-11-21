@@ -1,5 +1,6 @@
 ---
 title: "Anneal Adapters"
+output: html_notebook
 params:
   initial_conc_uM: 100
   p1_adapter_name: "sai_universal_stock_adapter_ul"

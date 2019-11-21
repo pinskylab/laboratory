@@ -229,14 +229,14 @@ ampure5 <- ampure
 rm(ampure)
 ```
 
-### DSN PCR
+### 17. DSN PCR
 ```{r dsn-pcr}
 render(here("protocols", "dsn-pcr.Rmd"), params = list(
   num_samples = params$num_rna_lib), run_pandoc = F)
 ```
 
 
-### Cleanup
+### 18. Cleanup
 ```{r ampure6}
 render(here("protocols", "ampure.Rmd"), params = list(
   num_samples = params$num_rna_lib, 
@@ -246,7 +246,7 @@ ampure6 <- ampure
 rm(ampure)
 ```
 
-### Quant
+### 19. Quantify
 ```{r quant3}
 if(params$num_rna_lib >= 20){
   render(here("protocols", "plate-reader.Rmd"), params = list(
@@ -267,10 +267,10 @@ if(params$num_rna_lib >= 20){
 
 ### Remove adapters from cDNA
 ```{r remove-adapters}
-render(here("protocols", "remove-adapters_eecseq.Rmd"), run_pandoc = F)
+render(here("protocols", "remove-adapters_eecseq.Rmd"),params = list(
+  num_samples = params$num_rna_lib
+), run_pandoc = F)
 ```
-
-
 
 
 ### Bioanalyzer or trace
@@ -311,7 +311,9 @@ This is a safe stopping point. If you are stopping, store your sample at ‐15°
 
 ### Biotin Labeling
 ```{r biotin}
-render(here("protocols", "biotin_eecseq.Rmd"), run_pandoc = F)
+render(here("protocols", "biotin_eecseq.Rmd"),params = list(
+  num_samples = params$num_rna_lib
+), run_pandoc = F)
 ```
 
 

@@ -10,66 +10,108 @@ alleles at expressed genes.
 
 ## \[RNA Prep\]
 
-  - [RNA
+  - [1. RNA
     Extraction](https://pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
 
-  - [Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
+  - [2.
+    Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
 
-  - [Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
+  - [3.
+    Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
 
-  - [Anneal
+  - [4. Anneal
     adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
     
       - Anneal the SAI Universal and Indexed adapters
 
-  - [mRNA
+  - [5. mRNA
     capture](https://pinskylab.github.io/laboratory/protocols/mrna-capture.nb.html)
 
-  - [Synthesis](https://pinskylab.github.io/laboratory/protocols/synthesis_eecseq.nb.html)
+  - **Safe Stopping Point**  
+    Resuspended beads with captured mRNA may be stored at 4C for **up to
+    24 hours**. Do not freeze the samples as this will damage the beads.
+    When ready, proceed to step below. This is a go home for the night
+    stopping point, not a weekend stopping point.
 
-  - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+  - [6.
+    Synthesis](https://pinskylab.github.io/laboratory/protocols/synthesis_eecseq.nb.html)
+
+  - [7.
+    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 30ul and an ampure volume of 54ul.
 
-  - [A-tailing](https://pinskylab.github.io/laboratory/protocols/a-tailing.nb.html)
+  - **Safe Stopping Point**  
+    Resuspend the beads in 15 μl 1X A-Tailing Buffer (see table above),
+    cover the reaction and store at 4C for **up to 24 hours**. Do not
+    freeze the samples as this will damage the AMPure XP beads. When
+    ready, proceed to A-Tailing after Safe Stopping Point. This is a go
+    home for the night stopping point, not a weekend stopping point.
 
-  - [RNA Adapter
+  - [8.
+    A-tailing](https://pinskylab.github.io/laboratory/protocols/a-tailing.nb.html)
+    
+      - Directions differ depending on if you stopped before this step
+        or not.
+
+  - [9. RNA Adapter
     Ligation](https://pinskylab.github.io/laboratory/protocols/rna_ligation_eecseq.nb.html)
 
-  - [Post Ligation
+  - [10. Post Ligation
     Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 35ul and an ampure volume of 35ul.
 
-  - [Post Ligation
+  - **Safe Stopping Point**  
+    The solution with resuspended beads can be stored at 4C for up to 24
+    hours. Do not freeze the beads, as this can result in dramatic loss
+    of DNA. When ready, proceed to 2nd Post-Ligation Cleanup.
+
+  - [11. Post Ligation
     Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 25ul and an ampure volume of 25ul.
 
-  - [RNA Library
+  - **Safe Stopping Point**  
+    The purified, adapter-ligated library DNA may be stored at 4C for up
+    to 1 week, or frozen at -20C for up to 1 month. When ready, proceed
+    to Library Amplification.
+
+  - [12. RNA Library
     Amplification](https://pinskylab.github.io/laboratory/protocols/rna_amp_eecseq.nb.html)
 
   - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 25ul and an ampure volume of 25ul.
 
-  - [Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
+  - [13.
+    Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)  
 
-  - [DSN
+  - **Safe Stopping Point**  
+    This is a safe stopping point. If you are stopping, store your
+    sample at ‐15° to ‐25°C.  
+
+  - [14. DSN
     Normalization](https://pinskylab.github.io/laboratory/protocols/dsn-norm.nb.html)  
 
-  - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+  - **Safe Stopping Point**  
+    This is a safe stopping point. If you are stopping, store your
+    sample at ‐15° to ‐25°C.
+
+  - [15.
+    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 80ul and an ampure volume of 160ul.
 
-  - [DSN Enrichment
+  - [16. DSN Enrichment
     PCR](https://pinskylab.github.io/laboratory/protocols/dsn-pcr.nb.html)
 
-  - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+  - [17.
+    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 50ul and an ampure volume of 80ul.
 
-  - [Quant
+  - [18. Quant
     Libraries](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
 
 Split finished cDNA library for each sample into two vials  
@@ -80,19 +122,50 @@ Note that this step is optional as sequening the probes directly is not
 necessary for exome capture analysis. Alternatively, a portion of the
 mRNA library can be saved before DSN normalization for sequencing.
 
+  - **Safe Stopping Point** This is a safe stopping point. If you are
+    stopping, store your sample at ‐15° to ‐25°C.
+
 ## \[Probe Synthesis\]
 
-  - [Remove sequencing
+  - [19. Remove sequencing
     adapters](\(https://pinskylab.github.io/laboratory/protocols/remove-adapters_eecseq.nb.html\))  
-  - [Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)  
-  - [Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+
+  - [20.
+    Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)  
+
+  - **Safe Stopping Point** This is a safe stopping point. If you are
+    stopping, store your sample at ‐15° to ‐25°C.  
+
+  - [21.
+    Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+    
       - use 45ul of sample and 81ul of ampure.
-  - [Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+
+  - **Safe Stopping Point** This is a safe stopping point. If you are
+    stopping, store your sample at ‐15° to ‐25°C.
+
+  - [22.
+    Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+    
       - use 22ul of sample and 33ul of ampure.
-  - [Biotin
+
+  - [23. Biotin
     Labeling](https://pinskylab.github.io/laboratory/protocols/biotin_eecseq.nb.html)
-  - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+
+  - [24.
+    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+    
       - use 50ul of sample and 75ul of ampure.
+
+  - [25.
+    Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)  
+
+  - [26.
+    Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)  
+
+  - **Safe Stopping Point**  
+    This is a safe stopping point. If you are stopping, store your
+    sample at ‐15° to ‐25°C.
 
 ## \[Genomic Library Prep\]
 

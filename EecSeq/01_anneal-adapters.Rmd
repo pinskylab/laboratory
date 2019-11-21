@@ -1,4 +1,0 @@
----
-title: "Anneal Adapters"
-output: github_document
----

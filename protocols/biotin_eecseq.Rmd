@@ -1,5 +1,8 @@
 ---
 title: "Biotin Labeling"
+output: html_notebook
+params:
+  num_samples: 1
 ---
 ```{r setup}
 library(tidyverse)
@@ -11,7 +14,8 @@ biotin <- tribble(~item, ~quantity,
                   "tips_10", 6, 
                   "ph2o_ml", 0.023,
                   "tubes_1.7ml", 2,
-                  "decalabel_biotin_klenow_ul", 2)
+                  "decalabel_biotin_klenow_ul", 2) %>% 
+  mutate(quantity = quantity * params$num_samples)
 ```
 
 ### Materials needed

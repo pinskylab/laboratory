@@ -1,5 +1,8 @@
 ---
 title: "Remove Adapters from cDNA"
+output: html_notebook
+params:
+  num_samples: 1
 ---
 ```{r}
 library(tidyverse)
@@ -12,7 +15,8 @@ remove <- tribble(~item, ~quantity,
                   "sali_hf_ul", 1, 
                   "tips_100", 2,
                   "ph2o_ml", 0.02275, 
-                  "tubes_200ul", 1)
+                  "tubes_200ul", 1) %>% 
+  mutate(quantity = quantity * params$num_samples)
 ```
 
 #### Materials needed

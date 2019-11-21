@@ -65,7 +65,10 @@ alleles at expressed genes.
   - **Safe Stopping Point**  
     The solution with resuspended beads can be stored at 4C for up to 24
     hours. Do not freeze the beads, as this can result in dramatic loss
-    of DNA. When ready, proceed to 2nd Post-Ligation Cleanup.
+    of DNA. When ready, proceed to 2nd Post-Ligation Cleanup. If you can
+    squeeze in one more cleanup, might as well keep going to the next
+    safe stopping point, which is hopefully less than an hour away,
+    depending on the number of samples you are working with.
 
   - [11. Post Ligation
     Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)

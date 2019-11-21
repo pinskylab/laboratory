@@ -14,6 +14,8 @@ library(knitr)
 library(kableExtra)
 # library(clownfishr)
 library(tidyverse)
+library(rmarkdown)
+library(here)
 
 source("~/db-connections.R")
 # leyte <- read_db("Leyte")
@@ -30,103 +32,42 @@ _________
 
 # Supplies needed
 ```{r, echo=FALSE}
-(extr <- tibble(
-  liftons_ul = (80*params$num_samples)*1.1,
-  enzyme_ul = (40*params$num_samples)*1.1,
-  tips_100 = 8*params$num_samples,
-  plates = 2*ceiling(params$num_samples/96),
-  seals = plates,
-  hybr_buffer = (45*params$num_samples)*1.1,
-  ampure_ul = (15*params$num_samples)*1.1,
-  tips_300 = 6*params$num_samples,
-  ethanol_ul = 3*(150*params$num_samples)*1.1,
-  low_te = (45*params$num_samples)*1.1) %>% 
-   gather(item, quantity)) %>% 
-  mutate(ml = quantity/1000, 
-         ml = ifelse(ml < 1, NA, ml))
+extr <- tribble(~item, ~quantity,
+  "liftons_ul", (80*params$num_samples)*1.1,
+  "liftons_w_enzyme_ul", (40*params$num_samples)*1.1,
+  "tips_100", 8*params$num_samples,
+  "plates", 2*ceiling(params$num_samples/96),
+  "seals", 2*ceiling(params$num_samples/96),
+  "hybr_buffer_ul", (45*params$num_samples)*1.1,
+  "ampure_ul", (15*params$num_samples)*1.1,
+  "tips_300", 6*params$num_samples,
+  "ethanol_ul", 3*(150*params$num_samples)*1.1,
+  "low_te_ul", (45*params$num_samples)*1.1) 
 ```
 
-```{r}
-extr_wide <- spread(extr, key = item, value = quantity)
-```
 # Extraction Methods
 
 
 ## 2019-09-05
 **Prepare a solution of Lifton's Buffer**
-```{r liftons, echo=FALSE}
-liftons <- tribble(~ingredient, ~initial_conc, ~final_conc, 
-                   "mM_EDTA", 500,100,
-                   "mM_Tris-HCl_pH7.5", 1000,25,
-                   "perc_SDS", 20, 1,
-                   "pH2O", NA, NA ) %>% 
-  mutate(final_vol_uL = extr_wide$liftons_ul,
-    initial_vol_uL = final_conc* final_vol_uL/initial_conc,
-         initial_vol_uL = ifelse(ingredient == "pH2O",final_vol_uL - sum(initial_vol_uL, na.rm = T), initial_vol_uL))
- 
-lif_sup <- liftons %>% 
-  select(ingredient, initial_vol_uL, initial_conc) %>% 
-  mutate(initial_conc = ifelse(is.na(initial_conc), "_", initial_conc),
-    ingredient = paste(initial_conc, ingredient, "ul", sep = "_")) %>% 
-  rename(item = ingredient,
-         initial_vol = initial_vol_uL)
-         
-kable(liftons) %>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Lifton's Buffer" = 5))
-
-
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "liftons_stock.Rmd"), run_pandoc = F)
 ```
 
 **Prepare Lifton's buffer with proteinase K**
-```{r enzyme, echo=FALSE}
-enzyme <- tribble(~ingredient, ~initial_conc, ~initial_vol_uL, ~final_conc, ~final_vol_uL,
-"mM_DTT", 1000, NA, 75, NA,
-"mg/ml_ProteinaseK", 20, NA, 4.2, NA,
-"Liftons", NA, NA, NA, NA
-) %>% 
-  mutate(final_vol_uL = (extr_wide$enzyme_ul), 
-         initial_vol_uL = final_conc*as.numeric(final_vol_uL)/initial_conc, 
-         initial_vol_uL = ifelse(ingredient == "Liftons",as.numeric(final_vol_uL) - sum(initial_vol_uL, na.rm = T), initial_vol_uL))
-
-enzyme_sup <- enzyme %>% 
-  select(ingredient, initial_vol_uL, initial_conc) %>% 
-  mutate(initial_conc = ifelse(is.na(initial_conc), "_", initial_conc),
-    ingredient = paste(initial_conc, ingredient, "ul", sep = "_")) %>% 
-  rename(item = ingredient, 
-         initial_vol = initial_vol_uL)
-
-kable(enzyme) %>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Lifton's with Proteinase K" = 5))
-
-
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "liftons_w_enzyme_stock.Rmd"), run_pandoc = F)
 ```
 
 **Prepare hybridization solution**
-```{r hybrid, echo=FALSE}
-hybrid <- tribble(~ingredient, ~initial_conc, ~initial_vol, ~final_conc, ~final_vol_ul,
-"M_NaCl", 4.45, NA, 2.5, NA,
-"perc_PEG_8000", 50, NA, 20, NA,
-"mM_DTT", 1000, NA, 25, NA,
-"pH2O", NA, NA, NA, NA) %>% 
-
-  mutate(final_vol_ul = extr_wide$hybr_buffer,
-         initial_vol = final_conc*final_vol_ul/initial_conc, 
-         initial_vol = ifelse(ingredient == "pH2O",final_vol_ul - sum(initial_vol, na.rm = T), initial_vol))
-
-hybrid_sup <- hybrid %>% 
-  select(ingredient, initial_vol, initial_conc) %>% 
-  mutate(initial_conc = ifelse(is.na(initial_conc), "_", initial_conc),
-    ingredient = paste(initial_conc, ingredient, "ul", sep = "_")) %>% 
-  rename(item = ingredient)
-
-kable(hybrid) %>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Hybridization Buffer" = 5))
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "hybrid_ali.Rmd"), run_pandoc = F)
 ```
 
-
+**Prepare low TE solution**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "low_te_stock.Rmd"), run_pandoc = F)
+```
 
 
 
@@ -245,51 +186,6 @@ Write the newly assigned extraction_ids to the database
 
 # dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
 
-```
-
-
-
-**Prepare low TE solution**
-```{r low_TE, echo=FALSE}
-low_te <- tribble(~ingredient, ~initial_conc, ~initial_vol, ~final_conc, ~final_vol,
-"mM_Tris-HCl_pH7.5", 1000, NA, 10, NA,
-"mM_EDTA", 500, NA, 0.1, NA,
-"pH2O", NA, NA, NA, NA) %>% 
-  mutate(final_vol = 15000, 
-         initial_vol= final_conc*final_vol/initial_conc, 
-         initial_vol = ifelse(ingredient == "pH2O",final_vol - sum(initial_vol, na.rm = T), initial_vol))
-
-lowte_sup <- low_te %>% 
-  select(ingredient, initial_vol, initial_conc) %>% 
-  mutate(initial_conc = ifelse(is.na(initial_conc), "_", initial_conc),
-    ingredient = paste(initial_conc, ingredient, "ul", sep = "_")) %>% 
-  rename(item = ingredient)
-
-kable(low_te) %>%
-  kable_styling() %>%
-  add_header_above(c("Low TE buffer" = 5))
-```
-
-Add in the supplies to make the stock solutions
-```{r}
-sup <- bind_rows(enzyme_sup, lif_sup, hybrid_sup, lowte_sup) %>% 
-  select(-initial_conc) %>% 
-  rename(quantity = initial_vol)
-
-# combine the quantities of H2O
-sup_edit <- sup %>% 
-  mutate(quantity = ifelse(item == "__pH2O_ul", quantity/1000, quantity),
-         quantity = ifelse(item == "1000_mM_Tris-HCl_pH7.5_ml", quantity*1000, quantity),
-         item = ifelse(item == "__pH2O_ul", "__pH2O_ml", item),
-         item = ifelse(item == "1000_mM_Tris-HCl_pH7.5_ml", "1000_mM_Tris-HCl_pH7.5_ul", item))
-
-extr_edit <- rbind(extr, sup_edit) %>% 
-  group_by(item) %>% 
-  summarise(quantity = sum(quantity))
-
-extr_wide_edit <- spread(extr_edit, key = item, value = quantity) %>% 
-  mutate(item = ifelse(item == "__pH2O_ml", "pH2O_ml", item), 
-         item = ifelse(item == "__Liftons_ul", "liftons_ul", item))
 ```
 
 *Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.*

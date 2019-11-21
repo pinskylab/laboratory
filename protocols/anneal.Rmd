@@ -2,6 +2,8 @@
 title: "Anneal Adapters"
 params:
   initial_conc_uM: 100
+  p1_adapter_name: "sai_universal_stock_adapter_ul"
+  p2_adapter_name: "sai_indexed_stock_adapter_ul"
 ---
 ```{r setup}
 library(tidyverse)
@@ -9,8 +11,8 @@ library(tidyverse)
 
 ```{r}
 anneal <- tribble(~item, ~quantity,
-                  "sai_universal_stock_adapter_ul", 40,
-                  "sai_indexed_stock_adapter_ul", 40, 
+                  params$p1_adapter_name, 40,
+                  params$p2_adapter_name, 40, 
                   "10x_annealing_stock_ul", 10,
                   "ph2o_ml", 0.010, 
                   "tube_screw_0.5ml", 1,

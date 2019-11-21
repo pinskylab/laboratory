@@ -1,7 +1,10 @@
 ---
 title: "Making Working Adapter Dilutions"
 params:
-  working_conc_nM: 140
+  initial_conc_uM: 200
+  working_conc_uM: 10
+  final_vol_ul: 100
+  adpater_stock: "r_p2_primer_illumina_index_stock_ul"
 ---
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -13,16 +16,21 @@ library(kableExtra)
 This recipe is the same for ddRADSeq and EecSeq protocols
 ```{r working, echo=FALSE}
 working_guide <- tribble(~item, ~initial_conc, ~final_conc, 
-                   "adapterX", 40000, params$working_conc_nM,
-                   "ph2o_ul", 0, 0 ) %>% 
-  mutate(final_vol_uL = 100,
-    initial_vol_uL = final_conc* final_vol_uL/initial_conc,
-         initial_vol_uL = ifelse(item == "ph2o_ul",final_vol_uL - sum(initial_vol_uL, na.rm = T), initial_vol_uL))
+                   params$adpater_stock, params$initial_conc_uM, params$working_conc_uM,
+                   "ph2o_ul", 0, 0) %>% 
+  mutate(final_vol_ul = params$final_vol_ul,
+         initial_vol_ul = final_conc * final_vol_ul/initial_conc,
+         initial_vol_ul = ifelse(item == "ph2o_ul",final_vol_ul - sum(initial_vol_ul, na.rm = T), initial_vol_ul))
  
-working <- tribble(~item, ~quantity,
-                   "tube_screw_0.5ml", 1,
-                   "tips_10", 1, 
-                   "tips_100", 1)
+working <- working_guide %>% 
+  select(item, initial_vol_ul) %>% 
+  rename(quantity = initial_vol_ul) %>% 
+  mutate(item = ifelse(item == "ph2o_ul", "ph2o_ml", item), 
+         quantity = ifelse(item == "ph2o_ml", quantity/1000, quantity)) %>% 
+  bind_rows(tribble(~item, ~quantity,
+                    "tips_10", 1,
+                    "tips_100", 1,
+                    "tubes_1.7ml", 1))
          
 kable(working_guide) %>%
   kable_styling("bordered") %>%

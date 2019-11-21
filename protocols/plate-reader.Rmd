@@ -12,7 +12,7 @@ library(tidyverse)
 ```{r}
 plate <- tribble(~item, ~quantity,
                  "tubes_1.7ml", 4, 
-                 "1x_TE_ul", 980 + (params$num_samples + params$num_stds)*100,
+                 "1x_te_buffer_ul", 980 + (params$num_samples + params$num_stds)*100,
                  "100_ug/ml_lambda_dna_ul", 20,
                  "pico_ul", (params$num_samples + params$num_stds)*100/200, 
                  "grenier_plates", ceiling((params$num_samples + params$num_stds)/96), 

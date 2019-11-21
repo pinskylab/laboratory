@@ -14,12 +14,14 @@ library(knitr)
 ```{r}
 amp <- tribble(~item, ~quantity,
                  "kapa_hifi_hotstart_readymix_ul", 12.5 * params$num_seq_lib,
-                 "f_p1_primer_universal_ul", 1.25 * params$num_seq_lib,
-                 "r_p2_primer_illumina_index_ul", 1.25 * params$num_seq_lib, 
+                 "f_p1_primer_universal_working_ul", 1.25 * params$num_seq_lib,
+                 "r_p2_primer_illumina_index_working_ul", 1.25 * params$num_seq_lib, 
                  "tips_100", 1,
                  "tips_10", 3 * params$num_seq_lib,
                  # make room for small or large numbers of samples
                   ifelse(params$num_seq_lib <20, "tubes_200ul", "plates"), ifelse(params$num_seq_lib < 20, params$num_seq_lib * 2, ceiling(params$num_seq_lib/96) * 2))
+
+
 ```
 
 

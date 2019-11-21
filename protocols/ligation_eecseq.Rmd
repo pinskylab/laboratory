@@ -12,8 +12,15 @@ library(tidyverse)
 
 ```{r}
 ligation <- tribble(~item, ~quantity, 
-                    
-                    )
+                    "p1_adapter_eecseq", 1.25,
+                    "p2_adapter_eecseq", 1.25,
+                    "ph2o_ml", 0.0025,
+                    "dna_ligase_ul", 5,
+                    "tips_10",4, 
+                    "tips_100", 1) %>% 
+  mutate(quantity = quantity * params$num_samples) %>% 
+  bind_rows(tribble(~item, ~quantity,
+                    ifelse(params$num_samples <20, "tubes_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples, ceiling(params$num_samples/96))))
 ```
 
 - Dilute adapter stocks to the appropriate concentration, as outlined below:
@@ -51,5 +58,5 @@ ligation <- tribble(~item, ~quantity,
   
 - Mix thoroughly and centrifuge briefly.
 - Incubate at 20°C for 60 min.
-  - Note: to achieve higher conversion rates and library yields, particularly for low-input samples, consider increasing the ligation time—to a maximum of 4 hrs at 20°C, or overnight at 4°C. Please note that longer ligation times may lead to increased levels of adapter-dimer. Adapter concentrations may have to be optimized if ligation times are extended signi cantly.
+  - Note: to achieve higher conversion rates and library yields, particularly for low-input samples, consider increasing the ligation time—to a maximum of 4 hrs at 20°C, or overnight at 4°C. Please note that longer ligation times may lead to increased levels of adapter-dimer. Adapter concentrations may have to be optimized if ligation times are extended significantly.
 - Proceed immediately to the next step.

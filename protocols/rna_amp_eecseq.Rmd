@@ -9,7 +9,7 @@ library(tidyverse)
 
 ```{r}
 rna_amp <- tribble(~item, ~quantity,
-                   "kapa_rna_library_amp_master_mix_ul", 15 * params$num_samples, 
+                   "kapa_10x_library_amp_master_mix_ul", 15 * params$num_samples, 
                    "tubes_200ul", 1 * params$num_samples,
                    "tips_100", 2 * params$num_samples)
 ```

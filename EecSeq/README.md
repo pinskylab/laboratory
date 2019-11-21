@@ -6,6 +6,12 @@ exome capture probes directly from RNA. The probes are then used from
 hybrid capture of exome DNA sequences, allowing for genotyping of
 alleles at expressed genes.
 
+**WARNING: These protocols are abridged versions of the manufacturers
+recommended protocols. Use of these protocols assumes familiarity with
+manufacutrers instructions. Please read manufacturers instructions if
+this is your first time (or first time in a while) performing these
+procedures.**
+
 # Outline
 
 ## \[RNA Prep\]

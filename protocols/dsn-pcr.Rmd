@@ -1,5 +1,8 @@
 ---
 title: "DSN PCR"
+output: html_notebook
+params:
+  num_samples: 4
 ---
 ```{r setup}
 library(tidyverse)
@@ -12,7 +15,8 @@ dsn_pcr <- tribble(~item, ~quantity,
                    "tubes_200ul", 3,
                    "tips_10", 1,
                    "tips_100", 3
-                   )
+                   ) %>% 
+  mutate(quantity = quantity * params$num_samples)
 ```
 
 

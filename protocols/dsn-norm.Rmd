@@ -1,5 +1,6 @@
 ---
 title: "DSN normalization"
+output: html_notebook
 params:
   num_rna: 4
   num_lib: 1

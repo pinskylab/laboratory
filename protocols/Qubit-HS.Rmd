@@ -1,6 +1,5 @@
 ---
 title: "Qubit - High Sensitivity"
-output: html_notebook
 params:
   num_samples: 1
 ---
@@ -25,19 +24,19 @@ qubit <- tribble(~item, ~quantity,
 
 ```
 
-## Procedure (Standard HS DNA protocol)
-- Set up the required number of 0.5-mL tubes for standards and samples. The Qubit® RNA HS Assay requires 2 standards.
-- Label the tube lids.
-- Prepare the Qubit® working solution by diluting the Qubit® DNA HS Reagent 1:200 in Qubit® DNA HS Buffer. Use a clean plastic tube each time you prepare Qubit® working solution. **Do not mix the working solution in a glass container.**
-- Add 190 μL of Qubit® working solution to each of the tubes used for standards.
-- Add 10 μL of each Qubit® standard to the appropriate tube, then mix by vortexing 2–3 seconds. Be careful not to create bubbles.
-- Add Qubit® working solution to individual assay tubes so that the final volume in each tube after adding sample is 200 μL.
-- Add each sample to the assay tubes containing the correct volume of Qubit® working solution, then mix by vortexing 2–3 seconds. The final volume in each tube should be 200 μL.
-- Allow all tubes to incubate at room temperature for 2 minutes.
-- On the Home screen of the Qubit® 3.0 Fluorometer, press DNA, then select DNA: High Sensitivity as the assay type. The “Read standards” screen is displayed. Press Read Standards to proceed.
-- Insert the tube containing Standard #1 into the sample chamber, close the lid, then press Read standard. When the reading is complete (~3 seconds), remove Standard #1.
-- Insert the tube containing Standard #2 into the sample chamber, close the lid, then press Read standard. When the reading is complete, remove Standard #2.
-- Press Run samples.
-- On the assay screen, select the sample volume and units
-- Insert a sample tube into the sample chamber, close the lid, then press Read tube. When the reading is complete (~3 seconds), remove the sample tube.
-- Repeat step last step until all samples have been read
+Procedure (Standard HS DNA protocol)**
+* Set up the required number of 0.5-mL tubes for standards and samples. The Qubit® RNA HS Assay requires 2 standards.
+* Label the tube lids.
+* Prepare the Qubit® working solution by diluting the Qubit® DNA HS Reagent 1:200 in Qubit® DNA HS Buffer. Use a clean plastic tube each time you prepare Qubit® working solution. **Do not mix the working solution in a glass container.**
+* Add 190 μL of Qubit® working solution to each of the tubes used for standards.
+* Add 10 μL of each Qubit® standard to the appropriate tube, then mix by vortexing 2–3 seconds. Be careful not to create bubbles.
+* Add Qubit® working solution to individual assay tubes so that the final volume in each tube after adding sample is 200 μL.
+* Add each sample to the assay tubes containing the correct volume of Qubit® working solution, then mix by vortexing 2–3 seconds. The final volume in each tube should be 200 μL.
+* Allow all tubes to incubate at room temperature for 2 minutes.
+* On the Home screen of the Qubit® 3.0 Fluorometer, press DNA, then select DNA: High Sensitivity as the assay type. The “Read standards” screen is displayed. Press Read Standards to proceed.
+* Insert the tube containing Standard #1 into the sample chamber, close the lid, then press Read standard. When the reading is complete (~3 seconds), remove Standard #1.
+* Insert the tube containing Standard #2 into the sample chamber, close the lid, then press Read standard. When the reading is complete, remove Standard #2.
+* Press Run samples.
+* On the assay screen, select the sample volume and units
+* Insert a sample tube into the sample chamber, close the lid, then press Read tube. When the reading is complete (~3 seconds), remove the sample tube.
+* Repeat step last step until all samples have been read

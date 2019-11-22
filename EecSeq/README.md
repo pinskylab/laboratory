@@ -28,7 +28,9 @@ procedures.**
   - [4. Anneal
     adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
     
-      - Anneal the SAI Universal and Indexed adapters
+      - Anneal the SAI Universal and Indexed adapters  
+      - These indexes are identical to the indexes used in the
+        corresponding illumina primers (5, 8, 9, and 11)
 
   - [5. mRNA
     capture](https://pinskylab.github.io/laboratory/protocols/mrna-capture.nb.html)
@@ -178,8 +180,19 @@ mRNA library can be saved before DSN normalization for sequencing.
 
 ## \[Genomic Library Prep\]
 
-  - [Anneal Adapters](#anneal-adapters)
-  - [End Repair](#end-repair)
+  - [27. Extract
+    DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
+      - elute DNA into water and continue immediately to next step. Do
+        not use an EDTA containing solution to elute.
+  - [27. Anneal P1
+    Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+      - adapter names are “p1\_barcoded\_adapter\_1\_ul” and
+        “p1\_barcoded\_adapter\_2\_ul”
+  - [28. Anneal P2
+    Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+      - adapter names are “p2\_adapter\_1\_ul” and “p2\_adapter\_2\_ul”
+  - [29. End
+    Repair](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
   - [Adapter ligation](#adapter-ligation)
   - [Quantification](#quant-samples)
   - [Amplification](#library-amplification)

@@ -31,6 +31,9 @@ readr::read_csv("field season, extraction method, ligation setup, baits
 [3. Digest](https://pinskylab.github.io/laboratory/protocols/digest_dna.nb.html)  
 [4. Clean](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
 [5. Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
+[Anneal?](https://pinskylab.github.io/laboratory/protocols/anneal.html)  
+- If adapters, oligos, or primers need to be rehydrated, it should be done the day before they are needed.  This is a good place to check supplies and make sure you have plenty of working stock of the oligos.  
+
 [6. Robot](https://pinskylab.github.io/laboratory/protocols/robot.html)  
 [7. Ligate DNA](https://pinskylab.github.io/laboratory/protocols/ligation_ddradseq.nb.html)  
 [8. Pool](https://pinskylab.github.io/laboratory/protocols/pool.nb.html)  

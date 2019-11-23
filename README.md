@@ -3,6 +3,14 @@ Laboratory Work
 
 ## This repository holds the methods we use for sequencing library preparation.
 
+#### Suggested Use
+
+Our protocols change over time. If you want to create a snapshot of your
+method at the time you ran the protocol, create a release. This will
+create an archive of the method that you can refer back to years later
+when you want to share a tip with someone or reference your work in a
+manuscript.
+
 ### [ddRADSeq](ddRADSeq)
 
 This

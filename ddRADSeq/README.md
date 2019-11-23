@@ -6,10 +6,6 @@ ddRADSeq Library Prep
 Some of our methods have changed over time. Here is a very simplified
 breakdown of which protocols were used with which samples.
 
-    ## Registered S3 method overwritten by 'rvest':
-    ##   method            from
-    ##   read_xml.response xml2
-
 <table class="table" style="margin-left: auto; margin-right: auto;">
 
 <thead>
@@ -264,6 +260,11 @@ Digest](https://pinskylab.github.io/laboratory/protocols/digest_dna.nb.html)
 Clean](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
 [5.
 Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
+[Anneal?](https://pinskylab.github.io/laboratory/protocols/anneal.html)  
+\- If adapters, oligos, or primers need to be rehydrated, it should be
+done the day before they are needed. This is a good place to check
+supplies and make sure you have plenty of working stock of the oligos.
+
 [6.
 Robot](https://pinskylab.github.io/laboratory/protocols/robot.html)  
 [7. Ligate

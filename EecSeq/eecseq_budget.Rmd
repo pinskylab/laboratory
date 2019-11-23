@@ -3,10 +3,10 @@ title: "Create a budget for the protocol"
 params: 
   num_rna_samples: 4
   num_dna_samples: 160
-  num_pools: 1
+  num_pools: 12
   num_seq_lib: 1
   num_rna_lib: 1
-  num_dna_adapters: 48
+  num_dna_adapters: 14
   num_rna_adapters: 4
 ---
 
@@ -56,7 +56,9 @@ render(here("protocols", "quant_dna.Rmd"), params = list(
 ```{r bioanalyzer1}
 render(here("protocols", "bioanalyzer.Rmd"), params = list(
   num_samples = params$num_rna_samples), run_pandoc = F)
-bioanalyzer1 <- bioanalyzer
+bioanalyzer1 <- bioanalyzer %>% 
+  # because this run can't share wells with later runs:
+  mutate(quantity = quantity + (12-quantity))
 rm(bioanalyzer)
 ```
 
@@ -68,7 +70,9 @@ render(here("protocols", "anneal.Rmd"), params = list(
   p2_adapter_name="sai_indexed_stock_adapter_ul"), run_pandoc = F)
 anneal <- anneal %>% 
   # make for 4 adapters
-  mutate(quantity = quantity * params$num_rna_adapters)
+  mutate(quantity = quantity * params$num_rna_adapters, 
+         #multiple the indexes by 5 to eke the quantity up enough to register that we need to buy 4 of them.
+         quantity = ifelse(grepl("index", item), quantity * 5, quantity))
 anneal1 <- anneal
 rm(anneal)
 
@@ -82,7 +86,7 @@ render(here("protocols", "adapter_working_stock.Rmd"), params = list(
   initial_conc_uM = 40,
   working_conc_uM = 10, 
   final_vol_ul = 100, 
-  adpater_stock = "sai_stock_adapter_ul"
+  adpater_stock = "sai_working_adapter_ul"
 ),run_pandoc = F)
 working1 <- working %>% 
   # make for 4 adapters
@@ -256,7 +260,9 @@ render(here("protocols", "remove-adapters_eecseq.Rmd"),params = list(
 ```{r bioanalyzer2}
 render(here("protocols", "bioanalyzer.Rmd"), params = list(
   num_samples = params$num_seq_lib), run_pandoc = F)
-bioanalyzer2 <- bioanalyzer
+bioanalyzer2 <- bioanalyzer  %>% 
+  # because this run can't share wells with later runs:
+  mutate(quantity = quantity + (12-quantity))
 rm(bioanalyzer)
 ```
 
@@ -322,7 +328,9 @@ render(here("protocols", "quant_dna.Rmd"), params = list(
 ```{r bioanalyzer3}
 render(here("protocols", "bioanalyzer.Rmd"), params = list(
   num_samples = params$num_seq_lib), run_pandoc = F)
-bioanalyzer3 <- bioanalyzer
+bioanalyzer3 <- bioanalyzer %>% 
+  # because this run can't share wells with later runs:
+  mutate(quantity = quantity + (12-quantity))
 rm(bioanalyzer)
 ```
 
@@ -339,16 +347,16 @@ This is a safe stopping point. If you are stopping, store your sample at ‐15°
 render(here("protocols", "anneal.Rmd"), params = list(
     initial_conc_uM = 100,
   p1_adapter_name = "p1_barcoded_adapter_1_ul",
-  p2_adapter_name = "p1_barcoded_adapter_2_ul"), run_pandoc = F)
+  p2_adapter_name = "p1_barcoded_adapter_2_ul"), run_pandoc = F) 
 anneal2 <- anneal %>% 
-    mutate(quantity = quantity * params$num_dna_adapters)
+    mutate(quantity = quantity * params$num_dna_adapters * 5)
 rm(anneal)
 ```
 ```{r anneal3}
 render(here("protocols", "anneal.Rmd"), params = list(
     initial_conc_uM = 100,
-  p1_adapter_name = "p2_barcoded_adapter_1_ul",
-  p2_adapter_name = "p2_barcoded_adapter_2_ul"), run_pandoc = F)
+  p1_adapter_name = "p2_adapter_1_ul",
+  p2_adapter_name = "p2_adapter_2_ul"), run_pandoc = F)
 anneal3 <- anneal 
 rm(anneal)
 ```
@@ -392,42 +400,18 @@ render(here("protocols", "liftons_w_enzyme_stock.Rmd"), run_pandoc = F)
 ```
 
 ### Fragment DNA
-If not using a sonicator, skip End Repair section and instead do a digest
-```{r digest-dna}
-render(here("protocols", "digest_dna.Rmd"),params = list(
-  digest_rxn_size = 30,
+
+```{r kapa-hyper}
+render(here("protocols", "kapa-hyper.Rmd"),params = list(
   num_samples = params$num_dna_samples), run_pandoc = F)
 ```
 
-
-### Procedure
-
 ### End repair
-- Adjust sample volume of 500 ng fragmented DNA to 22.5 ul.
-- Add the following to each sample:
+```{r end-repair}
+render(here("protocols", "end-repair.Rmd"),params = list(
+  num_samples = params$num_dna_samples), run_pandoc = F)
+```
 
-|Component|Volume|
-|---------|------|
-|KAPA Frag Buffer (10X) | 2.5|
-|End Repair & A-Tailing Buffer- | 3.5 ul|
-|End Repair & A-Tailing Enzyme Mix- | 1.5 ul|
-|Fragmented, double-stranded DNA| 25 ul |
-|--Total Volume--| --30 ul--|
-
-  - The buffer and enzyme mix should preferably be pre-mixed and added in a single pipetting step. 
-    - Premixes are stable for ≤24 hrs at room temperature, for ≤3 days at 4°C, and for ≤4 weeks at -20°C
-  - Vortex gently and spin down briefly. Return the reaction plate/tube(s) to ice. Proceed immediately to the next step.
-  - Incubate in a thermocycler programmed as outlined below. A heated lid is required for this step. If possible, set the temperature of the heated lid to ~85°C (instead of the usual 105°C).
-
-|Step|Temp|Time|
-|----|----|--------|
-|End repair and A-tailing 1|20 °C|30 min|
-|End repair and A-tailing 2|65 °C|30 min|
-|Hold|10 °C | ∞|
-
-- Notes
-  - A heated lid is required for this incubation. If possible, set the temperature of the lid at 85°C, instead of the usual ~105°C.
-  - If proceeding to the adapter ligation reaction setup without any delay, the reaction may be cooled to 20°C instead of 4°C.
 
 ### Adapter ligation
 ```{r ligate-dna}
@@ -521,40 +505,68 @@ This is a safe stopping point. If you are stopping, store your sample at ‐15°
 
 render(here("protocols", "hybridization_eecseq.Rmd"), params = list(
   lib_size_ng = 500, 
-  num_seq_lib = 1))
+  num_seq_lib = 1), run_pandoc = F)
 
 # may need to make 500mM EDTA stock solution - 50mL
 render(here("protocols", "edta_stock.Rmd"), params = list(
   final_conc_M = 0.500,
-  final_vol_l = 0.050))
+  final_vol_l = 0.050), run_pandoc = F)
 
 # may need to make 10% SDS stock solution - 50mL
 render(here("protocols", "sds_stock.Rmd"), params = list(
   final_conc_perc = 10,
-  final_vol_ml = 50))
+  final_vol_ml = 50), run_pandoc = F)
 
 # may need to make TEN stock solution - 50 ml
 render(here("protocols", "ten_stock.Rmd"), params = list(
- final_vol_ul = 50000))
+ final_vol_ul = 50000), run_pandoc = F)
+
+# may need to make 20x SSC - 50 ml
+render(here("protocols", "ssc_stock.Rmd"), params = list(
+  final_vol_l = 0.050), run_pandoc = F)
 
 # may need to make various SSC / 0.1% SDS stock solution - 50 ml
 render(here("protocols", "ssc_sds_stock_eecseq.Rmd"), params = list(
  final_vol_ul = 500, 
- perc_ssc = 1))
+ perc_ssc = 1), run_pandoc = F)
 wash1 <- wash
 rm(wash)
 
 render(here("protocols", "ssc_sds_stock_eecseq.Rmd"), params = list(
  final_vol_ul = 500, 
- perc_ssc = 0.5))
+ perc_ssc = 0.5), run_pandoc = F)
 wash2 <- wash
 rm(wash)
 
 render(here("protocols", "ssc_sds_stock_eecseq.Rmd"), params = list(
  final_vol_ul = 500, 
- perc_ssc = 0.1))
+ perc_ssc = 0.1), run_pandoc = F)
 wash3 <- wash
 rm(wash)
+
+# make working stocks of blocking oligos
+render(here("protocols", "adapter_working_stock.Rmd"), params = list(
+ adpater_stock ="blocking_oligo_p5_stock_ul", 
+ initial_conc_uM = 200,
+  working_conc_uM = 40,
+  final_vol_ul = 100), run_pandoc = F)
+working <- working %>% 
+  # request enough to ping 2 oligos
+  mutate(quantity = quantity * 10 * 2)
+working8 <- working
+rm(working)
+
+
+render(here("protocols", "adapter_working_stock.Rmd"), params = list(
+ adpater_stock ="blocking_oligo_p7_stock_ul", 
+ initial_conc_uM = 200,
+  working_conc_uM = 40,
+  final_vol_ul = 100), run_pandoc = F)
+working <- working %>% 
+  # request enough to ping 2 oligos
+  mutate(quantity = quantity * 10 * 2)
+working9 <- working
+rm(working)
 ```
 					
 
@@ -620,7 +632,10 @@ render(here("protocols", "quant_dna.Rmd"), params = list(
 ```{r bioanalyzer4}
 render(here("protocols", "bioanalyzer.Rmd"), params = list(
   num_samples = params$num_seq_lib), run_pandoc = F)
-bioanalyzer4 <- bioanalyzer
+bioanalyzer4 <- bioanalyzer %>% 
+  # because this run can't share wells with later runs:
+  mutate(quantity = quantity + (12-quantity))
+rm(bioanalyzer)
 ```
 ### Sequencing
 ```{r sequencing}
@@ -631,26 +646,30 @@ seq <- tribble(~item, ~quantity,
 
 # Combine the lists
 ```{r combine}
-all_lists <- bind_rows(a_tailing, amp, ampure1, ampure2, ampure3, ampure4, ampure5, ampure6, ampure7, ampure8, ampure9, ampure10, ampure11,  anneal1, anneal2, anneal3, annealing, bioanalyzer1, bioanalyzer2, bioanalyzer3, bioanalyzer4, biotin, clean, digest_dna, dsn_norm, dsn_pcr, dyna, edta, enzyme, extr, hybrid, kapa_clean, liftons, ligation, mrna_capture, nacl, quant5, quant6, pool, quant1, quant2, quant3, quant4, reamp, remove, rna_amp, rna_extr, rna_ligation, sds, synthesis, TEN, tris_hcl, wash3, wash1, wash2, working1, working2, working3, working4, working5, working6, working7, seq)
+all_lists <- bind_rows(a_tailing, amp, ampure1, ampure2, ampure3, ampure4, ampure5, ampure6, ampure7, ampure8, ampure9, ampure10, ampure11,  anneal1, anneal2, anneal3, annealing, bioanalyzer1, bioanalyzer2, bioanalyzer3, bioanalyzer4, biotin, clean, dsn_norm, dsn_pcr, dyna, edta, enzyme, extr, hybrid, hyper, kapa_clean, liftons, ligation, mrna_capture, nacl, quant5, quant6, pool, quant1, quant2, quant3, quant4, reamp, remove, repair, rna_amp, rna_extr, rna_ligation, sds, synthesis, TEN, tris_hcl, wash3, wash1, wash2, working1, working2, working3, working4, working5, working6, working7, working8, working9,seq)
 
 all_sum <- all_lists %>% 
   group_by(item) %>% 
   summarise(quantity = ceiling(sum(quantity))) %>% 
   # adjust the size of the ampure purchase if needed
   mutate(item = ifelse(item == "ampure_ul", 
-                       ifelse(quantity > 60000, "ampure_450", "ampure_60"),item))%>% 
+                       ifelse(quantity > 60000, "ampure_450", "ampure_60"),item), 
+         item = ifelse(item == "ampure_60", 
+                       ifelse(quantity < 5000, "ampure_5", "ampure_60"),item),)%>% 
   arrange()
 ```
 
 # Merge with inventory costs
 ```{r inventory}
 # enter code here to look up inventory on google drive
-inventory_file <- googledrive::drive_get("~/Pinsky Lab Orders/Inventory")
-sheets_deauth()
-inventory_raw <- read_sheet(inventory_file, sheet = "Inventory", col_types = "c????n???n????")
+# inventory_file <- googledrive::drive_get("~/Pinsky Lab Orders/Inventory")
+inventory_file <- drive_get("~/Pinsky Lab Orders/Inventory")
+# sheets_deauth()
+inventory_raw <- read_sheet(inventory_file, sheet = "Inventory", col_types = "c??ccn???n????") 
+inventory <- filter(inventory_raw, Discontinued == "N")
 
-supplies <- left_join(all_sum, inventory_raw, by = "item") %>% 
-  select(item, quantity, currently_have, vendor, item_number, quantity_sold, price) %>% 
+supplies <- left_join(all_sum, inventory, by = "item") %>% 
+  select(date, item, quantity, currently_have, vendor, item_number, quantity_sold, price) %>% 
   mutate(cost_per_unit = price/quantity_sold,
          cost_per_project = cost_per_unit * quantity) %>% 
   arrange(price) %>% 
@@ -669,10 +688,17 @@ cost_per_sample <- project_cost %>%
 ### What do we really need to purchase
 ```{r}
 to_buy <- supplies %>% 
-  filter(quantity >= currently_have) %>% 
-  filter(price != 0)
+  filter(quantity >= currently_have, price != 0, vendor != "in house") %>%
+  mutate(need = ceiling((quantity - currently_have)/quantity_sold)) %>% 
+  select(vendor, need, item, quantity, quantity_sold, currently_have, date, price) %>% 
+  arrange(vendor) 
 
 cost_to_buy <- to_buy %>% 
-  summarise(cost = sum(price, na.rm = T))
+  summarise(cost = sum(price * need, na.rm = T)) 
 ```
 
+## Method for ordering oligos
+*Have to place order through the quick order, which means these don't show up on Pinsky account but they do show up under my account when I log in through quick order portal.*  
+
+I am copying the oligo from Jon's protocol and pasting it into the find window of our master oligo sheet to see if we already have it.  
+- SAI1_Adapters - don't expect to have this and didn't find a match.

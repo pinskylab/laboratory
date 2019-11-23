@@ -108,16 +108,21 @@ This is a safe stopping point. If you are stopping, store your sample at ‐15°
 This is a safe stopping point. If you are stopping, store your sample at ‐15° to ‐25°C.
 
 ## [Genomic Library Prep]
-- [27. Extract DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)  
-    - elute DNA into water and continue immediately to next step.  Do not use an EDTA containing solution to elute.
-    
 - [27. Anneal P1 Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)  
     - adapter names are "p1_barcoded_adapter_1_ul" and "p1_barcoded_adapter_2_ul"
     
 - [28. Anneal P2 Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)  
     - adapter names are "p2_adapter_1_ul" and "p2_adapter_2_ul"
     
-- [29. End Repair](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+- [29. Extract DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)  
+    - **elute DNA into 35ul water or Tris-HCl and continue immediately to next step.  Do not use an EDTA containing solution like TE to elute.**    
+
+- [30. Fragment DNA](https://pinskylab.github.io/laboratory/protocols/kapa-hyper.nb.html)  
+
+    - EecSeq protocol says to use 1/2 the reaction volume recommended by KAPA.
+    
+- [31. End Repair](https://pinskylab.github.io/laboratory/protocols/end-repair.nb.html)
+
 - [Adapter ligation](#adapter-ligation)
 - [Quantification](#quant-samples)
 - [Amplification](#library-amplification)

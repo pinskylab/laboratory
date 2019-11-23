@@ -180,21 +180,34 @@ mRNA library can be saved before DSN normalization for sequencing.
 
 ## \[Genomic Library Prep\]
 
-  - [27. Extract
-    DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
-      - elute DNA into water and continue immediately to next step. Do
-        not use an EDTA containing solution to elute.
   - [27. Anneal P1
     Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+    
       - adapter names are “p1\_barcoded\_adapter\_1\_ul” and
         “p1\_barcoded\_adapter\_2\_ul”
+
   - [28. Anneal P2
     Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+    
       - adapter names are “p2\_adapter\_1\_ul” and “p2\_adapter\_2\_ul”
-  - [29. End
+
+  - [29. Extract
+    DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
+    
+      - **elute DNA into water or Tris-HCl and continue immediately to
+        next step. Do not use an EDTA containing solution like TE to
+        elute.**
+
+  - [30. Fragment
+    DNA](https://pinskylab.github.io/laboratory/protocols/kapa-hyper.nb.html)
+
+  - [31. End
     Repair](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+
   - [Adapter ligation](#adapter-ligation)
+
   - [Quantification](#quant-samples)
+
   - [Amplification](#library-amplification)
 
 [Hybridization and Capture](#hybridization-and-capture) - [Blocking

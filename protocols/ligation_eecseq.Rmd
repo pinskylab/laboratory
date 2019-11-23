@@ -10,12 +10,9 @@ library(tidyverse)
 
 ### Adapter ligation
 
-```{r}
+```{r ligate}
 ligation <- tribble(~item, ~quantity, 
-                    "p1_adapter_eecseq", 1.25,
-                    "p2_adapter_eecseq", 1.25,
                     "ph2o_ml", 0.0025,
-                    "dna_ligase_ul", 5,
                     "tips_10",4, 
                     "tips_100", 1) %>% 
   mutate(quantity = quantity * params$num_samples) %>% 

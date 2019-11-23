@@ -19,7 +19,7 @@ ampure <- tribble(~item, ~quantity,
                   "tips_1000", params$num_samples * 5, 
                   "ethanol_ul", params$num_samples * 400, 
                   "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25, 
-                  "ampure_ul", params$ampure_vol_ul)
+                  "ampure_ul", params$ampure_vol_ul) 
 ```
 
 

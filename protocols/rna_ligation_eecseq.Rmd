@@ -12,7 +12,8 @@ library(tidyverse)
 rna_ligation <- tribble(~item, ~quantity,
                         "kapa_rna_adapter_ligation_master_mix_ul", 17.5, 
                         "tips_100", 2 * params$num_samples,
-                        "tubes_200ul", 2 * params$num_samples)
+                        "tubes_200ul", 2 * params$num_samples, 
+                        "sai_working_adapter_ul", 2.5 * params$num_samples)
 ```
 
 #### Adapter concentration will vary depending on overall RNA yield, see table below:

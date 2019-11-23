@@ -10,7 +10,7 @@ library(tidyverse)
 
 ```{r}
 mrna_capture <- tribble(~item, ~quantity,
-                     "kapa_mrna_capture_beads_ul", 26.25* params$num_samples,
+                        "kapa_mrna_stranded_kit_script_ul", 2,
                      "tubes_200ul", 1, 
                      "tips_100", 2,
                      "kapa_mrna_bead_binding_buffer_ul", 26.25* params$num_samples*2,
@@ -151,4 +151,4 @@ For Puritz and Lotterhos 2017, we used 4000 ng starting RNA, but because of diff
 ---
 
 ### Safe Stopping Point
-Resuspended beads with captured mRNA may be stored at 4 oC for up to 24 hours. Do not freeze the samples as this will damage the beads. When ready, proceed to step below.
+Resuspended beads with captured mRNA may be stored at 4C for up to 24 hours. Do not freeze the samples as this will damage the beads. When ready, proceed to step below.

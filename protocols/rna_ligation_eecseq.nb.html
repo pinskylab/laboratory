@@ -1908,19 +1908,25 @@ $(document).ready(function () {
       <a href="a-tailing.nb.html">8. A-Tailing</a>
     </li>
     <li>
-      <a href="09_clean_pool.nb.html">9. Clean</a>
+      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
     </li>
     <li>
-      <a href="10_pippin.nb.html">10. Pippin</a>
+      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
     </li>
     <li>
-      <a href="11_pcr.nb.html">11. PCR</a>
+      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
     </li>
     <li>
-      <a href="12_baits.nb.html">12. Baits</a>
+      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
     </li>
     <li>
-      <a href="13_sequence_prep.nb.html">13. Sequence Prep</a>
+      <a href="ampure.nb.html">13. Cleanup</a>
+    </li>
+    <li>
+      <a href="Qubit-HS.nb.html">14. Quantify</a>
+    </li>
+    <li>
+      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
     </li>
   </ul>
 </li>
@@ -2035,7 +2041,7 @@ $(document).ready(function () {
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUk5BIGFkYXB0ZXIgbGlnYXRpb24iCm91dHB1dDogaHRtbF9ub3RlYm9vawpwYXJhbXM6CiAgbnVtX3NhbXBsZXM6IDQKLS0tCmBgYHtyIHNldHVwfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgpgYGB7cn0Kcm5hX2xpZ2F0aW9uIDwtIHRyaWJibGUofml0ZW0sIH5xdWFudGl0eSwKICAgICAgICAgICAgICAgICAgICAgICAgImthcGFfcm5hX2FkYXB0ZXJfbGlnYXRpb25fbWFzdGVyX21peF91bCIsIDE3LjUsIAogICAgICAgICAgICAgICAgICAgICAgICAidGlwc18xMDAiLCAyICogcGFyYW1zJG51bV9zYW1wbGVzLAogICAgICAgICAgICAgICAgICAgICAgICAidHViZXNfMjAwdWwiLCAyICogcGFyYW1zJG51bV9zYW1wbGVzKQpgYGAKCiMjIyMgQWRhcHRlciBjb25jZW50cmF0aW9uIHdpbGwgdmFyeSBkZXBlbmRpbmcgb24gb3ZlcmFsbCBSTkEgeWllbGQsIHNlZSB0YWJsZSBiZWxvdzoKCnxRdWFudGl0eSBvZiBzdGFydGluZyBtYXRlcmlhbHxBZGFwdGVyIHN0b2NrIGNvbmNlbnRyYXRpb258QWRhcHRlciBjb25jZW50cmF0aW9uIGluIGxpZ2F0aW9uIHJlYWN0aW9ufAp8LS0tLXwtLS0tfC0tLS0tfAp8MTAwIOKAkyAyNTAgbmd8MTQwIG5NfCAxMCBuTXwKfDI1MSDigJMgNTAwIG5nfDM1MCBuTXwyNSBuTXwKfDUwMSDigJMgMjAwMCBuZ3w3MDAgbk18NTAgbk18CnwyMDAxIOKAkyA0MDAwIG5nfDE0MDAgbk18MTAwIG5NfAoKRm9yIFB1cml0eiBhbmQgTG90dGVyaG9zIDIwMTcsIHdlIHVzZWQgNDAwMCBuZyBzdGFydGluZyBSTkEsIGJ1dCBiZWNhdXNlIG9mIGRpZmZpY3VsdGllcyBhc3Nlc3NpbmcgYW5kIHF1YW50aWZ5aW5nIG1vbGx1c2NhbiBSTkEsIHdlIGNob3NlIHRvIHVzZSBhIDcwMCBuTSB3b3JraW5nIHN0b2NrIHdpdGggYSBmaW5hbCByZWFjdGlvbiBjb25jZW50cmF0aW9uIG9mIDUwIG5NLgoKIyMjIyBUaGlzIHdpbGwgYmUgd2hlcmUgd2UgaW5zZXJ0IHRoZSBjdXN0b20gYWRhcHRlcnMgdGhhdCBhcmUgYmFyY29kZWQgd2l0aCBSRSBzaXRlcwoKLSBTZXQgdXAgdGhlIGFkYXB0ZXIgbGlnYXRpb24gcmVhY3Rpb25zIGFzIGZvbGxvd3M6Cgp8Q29tcG9uZW50fFZvbHVtZXwKfC0tLS0tLS0tLXwtLS0tLS18CnxCZWFkcyB3aXRoIEEtdGFpbGVkIEROQXwgMTUgdWwgfAp8QWRhcHRlciBMaWdhdGlvbiBNYXN0ZXIgTWl4fCAxNy41IHVsIHwKfC0tQWRhcHRlcnMtLS18IDIuNSB1bHwKfC0tVG90YWwgVm9sdW1lLS18IC0tMzUgdWwtLXwKCgotIE1peCB0aG9yb3VnaGx5IGJ5IHBpcGV0dGluZyB1cCBhbmQgZG93biBzZXZlcmFsIHRpbWVzIHRvIHJlc3VzcGVuZCB0aGUgYmVhZHMuCi0gSW5jdWJhdGUgdGhlIHBsYXRlL3R1YmUgYXQgMjAgwrBDIGZvciAzMCBtaW4uCi0gUHJvY2VlZCBpbW1lZGlhdGVseSB0byAtLTFzdCBQb3N0LUxpZ2F0aW9uIENsZWFudXAtLS4K</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUk5BIGFkYXB0ZXIgbGlnYXRpb24iCm91dHB1dDogaHRtbF9ub3RlYm9vawpwYXJhbXM6CiAgbnVtX3NhbXBsZXM6IDQKLS0tCmBgYHtyIHNldHVwfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgpgYGB7cn0Kcm5hX2xpZ2F0aW9uIDwtIHRyaWJibGUofml0ZW0sIH5xdWFudGl0eSwKICAgICAgICAgICAgICAgICAgICAgICAgImthcGFfcm5hX2FkYXB0ZXJfbGlnYXRpb25fbWFzdGVyX21peF91bCIsIDE3LjUsIAogICAgICAgICAgICAgICAgICAgICAgICAidGlwc18xMDAiLCAyICogcGFyYW1zJG51bV9zYW1wbGVzLAogICAgICAgICAgICAgICAgICAgICAgICAidHViZXNfMjAwdWwiLCAyICogcGFyYW1zJG51bV9zYW1wbGVzLCAKICAgICAgICAgICAgICAgICAgICAgICAgInNhaV93b3JraW5nX2FkYXB0ZXJfdWwiLCAyLjUgKiBwYXJhbXMkbnVtX3NhbXBsZXMpCmBgYAoKIyMjIyBBZGFwdGVyIGNvbmNlbnRyYXRpb24gd2lsbCB2YXJ5IGRlcGVuZGluZyBvbiBvdmVyYWxsIFJOQSB5aWVsZCwgc2VlIHRhYmxlIGJlbG93OgoKfFF1YW50aXR5IG9mIHN0YXJ0aW5nIG1hdGVyaWFsfEFkYXB0ZXIgc3RvY2sgY29uY2VudHJhdGlvbnxBZGFwdGVyIGNvbmNlbnRyYXRpb24gaW4gbGlnYXRpb24gcmVhY3Rpb258CnwtLS0tfC0tLS18LS0tLS18CnwxMDAg4oCTIDI1MCBuZ3wxNDAgbk18IDEwIG5NfAp8MjUxIOKAkyA1MDAgbmd8MzUwIG5NfDI1IG5NfAp8NTAxIOKAkyAyMDAwIG5nfDcwMCBuTXw1MCBuTXwKfDIwMDEg4oCTIDQwMDAgbmd8MTQwMCBuTXwxMDAgbk18CgpGb3IgUHVyaXR6IGFuZCBMb3R0ZXJob3MgMjAxNywgd2UgdXNlZCA0MDAwIG5nIHN0YXJ0aW5nIFJOQSwgYnV0IGJlY2F1c2Ugb2YgZGlmZmljdWx0aWVzIGFzc2Vzc2luZyBhbmQgcXVhbnRpZnlpbmcgbW9sbHVzY2FuIFJOQSwgd2UgY2hvc2UgdG8gdXNlIGEgNzAwIG5NIHdvcmtpbmcgc3RvY2sgd2l0aCBhIGZpbmFsIHJlYWN0aW9uIGNvbmNlbnRyYXRpb24gb2YgNTAgbk0uCgojIyMjIFRoaXMgd2lsbCBiZSB3aGVyZSB3ZSBpbnNlcnQgdGhlIGN1c3RvbSBhZGFwdGVycyB0aGF0IGFyZSBiYXJjb2RlZCB3aXRoIFJFIHNpdGVzCgotIFNldCB1cCB0aGUgYWRhcHRlciBsaWdhdGlvbiByZWFjdGlvbnMgYXMgZm9sbG93czoKCnxDb21wb25lbnR8Vm9sdW1lfAp8LS0tLS0tLS0tfC0tLS0tLXwKfEJlYWRzIHdpdGggQS10YWlsZWQgRE5BfCAxNSB1bCB8CnxBZGFwdGVyIExpZ2F0aW9uIE1hc3RlciBNaXh8IDE3LjUgdWwgfAp8LS1BZGFwdGVycy0tLXwgMi41IHVsfAp8LS1Ub3RhbCBWb2x1bWUtLXwgLS0zNSB1bC0tfAoKCi0gTWl4IHRob3JvdWdobHkgYnkgcGlwZXR0aW5nIHVwIGFuZCBkb3duIHNldmVyYWwgdGltZXMgdG8gcmVzdXNwZW5kIHRoZSBiZWFkcy4KLSBJbmN1YmF0ZSB0aGUgcGxhdGUvdHViZSBhdCAyMCDCsEMgZm9yIDMwIG1pbi4KLSBQcm9jZWVkIGltbWVkaWF0ZWx5IHRvIC0tMXN0IFBvc3QtTGlnYXRpb24gQ2xlYW51cC0tLgo=</div>
 
 
 

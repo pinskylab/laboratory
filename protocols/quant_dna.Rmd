@@ -2,11 +2,11 @@
 title: "DNA Quantification"
 output: html_notebook
 params:
-  num_samples: 160
+  num_dna_samples: 160
   num_stds: 8
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 library(tidyverse)
 ```
 
@@ -161,7 +161,7 @@ Once you have completed all of the steps in the quant_prep.pdf, it is time to im
 
 <!-- # tried to use readr here but it returns all NAs for the table -->
 <!-- # dat1 <- read_table(file, skip = 6, n_max = 88, col_names = c("Sample", 	"Wells", 	"RFU_Values", 	"Concentration", 	"Mean_Conc", 	"SD", 	"CV", 	"Dilution", 	"AdjConc"	)) -->
-```{r reader_results, echo=FALSE, message=FALSE, eval=FALSE}
+```{r echo=FALSE, message=FALSE, eval=FALSE}
 # determine number of lines to skip before data begins
 strs <- readLines(params$file, skipNul = T)
 # add the \t's for this round only, excel added them in
@@ -179,7 +179,7 @@ dat <- read.table(text=strs,  skip = linestoskip, sep = "\t", header = T, fill =
   select(Sample, well, AdjConc)
 ```
 2. Connect names of samples from database
-```{r sample_names, echo=FALSE, eval=FALSE}
+```{r echo=FALSE, eval=FALSE}
 # pull in the full database table
 db_dat <- dbReadTable(lab, params$type)
 

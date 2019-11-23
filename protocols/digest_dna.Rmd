@@ -8,10 +8,10 @@ params:
   first: first
   last: last
   digest_rxn_size: 50
-  num_samples: 96
+  num_dna_samples: 96
   enzyme_units: 5
 ---
-```{r setup, include=FALSE}
+```{r include=FALSE}
 library(tidyverse)
 ```
 

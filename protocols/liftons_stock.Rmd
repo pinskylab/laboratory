@@ -3,7 +3,7 @@ title: "Liftons Stock Solution"
 params:
   final_vol_ul: 50000
 ---
-```{r setup, include=FALSE}
+```{r include=FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)

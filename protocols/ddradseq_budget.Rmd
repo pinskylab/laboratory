@@ -1,0 +1,39 @@
+---
+title: "ddRADSeq budget and protocol builder"
+output: html_notebook
+params: 
+  num_dna_samples: 160
+  num_pools: 4
+  num_seq_lib: 1
+  num_dna_adapters: 14
+  database: FALSE
+---
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(rmarkdown)
+library(here)
+
+options(scipen = 999)
+
+database <- params$database
+
+```
+
+## Extraction
+```{r include=FALSE}
+render(here("protocols", "dna_extraction_ali.Rmd"), params <- list(
+  first = "first_id",
+  last = "last_id",
+  num_dna_samples = 96,
+  database = FALSE
+))
+
+
+```
+
+
+```{r child="dna_extraction_ali.Rmd"}
+```

@@ -3,7 +3,9 @@ title: "ddRADSeq Library Prep"
 output: github_document
 always_allow_html: yes
 ---
-
+<!-- http://www.nagraj.net/notes/multiple-rmarkdown-reports/ will read in a bunch of data files, but not rmds-->
+<!-- https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output parents and children -->
+<!-- https://stackoverflow.com/questions/49475303/rmarkdown-child-documents-do-not-detect-their-params -->
 ## Sample provenance
 Some of our methods have changed over time.  Here is a very simplified breakdown of which protocols were used with which samples.
 ```{r echo=FALSE}

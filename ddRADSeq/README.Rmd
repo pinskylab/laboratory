@@ -1,12 +1,20 @@
 ---
 title: "ddRADSeq Library Prep"
-output: github_document
+output: 
+  github_document:
+    toc: TRUE
 always_allow_html: yes
+params:
+  num_dna_samples: 96
+  num_pools: 2
+  num_seq_lib: 1
+  num_dna_adapters: 48
+  database: FALSE
 ---
 <!-- http://www.nagraj.net/notes/multiple-rmarkdown-reports/ will read in a bunch of data files, but not rmds-->
 <!-- https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output parents and children -->
 <!-- https://stackoverflow.com/questions/49475303/rmarkdown-child-documents-do-not-detect-their-params -->
-## Sample provenance
+## *Amphiprion clarkii* Sample provenance
 Some of our methods have changed over time.  Here is a very simplified breakdown of which protocols were used with which samples.
 ```{r echo=FALSE}
 kableExtra::kable_styling(
@@ -27,11 +35,25 @@ readr::read_csv("field season, extraction method, ligation setup, baits
 
 **WARNING: These protocols are abridged versions of the manufacturers recommended protocols.  Use of these protocols assumes familiarity with manufacutrers instructions.  Please read manufacturers instructions if this is your first time (or first time in a while) performing these procedures.**
 
-## DNA Library Preparation
-[1. DNA Extraction](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)  
-[2. Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
-[3. Digest](https://pinskylab.github.io/laboratory/protocols/digest_dna.nb.html)  
-[4. Clean](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
+## 1. DNA Extraction
+```{r child="../protocols/dna_extraction_ali.Rmd"}
+
+```
+
+## 2. Quantify
+### Should take ~1/2 hour for each plate
+```{r child="../protocols/quant_dna.Rmd"}
+
+```
+
+## 3. Digest
+```{r child="../protocols/digest_dna.Rmd"}
+```
+
+## 4. Clean
+```{r child="../protocols/ampure.Rmd"}
+```
+
 [5. Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
 [Anneal?](https://pinskylab.github.io/laboratory/protocols/anneal.html)  
 - If adapters, oligos, or primers need to be rehydrated, it should be done the day before they are needed.  This is a good place to check supplies and make sure you have plenty of working stock of the oligos.  
@@ -47,3 +69,5 @@ readr::read_csv("field season, extraction method, ligation setup, baits
 [12. PCR](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)  
 [13. Baits](https://pinskylab.github.io/laboratory/protocols/baits.nb.html)  
 [14. Sequencing Prep]((https://pinskylab.github.io/laboratory/protocols/seq-prep_ddradseq.nb.html)  )
+
+

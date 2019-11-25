@@ -13,11 +13,11 @@ Our protocols change over time.  If you want to create a snapshot of your method
 ### [ddRADSeq](ddRADSeq)  
 This [method](https://pinskylab.github.io/laboratory/ddRADSeq/index.html) is used in our *Amphiprion clarkii* clownfish project and our *Paralichthys dentatus* summer flounder project.  
 
-### [Nexterra](Nexterra)  
+### [Nextera](Nextera)  
 This method is used in our *Myotis lucificus* little brown bat project.  
 
 ### [EecSeq](EecSeq)  
-This method is used in our *Amphiprion percula* clownfish project.
+This method might be used in our *Amphiprion percula* clownfish project.
 
 ### [protocols](protocols)
 Ala carte menu of procedures used in the lab.

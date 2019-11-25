@@ -18,13 +18,13 @@ This
 used in our *Amphiprion clarkii* clownfish project and our *Paralichthys
 dentatus* summer flounder project.
 
-### [Nexterra](Nexterra)
+### [Nextera](Nextera)
 
 This method is used in our *Myotis lucificus* little brown bat project.
 
 ### [EecSeq](EecSeq)
 
-This method is used in our *Amphiprion percula* clownfish project.
+This method might be used in our *Amphiprion percula* clownfish project.
 
 ### [protocols](protocols)
 

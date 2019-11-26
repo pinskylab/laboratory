@@ -4,16 +4,38 @@ ddRADSeq Library Prep
   - [*Amphiprion clarkii* Sample
     provenance](#amphiprion-clarkii-sample-provenance)
   - [1. DNA Extraction](#dna-extraction)
-      - [Day 1](#day-1)
-      - [Day 2](#day-2)
-      - [Day 3](#day-3)
+      - [Day 1 - 2 hours](#day-1---2-hours)
+      - [Day 2 - 1 hour per plate](#day-2---1-hour-per-plate)
+      - [Day 3 - 2 hours per plate](#day-3---2-hours-per-plate)
   - [2. Quantify](#quantify)
-      - [Should take \~1/2 hour for each
-        plate](#should-take-12-hour-for-each-plate)
+      - [1/2 hour per plate or qubit run](#hour-per-plate-or-qubit-run)
   - [3. Digest](#digest)
+      - [3 hours, add \~1/2 hour for every additional
+        plate.](#hours-add-12-hour-for-every-additional-plate.)
   - [4. Clean](#clean)
-  - [Perform a 1X SPRI® cleanup by combining the
-    following:](#perform-a-1x-spri-cleanup-by-combining-the-following)
+      - [1 hour per plate](#hour-per-plate)
+  - [5. Quantify](#quantify-1)
+      - [1/2 hour for each plate or qubit
+        run](#hour-for-each-plate-or-qubit-run)
+  - [Anneal?](#anneal)
+      - [If adapters, oligos, or primers need to be rehydrated, it
+        should be done the day before they are needed. This is a good
+        place to check supplies and make sure you have plenty of working
+        stock of the
+        oligos.](#if-adapters-oligos-or-primers-need-to-be-rehydrated-it-should-be-done-the-day-before-they-are-needed.-this-is-a-good-place-to-check-supplies-and-make-sure-you-have-plenty-of-working-stock-of-the-oligos.)
+  - [6. Robot](#robot)
+      - [1/2 hour per plate plus driving to
+        Princeton](#hour-per-plate-plus-driving-to-princeton)
+  - [7. Ligate DNA](#ligate-dna)
+      - [4 hours plus 1/2 hour per plate](#hours-plus-12-hour-per-plate)
+  - [8. Pool](#pool)
+      - [1 hour](#hour)
+  - [9. Clean 1](#clean-1)
+  - [10. Clean 2](#clean-2)
+  - [11. Size Select](#size-select)
+  - [12. PCR](#pcr)
+  - [13. Baits](#baits)
+  - [14. Sequencing Prep](#sequencing-prep)
 
 <!-- http://www.nagraj.net/notes/multiple-rmarkdown-reports/ will read in a bunch of data files, but not rmds-->
 
@@ -479,7 +501,7 @@ seals
 
 </table>
 
-### Day 1
+### Day 1 - 2 hours
 
   - Check the lab to make sure the following solutions are available,
     and if not, make them.
@@ -1049,7 +1071,7 @@ ph2o\_ul
 *Note that the volumes of the solutions are in ul and the volume of
 water is in* **ml**
 
-### Day 2
+### Day 2 - 1 hour per plate
 
 <table class="table table-bordered" style="margin-left: auto; margin-right: auto;">
 
@@ -1221,7 +1243,7 @@ liftons\_ul
 3\. Add 40uL enzyme solution to each well, pipet up and down to mix.  
 4\. Seal plate and incubate at 55˚C overnight.
 
-### Day 3
+### Day 3 - 2 hours per plate
 
 **Extract DNA from lysate**  
 1\. To a new plate add 45uL hybridization buffer to each well.  
@@ -1254,7 +1276,7 @@ replace the very expensive version we use here.*
 
 ## 2\. Quantify
 
-### Should take \~1/2 hour for each plate
+### 1/2 hour per plate or qubit run
 
 <table class="table table-bordered" style="margin-left: auto; margin-right: auto;">
 
@@ -1637,712 +1659,168 @@ Write these changes into the database
 
 ## 3\. Digest
 
-<table class="table table-bordered" style="margin-left: auto; margin-right: auto;">
+### 3 hours, add \~1/2 hour for every additional plate.
+
+*Copy and paste this file into the lab-notebooks folder, changing the
+name to match the sample range you are currently working on.*
+
+Explanation of parameters:
+
+first: the first extraction in the range of samples for this plate last:
+the last extraciton in the range of samples for this plate
+digest\_rxn\_size: the size in uL of each digest reaction.
+
+**This protocol assumes that you have read and understand the
+manufacturer’s instructions attached below. Please read the full
+manufacturer’s instructions before using this abbreviated protocol.**
+
+#### Prep for digest
+
+The most difficult part of the digest is figuring out where to put the
+samples. In most cases, it is very straightforward. You pull the sample
+from the extraction plate and place it in the same well on the digest
+plate. For example, if an extract is in A4 of the extraction plate, run
+the digestion reaction in well A4 of the digest plate.
+
+If this is the case, the source plate map would look like this:
+
+However, sometimes we skip some samples that did not perform well, or we
+want to digest a bunch of extracts from random plates. If it is not a
+simple plate to plate transfer, the source plate map would look like
+this:
+
+A digest id must be created for these samples. **Only do this step
+once\!** It creates new digest\_ids for the database. The destination
+plate map would look like this:
+
+Print out plate maps and highlight source maps for ease of loading. Make
+sure to note any samples that are heavily concentrated and need to be
+diluted.
+
+Prepare digest plate by loading 30uL of sample in to the plate.
+
+For the October 2017 set of plates, I highlighted the 15uL samples on
+the maps in orange and the “hole-fillers” in pink, then any samples I
+could take with a multichannel with a blue line down the column.
+
+To load, I first used a single channel pipet to fill in the 15uL samples
+(extra concentrated samples), pulling the tips from the same location
+they were on the plate. Then I filled in the water for the 15uL wells
+and change the pipet to 30uL to fill the blanks. Then I added any 30uL
+“hole fillers” - again using the tips from the same location in the
+tip box.
+
+At this point, any empty wells on the plate correspond to tips in the
+tip box. I used the multichannel pipet to pick up the tips and held them
+up to the plate to make sure no tips were going into already filled
+wells, and no empty wells were being left empty. Then I filled the rest
+of the plate.
+
+#### Make the master mix recipe in a falcon tube or smaller tube if possible:
+
+  - split the master mix into 8 wells, use a multichannel pipet to pipet
+    12µL of master mix into each sample well.
+    
+    ``` 
+     * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation.
+    ```
+
+  - Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI
+    longer than one hour, PstI is active 2-4 hours, don’t need to heat
+    kill digests
+    
+      - More decision making is necessary at this point. If an extract
+        has less than 5ng/ul DNA, it will most likely fail to digest
+        well. This is a tough call, some digests with much less than
+        5ng/ul have ligated successfully and others have not. Proceed
+        with caution. If there are plenty of samples to choose from,
+        choose the desired number with the most “sample\_ng\_in”.
+          - As of 8/19/2014
+              - any extraction less than 5ng/µL we are putting on the
+                back burner to continue processing at a later date
+              - anything that is more than 5ng/µL but makes less than
+                1µg of DNA when you multiply the quant result by 30µL
+                (the digest addition amount) - calculate the amount of
+                extract to make 1µg DNA and clean that amount, elute in
+                30µL and add to digest plate
+              - As of 11/2014 we are not worried about “too low” DNA and
+                are not cleaning samples that are below 1000ng. We have
+                successfully digested down to 100ng.
+              - anything that makes more than 5µg of DNA when you
+                multiply the quant result by 30µL - add 15µL of extract
+                to plate and 15µL pH2O - do the math to make sure this
+                dilution will still be less than 5µg.
+      - For the time being, enter the ExtractID in the Digest ID column
+        for ease of sorting (it is easiest to work on extract plates in
+        sample order) - do this by entering the formula =right(B1882,5)
+        in column A
+      - Sort by Extract Id (no digest number yet, will sort by sample
+        number), only the range of this plate\!\!\!
+      - Fill in date, enzyme, Digest\# and replace the Extract\# in the
+        Digest\_ID column with the formula to concatenate a digest ID.
+      - print a map of your extraction plate and new digest plate
+
+  - highlight samples in printed extraction plate maps
 
-<thead>
+  - pipeted aliquot to digest plate for a 50µL digestion reaction
 
-<tr>
+  - Print a plate map and determine which samples can be digested as is,
+    and which need to be diluted - highlight accordingly
 
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5">
+#### Optimizing Restriction Endonuclease Reactions | New England Biolabs
 
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+For a 50µL rxn, use:
 
-Prepare Digest Master Mix
+1µg DNA - fill to volume w/ pH2O 5µL 10x buffer (50µL/10x=5)
 
-</div>
+Want a total of 10U in rxn For single digest: if enzyme is 10,000U/mL -
+1µL = 10U if enzyme is 20,000U/mL - 0.5µL = 10U
 
-</th>
+For double digest if enzyme is 10,000U/mL - 0.5µL = 5U if enzyme is
+20,000U/mL - 0.25µL = 5U
 
-</tr>
+PstI - cutsite is <https://www.neb.com/products/r0140-psti>
 
-<tr>
+MluCI - cutsite is <https://www.neb.com/products/r0538-mluci>
 
-<th style="text-align:left;">
-
-item
-
-</th>
-
-<th style="text-align:right;">
-
-initial\_conc
-
-</th>
-
-<th style="text-align:right;">
-
-initial\_vol\_ul
-
-</th>
-
-<th style="text-align:right;">
-
-final\_vol\_ul
-
-</th>
-
-<th style="text-align:right;">
-
-final\_conc
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-psti\_100000u/ml\_ul
-
-</td>
-
-<td style="text-align:right;">
-
-100000
-
-</td>
-
-<td style="text-align:right;">
-
-0.05
-
-</td>
-
-<td style="text-align:right;">
-
-50
-
-</td>
-
-<td style="text-align:right;">
-
-100
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-mluci\_10000u/mL\_ul
-
-</td>
-
-<td style="text-align:right;">
-
-10000
-
-</td>
-
-<td style="text-align:right;">
-
-0.50
-
-</td>
-
-<td style="text-align:right;">
-
-50
-
-</td>
-
-<td style="text-align:right;">
-
-100
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-10x\_buffer\_ul
-
-</td>
-
-<td style="text-align:right;">
-
-10
-
-</td>
-
-<td style="text-align:right;">
-
-5.00
-
-</td>
-
-<td style="text-align:right;">
-
-50
-
-</td>
-
-<td style="text-align:right;">
-
-1
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-ph2o\_ul
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-44.45
-
-</td>
-
-<td style="text-align:right;">
-
-50
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<!-- *Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.*   -->
-
-<!-- Explanation of parameters: -->
-
-<!-- ```{r} -->
-
-<!-- (params) -->
-
-<!-- ``` -->
-
-<!-- first: the first extraction in the range of samples for this plate -->
-
-<!-- last: the last extraciton in the range of samples for this plate -->
-
-<!-- digest_rxn_size: the size in uL of each digest reaction. -->
-
-<!-- **This protocol assumes that you have read and understand the manufacturer’s instructions attached below.  Please read the full manufacturer’s instructions before using this abbreviated protocol.** -->
-
-<!-- ```{r setup, include = FALSE} -->
-
-<!-- knitr::opts_chunk$set( -->
-
-<!--    echo = FALSE, -->
-
-<!--    message = FALSE, -->
-
-<!--    warning = FALSE -->
-
-<!-- ) -->
-
-<!-- # load libraries -->
-
-<!-- library(tidyverse) -->
-
-<!-- library(kableExtra) -->
-
-<!-- library(knitr) -->
-
-<!-- # load functions -->
-
-<!-- source("~/db-connections.R") -->
-
-<!-- # load data -->
-
-<!-- lab <- read_db("Laboratory") -->
-
-<!-- ``` -->
-
-<!-- ## Prep for digest -->
-
-<!-- The most difficult part of the digest is figuring out where to put the samples.  In most cases, it is very straightforward.  You pull the sample from the extraction plate and place it in the same well on the digest plate.  For example, if an extract is in A4 of the extraction plate, run the digestion reaction in well A4 of the digest plate.   -->
-
-<!-- If this is the case, the source plate map would look like this: -->
-
-<!-- ```{r} -->
-
-<!-- need_digest <- lab %>% tbl("extraction") %>% collect() %>%  -->
-
-<!--   # hasn't been digested -->
-
-<!--   filter(extraction_id >= params$first & extraction_id <= params$last) %>%  -->
-
-<!--   # select columns -->
-
-<!--   select(extraction_id, well, plate, quant) %>%  -->
-
-<!--   # need enough material to work with -->
-
-<!--   filter(quant > 5) %>%  -->
-
-<!--   # sort by extraction id -->
-
-<!--   arrange(extraction_id) %>%  -->
-
-<!--   # create row and column ids from well -->
-
-<!--   mutate(row = substr(well, 1,1),  -->
-
-<!--          col = as.numeric(substr(well, 2,3))) %>%  -->
-
-<!--   select(row, col, extraction_id) -->
-
-<!-- # define wells -->
-
-<!-- plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>%  -->
-
-<!--   mutate(extraction_id = ifelse(row == "D" & col == 2, "XXXX", NA),  -->
-
-<!--     extraction_id = ifelse(row == "E" & col == 8, "XXXX", extraction_id)) -->
-
-<!-- # if the plate is not full -->
-
-<!-- x <- nrow(need_digest) + 2 -->
-
-<!-- if (x < 96) { -->
-
-<!--   plate <- plate %>%  -->
-
-<!--     slice(1:x) -->
-
-<!-- } -->
-
-<!-- # remove the non-blank wells from the plate table -->
-
-<!-- plate <- anti_join(plate, need_digest, by = c("row", "col")) -->
-
-<!-- # rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks. -->
-
-<!-- plate <- rbind(plate, need_digest) %>%  -->
-
-<!--   arrange(col, row) -->
-
-<!-- platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction) -->
-
-<!-- knitr::kable(platemap, booktabs = T) %>%  -->
-
-<!--   # use scale_down to get map to fit within the bounds of the pdf -->
-
-<!--   kable_styling(latex_options = "scale_down") -->
-
-<!-- ``` -->
-
-<!-- However, sometimes we skip some samples that did not perform well, or we want to digest a bunch of extracts from random plates.  If it is not a simple plate to plate transfer, the source plate map would look like this: -->
-
-<!-- ```{r} -->
-
-<!-- digested <- lab %>% tbl("digest") %>% collect() -->
-
-<!-- # TODO: should filter this for successful digests -->
-
-<!--   need_digest <- lab %>% tbl("extraction") %>% collect() %>%  -->
-
-<!--   # hasn't been digested -->
-
-<!--   filter(!extraction_id %in% digested$extraction_id) %>%  -->
-
-<!--   # select columns -->
-
-<!--   select(extraction_id, well, plate, quant) %>%  -->
-
-<!--   # need enough material to work with -->
-
-<!--   filter(quant > 5) %>%  -->
-
-<!--   # needs to be in a plate -->
-
-<!--   filter(!is.na(plate)) %>%  -->
-
-<!--   # sort by extraction id -->
-
-<!--   arrange(extraction_id) -->
-
-<!--   # define wells -->
-
-<!-- plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>%  -->
-
-<!--   mutate(extraction_id = ifelse(row == "D" & col == 2, "XXXX", NA),  -->
-
-<!--     extraction_id = ifelse(row == "E" & col == 8, "XXXX", extraction_id)) -->
-
-<!-- # if the plate is not full -->
-
-<!-- x <- nrow(need_digest) + 2 -->
-
-<!-- if (x < 96) { -->
-
-<!--   if(x < 48){ -->
-
-<!--     plate <- plate %>%  -->
-
-<!--       slice(1:x-1) -->
-
-<!--   }else{ -->
-
-<!--     plate <- plate %>%  -->
-
-<!--     slice(1:x) -->
-
-<!--   } -->
-
-<!-- } -->
-
-<!-- # move all of the non-blank wells into their own table -->
-
-<!-- samples <- plate %>%  -->
-
-<!--   filter(is.na(extraction_id)) %>%  -->
-
-<!--   select(-extraction_id) -->
-
-<!-- # remove the non-blank wells from the plate table -->
-
-<!-- plate <- anti_join(plate, samples, by = c("row", "col")) -->
-
-<!-- # join the work sample_ids to the sample table well definitions -->
-
-<!-- samples <- cbind(samples, need_digest) %>%  -->
-
-<!--   select(row, col, extraction_id) -->
-
-<!-- # rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks. -->
-
-<!-- plate <- rbind(plate, samples) %>%  -->
-
-<!--   arrange(col, row) -->
-
-<!-- source_map <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction) -->
-
-<!-- knitr::kable(source_map, booktabs = T) %>%  -->
-
-<!--   # use scale_down to get map to fit within the bounds of the pdf -->
-
-<!--   kable_styling(latex_options = "scale_down") -->
-
-<!-- ``` -->
-
-<!-- A digest id must be created for these samples.   -->
-
-<!-- **Only do this step once!**   -->
-
-<!-- It creates new digest_ids for the database.   -->
-
-<!-- The destination plate map would look like this:   -->
-
-<!-- ```{r} -->
-
-<!-- ### ONLY DO THIS ONCE ### -->
-
-<!-- dig_max <- lab %>% tbl("digest") %>%  -->
-
-<!--   summarise(last = max(digest_id, na.rm = T)) %>%  -->
-
-<!--   collect() %>%  -->
-
-<!--   mutate(last = as.numeric(substr(last, 2,5))) -->
-
-<!-- x <- dig_max$last+1 -->
-
-<!-- y <- dig_max$last+nrow(plate) -->
-
-<!-- id_range <- x:y -->
-
-<!-- plate <- plate %>%  -->
-
-<!--   mutate(digest_id = paste0("D", id_range), -->
-
-<!--          well = paste(row, col, sep = ""),  -->
-
-<!--          enzymes = "PstI-MluCI", -->
-
-<!--          vol_in = 30, -->
-
-<!--          final_vol = 45) -->
-
-<!-- plate_name <- plate %>%  -->
-
-<!--   summarise(first = min(digest_id),  -->
-
-<!--     last = max(digest_id, na.rm = T)) -->
-
-<!-- dest_map <- plate %>%  -->
-
-<!--   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-")) %>%  -->
-
-<!--   select(row, col, digest_id) -->
-
-<!-- dest_map <- as.matrix(reshape2::acast(dest_map, dest_map$row ~ dest_map$col), value.var = dest_map$digest_id) -->
-
-<!-- knitr::kable(dest_map, booktabs = T) %>%  -->
-
-<!--   kable_styling() -->
-
-<!-- ``` -->
-
-<!-- Print out plate maps and highlight source maps for ease of loading.  Make sure to note any samples that are heavily concentrated and need to be diluted. -->
-
-<!-- Prepare digest plate by loading 30uL of sample in to the plate. -->
-
-<!-- For the October 2017 set of plates, I highlighted the 15uL samples on the maps in orange and the “hole-fillers” in pink, then any samples I could take with a multichannel with a blue line down the column. -->
-
-<!-- To load, I first used a single channel pipet to fill in the 15uL samples (extra concentrated samples), pulling the tips from the same location they were on the plate.  Then I filled in the water for the 15uL wells and change the pipet to 30uL to fill the blanks. -->
-
-<!-- Then I added any 30uL “hole fillers” - again using the tips from the same location in the tip box. -->
-
-<!-- At this point, any empty wells on the plate correspond to tips in the tip box.  I used the multichannel pipet to pick up the tips and held them up to the plate to make sure no tips were going into already filled wells, and no empty wells were being left empty.  Then I filled the rest of the plate. -->
-
-<!-- ## Make the master mix recipe in a falcon tube or smaller tube if possible: -->
-
-<!-- ```{r} -->
-
-<!-- num_dna_samples <- nrow(plate) -->
-
-<!-- # make some room for error 15% -->
-
-<!-- samples_with_error <- floor(num_dna_samples * 1.15) -->
-
-<!-- # use a total of 10 enzyme Units per 50uL reaction, 5 of each enzyme. -->
-
-<!-- digest_rxn <- read_csv("item, concentration, per_reaction -->
-
-<!--                        sample, NA, NA -->
-
-<!--                        enzyme1, NA, NA -->
-
-<!--                        enzyme2, NA, NA -->
-
-<!--                        buffer, NA, NA -->
-
-<!--                        pH2O, NA, NA") %>%  -->
-
-<!--   mutate(per_reaction = ifelse(item == "sample", digest_rxn_size/1.6666, per_reaction),  -->
-
-<!--          concentration = ifelse(item =="enzyme1", 100000, concentration), -->
-
-<!--          per_reaction = ifelse(item == "enzyme1", (digest_rxn_size)/10/(concentration/1000), per_reaction), -->
-
-<!--          concentration = ifelse(item =="enzyme2", 10000, concentration), -->
-
-<!--           per_reaction = ifelse(item == "enzyme2", (digest_rxn_size)/10/(concentration/1000), per_reaction), -->
-
-<!--          concentration = ifelse(item =="buffer", 10, concentration), -->
-
-<!--           per_reaction = ifelse(item == "buffer", digest_rxn_size/concentration, per_reaction)) -->
-
-<!-- pH2O <- digest_rxn %>%  -->
-
-<!--   summarise(this = digest_rxn_size-sum(per_reaction, na.rm=T)) -->
-
-<!-- digest_rxn <- digest_rxn %>%  -->
-
-<!--   mutate(per_reaction = ifelse(item == "pH2O", pH2O$this, per_reaction), -->
-
-<!--          master_mix = per_reaction * samples_with_error,  -->
-
-<!--          master_mix = ifelse(item == "sample", NA, master_mix)) -->
-
-<!-- # double check the math - should return TRUE -->
-
-<!-- (digest_rxn_size*samples_with_error)-(digest_rxn_size*.6*samples_with_error) == round(sum(digest_rxn$master_mix, na.rm=T)) -->
-
-<!-- print(paste0("Total master mix volume is ", round(sum(digest_rxn$master_mix, na.rm=T)), "mL")) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- kable_styling(kable(digest_rxn)) -->
-
-<!-- ``` -->
-
-<!--     * split the master mix into 8 wells, use a multichannel pipet to pipet 12µL of master mix into each sample well.  -->
-
-<!-- ```{r} -->
-
-<!-- print(paste0("Split into 8 wells by pipetting ", (round(sum(digest_rxn$master_mix, na.rm=T)))/8, "ul into each well")) -->
-
-<!-- ``` -->
-
-<!-- # Supplies needed plus the volumes on the master mix recipe. -->
-
-<!-- ```{r} -->
-
-<!-- digest <- tibble( -->
-
-<!--   plates = num_dna_samples/96, -->
-
-<!--   tubes = num_dna_samples/96,  -->
-
-<!--   plate_seals = num_dna_samples/96,  -->
-
-<!--   tips_100 = num_dna_samples * 2 + (ceiling(digest_rxn$master_mix[3]/100)),# referring to enzyme2 -->
-
-<!--   tips_10 = ceiling(digest_rxn$master_mix[2]/10), # referring to enzyme1 -->
-
-<!--   tips_300 = ceiling(digest_rxn$master_mix[4]/100), # referring to buffer -->
-
-<!--   tips_1000 = ceiling(digest_rxn$master_mix[5]/1000) # referring to pH2O -->
-
-<!--   ) -->
-
-<!-- ``` -->
-
-<!--         * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation. -->
-
-<!-- * Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI longer than one hour, PstI is active 2-4 hours, don’t need to heat kill digests -->
-
-<!-- Clean the digests using 1.5x the volume of the digest (75µL) Ampure per sample. Put the plates on yellow lifts on the magnet so that the pellet is lower before you finish the alcohol steps.   Because these are in plates and it is difficult to get all of the elute out of the well, elute in 45µL of buffer and pull 40µL from the well to place in a new cleaned digest plate.  Update the database. - Ampure clean up protocol -->
-
-<!-- Quantifiy - quant-it pico green - import the quantification results into the Sample_Data spreadsheet, Digests Page quant column.  For any sample with a negative quantification value, change the Ligated? column value to N/A (the rest should contain a formula that results in the value “FALSE”).  Also, add an “_F” to the extraction ID (not the digest ID) in the extraction ID column (example: PADE14_093E1516 becomes PADE14_093E1516_F).  This digest failed and so the sample should not reflect that a successful digest exits. -->
-
-<!--     * More decision making is necessary at this point.  If an extract has less than 5ng/ul DNA, it will most likely fail to digest well.  This is a tough call, some digests with much less than 5ng/ul have ligated successfully and others have not.  Proceed with caution. If there are plenty of samples to choose from, choose the desired number with the most “sample_ng_in”. -->
-
-<!--         * As of 8/19/2014  -->
-
-<!--             * any extraction less than 5ng/µL we are putting on the back burner to continue processing at a later date -->
-
-<!--             * anything that is more than 5ng/µL but makes less than 1µg of DNA when you multiply the quant result by 30µL (the digest addition amount) - calculate the amount of extract to make 1µg DNA and clean that amount, elute in 30µL and add to digest plate  -->
-
-<!--             * As of 11/2014 we are not worried about “too low” DNA and are not cleaning samples that are below 1000ng.  We have successfully digested down to 100ng.   -->
-
-<!--             * anything that makes more than 5µg of DNA when you multiply the quant result by 30µL - add 15µL of extract to plate and 15µL pH2O - do the math to make sure this dilution will still be less than 5µg. -->
-
-<!--     * For the time being, enter the ExtractID in the Digest ID column for ease of sorting (it is easiest to work on extract plates in sample order) - do this by entering the formula =right(B1882,5) in column A -->
-
-<!--     * Sort by Extract Id (no digest number yet, will sort by sample number), only the range of this plate!!! -->
-
-<!--     * Fill in date, enzyme, Digest# and replace the Extract# in the Digest_ID column with the formula to concatenate a digest ID. -->
-
-<!--     * print a map of your extraction plate and new digest plate -->
-
-<!-- * highlight samples in printed extraction plate maps -->
-
-<!-- * pipeted aliquot to digest plate for a 50µL digestion reaction -->
-
-<!-- * Print a plate map and determine which samples can be digested as is, and which need to be diluted - highlight accordingly -->
-
-<!-- Optimizing Restriction Endonuclease Reactions | New England Biolabs -->
-
-<!-- For a 50µL rxn, use: -->
-
-<!-- 1µg DNA - fill to volume w/ pH2O -->
-
-<!-- 5µL 10x buffer (50µL/10x=5) -->
-
-<!-- Want a total of 10U in rxn -->
-
-<!-- For single digest: -->
-
-<!-- if enzyme is 10,000U/mL - 1µL = 10U -->
-
-<!-- if enzyme is 20,000U/mL - 0.5µL = 10U -->
-
-<!-- For double digest -->
-
-<!-- if enzyme is 10,000U/mL - 0.5µL = 5U -->
-
-<!-- if enzyme is 20,000U/mL - 0.25µL = 5U  -->
-
-<!-- PstI - cutsite is  https://www.neb.com/products/r0140-psti -->
-
-<!-- MluCI - cutsite is  https://www.neb.com/products/r0538-mluci -->
-
-<!-- EcoRI cutsite is  https://www.neb.com/products/r0101-ecori -->
+EcoRI cutsite is <https://www.neb.com/products/r0101-ecori>
 
 ## 4\. Clean
 
-# Perform a 1X SPRI® cleanup by combining the following:
+#### 1 hour per plate
 
-``` r
-ampure <- tribble(~item, ~quantity,
-                  # make room for small or large numbers of samples
-                  ifelse(params$num_samples <20, "tubes_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples * 2, ceiling(params$num_samples/96) * 2),
-                  "tips_100", params$num_samples * 5, 
-                  "tips_1000", params$num_samples * 5, 
-                  "ethanol_ul", params$num_samples * 400, 
-                  "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25, 
-                  "ampure_ul", params$ampure_vol_ul) 
-```
+## 5\. Quantify
 
-  - Thoroughly resuspend the beads by pipetting up and down multiple
-    times.
-  - Incubate the plate/tube at room temperature for 5 – 15 min to allow
-    the DNA to bind to the beads.
-  - Place the plate/tube on a magnet to capture the beads. Incubate
-    until the liquid is clear.
-  - Carefully remove and discard 115 μl of supernatant.
-  - Keeping the plate/tube on the magnet, add 200 μl of 80% ethanol.
-  - Incubate the plate/tube at room temperature for ≥30 sec.
-  - Carefully remove and discard the ethanol.
-  - Keeping the plate/tube on the magnet, add 200 μl of 80% ethanol.
-  - Incubate the plate/tube at room temperature for ≥30 sec.
-  - Carefully remove and discard the ethanol. Try to remove all residual
-    ethanol without disturbing the beads.
-  - Dry the beads at room temperature, until all of the ethanol has
-    evaporated. **Caution: over-drying the beads may result in dramatic
-    yield loss.**
-  - Remove the plate/tube from the magnet.
-  - Thoroughly resuspend the beads in 25 μl of 10 mM Tris-HCl (pH 8.0).
-  - Incubate the plate/tube at room temperature for 2 min to allow the
-    DNA to elute off the beads.
-  - Place the plate/tube on a magnet to capture the beads. Incubate
-    until the liquid is clear.
-  - Transfer 24 μl of the clear supernatant to a new plate/tube and
-    proceed to next step.
+### 1/2 hour for each plate or qubit run
 
-[5.
-Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
-[Anneal?](https://pinskylab.github.io/laboratory/protocols/anneal.html)  
-\- If adapters, oligos, or primers need to be rehydrated, it should be
-done the day before they are needed. This is a good place to check
-supplies and make sure you have plenty of working stock of the oligos.
+## Anneal?
 
-[6.
-Robot](https://pinskylab.github.io/laboratory/protocols/robot.html)  
-[7. Ligate
-DNA](https://pinskylab.github.io/laboratory/protocols/ligation_ddradseq.nb.html)  
-[8.
-Pool](https://pinskylab.github.io/laboratory/protocols/pool.nb.html)  
-[9.
-Clean 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-\- Break up pools into 4 vials of 250ul each, use 375ul ampure for each
-vial.  
-[10.
-Clean 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-\- use 40ul of sample and 60ul of ampure.  
-[11. Size
-Select](https://pinskylab.github.io/laboratory/protocols/pippin.nb.html)  
-[12.
-PCR](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)  
-[13.
-Baits](https://pinskylab.github.io/laboratory/protocols/baits.nb.html)  
-[14. Sequencing
-Prep](\(https://pinskylab.github.io/laboratory/protocols/seq-prep_ddradseq.nb.html\))
+### If adapters, oligos, or primers need to be rehydrated, it should be done the day before they are needed. This is a good place to check supplies and make sure you have plenty of working stock of the oligos.
+
+## 6\. Robot
+
+### 1/2 hour per plate plus driving to Princeton
+
+## 7\. Ligate DNA
+
+### 4 hours plus 1/2 hour per plate
+
+## 8\. Pool
+
+### 1 hour
+
+  - Break up pools into 4 vials each pool
+
+## 9\. Clean 1
+
+## 10\. Clean 2
+
+  - Elute into 30ul of buffer
+
+## 11\. Size Select
+
+## 12\. PCR
+
+## 13\. Baits
+
+## 14\. Sequencing Prep

@@ -3,6 +3,7 @@ title: "ddRADSeq Library Prep"
 output: 
   github_document:
     toc: TRUE
+    toc_depth: 3
 always_allow_html: yes
 params:
   num_dna_samples: 96
@@ -41,33 +42,136 @@ readr::read_csv("field season, extraction method, ligation setup, baits
 ```
 
 ## 2. Quantify
-### Should take ~1/2 hour for each plate
+### 1/2 hour per plate or qubit run
 ```{r child="../protocols/quant_dna.Rmd"}
 
 ```
 
 ## 3. Digest
+### 3 hours, add ~1/2 hour for every additional plate.
 ```{r child="../protocols/digest_dna.Rmd"}
 ```
 
-## 4. Clean
+## 4. Clean 
+#### 1 hour per plate
+```{r include=FALSE}
+remove(params)
+params <- list(
+  num_dna_samples = 96,
+  num_pools = 2,
+  num_seq_lib = 1,
+  num_dna_adapters = 48,
+  database = FALSE,
+  sample_vol_ul= 30,
+  ampure_vol_ul = 45
+)
+```
 ```{r child="../protocols/ampure.Rmd"}
 ```
 
-[5. Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
-[Anneal?](https://pinskylab.github.io/laboratory/protocols/anneal.html)  
-- If adapters, oligos, or primers need to be rehydrated, it should be done the day before they are needed.  This is a good place to check supplies and make sure you have plenty of working stock of the oligos.  
+## 5. Quantify
+### 1/2 hour for each plate or qubit run
+```{r child="../protocols/quant_dna.Rmd"}
 
-[6. Robot](https://pinskylab.github.io/laboratory/protocols/robot.html)  
-[7. Ligate DNA](https://pinskylab.github.io/laboratory/protocols/ligation_ddradseq.nb.html)  
-[8. Pool](https://pinskylab.github.io/laboratory/protocols/pool.nb.html)  
-[9. Clean 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-- Break up pools into 4 vials of 250ul each, use 375ul ampure for each vial.  
-[10. Clean 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-- use 40ul of sample and 60ul of ampure.  
-[11. Size Select](https://pinskylab.github.io/laboratory/protocols/pippin.nb.html)  
-[12. PCR](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)  
-[13. Baits](https://pinskylab.github.io/laboratory/protocols/baits.nb.html)  
-[14. Sequencing Prep]((https://pinskylab.github.io/laboratory/protocols/seq-prep_ddradseq.nb.html)  )
+```
+
+## Anneal?
+### If adapters, oligos, or primers need to be rehydrated, it should be done the day before they are needed.  This is a good place to check supplies and make sure you have plenty of working stock of the oligos.
+```{r include=FALSE}
+remove(params)
+params <- list(
+  num_dna_samples = 96,
+  num_pools = 2,
+  num_seq_lib = 1,
+  num_dna_adapters = 48,
+  database = FALSE,
+  sample_vol_ul= 30,
+  ampure_vol_ul = 45,
+  initial_conc_uM = 100,
+  p1_adapter_name = "p1_stock_adapter_ul",
+  p2_adapter_name = "p2_stock_adapter_ul", 
+  working_conc_uM = 10,
+  final_vol_ul = 100,
+  nmol_oligo = 9,
+  adpater_stock = "p1_stock_adapter_ul")
+```
+
+```{r child="../protocols/anneal.Rmd"}
+
+```
+
+```{r child="../protocols/adapter_working_stock.Rmd"}
+
+```
+  
+
+## 6. Robot
+### 1/2 hour per plate plus driving to Princeton
+```{r child="../protocols/robot.Rmd"}
+
+```
+
+
+## 7. Ligate DNA
+### 4 hours plus 1/2 hour per plate
+```{r child="../protocols/ligation_ddradseq.Rmd"}
+
+```
+
+## 8. Pool
+### 1 hour
+- Break up pools into 4 vials each pool
+```{r child="../protocols/pool.Rmd"}
+
+```
+
+
+## 9. Clean 1
+```{r child="../protocols/ampure.Rmd"}
+
+```
+ 
+## 10. Clean 2
+- Elute into 30ul of buffer
+```{r child="../protocols/ampure.Rmd"}
+
+```
+
+## 11. Size Select
+```{r child="../protocols/pippin.Rmd"}
+
+```
+
+## 12. PCR
+```{r child="../protocols/lib-amp_eecseq.Rmd"}
+
+```
+
+## 13. Baits
+```{r child="../protocols/baits.Rmd"}
+
+```
+
+## 14. Sequencing Prep
+
+```{r include=FALSE}
+params <- list(
+  date = "2018-09-13",
+  facility = PrincetonLSI,
+  first_baits = B010,
+  frag_length = 430,
+  last_baits = B012,
+  library_type = ddRADSeq,
+  num_lanes = 2,
+  pe_or_se = se,
+  platform = hiseq,
+  seq = SEQ28, 
+  database = FALSE)
+```
+
+```{r child="seq-prep_ddradseq.Rmd"}
+
+```
+
 
 

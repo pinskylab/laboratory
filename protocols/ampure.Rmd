@@ -3,25 +3,32 @@ title: "Ampure SPRI cleanup"
 output: html_notebook
 params:
   sample_vol_ul: 25
-  num_samples: 1
   ampure_vol_ul: 25
+  num_dna_samples: 96
 ---
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(knitr)
+library(kableExtra)
 ```
 
-# Perform a 1X SPRI® cleanup by combining the following:
-```{r}
+
+```{r include=FALSE}
 ampure <- tribble(~item, ~quantity,
                   # make room for small or large numbers of samples
-                  ifelse(params$num_samples <20, "tubes_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples * 2, ceiling(params$num_samples/96) * 2),
-                  "tips_100", params$num_samples * 5, 
-                  "tips_1000", params$num_samples * 5, 
-                  "ethanol_ul", params$num_samples * 400, 
-                  "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25, 
+                  ifelse(params$num_dna_samples <20, "tubes_200ul", "plates"), ifelse(params$num_dna_samples < 20, params$num_dna_samples * 2, ceiling(params$num_dna_samples/96) * 2),
+                  "tips_100", params$num_dna_samples * 5, 
+                  "tips_1000", params$num_dna_samples * 5, 
+                  "ethanol_ul", params$num_dna_samples * 400, 
+                  "10_mM_Tris-HCl_pH8_ul", params$num_dna_samples * 25, 
                   "ampure_ul", params$ampure_vol_ul) 
 ```
 
+```{r echo=FALSE}
+kable(ampure) %>% 
+  kable_styling("bordered") %>% 
+  add_header_above(c("Supplies Needed" = 2))
+```
 
 * Thoroughly resuspend the beads by pipetting up and down multiple times.
 * Incubate the plate/tube at room temperature for 5 – 15 min to allow the DNA to bind to the beads.

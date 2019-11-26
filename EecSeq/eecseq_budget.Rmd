@@ -656,7 +656,9 @@ all_sum <- all_lists %>%
                        ifelse(quantity > 60000, "ampure_450", "ampure_60"),item), 
          item = ifelse(item == "ampure_60", 
                        ifelse(quantity < 5000, "ampure_5", "ampure_60"),item),)%>% 
-  arrange()
+  arrange() %>% 
+  # add 10% error 
+  mutate(quantity = ceiling(quantity * 1.1))
 ```
 
 # Merge with inventory costs

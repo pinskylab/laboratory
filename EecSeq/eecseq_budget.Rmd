@@ -2,7 +2,7 @@
 title: "Create a budget for the protocol"
 params: 
   num_rna_samples: 4
-  num_dna_samples: 160
+  num_dna_samples: 96
   num_pools: 12
   num_seq_lib: 1
   num_rna_lib: 1
@@ -659,13 +659,18 @@ all_sum <- all_lists %>%
   arrange() %>% 
   # add 10% error 
   mutate(quantity = ceiling(quantity * 1.1))
+
+write_csv(all_sum, here::here("EecSeq", "supply-list.csv"))
 ```
 
 # Merge with inventory costs
 ```{r inventory}
 # enter code here to look up inventory on google drive
+# if these aren't working, restart RStudio, load data from csv, and then run only this line
+# all_sum <- read_csv(here::here("EecSeq", "supply-list.csv"))
+# run from command line
 # inventory_file <- googledrive::drive_get("~/Pinsky Lab Orders/Inventory")
-inventory_file <- drive_get("~/Pinsky Lab Orders/Inventory")
+# inventory_file <- drive_get("~/Pinsky Lab Orders/Inventory")
 # sheets_deauth()
 inventory_raw <- read_sheet(inventory_file, sheet = "Inventory", col_types = "c??ccn???n????") 
 inventory <- filter(inventory_raw, Discontinued == "N")
@@ -676,6 +681,8 @@ supplies <- left_join(all_sum, inventory, by = "item") %>%
          cost_per_project = cost_per_unit * quantity) %>% 
   arrange(price) %>% 
   select(price, vendor, everything())
+
+write_csv(supplies, here::here("EecSeq", "supply-list-with-cost.csv"))
 ```
 
 ### Total project cost 

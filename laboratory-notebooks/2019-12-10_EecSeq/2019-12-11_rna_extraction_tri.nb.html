@@ -131,58 +131,6 @@ button.code-folding-btn:focus {
 }
 </style>
 
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-</style>
-
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.parent().addClass('active');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
-
 
 <div class="container-fluid main-container">
 
@@ -199,7 +147,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("rna_extraction_tri.Rmd");
+  window.initializeSourceEmbed("2019-12-11_rna_extraction_tri.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -208,128 +156,6 @@ $(document).ready(function () {
 
 
 
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">Home</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    ddRADSeq
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="01_extract_ali.nb.html">1. Extraction</a>
-    </li>
-    <li>
-      <a href="02_quant_extract.nb.html">2. Quantify</a>
-    </li>
-    <li>
-      <a href="03_digest.nb.html">3. Digest</a>
-    </li>
-    <li>
-      <a href="04_clean_digest.nb.html">4. Clean</a>
-    </li>
-    <li>
-      <a href="05_quant_digest.nb.html">5. Quantify</a>
-    </li>
-    <li>
-      <a href="06_robot.nb.html">6. Biomek Robot</a>
-    </li>
-    <li>
-      <a href="07_ligate.nb.html">7. Ligate</a>
-    </li>
-    <li>
-      <a href="08_pool.nb.html">8. Pool</a>
-    </li>
-    <li>
-      <a href="09_clean_pool.nb.html">9. Clean</a>
-    </li>
-    <li>
-      <a href="10_pippin.nb.html">10. Pippin</a>
-    </li>
-    <li>
-      <a href="11_pcr.nb.html">11. PCR</a>
-    </li>
-    <li>
-      <a href="12_baits.nb.html">12. Baits</a>
-    </li>
-    <li>
-      <a href="13_sequence_prep.nb.html">13. Sequence Prep</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    EecSeq
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="rna_extraction_tri.nb.html">1. RNA Extraction</a>
-    </li>
-    <li>
-      <a href="Qubit-HS.nb.html">2. Quantify</a>
-    </li>
-    <li>
-      <a href="bioanalyzer.nb.html">3. Visualize</a>
-    </li>
-    <li>
-      <a href="anneal.nb.html">4. Anneal RNA Adapters</a>
-    </li>
-    <li>
-      <a href="mrna-capture.nb.html">5. mRNA Capture</a>
-    </li>
-    <li>
-      <a href="synthesis_eecseq.nb.html">6. Synthesis</a>
-    </li>
-    <li>
-      <a href="ampure.nb.html">7. Cleanup</a>
-    </li>
-    <li>
-      <a href="a-tailing.nb.html">8. A-Tailing</a>
-    </li>
-    <li>
-      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
-    </li>
-    <li>
-      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
-    </li>
-    <li>
-      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
-    </li>
-    <li>
-      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
-    </li>
-    <li>
-      <a href="ampure.nb.html">13. Cleanup</a>
-    </li>
-    <li>
-      <a href="Qubit-HS.nb.html">14. Quantify</a>
-    </li>
-    <li>
-      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
 
 <div class="fluid-row" id="header">
 

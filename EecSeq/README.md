@@ -18,112 +18,56 @@ procedures.**
 
   - [1. RNA
     Extraction](https://pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
+    - Takes 1.5 hours
 
   - [2.
-    Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
+    Quantify](https://pinskylab.github.io/laboratory/protocols/quant_rna.nb.html)
+    - Takes 0.5 hours
 
   - [3.
     Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
+    - Takes 1/2 day to get results back. Can only get bioanalyzer runs
+    on M, T, W.
 
   - [4. Anneal
     adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
     
-      - Anneal the SAI Universal and Indexed adapters  
-      - These indexes are identical to the indexes used in the
-        corresponding illumina primers (5, 8, 9, and 11)
+      - Anneal the SAI adapters designed for Illumina TruSeq.
 
   - [5. mRNA
-    capture](https://pinskylab.github.io/laboratory/protocols/mrna-capture.nb.html)
-
-  - **Safe Stopping Point**  
-    Resuspended beads with captured mRNA may be stored at 4C for **up to
-    24 hours**. Do not freeze the samples as this will damage the beads.
-    When ready, proceed to step below. This is a go home for the night
-    stopping point, not a weekend stopping point.
+    capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
+    - Takes 6 hours
 
   - [6.
-    Synthesis](https://pinskylab.github.io/laboratory/protocols/synthesis_eecseq.nb.html)
-
-  - [7.
-    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
-    
-      - Use a sample volume of 30ul and an ampure volume of 54ul.
+    Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
+    - Takes 1/2 hour.
 
   - **Safe Stopping Point**  
-    Resuspend the beads in 15 μl 1X A-Tailing Buffer (see table above),
-    cover the reaction and store at 4C for **up to 24 hours**. Do not
-    freeze the samples as this will damage the AMPure XP beads. When
-    ready, proceed to A-Tailing after Safe Stopping Point. This is a go
-    home for the night stopping point, not a weekend stopping point.
+    This is a safe stopping point. If you are stopping for more than a
+    week, store your sample at ‐15° to ‐25°C.  
 
-  - [8.
-    A-tailing](https://pinskylab.github.io/laboratory/protocols/a-tailing.nb.html)
-    
-      - Directions differ depending on if you stopped before this step
-        or not.
-
-  - [9. RNA Adapter
-    Ligation](https://pinskylab.github.io/laboratory/protocols/rna_ligation_eecseq.nb.html)
-
-  - [10. Post Ligation
-    Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
-    
-      - Use a sample volume of 35ul and an ampure volume of 35ul.
-
-  - **Safe Stopping Point**  
-    The solution with resuspended beads can be stored at 4C for up to 24
-    hours. Do not freeze the beads, as this can result in dramatic loss
-    of DNA. When ready, proceed to 2nd Post-Ligation Cleanup. If you can
-    squeeze in one more cleanup, might as well keep going to the next
-    safe stopping point, which is hopefully less than an hour away,
-    depending on the number of samples you are working with.
-
-  - [11. Post Ligation
-    Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
-    
-      - Use a sample volume of 25ul and an ampure volume of 25ul.
-
-  - **Safe Stopping Point**  
-    The purified, adapter-ligated library DNA may be stored at 4C for up
-    to 1 week, or frozen at -20C for up to 1 month. When ready, proceed
-    to Library Amplification.
-
-  - [12. RNA Library
-    Amplification](https://pinskylab.github.io/laboratory/protocols/rna_amp_eecseq.nb.html)
-
-  - [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
-    
-      - Use a sample volume of 25ul and an ampure volume of 25ul.
-
-  - [13.
-    Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)  
-
-  - **Safe Stopping Point**  
-    This is a safe stopping point. If you are stopping, store your
-    sample at ‐15° to ‐25°C.  
-
-  - [14. DSN
+  - [7. DSN
     Normalization](https://pinskylab.github.io/laboratory/protocols/dsn-norm.nb.html)  
 
   - **Safe Stopping Point**  
     This is a safe stopping point. If you are stopping, store your
     sample at ‐15° to ‐25°C.
 
-  - [15.
+  - [8.
     Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 80ul and an ampure volume of 160ul.
 
-  - [16. DSN Enrichment
+  - [9. DSN Enrichment
     PCR](https://pinskylab.github.io/laboratory/protocols/dsn-pcr.nb.html)
 
-  - [17.
+  - [10.
     Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
     
       - Use a sample volume of 50ul and an ampure volume of 80ul.
 
-  - [18. Quant
-    Libraries](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
+  - [11. Quant
+    Libraries](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
 
 Split finished cDNA library for each sample into two vials  
 \- One tube for sequencing  
@@ -138,7 +82,7 @@ mRNA library can be saved before DSN normalization for sequencing.
 
 ## \[Probe Synthesis\]
 
-  - [19. Remove sequencing
+  - [12. Remove sequencing
     adapters](\(https://pinskylab.github.io/laboratory/protocols/remove-adapters_eecseq.nb.html\))  
 
   - [20.
@@ -194,15 +138,18 @@ mRNA library can be saved before DSN normalization for sequencing.
   - [29. Extract
     DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
     
-      - **elute DNA into water or Tris-HCl and continue immediately to
-        next step. Do not use an EDTA containing solution like TE to
+      - **elute DNA into 35ul water or Tris-HCl and continue immediately
+        to next step. Do not use an EDTA containing solution like TE to
         elute.**
 
   - [30. Fragment
     DNA](https://pinskylab.github.io/laboratory/protocols/kapa-hyper.nb.html)
+    
+      - EecSeq protocol says to use 1/2 the reaction volume recommended
+        by KAPA.
 
   - [31. End
-    Repair](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+    Repair](https://pinskylab.github.io/laboratory/protocols/end-repair.nb.html)
 
   - [Adapter ligation](#adapter-ligation)
 

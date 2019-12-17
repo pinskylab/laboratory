@@ -24,7 +24,7 @@ anneal <- tribble(~item, ~quantity,
 
 Single-stranded oligos need to be annealed with their appropriate partner before ligation. 
  
-- To create Adapter SAI1_I5, combine Universal_SAI1_Adapter with Indexed_Adapter_SAI1_I5 in a 1:1 ratio in working strength annealing buffer (final buffer concentration 1x) for a total annealed adapter concentration of 40uM (for example, if purchased oligos are resuspended to an initial concentration of 100uM, use 40uL Universal_SAI1_Adapter, 40ul Indexed_Adapter_SAI1_I5, 10ul 10x annealing buffer and 10ul nuclease-free water). Pair Universal_SAI1_Adapter with Indexed_Adapter_SAI1_I8, Indexed_Adapter_SAI1_I9, Indexed_Adapter_SAI1_I11 in the same fasion.
+- To create a duplex adapter, combine in a 1:1 ratio in working strength [annealing buffer](https://pinskylab.github.io/laboratory/protocols/annealing_stock.nb.html) (final buffer concentration 1x) for a total annealed adapter concentration of 40uM (for example, if purchased oligos are resuspended to an initial concentration of 100uM, use 40uL adapter part A, 40ul Adapter part B, 10ul 10x annealing buffer and 10ul nuclease-free water). 
 
 
 **2.   In a thermocyler, incubate at 97.5°C for 2.5 minutes, and then cool at a rate of not greater than 3°C per minute until the solution reaches a temperature of 21°C. Hold at 4°C.**

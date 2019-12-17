@@ -17,7 +17,7 @@ The Expressed Exome Capture Sequencing protocol is designed to create exome capt
 - [3. Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
 - [4. Anneal adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)  
   - Anneal the SAI adapters
-  - These adapters are designed for Illumina TrueSeq.
+  - These adapters are designed for Illumina TruSeq.
   
 - [5. mRNA capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
 

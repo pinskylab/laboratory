@@ -477,6 +477,7 @@ The purified, adapter-ligated library DNA may be stored at 4°C for ≤1 week, o
 Assemble each library amplification reaction as follows:  
 
 |Component|Volume|
+|----|----|
 |Purified, adapter-ligated DNA|20 μL|
 |Library amplification master mix (Table 5)|30 μL|
 |**Total volume:**|**50 μL**|  
@@ -486,5 +487,82 @@ Mix well by pipetting up and down several times.
 
 #### 9.3  
 Amplify the library using the following thermocycling profile:  
+
+|Step|Temp.|Duration|Cycles|
+|----|----|----|----|
+|Initial denaturation| 98°C|45 sec |1| 
+|Denaturation |98°C|15 sec|Refer to Table 1|
+|Annealing*| 60°C|30 sec|Refer to Table 1|
+|Extension| 72°C|30 sec|Refer to Table 1|
+|Final Extension| 72°C|1 min|1|
+|HOLD| 4°C|∞|1|  
+
+**Table 1**
+
+|Quantity of starting material|Number of cycles|
+|----|----|
+|50 – 100 ng|13 – 16|
+|101 – 250 ng|11 – 14|
+|251 – 500 ng|9 – 12| 
+|501 – 1000 ng|7 – 10|  
+
+#### 9.4  
+Proceed immediately to Library Amplification Cleanup (step 10).  
+
+### 10. Library Amplification Cleanup  
+
+#### 10.1   
+Perform a 1X bead-based cleanup by combining the following:  
+
+|Component|Volume|
+|----|----|
+|Adapter-ligated DNA|50 μL|
+|KAPA Pure Beads|50 μL|
+|**Total volume:**|**100 μL**|
+
+#### 10.2  
+Mix thoroughly by vortexing and/or pipetting up and down multiple times.  
+
+#### 10.3  
+Incubate the plate/tube(s) at room temperature for 5 – 15 min to bind DNA to the beads.  
+
+#### 10.4  
+Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 10.5  
+Carefully remove and discard 95 μL of supernatant.  
+
+#### 10.6  
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 10.7  
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 10.8  
+Carefully remove and discard the ethanol.  
+
+#### 10.9  
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 10.10  
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 10.11  
+Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.  
+
+#### 10.12  
+Dry the beads at room temperature for 3 – 5 min, or until all of the ethanol has evaporated. Caution: over-drying the beads may result in reduced yield.  
+
+#### 10.13  
+Thoroughly resuspend the dried beads in 22 μL of 10 mM Tris-HCl (pH 8.0 – 8.5).  
+
+#### 10.14  
+Incubate the plate/tube(s) at room temperature for 2 min to elute DNA off the beads.  
+
+#### 10.15  
+Place the plate/tube(s) on the magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 10.16  
+Transfer 20 μL of the clear supernatant to a new plate/tube(s), and store the purified, amplified libraries at 4°C for ≤ 1 week or at -20°C.  
 
 

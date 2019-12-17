@@ -41,7 +41,7 @@ navbar:
         - text: "4. Anneal RNA Adapters"
           href: "anneal.nb.html"
         - text: "5. mRNA Capture"
-          href: "mrna-capture.nb.html"
+          href: "mrna-hyper.nb.html"
         - text: "6. Synthesis"
           href: "synthesis_eecseq.nb.html"
         - text: "7. Cleanup"

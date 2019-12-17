@@ -7,112 +7,79 @@ output:
 params:
   first: first_id
   last: last_id
-  num_dna_samples: 96
-  database: FALSE
+  num_samples: 96
 ---
-<!-- In the params above, first is the first sample_id in a range of sample_ids to be extracted.  last is the last of that range.  num_dna_samples is the number of samples to extract.  database is a TRUE FALSE flag that either runs the code to interact with the database or doesn't. -->
-```{r include=FALSE}
+```{r setup, echo=FALSE, message=FALSE}
 library(knitr)
 library(kableExtra)
+# library(clownfishr)
 library(tidyverse)
 library(rmarkdown)
 library(here)
 
-options(scipen = 999)
-
-database <- params$database
-```
-
-```{r eval=database, echo=FALSE}
 source("~/db-connections.R")
-leyte <- read_db("Leyte")
-lab <- read_db("Laboratory")
+# leyte <- read_db("Leyte")
+# lab <- read_db("Laboratory")
 ```
 *Before the summer of 2018, we used [Qiagen DNeasy 96 well extraction kits](01_extract_qiagen.nb.html)*
 
 **Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
 
-Special notes:  
+## Special notes:  
  The 26% salt solution is 4.45 Molar.
 
 _________  
+
+# Supplies needed
 ```{r, echo=FALSE}
 extr <- tribble(~item, ~quantity,
-  "liftons_ul", (80*params$num_dna_samples)*1.1,
-  "liftons_w_enzyme_ul", (40*params$num_dna_samples)*1.1,
-  "tips_100", 8*params$num_dna_samples,
-  "plates", 2*ceiling(params$num_dna_samples/96),
-  "seals", 2*ceiling(params$num_dna_samples/96),
-  "hybr_buffer_ul", (45*params$num_dna_samples)*1.1,
-  "ampure_ul", (15*params$num_dna_samples)*1.1,
-  "tips_300", 6*params$num_dna_samples,
-  "ethanol_ul", 3*(150*params$num_dna_samples)*1.1,
-  "low_te_ul", (45*params$num_dna_samples)*1.1) 
+  "liftons_ul", (80*params$num_samples)*1.1,
+  "liftons_w_enzyme_ul", (40*params$num_samples)*1.1,
+  "tips_100", 8*params$num_samples,
+  "plates", 2*ceiling(params$num_samples/96),
+  "seals", 2*ceiling(params$num_samples/96),
+  "hybr_buffer_ul", (45*params$num_samples)*1.1,
+  "ampure_ul", (15*params$num_samples)*1.1,
+  "tips_300", 6*params$num_samples,
+  "ethanol_ul", 3*(150*params$num_samples)*1.1,
+  "low_te_ul", (45*params$num_samples)*1.1) 
 ```
 
-```{r echo=FALSE}
-kable(extr)%>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Supplies needed" = 2))
-```
+# Extraction Methods
 
 
-
-
-## Day 1  
-- Check the lab to make sure the following solutions are available, and if not, make them.
-```{r include=FALSE}
+## 2019-09-05
+**Prepare a solution of Lifton's Buffer**
+```{r eval=FALSE, include=FALSE}
 render(here("protocols", "liftons_stock.Rmd"), run_pandoc = F)
 ```
 
-```{r echo=FALSE}
-kable(liftons) %>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Prepare Lifton's Buffer" = 2))
-```
-*Note that the volumes of the solutions are in ul and the volume of water is in* **ml**  
-
-```{r include=FALSE}
-render(here("protocols", "hybrid_ali.Rmd"), run_pandoc = F)
-```
-```{r}
-kable(hybrid) %>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Prepare Hybridization Solution" = 2))
-```
-*Note that the volumes of the solutions are in ul and the volume of water is in* **ml**   
-
-
-```{r include=FALSE}
-render(here("protocols", "low_te_stock.Rmd"), run_pandoc = F)
-```
-```{r}
-kable(low_te)  %>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Prepare Low TE Solution" = 2))
-```
-*Note that the volumes of the solutions are in ul and the volume of water is in* **ml** 
-
-## Day 2  
-
-```{r include=FALSE}
+**Prepare Lifton's buffer with proteinase K**
+```{r eval=FALSE, include=FALSE}
 render(here("protocols", "liftons_w_enzyme_stock.Rmd"), run_pandoc = F)
 ```
-```{r}
-kable(enzyme)%>%
-  kable_styling("bordered") %>%
-  add_header_above(c("Prepare Enzyme Solution" = 2))
+
+**Prepare hybridization solution**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "hybrid_ali.Rmd"), run_pandoc = F)
 ```
 
-**Turn on the incubator**
+**Prepare low TE solution**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "low_te_stock.Rmd"), run_pandoc = F)
+```
 
+
+
+Turn on the incubator
+## 2018-07-26
 **Load samples for lysis**  
 1. Add 80uL Lifton's buffer to each well of a 96 well plate.  
 2. Add fin clips measuring 2-25mm^2 to each well.  
 3. Add 40uL enzyme solution to each well, pipet up and down to mix.  
-4. Seal plate and incubate at 55˚C overnight.  
+4. Seal plate and incubate at 55C overnight.  
 
-## Day 3
+## 2018-07-27  
 **Extract DNA from lysate**  
 1. To a new plate add 45uL hybridization buffer to each well.  
 2. Add 15uL Agencourt Ampure beads.  
@@ -126,7 +93,8 @@ kable(enzyme)%>%
 10. Add 45uL low TE to elute DNA from the beads  
 
 Organize samples into plate format: 
-```{r data, echo=FALSE, eval=database}
+
+```{r data, echo=FALSE, eval=FALSE}
 # this code gets all sample_ids within the range stated in the params above.
 
 # connect to clownfish table in the db
@@ -172,7 +140,7 @@ plate <- rbind(plate, samples) %>%
 
 ```
 1. Sample_id plate locations
-```{r sample_map, echo=FALSE, message=FALSE, eval=database}
+```{r sample_map, echo=FALSE, message=FALSE, eval=FALSE}
 platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$sample_id)
 knitr::kable(platemap, booktabs = T) %>% 
   # use scale_down to get map to fit within the bounds of the pdf
@@ -200,7 +168,7 @@ plate <- plate %>%
   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
 ```
 2. Extraction_id plate locations
-```{r extr_map, echo=FALSE, message=FALSE, eval=database}
+```{r extr_map, echo=FALSE, message=FALSE, eval=FALSE}
 # created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
 map <- plate %>%
   select(row, col, extraction_id)
@@ -214,15 +182,10 @@ knitr::kable(platemap, booktabs = T) %>%
 
 ```
 Write the newly assigned extraction_ids to the database
-```{r write, eval=database}
+```{r write, eval=FALSE}
 
 # dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
 
 ```
 
 *Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.*
-
-```{r}
-rm(liftons, hybrid, low_te, enzyme, read_db)
-```
-

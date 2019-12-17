@@ -2,7 +2,7 @@
 title: "DNA Quantification"
 output: html_notebook
 params:
-  num_dna_samples: 160
+  num_samples: 160
   num_stds: 8
 ---
 

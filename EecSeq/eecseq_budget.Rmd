@@ -96,7 +96,7 @@ rm(working)
 
 ### 5. mRNA Capture
 ```{r bead-wash}
-render(here("protocols", "mrna-capture.Rmd"), params = list(
+render(here("protocols", "mrna-stranded.Rmd"), params = list(
   num_samples = params$num_rna_samples), run_pandoc = F)
 ```
 

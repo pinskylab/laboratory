@@ -16,10 +16,10 @@ The Expressed Exome Capture Sequencing protocol is designed to create exome capt
 - [2. Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)
 - [3. Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
 - [4. Anneal adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)  
-  - Anneal the SAI Universal and Indexed adapters  
-  - These indexes are identical to the indexes used in the corresponding illumina primers (5, 8, 9, and 11)
+  - Anneal the SAI adapters
+  - These adapters are designed for Illumina TrueSeq.
   
-- [5. mRNA capture](https://pinskylab.github.io/laboratory/protocols/mrna-capture.nb.html)
+- [5. mRNA capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
 
 - **Safe Stopping Point**  
 Resuspended beads with captured mRNA may be stored at 4C for **up to 24 hours**. Do not freeze the samples as this will damage the beads. When ready, proceed to step below.  This is a go home for the night stopping point, not a weekend stopping point.

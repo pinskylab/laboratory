@@ -39,15 +39,7 @@ kable(first_strand) %>%
   add_header_above(c("1st Strand Master Mix" = 2))
 
 ```
-```{r}
-first_rxn <- tribble(~item, ~volume, 
-                   "ul of 1st strand master mix", 10,
-                   "ul of fragmented RNA", 20)
 
-kable(first_rxn) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("Per first strand reaction" = 2))
-```
 ```{r}
 second_strand <- tribble(~item, ~volume, 
                    "ul 2nd Strand Marking Buffer", 31,
@@ -58,15 +50,7 @@ kable(second_strand) %>%
     kable_styling("bordered") %>%
   add_header_above(c("2nd Strand and A-tailing Master Mix" = 2))
 ```
-```{r}
-second_rxn <- tribble(~item, ~volume, 
-                   "ul 2nd Strand Master Mix", 30,
-                   "ul 1st strand cDNA", 30)
 
-kable(second_rxn) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("per 2nd Strand and A-tailing Reaction" = 2))
-```
 ```{r}
 adapter_lig <- tribble(~item, ~volume, 
                    "ul Ligation Buffer", 40,
@@ -77,16 +61,7 @@ kable(adapter_lig) %>%
     kable_styling("bordered") %>%
   add_header_above(c("Adapter Ligation Master Mix" = 2))
 ```
-```{r}
-lig_rxn <- tribble(~item, ~volume, 
-                   "ul Adapter Lig Master Mix", 45,
-                   "ul A-tailed dscDNA", 60,
-                   "ul adapter, see step 6.1", 5)
 
-kable(lig_rxn) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("per Ligation Reaction" = 2))
-```
 ```{r}
 library_amp <- tribble(~item, ~volume, 
                    "ul HiFi HotStart ReadyMix", 25,
@@ -97,15 +72,7 @@ kable(library_amp) %>%
     kable_styling("bordered") %>%
   add_header_above(c("Library Amplification Master Mix" = 2))
 ```
-```{r}
-amp_rxn <- tribble(~item, ~volume, 
-                   "ul Library Amplification Master Mix", 30,
-                   "ul adapter ligated DNA", 2)
 
-kable(amp_rxn) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("per Amplification Reaction" = 2))
-```
 
 ```{r}
 bead <- tribble(~item, ~volume, 

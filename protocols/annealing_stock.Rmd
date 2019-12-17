@@ -1,7 +1,8 @@
 ---
 title: "10x Annealing Buffer Stock Solution"
 params:
-  final_vol_ul: 5000
+  final_vol_ul: 10000
+output: html_notebook  
 ---
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -10,7 +11,7 @@ library(kableExtra)
 ```
 
 
-This recipe is the same for ddRADSeq and EecSeq protocols
+This recipe is the same for ddRADSeq and EecSeq protocols and will prepare a `r params$final_vol_ul/1000` mL solution.
 ```{r annealing, echo=FALSE}
 annealing_guide <- tribble(~item, ~initial_conc, ~final_conc, 
                    "500_mM_edta_ul", 500,10,

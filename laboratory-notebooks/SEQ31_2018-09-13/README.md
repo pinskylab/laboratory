@@ -21,8 +21,7 @@ Copying Jupiter notebook over to R notebook so it can be seen here:
 2018-10-05 Friday
 * with the notebook in the bcsplit folder, cat the bcsplit output using the command lines from the cat_all file
     * (#SEQ21_cat_all.sh)
-* Process radiates with command lines from process_all
-    * (#SEQ21_process_all.sh)
+* Process radiates with command lines from [process_all](SEQ21_process_all.sh)
 2018-10-04 Thursday 
 * it looks like lane 2 failed to download yesterday.  Restart notebook from Princeton download cells. (lane1, lane2)
 * started bcsplit at 8:43am
@@ -34,15 +33,13 @@ Copying Jupiter notebook over to R notebook so it can be seen here:
 
 2018-09-13 Thursday
 * pooled 3 baits into seq Ron
-    * [baits 12](../baits-12_2018-09-11)
-    * baits 11
-    * baits 10
+    * [baits 12](../baits12_2018-09-11)
+    * [baits 11](../baits11_2018-09-11)
+    * [baits 10](../baits10_2018-09-11)
     * (#baits.nb.html)
     * Indexes in this seq are 1-12
-* Cleaned and quantified
-    * (#quant_qubit_import.pdf)
-    * (#quant_qubit_import.nb.html)
-    * Diluted for sequencing to 10nm
-        *  seq 3.86 + pH2O 26.1
+* Cleaned and [quantified](quant_qubit_import.nb.html) [pdf](quant_qubit_import.pdf)
 
-Bioanalyzer of seq came back that it was only 1.1nM - check the math in the seq_prep file. - recalculating shows conc is 25.89nM.  I unintentionally diluted that to send to sequencer.
+* Diluted for sequencing to 10nm
+        *  seq 3.86 + pH2O 26.1
+        * Bioanalyzer of seq came back that it was only 1.1nM - check the math in the seq_prep file. - recalculating shows conc is 25.89nM.  I unintentionally diluted that to send to sequencer.

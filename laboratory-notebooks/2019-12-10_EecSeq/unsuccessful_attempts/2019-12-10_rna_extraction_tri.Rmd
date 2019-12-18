@@ -1,0 +1,66 @@
+---
+title: "RNA extraction for EecSeq"
+output: html_notebook
+params:
+  num_samples: 4
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+Manufacturers instructions can be found [here](https://github.com/pinskylab/laboratory/blob/master/documentation/tri-reagent-protocol.pdf).
+
+## RNA Prep
+```{r echo=FALSE}
+rna_extr <- tribble(~item, ~quantity,
+                    "tri_reagent_ul", 1000,
+                    "tubes_1.7ml", 3,
+                    "bcp_ul", 100,
+                    "tips_1000", 7,
+                    "tips_100", 2,
+                    "isopropanol_ul", 500, 
+                    "ethanol_ul", 1000,
+                    "1x_te_buffer_ul", 300
+                    ) %>% 
+  mutate(quantity = quantity* params$num_samples)
+```
+
+
+### Extract RNA from individuals to be used for probes
+
+#### Reagents and supplies
+- Nuclease-free Water
+- 1-bromo-3-chloropropane (BCP; recommended, e.g., MRC, Cat #BP 151), or chloroform without added isoamyl alcohol 100% 
+- isopropanol, ACS grade or better
+- 100% ethanol, ACS grade or better
+
+#### Equipment
+- Pestles for 1.5mL tubes
+- Appropriately sized RNase-free centrifuge tubes with secure closures, compatible with phenol/chloroform (polypropyl- ene, or polyallomer), and capable of withstanding centrifugal forces of 12,000G
+- Centrifuge capable of 12,000 x g and 4˚C - we don't have that.  It appeared that temperature was more imporatant than power and we use the big centrifuge (3500xg) to do Qiagen extractions which require 20,000xg so we figured this would be enough.  
+    - Because we don't have a rotor that will hold microcentrifuge tubes in the large centrifuge, we packed 50mL falcon tubes with kim wipes and placed 1 microcentrifuge tube per falcon tube in the falcon tube attatchment for the rotor.
+
+**Notes before starting**
+- Place all pipettes, tips, and supplies inside the hood and expose to UV for 30 minutes. (Do not put your samples in the UV hood!)  
+- Prepare 75% ethanol by mixing 250 μL nuclease-free water with 750 μL 100% ethanol per mL of TRI Reagent solution to be used. Include 10% overage to ensure a sufficient volume.
+
+#### Procedure
+1. Homogenize tissue samples in 200 ul TRI Reagent solution.  
+2. Incubate the homogenate for 5 min at room temp.  
+3. Centrifuge at ~~12,000 x g~~ 3220 x g for 10 min at 4°C and transfer the supernatant to a fresh tube.  
+4.    a. Add ~~200 μL~~ 20uL BCP ~~per 1 mL of TRI Reagent solution~~ used for homogenization.  
+      b. Cap the tubes tightly and shake vigorously for 15 sec.  
+      c. Incubate the mixture at room temperature for 5–15 min.  
+      
+5.    a. Centrifuge at 12,000 x g for 10–15 min at 4°C, then transfer the aqueous phase to a fresh tube. *Centrifugation at temperatures > 8°C may cause some DNA to partition in the aqueous phase, which is undesireable.*  
+      b. Transfer the aqueous phase (colorless top layer) to a fresh tube.
+6. Add ~~500 μL~~ 100 uL of isopropanol ~~per 1 mL of TRI Reagent solution~~, vortex for 5–10 sec, and incubate at room temp for 5–10 min.  
+      
+7. Centrifuge at 12,000 x g for 8 min at 4–25°C, and discard the supernatant.
+	- Carefully remove the supernatant without disturbing the pellet.
+		- Precipitated RNA forms a gel-like or white pellet on the side and bottom of the tube.
+		
+## We did not get a pellet.  We tried centrifuging 4 more times, then combined the 4 tubes to see if more material would give us a pellet but we still did not get a pellet.  We decided that either our sample was too small or the centrifuge was too slow.  We will be putting the 12,000 x g centrifuge outside in the < 3˚C temperatures tomorrow and will be placing 2 larger fish in one tube.  We weighed the fish on the Morin mass balance and confirmed that the 2 fish together weigh 15mg, which is within the parameters of this experiment.
+  

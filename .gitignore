@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+/data
+..Rhistory.icloud
+test_child.Rmd
+test_parent.Rmd
+test_parent.html

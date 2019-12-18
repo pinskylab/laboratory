@@ -1,0 +1,67 @@
+---
+title: "`r params$first` - `r params$last`"
+output:
+  html_notebook:
+    code_folding: hide
+    df_print: paged
+params:
+  first_sample: L3928
+  last_sample: L4023
+  type: ligation_id
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(dbplyr)
+
+source("~/db-connections.R")
+lab <- read_db("Laboratory")
+```
+
+This will generate platemaps and notebook entries retroactively.
+
+## Pull sample info from the database
+```{r}
+if(params$type == "ligation_id"){
+samples <- lab %>% 
+  tbl("ligation") %>% 
+  collect() %>% 
+  filter(ligation_id >= params$first_sample & ligation_id <= params$last_sample)
+}
+
+```
+
+## Get digest info, include 
+```{r}
+dig <- lab %>% tbl("digest") %>% collect() %>%
+  filter(digest_id %in% samples$digest_id) %>%
+  select(digest_id, quant, well, plate, notes) %>%
+  arrange(digest_id) %>% 
+  filter(quant >= 2.25, # anything below this amount cannot be ligated at 50ng or higher
+         !grepl("empty", notes), 
+         !grepl("contaiminated", notes), 
+         !grepl("not enough", notes)) 
+
+```
+
+
+
+
+
+
+plate_info <- samples %>% 
+  select(ligation_id, digest_id, well) %>% 
+  mutate(row = substr(well, 1,1), 
+         col = as.numeric(substr(well, 2, 3))) %>% 
+  arrange(col, row)
+```
+### Digest destination
+```{r}
+platemap <- as.matrix(reshape2::acast(plate_info, plate_info$row ~ plate_info$col), value.var = plate_info$digest_id)
+knitr::kable(platemap, booktabs = T) %>% 
+  # use scale_down to get map to fit within the bounds of the pdf
+  kable_styling(latex_options = "scale_down")
+```
+
+

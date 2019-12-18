@@ -1,0 +1,145 @@
+---
+title: "Hybridization"
+params:
+  lib_size_ng: 500
+  num_seq_lib: 1
+output: html_notebook
+---
+```{r setup}
+library(tidyverse)
+```
+
+### Materials needed
+| Reagent                                | Supplier         | Catalog #      |            
+|----------------------------------------|------------------|-----------|
+|Denhardt’s solution  (50x)              |Life Technologies | 750018        |           
+|Dynabeads® M-280 Streptavidin           |Life Technologies | 11205D, M-270 |           
+|SSC Buffer Concentrate (20x)            |Fisher Scientific | 5075059      |              
+|SDS Micropellets           |Fisher Scientific | BP8200100      |             
+|Cot-1 DNA (1 mg/ml)                     |ThermoFischer     | 15279011|                   
+|Agencourt AMPure XP                     |Beckman Coulter   | A63881|
+
+## Blocking Oligos
+
+Note that if using custom DNA adapters, it is critical to ensure that the blocking oligos match the adapter sequences.
+
+|Name       |5' to 3' Sequence                                                |
+|-----------|------------------------------------------------------------------|
+| BO1.P5.F  | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT       |
+| BO2.P5.R  | AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT       |
+| BO3.P7.F  | CAAGCAGAAGACGGCATACGAGATIIIIIIGTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT |
+| BO4.P7.R  | AGATCGGAAGAGCACACGTCTGAACTCCAGTCACIIIIIIATCTCGTATGCCGTCTTCTGCTTG |
+
+
+Solutions needed:
+
+- 10 mM Tris-HCl pH 8.5 or PCR-grade water
+- EDTA 500 mM
+- SDS 10%
+- TEN (10 mM Tris-HCl pH 7.5, 1 mM EDTA, 1M NaCl)
+- 1x SSC / 0.1% SDS
+- 0.5x SSC / 0.1% SDS
+- 0.1x SSC / 0.1% SDS
+
+Protocol based on previously described methods [hyRAD](https://github.com/chiasto/hyRAD/blob/master/wetlab.md#4-hybridization-capture-and-library-re-amplification) and [general capture](http://openwetware.org/wiki/Hyb_Seq_Prep)
+
+Remember to perform one capture per pool of the libraries amplified with the same Illumina indexed primer.
+
+## Hybridization  
+
+- Prepare the hybridization mix. Probes and blocking oligos are used in excess. We recommend using 500 ng of probes with 500 ng of gDNA library, but have also successfully captured with as little as 100 ng of probes and 100 ng of library.  **Yield will scale directly with input**
+
+
+```{r}
+hybrid <- tribble(~item, ~quantity,
+                  "ph2o_ml", 0.0035,
+                  "ssc_20x_ul", 12,
+                  "500_mM_edta_ul", 0.4, 
+                  "10_perc_sds_ul", 0.4, 
+                  "denhardts_50x_ul", 1.6, 
+                  "1_mg/ml_cot-1_dna_ul", 0.5, 
+                  "blocking_oligo_200_uM_ul", 0.4,
+                  "blocking_oligo_200_uM_ul", 0.4,
+                  "blocking_oligo_200_uM_ul", 0.4, 
+                  "blocking_oligo_200_uM_ul", 0.4,
+                  "tips_10", 11,
+                  "tips_100", 1,
+                  # make room for small or large numbers of samples
+                  ifelse(params$num_seq_lib <20, "tubes_200ul", "plates"), ifelse(params$num_seq_lib < 20, params$num_seq_lib * 2, ceiling(params$num_seq_lib/96) * 2)) %>% 
+  mutate(quantity = quantity * params$num_seq_lib)
+```
+
+| Component                                | Volume  |
+| -------------------------------------- | ----------- |
+| Molecular Grade Water                  | 3.5 ul        |
+| SSC (20x)                              | 12.0  ul      |
+| EDTA (500 mM)                          | 0.4 ul        |
+| SDS (10%)                              | 0.4 ul        |
+| Denhardt’s solution (50x)              | 1.6 ul        |
+| Cot-1 DNA (1 mg/ml)                    | 0.5 ul        |
+| BO.1 blocking oligo (200 uM)           | 0.4 ul        |
+| BO.2 blocking oligo (200 uM)           | 0.4 ul        |
+| BO.3 blocking oligo (200 uM)           | 0.4 ul        |
+| BO.4 blocking oligo (200 uM)           | 0.4 ul        |
+| prepared Illumina library (500 ng)| 10.0 ul        |
+| probes (500 ng)| 10.0 ul|
+
+- Incubate at 95C for 10 minutes, then at 65C for 48 hours. Mix from time to time. This can be done in a standard thermocycler, but is probably best performed in an hybridization oven with a rotor. 
+
+### Preparation of Dynabeads
+```{r}
+dyna <- tribble(~item, ~quantity,
+                "10_mg/ml_dynabeads_m280_ul", 10,
+                "qubit_tubes", 2, 
+                "tips_10", 1,
+                "tips_1000", 8, 
+                "TEN_ul", 800) %>% 
+  mutate(quantity = quantity * params$num_seq_lib)
+```
+
+- Resuspend well Dynabeads M-280 (10 mg/ml).
+- Dispense 10 ul of beads in a PCR tube.
+- Wash:
+	- magnetize, remove and discard supernatant,
+	- resuspend in 200 ul of TEN.
+- Repeat the wash two times for a total of three washes
+- Store in 200 ul of TEN at room temperature until use.
+
+If more captures are expected, increase the initial amount of beads accordingly, transfer the final resupension into an eppendorf tube and add the appropriate volume of TEN (10 ul of beads should be resuspended in 200 ul of TEN).
+
+### Washes
+```{r}
+clean <- tribble(~item, ~quantity,
+                "tips_100", 1,
+                "tips_1000", 10,
+                "qubit_tubes", 6, 
+                "ssc_sds_ul", 800, 
+                "ph2o_ml", 0.022)
+```
+
+- Add 40 ul of the hybridization mixture to 200ul of Dynabeads
+- Gently mix with pippette or inverting tube
+- Incubate 30 min at room temperature.	
+- Place on the magnet
+- Remove supernatant and retain in case of DNA loss.
+- Resuspend beads in 200 ul of **65°C 1x SSC / 0.1% SDS**. 
+- Mix well and incubate for 15 min, 65°C.	
+- Place on the magnet
+- Remove supernatant and retain in case of DNA loss.
+- Replace with 200 ul of --65°C 1x SSC / 0.1% SDS--. 
+- Mix well and incubate for 10 min, 65°C.	
+- Place on the magnet
+- Remove supernatant and retain in case of DNA loss.
+- Replace with 200 ul of --0.5x SSC / 0.1% SDS--.
+- Mix well, incubate for 10 min, 65°C.	
+- Place on the magnet
+- Remove supernatant and retain in case of DNA loss.
+- Replace with 200 ul of --0.1x SSC / 0.1% SDS--.
+- Mix well, incubate for 10 min, 65°C.	
+- Place on the magnet
+- Remove supernatant and retain in case of DNA loss.
+- Replace with 22 ul of 80°C H20 
+- Mix well, incubate for for 10 min, 80°C.
+- Place on magnet
+- Remove and **SAVE THE SUPERNATANT** (this contains the hybridization-enriched fragments)
+- Discard the beads.	

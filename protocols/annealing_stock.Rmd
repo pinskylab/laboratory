@@ -1,0 +1,42 @@
+---
+title: "10x Annealing Buffer Stock Solution"
+params:
+  final_vol_ul: 10000
+output: html_notebook  
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+
+This recipe is the same for ddRADSeq and EecSeq protocols and will prepare a `r params$final_vol_ul/1000` mL solution.
+```{r annealing, echo=FALSE}
+annealing_guide <- tribble(~item, ~initial_conc, ~final_conc, 
+                   "500_mM_edta_ul", 500,10,
+                   "1000_mM_Tris-HCl_pH8_ul", 1000,100,
+                   "4.45_M_NaCl_ul", 4450, 500,
+                   "ph2o_ul", 0, 0 ) %>% 
+  mutate(final_vol_uL = params$final_vol_ul,
+    initial_vol_uL = final_conc* final_vol_uL/initial_conc,
+         initial_vol_uL = ifelse(item == "ph2o_ul",final_vol_uL - sum(initial_vol_uL, na.rm = T), initial_vol_uL))
+ 
+annealing <- annealing_guide %>% 
+  select(item, initial_vol_uL) %>% 
+  rename(quantity = initial_vol_uL) %>% 
+  mutate(item = ifelse(item == "ph2o_ul", "ph2o_ml", item), 
+         quantity = ifelse(item == "ph2o_ml", quantity/1000, quantity)) %>% 
+  bind_rows(tribble(~item, ~quantity,
+                    "tips_1000", 3,
+                    # make room for small or large numbers of samples
+                  ifelse(params$final_vol_ul < 15000, "falcon_15mL", "falcon_50mL"), 1))
+         
+kable(annealing_guide) %>%
+  kable_styling("bordered") %>%
+  add_header_above(c("annealing stock solution" = 5))
+```
+```{r}
+rm(annealing_guide)
+```
+

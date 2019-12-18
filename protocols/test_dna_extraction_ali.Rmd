@@ -1,0 +1,69 @@
+---
+title: "DNA Extraction Ali et al. 2016"
+params:
+  num_dna_samples: 10
+---
+<!-- In the params above, first is the first sample_id in a range of sample_ids to be extracted.  last is the last of that range.  num_dna_samples is the number of samples to extract.  database is a TRUE FALSE flag that either runs the code to interact with the database or doesn't. -->
+```{r include=FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(rmarkdown)
+library(here)
+
+options(scipen = 999)
+```
+
+```{r eval=FALSE, include=FALSE}
+source("~/db-connections.R")
+leyte <- read_db("Leyte")
+lab <- read_db("Laboratory")
+```
+*Before the summer of 2018, we used [Qiagen DNeasy 96 well extraction kits](01_extract_qiagen.nb.html)*
+
+**Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
+
+_________  
+```{r include=FALSE}
+extr <- tribble(~item, ~quantity,
+                "liftons_ul", 80,
+                "liftons_w_enzyme_ul", 40,
+                "tips_100", 8,
+                "hybr_buffer_ul", 45,
+                "ampure_ul", 15,
+                "tips_300", 6,
+                "ethanol_ul", 3*150,
+                "low_te_ul", 45) %>% 
+  mutate(quantity = quantity * params$num_dna_samples) %>% 
+  # make room for small or large numbers of samples
+    bind_rows(tribble(~item, ~quantity, 
+                ifelse(params$num_dna_samples <20, "tubes_200ul", "plates"), ifelse(params$num_dna_samples < 20, params$num_dna_samples * 2, ceiling(params$num_dna_samples/96) * 2)))
+
+if (nrow(filter(extr, item == "plates")) != 0){
+  extr <- extr %>% 
+    bind_rows(tribble(~item, ~quantity, 
+              "seals", ceiling(params$num_dna_samples/96) * 2))
+}
+```
+
+```{r echo=FALSE}
+kable(extr)%>%
+  kable_styling("bordered") %>%
+  add_header_above(c("Supplies needed" = 2))
+```
+
+
+```{r eval=FALSE, include=FALSE}
+# add a parameter to adjust the final volume as needed
+liftons_ul <- extr$quantity[[which(extr$item == "liftons_ul")]]
+
+extr$quantity["liftons_ul"]
+
+params <- list(
+  final_vol_ul = liftons_ul
+)
+```
+
+```{r child="liftons_stock.Rmd"}
+```
+

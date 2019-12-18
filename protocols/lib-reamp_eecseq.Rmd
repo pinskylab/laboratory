@@ -1,0 +1,52 @@
+---
+title: "Library Reamplification"
+output: html_notebook
+params:
+  num_seq_lib: 1
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+### Library re-amplification
+KAPA HiFi HotStart ReadyMix is a pre-made master mix that contains the polymerase, buffer, dNTPs, etc already.
+```{r}
+reamp <- tribble(~item, ~quantity,
+                 "kapa_hifi_hotstart_readymix_ul", 12.5 * params$num_seq_lib,
+                 "f_p1_primer_universal_working_ul", 1.25 * params$num_seq_lib,
+                 "r_p2_primer_illumina_index_working_ul", 1.25 * params$num_seq_lib, 
+                 "tips_100", 1,
+                 "tips_10", 3 * params$num_seq_lib,
+                 # make room for small or large numbers of samples
+                  ifelse(params$num_seq_lib <20, "tubes_200ul", "plates"), ifelse(params$num_seq_lib < 20, params$num_seq_lib * 2, ceiling(params$num_seq_lib/96) * 2))
+```
+- Assemble each library amplifcation reaction as follows
+```{r}
+kable(tribble(
+  ~component, ~volume,
+  "KAPA HiFi HotStart ReadyMix (2X)", "12.5 ul",
+  "PCR1_P5 Primer (Universal)","1.25 ul",
+  "PCR2 Primer (Indexed)", "1.25 ul",
+  "Enriched Library", "10.0 ul",
+  "Total Volume","25 ul")) %>% 
+  kable_styling("bordered")
+
+```
+
+**NOTE:** It's important to use the same INDEX primer as the original library prep!
+
+- Mix thoroughly and centrifuge briefly.
+- Amplify using the following cycling protocol:
+```{r}
+kable(tribble(~Step,~Temp,~Duration,~Cycles,
+"Initial denaturation", "98 °C", "45 sec", "1",
+"Denaturation","98 °C", "15 sec", "12",
+"Annealing", "60 °C", "30 sec", "12",
+"Extension", "72 °C", "30 sec", "12",
+"Final Extension", "72 °C", "1 min", "1",
+"Hold", "4 °C ", "∞", "1")) %>% 
+  kable_styling("bordered")
+```
+
+

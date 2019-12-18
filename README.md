@@ -1,0 +1,31 @@
+Laboratory Work
+================
+
+## This repository holds the methods we use for sequencing library preparation.
+
+#### Suggested Use
+
+Our protocols change over time. If you want to create a snapshot of your
+method at the time you ran the protocol, create a release. This will
+create an archive of the method that you can refer back to years later
+when you want to share a tip with someone or reference your work in a
+manuscript.
+
+### [ddRADSeq](ddRADSeq)
+
+This
+[method](https://pinskylab.github.io/laboratory/ddRADSeq/index.html) is
+used in our *Amphiprion clarkii* clownfish project and our *Paralichthys
+dentatus* summer flounder project.
+
+### [Nextera](Nextera)
+
+This method is used in our *Myotis lucificus* little brown bat project.
+
+### [EecSeq](EecSeq)
+
+This method might be used in our *Amphiprion percula* clownfish project.
+
+### [protocols](protocols)
+
+Ala carte menu of procedures used in the lab.

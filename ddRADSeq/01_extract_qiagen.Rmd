@@ -1,0 +1,152 @@
+---
+title: "Extraction plan for `r params$first` - `r params$last`"
+output:
+  html_notebook:
+    df_print: paged 
+    code_folding: hide
+date: "`r Sys.Date()`"
+params:
+  first: APCL18_659
+  last: APCL18_732
+  num_samples: 76
+  num_plate: 1
+---
+```{r setup, echo=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+# library(clownfishr)
+library(tidyverse)
+
+source("~/db-connections.R")
+leyte <- read_db("Leyte")
+lab <- read_db("Laboratory")
+```
+
+# Extraction Methods
+*Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.*  
+
+The Pinsky Lab has been using the extraction method described by [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665) since June 2018.  Before that we used Qiagen DNEasy 96 well kits.  
+*If you are writing a manuscript about data collected between 2012 and 2015, use the Qiagen kits in your methods section.  If you are writing a manuscript about data collected from 2016 to present, use this method as described by Ali et al.*  
+
+## Example manuscript text:  
+**Samples were lysed and DNA extracted following the protocol in [Peterson et al. 2012](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0037135).**
+
+## Load samples for lysis
+
+1. Place samples into a collection microtube. Use a 96-Well-Plate Register for sample position (skip below to "Organize sample into plate format" to figure ot where each sample belongs before beginning extraction.  Lay the samples out in that format before beginning).
+2. Prepare a working solution containing 20 μl proteinase K stock solution and 180 μl Buffer ATL per sample, and mix by vortexing. Immediately pipet 200 μl working solution into each collection microtube. Tightly seal the microtubes using the caps provided.
+3. Place the clear cover over each rack, and mix by inverting. Centrifuge to collect any solution from the caps. The samples must be completely submerged in the proteinase K–Buffer ATL solution after centrifugation.  
+4. Incubate at 56°C overnight or until the samples are completely lysed. Place a weight on top of the caps during the incubation. Mix occasionally during incubation to disperse the sample.
+
+## Extract DNA from lysate
+5. Ensure that the microtubes are properly sealed. Cover the racks and vigorously shake up and down for 15 s. Centrifuge to collect any solution from the caps. Ensure that samples are completely lysed to avoid clogging wells of the DNeasy 96 plate.
+6. Carefully remove the caps and add 410 μl Buffer AL–ethanol mixture to each sample, and tightly reseal using new caps.
+7. Place a clear cover over each rack and shake the racks vigorously up and down for 15 s. Centrifuge to collect any solution from the caps.
+8. Place 2 DNeasy 96 plates on top of S-Blocks. Mark the DNeasy 96 plates for later sample identification.
+9. Carefully remove microtube caps and transfer the lysate (maximum 900 μl) of each sample to each well of the DNeasy 96 plates.
+10.Seal each plate with an AirPore Tape Sheet. Centrifuge for 10 min at 3800 x g (6000 rpm). 11.Remove the tape. Add 500 μl Buffer AW1 to each sample.
+12.Seal with a new AirPore Tape Sheet. Centrifuge for 5 min at 3800 x g.
+13.Add 500 μl Buffer AW2 to each sample.
+14.Centrifuge for 15 min at 3800 x g (do not seal the plate with tape).
+15.Place each DNeasy 96 plate on a new rack of Elution Microtubes RS.
+16.Add 200 μl Buffer AE to each sample, and seal with new AirPore Tape Sheets. Incubate for 1 min at room temperature (15–25°C). Centrifuge for 2 min at 3800 x g.  
+
+17.Seal the Elution Microtubes RS with new caps to store the eluted DNA.
+  
+
+## Organize samples into plate format: 
+
+```{r data, echo=FALSE}
+# this code gets all sample_ids within the range stated in the params above.
+
+# connect to clownfish table in the db
+work <- leyte %>% tbl("clownfish") %>%
+  # choose only the sample_id column
+  select(sample_id)  %>% 
+  # pull the data into R
+  collect()%>% 
+  # choose only the rows that meet our requirements
+  filter(sample_id >= params$first, 
+    sample_id <= params$last, 
+    !is.na(sample_id)) %>% 
+  # make sure there aren't any duplicates
+  distinct(sample_id)
+
+# define wells
+plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>% 
+  mutate(sample_id = ifelse(row == "D" & col == 2, "XXXX", NA), 
+    sample_id = ifelse(row == "E" & col == 8, "XXXX", sample_id))
+
+# if the plate is not full
+x <- nrow(work) + 2
+if (x < 96) {
+  plate <- plate %>% 
+    slice(1:x)
+}
+
+# move all of the non-blank wells into their own table
+samples <- plate %>% 
+  filter(is.na(sample_id)) %>% 
+  select(-sample_id)
+
+# remove the non-blank wells from the plate table
+plate <- anti_join(plate, samples, by = c("row", "col"))
+
+# join the work sample_ids to the sample table well definitions
+samples <- cbind(samples, work)
+
+# rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks.
+plate <- rbind(plate, samples) %>% 
+  arrange(col, row)
+
+```
+1. Sample_id plate locations
+```{r sample_map, echo=FALSE, message=FALSE}
+platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$sample_id)
+knitr::kable(platemap, booktabs = T) %>% 
+  # use scale_down to get map to fit within the bounds of the pdf
+  kable_styling(latex_options = "scale_down")
+```
+```{r extr_ids, echo=FALSE}
+### ONLY DO THIS ONCE ###
+extracted <- lab %>% tbl("extraction") %>% 
+  summarise(last = max(extraction_id, na.rm = T)) %>% 
+  collect() %>% 
+  mutate(last = substr(last, 2,5))
+
+plate <- plate %>% 
+  mutate(well = 1:nrow(plate)) %>% 
+  mutate(extraction_id = paste("E", well + as.numeric(extracted$last), sep = "")) %>% 
+  mutate(well = paste(row, col, sep = "")) %>% 
+  mutate(method = "Ali", 
+    final_vol = "45")
+
+plate_name <- plate %>% 
+  summarise(first = min(extraction_id), 
+    last = max(extraction_id, na.rm = T))
+
+plate <- plate %>% 
+  mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
+```
+2. Extraction_id plate locations
+```{r extr_map, echo=FALSE, message=FALSE}
+# created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
+map <- plate %>%
+  select(row, col, extraction_id)
+platemap <- as.matrix(reshape2::acast(map, map$row ~ map$col), value.var = map$extraction_id)
+
+# remove row and col from plate
+plate <- select(plate, -row, -col)
+
+knitr::kable(platemap, booktabs = T) %>% 
+  kable_styling()
+
+```
+Write the newly assigned extraction_ids to the database
+```{r write}
+
+# dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
+
+```
+
+

@@ -1,0 +1,33 @@
+---
+title: "Liftons w/ Proteinase-K Stock Solution"
+params:
+  final_vol_ul: 50000
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+```{r liftons, echo=FALSE}
+enzyme_guide <- tribble(~item, ~initial_conc, ~final_conc, 
+                   "1000_mM_DTT_ul", 1000, 75,
+                   "20_mg/ml_ProteinaseK_ul", 20, 4.2,
+                   "liftons_ul", 0, 0) %>% 
+  mutate(final_vol_ul = params$final_vol_ul,
+    initial_vol_ul = final_conc* final_vol_ul/initial_conc,
+         initial_vol_ul = ifelse(item == "liftons_ul",final_vol_ul - sum(initial_vol_ul, na.rm = T), initial_vol_ul))
+ 
+enzyme <- enzyme_guide %>% 
+  select(item, initial_vol_ul) %>% 
+  rename(quantity = initial_vol_ul) 
+         
+kable(enzyme_guide) %>%
+  kable_styling("bordered") %>%
+  add_header_above(c("liftons with enzyme stock solution" = 5))
+```
+
+
+```{r}
+rm(enzyme_guide)
+```

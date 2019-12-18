@@ -24,7 +24,7 @@ This method is used in our *Myotis lucificus* little brown bat project.
 
 ### [EecSeq](EecSeq)
 
-This method might be used in our *Amphiprion percula* clownfish project.
+This method is used in our *Amphiprion percula* clownfish project.
 
 ### [protocols](protocols)
 

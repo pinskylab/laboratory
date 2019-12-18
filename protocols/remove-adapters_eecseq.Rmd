@@ -1,0 +1,51 @@
+---
+title: "Remove Adapters from cDNA"
+output: html_notebook
+params:
+  num_samples: 1
+---
+```{r}
+library(tidyverse)
+```
+
+```{r}
+remove <- tribble(~item, ~quantity,
+                  "mung_bean_nuclease_ul", 0.5, 
+                  "tips_10", 2,
+                  "sali_hf_ul", 1, 
+                  "tips_100", 2,
+                  "ph2o_ml", 0.02275, 
+                  "tubes_200ul", 1) %>% 
+  mutate(quantity = quantity * params$num_samples)
+```
+
+#### Materials needed
+| Reagent                                | Producer         | Catalog #      |            
+|----------------------------------------|------------------|-----------|
+|Mung Bean Nuclease| NEB| M0250S|
+|SalI-HF| NEB| R3138T|
+|Agencourt AMPure XP  |Beckman Coulter   | A63881|
+
+### Procedure
+- Setup a restriction digest using 1 ug of DSN library
+
+|Component|Volume|
+|---------|------|
+| 10X Cutsmart Buffer| 4 ul|
+|SalI-HF Enzyme (100 units)| 1 ul |
+| Molecular Grade H20| 22.75 ul|
+| DSN Enriched Library| 12.25 ul|
+|--Total Volume--| --40 ul--|
+
+- Incubate reactions in thermocycler at 37°C for at least 8 hours, prefereably 12-16 hours.
+
+- --Using the same tubes from the previous step-- combine the following:
+
+|Component|Volume|
+|---------|------|
+|Digested Library| 40 ul|
+|10X Mung Bean Nuclease buffer| 4.5 ul|
+|Mung Bean Nuclease (10 units per ul)| 0.5 ul|
+|--Total Volume--| --45 ul--|
+
+- Incubate at 30°C for 30 minutes

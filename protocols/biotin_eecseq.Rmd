@@ -1,0 +1,70 @@
+---
+title: "Biotin Labeling"
+output: html_notebook
+params:
+  num_samples: 1
+---
+```{r setup}
+library(tidyverse)
+```
+
+```{r}
+biotin <- tribble(~item, ~quantity,
+                  "tips_100", 4,
+                  "tips_10", 6, 
+                  "ph2o_ml", 0.023,
+                  "tubes_1.7ml", 2,
+                  "decalabel_biotin_klenow_ul", 2) %>% 
+  mutate(quantity = quantity * params$num_samples)
+```
+
+### Materials needed
+
+| Reagent                                | Producer         | Catalog #      |            
+|----------------------------------------|------------------|-----------|
+|DecaLabel™ Biotin DNA Labeling Kit |Thermo Scientific | FERK0651   |                     
+
+### Procedure
+
+- Add the following components into 1.5 ml microcentrifuge tube:
+
+|Component|Volume|
+|---------|------|
+|RE and MBN treated DSN Library| 20 ul|
+|Decanucleotide in 5X Reaction Buffer| 10 ul|
+| Water, nuclease-free| 14 ul|
+|--Total Volume--| --44 ul--|
+
+- Vortex the tube and spin down in a microcentrifuge for 3-5 s
+- Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.
+- Add the following components in the same tube:
+
+|Component|Volume|
+|---------|------|
+|Biotin Labeling Mix| 5 ul|
+|Klenow fragment, exo– (5 u)| 1 ul|
+|--Total Volume--| --50 ul--|
+
+- Shake the tube and spin down in a microcentrifuge for 3-5 s. 
+- Incubate for 12-20 hours at 37°C. 
+
+---
+#### Optional:Control reaction
+- Add the following components into 1.5 ml microcentrifuge tube:
+
+|Component|Volume|
+|---------|------|
+|Control Template, 10 ng/ul | 25 ul|
+|Decanucleotide in 5X Reaction Buffer| 10 ul|
+| Water, nuclease-free| 9 ul|
+|--Total Volume--| --44 ul--|
+
+- Vortex the tube and spin down in a microcentrifuge for 3-5 s
+- Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.
+- Add the following components in the same tube:
+
+|Component|Volume|
+|---------|------|
+|Biotin Labeling Mix| 5 ul|
+|Klenow fragment, exo– (5 u)| 1 ul|
+|--Total Volume--| --50 ul--|

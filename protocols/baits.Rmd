@@ -1,0 +1,32 @@
+---
+title: "Baits Capture"
+params:
+  num_samples: 4
+---
+```{r setup}
+library(tidyverse)
+```
+
+```{r}
+hybridization <- tribble(~item, ~quantity,
+                         "baits_kit", 1,
+                         "tips_10", 14,
+                         "tubes_1.7ml", 2, 
+                         "tips_100", 8,
+                         "tubes_200ul", 6,
+                         "dynabeads_strep_c1_ul", 30, 
+                         "tips_1000", 12,
+                         "10_mM_tris_tween_ul", 30, 
+                         "ph2o_ml", 0.005,
+                         "kapa_hifi_hotstart_readymix_ul", 25,
+                         "10_uM_reamp_F_ul", 2.5,
+                         "10_uM_reamp_R_ul", 2.5) %>% 
+  # all of the above items multiply by sample count
+  mutate(quantity = quantity * params$num_samples) %>% 
+  # add items that don't multiply by sample count
+  bind_rows(tribble(~item, ~quantity,
+                     "tips_1000", 1,
+                         "ph2o_ml", 39.6,
+                         "falcon_50ml", 1))
+```
+

@@ -1,0 +1,48 @@
+---
+title: "KAPA SPRI cleanup"
+params:
+  sample_vol_ul: 55
+  num_samples: 160
+  bead_vol_ul: 44
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+# Perform a 1X SPRI® cleanup by combining the following:
+```{r}
+kapa_clean <- tribble(~item, ~quantity,
+                  # make room for small or large numbers of samples
+                  ifelse(params$num_samples <20, "tubes_200ul", "plates"), ifelse(params$num_samples < 20, params$num_samples, ceiling(params$num_samples/96)),
+                  "tips_10", params$num_samples * 1,
+                  "tips_100", params$num_samples * 2, 
+                  "tips_1000", params$num_samples * 5, 
+                  "ethanol_ul", params$num_samples * 400, 
+                  "10_mM_Tris-HCl_pH8_ul", params$num_samples * 25, 
+                  "kapa_beads_ul",params$num_samples * params$bead_vol_ul)
+```
+
+- In the same plate/tube(s), perform a 0.8X bead- based cleanup by combining the following:
+
+|Component|Volume|
+|---------|------|
+|Adapter ligation reaction product| 55 μl|
+|KAPA Pure Beads | 44 μl|
+|--Total Volume--| --99 μl--| 
+
+- Mix thoroughly by vortexing and/or pipetting up and down multiple times.
+- Incubate the plate/tube(s) at room temperature for 5 – 15 min to bind DNA to the beads.
+- Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.
+- Carefully remove and discard the supernatant.
+- Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.
+- Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.
+- Carefully remove and discard the ethanol.
+- Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.
+- Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.
+- Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.
+- Dry the beads at room temperature for 3 – 5 min, or until all of the ethanol has evaporated. -Caution: over-drying the beads may result in reduced yield.-
+- Remove the plate/tube(s) from the magnet.
+- Thoroughly resuspend the beads in in 12.5 μL of elution buffer (10 mM Tris-HCl, pH 8.0 – 8.5)
+- Incubate the plate/tube(s) at room temperature for 2 min to elute DNA off the beads.
+- Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.
+- Transfer 11 μL of supernatant to a new plate/tube(s):

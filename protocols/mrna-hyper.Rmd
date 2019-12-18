@@ -1,0 +1,535 @@
+---
+title: "mRNA Capture using Kapa mRNA Hyper kit"
+output: html_notebook
+params:
+  num_samples: 22
+  rxn_multiplier: 1
+---
+
+In the params section, change rxn multiplier to 0.5 if doing 1/2 reactions, or 0.25 if doing 1/4 reactions.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+```{r}
+mrna_capture <- tribble(~item, ~quantity,
+                        "kapa_mrna_hyper_kit_script_ul", params$num_samples,
+                        "tubes_200ul", 1, 
+                        "tips_100", 2,
+                        "tubes_200ul", params$num_samples,
+                        "tips_100", 8 * params$num_samples,
+                        "ph2o_ml", 0.025 * params$num_samples)
+```
+
+
+### 1. Prepare mastermixes for number of libraries (individual RNA extractions)
+  - See tables in manual and tables below for guidelines:
+
+```{r}
+first_strand <- tribble(~item, ~volume, 
+                   "ul of 1st strand synthesis buffer", 11,
+                   "ul of KAPA Script", 1) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(first_strand) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("1st Strand Master Mix" = 2))
+
+```
+
+```{r}
+second_strand <- tribble(~item, ~volume, 
+                   "ul 2nd Strand Marking Buffer", 31,
+                   "ul 2nd Strand Synthesis and A-tailing enzyme mix", 2) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(second_strand) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("2nd Strand and A-tailing Master Mix" = 2))
+```
+
+```{r}
+adapter_lig <- tribble(~item, ~volume, 
+                   "ul Ligation Buffer", 40,
+                   "ul DNA ligase", 10) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(adapter_lig) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("Adapter Ligation Master Mix" = 2))
+```
+
+```{r}
+library_amp <- tribble(~item, ~volume, 
+                   "ul HiFi HotStart ReadyMix", 25,
+                   "ul Library Amplification Primer Mix", 5) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(library_amp) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("Library Amplification Master Mix" = 2))
+```
+
+
+```{r}
+bead <- tribble(~item, ~volume, 
+                   "ul post-lig cleanup", 70,
+                   "ul Library Amplification cleanup", 50) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume))
+
+kable(bead) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("ul Kapa pure beads needed" = 1))
+```
+
+```{r}
+PEG <- tribble(~item, ~volume, 
+                   "ul 2nd post-lig cleanup", 35) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume))
+
+kable(PEG) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("ul PEG/NaCl needed" = 1))
+```
+```{r}
+etoh <- tribble(~item, ~volume, 
+                "ul 1st post-lig cleanup", 400,
+                "ul 2nd post-lig cleanup", 400,
+                "ul Library Amplification cleanup", 400) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume)/1000)
+
+kable(etoh) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("mL 80% EtOH needed" = 1))
+```
+```{r}
+elut <- tribble(~item, ~volume, 
+                "ul 1st post-lig cleanup", 50,
+                "ul 2nd post-lig cleanup", 22,
+                "ul Library Amplification cleanup", 22) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume))
+
+kable(elut) %>% 
+    kable_styling("bordered") %>%
+  add_header_above(c("ul 10mM Tris-HCl ph 8.0-8.5 Elution buffer needed" = 1))
+```
+
+### 2. mRNA Capture
+This protocol requires 50 ng – 1 μg of intact total RNA, in 50 μL of RNase-free water. Degraded or fragmented total RNA will result in significant 3'-bias.
+This protocol has been optimized to isolate mature mRNA from total RNA through two subsequent capture steps using mRNA Capture Beads. Other RNA molecules with homopolymeric adenosine regions may also be isolated.
+RNA samples should only be kept on ice where specified in this protocol, since low temperatures may promote non-specific capture, resulting in increased rRNA levels in the captured mRNA.
+Before starting, equilibrate mRNA Capture Beads, mRNA Bead Binding Buffer, mRNA Bead Wash Buffer and Fragment, Prime and Elute Buffer (2X) to room temperature.
+Before use, beads must be washed with mRNA Bead Binding Buffer (steps 2.1 – 2.5).  
+
+#### 2.1   
+Resuspend the mRNA Capture Beads thoroughly by pipetting up and down gently, or by using a vortex mixer on a low to medium speed setting to prevent foaming. High-speed vortexing or shaking should be avoided to prevent foaming. Refer to Important Parameters: mRNA Capture Beads (p. 4) for more information.  
+
+#### 2.2   
+For each library to be prepared, transfer 52.5 μL (50 μL + 5% excess) of the resuspended mRNA Capture Beads into an appropriate tube. When preparing multiple libraries, beads for up to 24 libraries (1260 μL) may be washed in a single tube. When preparing more than 24 libraries, wash beads in multiple batches. Please refer to Important Parameters: mRNA Capture Beads for additional recommendations regarding bulk bead washing.  
+
+#### 2.3   
+Place the tube on a magnet and incubate at room temperature until the solution is clear. Carefully remove and discard the supernatant, and replace it with an equal volume of mRNA Bead Binding Buffer (52.5 μL per library).  
+
+#### 2.4   
+Remove the tube from the magnet and resuspend the beads by pipetting up and down, or by low to medium speed vortexing. Be careful to avoid producing excessive foam.  
+
+#### 2.5   
+Place the tube on the magnet and incubate at room temperature until the solution is clear. Carefully remove and discard the supernatant, and replace it with an equal volume of mRNA Bead Binding Buffer (52.5 μL per library).  
+
+#### 2.6   
+Remove the tube from the magnet and resuspend the beads by pipetting up and down, or by low to medium speed vortexing. Be careful to avoid producing excessive foam.  
+
+#### 2.7   
+For each RNA sample to be captured, transfer 50 μL of resuspended mRNA Capture Beads into individual tubes or wells of a plate.  
+
+#### 2.8   
+To each well/tube, add 50 μL of the appropriate RNA sample (in RNase-free water).  
+
+#### 2.9   
+Mix thoroughly by gently pipetting up and down several times.  
+
+#### 2.10   
+
+Place the plate/tube(s) in a thermocycler and perform the 1st mRNA capture as follows:  
+
+|Step|Temp|Duration|
+|----|----|----|
+|1st mRNA capture|65˚C|2 min|
+|Cool|20˚C|5 min|    
+
+
+#### 2.11   
+Place the plate/tube(s) containing the mixture of mRNA Capture Beads and RNA, on a magnet and incubate at room temperature until the solution is clear. Remove and discard the supernatant.  
+
+#### 2.12   
+Remove the plate/tube(s) from the magnet and resuspend thoroughly in 200 μL of mRNA Bead Wash Buffer by pipetting up and down several times.  
+
+#### 2.13   
+Place the plate/tube(s) on the magnet and incubate at room temperature until the solution is clear. Remove and discard the supernatant.  
+
+#### 2.14   
+Resuspend the beads in 50 μL of RNase-free water.  
+
+#### 2.15   
+Place the plate/tube(s) in a thermocycler and perform the 2nd mRNA capture as follows:   
+
+|Step|Temp|Duration|
+|----|----|----|
+|2nd mRNA capture|70˚C|2 min|
+|Cool|20˚C|5 min|    
+
+#### 2.16   
+Add 50 μL of Bead Binding Buffer to the mixture of mRNA Capture Beads and RNA, and mix thoroughly by gently pipetting up and down several times.  
+
+#### 2.17   
+Incubate the plate/tube(s) at 20°C for 5 min.  
+
+#### 2.18   
+Place the plate/tube(s) on the magnet and incubate at room temperature until the solution is clear. Remove and discard the supernatant.  
+
+#### 2.19   
+Remove the beads from the magnet and resuspend in 200 μL of mRNA Bead Wash Buffer by pipetting up and down several times.  
+
+#### 2.20  
+Place the plate/tube(s) on the magnet and incubate at room temperature until the solution is clear. Remove and discard the entire volume of supernatant. **Caution: carryover of mRNA Bead Wash Buffer may inhibit 1st strand cDNA synthesis.**  
+
+### 3. mRNA Elution, Fragmentation and Priming  
+
+#### 3.1 
+Prepare the required volume of Fragment, Prime and Elute Buffer (1X) at room temperature as follows:  
+```{r}
+kable(tribble(~Component, ~Volume,
+       "ul RNase-free water", 11, 
+       "ul Fragment, Prime, and Elute Buffer (2x)", 11) %>% 
+  mutate(Volume = Volume * params$num_samples * params$rxn_multiplier)) %>% 
+  kable_styling("bordered") 
+```
+#### 3.2  
+Thoroughly resuspend the mRNA Capture Beads with captured mRNA prepared in step 2.20 in 22 μL of Fragment, Prime and Elute Buffer (1X).  
+
+# SAFE STOPPING POINT OVERNIGHT ONLY
+Resuspended beads with captured mRNA may be stored at 4°C for ≤24 hrs. Do not freeze the samples as this will damage the beads. When ready, proceed to step 3.3.  
+
+#### 3.3  
+Place the plate/tube(s) in a thermocycler and carry out the fragmentation and priming program given in the table below:  
+
+|Desired mean library insert size (bp)|Fragmentation|
+|----|----|
+|100-200|8 min at 94˚C|
+|200-300|6 min at 94˚C|
+|300-400|6 min at 85˚C|  
+
+## We are shooting for a 342-572 insert size
+
+#### 3.4  
+Immediately place the plate/tube(s) on a magnet to capture the beads, and incubate until the liquid is clear. **Caution: to prevent hybridization of poly(A)-rich RNA to the capture beads, do not allow the sample to cool before placing on the magnet.**  
+
+#### 3.5  
+Carefully remove 20μL of the supernatant containing the eluted, fragmented, and primed RNA into a separate plate or tube.  
+
+#### 3.6  
+Place the plate/tube(s) on ice and proceed immediately to 1st Strand Synthesis (step 4).  
+
+### 4. 1st Strand Synthesis
+
+#### 4.1  
+On ice, assemble the 1st strand synthesis reaction as follows:  
+
+|Component|Volume|
+|----|----|
+|Fragmented, primed RNA eluted from beads|20 ul|
+|1st strand synthesis master mix (Table 2)|10 ul|
+|**Total Volume**|**30 ul**|  
+
+#### 4.2  
+Keeping the plate/tube(s) on ice, mix thoroughly by gently pipetting the reaction up and down several times.  
+
+#### 4.3  
+Incubate the plate/tube(s) using the following protocol:  
+
+|Step|Temp|Duration|
+|----|----|----|
+|Primer Extension|25˚C|10 min|
+|1st Strand Synthesis|42˚C|15 min|
+|Enzyme inactivation|70˚C|15 min|
+|HOLD|4˚C|∞|  
+
+#### 4.4  
+Place the plate/tube(s) on ice and proceed immediately to 2nd Strand Synthesis and A-tailing (step 5).  
+
+### 5. 2nd Strand Synthesis and A-tailing  
+
+#### 5.1   
+
+On ice, assemble the 2nd strand synthesis and A-tailing reaction as follows:  
+
+|Component|Volume|
+|----|----|
+|1st strand synthesis product|30 uL|
+|2nd strand synthesis and A-tailing master mix (Table 3)|30 uL|
+|**Total Volume**|**60 ul**|  
+
+#### 5.2  
+Keeping the plate/tube(s) on ice, mix thoroughly by gently pipetting the reaction up and down several times.  
+
+#### 5.3   
+Incubate the plate/tube(s) using the following protocol:  
+
+|Step|Temp|Duration|
+|----|----|----|
+|2nd Strand Synthesis|16˚C|30 min|
+|A-Tailing|62˚C|10 min|
+|HOLD|4˚C|∞|   
+
+#### 5.4  
+Place the plate/tube(s) on ice and proceed immediately to Adapter Ligation (step 6).  
+
+### 6. Adapter Ligation  
+
+#### 6.1 
+Dilute adapters in preparation for ligation, targeting the following concentrations:  
+
+|Quantity of starting material|Adapter stock concentration|
+|----|----|
+|50 – 499 ng|1.5 uM|
+|500 – 1000 ng|7 μM|  
+
+#### 6.2  
+On ice, set up the adapter ligation reaction as follows:  
+
+|Component|Volume|
+|----|----|
+|2nd strand synthesis product|60 μL|
+|Adapter ligation master mix (Table 4)|45 μL|
+|Diluted adapter stock|5 μL|
+|**Total volume:**|**110 μL**|  
+
+#### 6.3  
+Keeping the plate/tube(s) on ice, mix thoroughly by pipetting the reaction up and down several times.  
+
+#### 6.4  
+Incubate the plate/tube(s) at 20°C for 15 min.  
+
+#### 6.5  
+Proceed immediately to 1st Post-ligation Cleanup (step 7).
+
+### 7. First Post-ligation Cleanup  
+
+#### 7.1  
+Perform a 0.63X bead-based cleanup by combining the following:  
+
+|Component|Volume|
+|----|----|
+|Adapter-ligated DNA|110 μL|
+|KAPA Pure Beads|70 μL|
+|**Total volume:**|**180 μL**|  
+
+#### 7.2  
+Mix thoroughly by vortexing and/or pipetting up and down multiple times.  
+
+#### 7.3  
+Incubate the plate/tube(s) at room temperature for 5 – 15 min to bind DNA to the beads.  
+
+#### 7.4  
+Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 7.5  
+Carefully remove and discard 175 μL of supernatant.  
+
+#### 7.6  
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 7.7  
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 7.8  
+Carefully remove and discard the ethanol.  
+
+#### 7.9  
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 7.10  
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 7.11  
+Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.  
+
+#### 7.12   
+Dry the beads at room temperature for 3 – 5 min, or until all of the ethanol has evaporated. **Caution: over-drying the beads may result in reduced yield.**  
+
+#### 7.13  
+Remove the plate/tube(s) from the magnet.  
+
+#### 7.14  
+Thoroughly resuspend the beads in 50 μL of 10 mM Tris-HCl (pH 8.0 – 8.5).  
+
+#### 7.15  
+Incubate the plate/tube(s) at room temperature for 2 min to elute DNA off the beads.  
+
+# SAFE STOPPING POINT OVERNIGHT ONLY
+The solution with resuspended beads can be stored at 4°C for ≤24 hrs. Do not freeze the beads, as this can result in dramatic loss of DNA. When ready, proceed to 2nd Post-ligation Cleanup (step 8).
+
+### 8. 2nd Post-ligation Cleanup  
+
+#### 8.1  
+Perform a 0.7X bead-based cleanup by combining the following:  
+
+|Component|Volume|
+|----|----|
+|Beads with purified, adapter-ligated DNA|50 μL|
+|PEG/NaCl Solution|35 μL|
+|**Total volume:**|**85 μL**|  
+
+#### 8.2  
+Mix thoroughly by vortexing and/or pipetting up and down multiple times.  
+
+#### 8.3  
+Incubate the plate/tube(s) at room temperature for 5 – 15 min to bind DNA to the beads.  
+
+#### 8.4  
+Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 8.5
+Carefully remove and discard 80 μL of supernatant.  
+
+#### 8.6   
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 8.7   
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 8.8   
+Carefully remove and discard the ethanol.  
+
+#### 8.9   
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 8.10   
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 8.11  
+Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.  
+
+#### 8.12  
+Dry the beads at room temperature for 3 – 5 min, or until all of the ethanol has evaporated. Caution: over-drying the beads may result in reduced yield.  
+
+#### 8.13  
+Remove the plate/tube(s) from the magnet.  
+
+#### 8.14  
+Thoroughly resuspend the beads in 22μL of 10 mM Tris-HCl (pH 8.0 – 8.5).  
+
+#### 8.15  
+Incubate the plate/tube(s) at room temperature for 2 min to elute DNA off the beads.  
+
+#### 8.16  
+Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 8.17  
+Transfer 20 μL of the clear supernatant to a new plate/tube(s) and proceed to Library Amplification (step 9).  
+
+# SAFE STOPPING POINT
+The purified, adapter-ligated library DNA may be stored at 4°C for ≤1 week, or frozen at -20°C for ≤1 month. When ready, proceed to Library Amplification (step 9).  
+
+### 9. Library Amplification  
+
+#### 9.1  
+Assemble each library amplification reaction as follows:  
+
+|Component|Volume|
+|----|----|
+|Purified, adapter-ligated DNA|20 μL|
+|Library amplification master mix (Table 5)|30 μL|
+|**Total volume:**|**50 μL**|  
+
+#### 9.2   
+Mix well by pipetting up and down several times.  
+
+#### 9.3  
+Amplify the library using the following thermocycling profile:  
+
+|Step|Temp.|Duration|Cycles|
+|----|----|----|----|
+|Initial denaturation| 98°C|45 sec |1| 
+|Denaturation |98°C|15 sec|Refer to Table 1|
+|Annealing*| 60°C|30 sec|Refer to Table 1|
+|Extension| 72°C|30 sec|Refer to Table 1|
+|Final Extension| 72°C|1 min|1|
+|HOLD| 4°C|∞|1|  
+
+**Table 1**
+
+|Quantity of starting material|Number of cycles|
+|----|----|
+|50 – 100 ng|13 – 16|
+|101 – 250 ng|11 – 14|
+|251 – 500 ng|9 – 12| 
+|501 – 1000 ng|7 – 10|  
+
+#### 9.4  
+Proceed immediately to Library Amplification Cleanup (step 10).  
+
+### 10. Library Amplification Cleanup  
+
+#### 10.1   
+Perform a 1X bead-based cleanup by combining the following:  
+
+|Component|Volume|
+|----|----|
+|Adapter-ligated DNA|50 μL|
+|KAPA Pure Beads|50 μL|
+|**Total volume:**|**100 μL**|
+
+#### 10.2  
+Mix thoroughly by vortexing and/or pipetting up and down multiple times.  
+
+#### 10.3  
+Incubate the plate/tube(s) at room temperature for 5 – 15 min to bind DNA to the beads.  
+
+#### 10.4  
+Place the plate/tube(s) on a magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 10.5  
+Carefully remove and discard 95 μL of supernatant.  
+
+#### 10.6  
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 10.7  
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 10.8  
+Carefully remove and discard the ethanol.  
+
+#### 10.9  
+Keeping the plate/tube(s) on the magnet, add 200 μL of 80% ethanol.  
+
+#### 10.10  
+Incubate the plate/tube(s) on the magnet at room temperature for ≥30 sec.  
+
+#### 10.11  
+Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.  
+
+#### 10.12  
+Dry the beads at room temperature for 3 – 5 min, or until all of the ethanol has evaporated. Caution: over-drying the beads may result in reduced yield.  
+
+#### 10.13  
+Thoroughly resuspend the dried beads in 22 μL of 10 mM Tris-HCl (pH 8.0 – 8.5).  
+
+#### 10.14  
+Incubate the plate/tube(s) at room temperature for 2 min to elute DNA off the beads.  
+
+#### 10.15  
+Place the plate/tube(s) on the magnet to capture the beads. Incubate until the liquid is clear.  
+
+#### 10.16  
+Transfer 20 μL of the clear supernatant to a new plate/tube(s), and store the purified, amplified libraries at 4°C for ≤ 1 week or at -20°C.  
+
+

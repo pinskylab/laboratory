@@ -1,0 +1,191 @@
+---
+title: "Extraction plan for `r params$first` - `r params$last`"
+output:
+  html_notebook:
+    code_folding: hide
+    df_print: paged
+params:
+  first: first_id
+  last: last_id
+  num_samples: 96
+---
+```{r setup, echo=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+# library(clownfishr)
+library(tidyverse)
+library(rmarkdown)
+library(here)
+
+source("~/db-connections.R")
+# leyte <- read_db("Leyte")
+# lab <- read_db("Laboratory")
+```
+*Before the summer of 2018, we used [Qiagen DNeasy 96 well extraction kits](01_extract_qiagen.nb.html)*
+
+**Samples were lysed and DNA extracted following the protocol in [Ali et al. 2016](https://doi.org/10.1534/genetics.115.183665).**
+
+## Special notes:  
+ The 26% salt solution is 4.45 Molar.
+
+_________  
+
+# Supplies needed
+```{r, echo=FALSE}
+extr <- tribble(~item, ~quantity,
+  "liftons_ul", (80*params$num_samples)*1.1,
+  "liftons_w_enzyme_ul", (40*params$num_samples)*1.1,
+  "tips_100", 8*params$num_samples,
+  "plates", 2*ceiling(params$num_samples/96),
+  "seals", 2*ceiling(params$num_samples/96),
+  "hybr_buffer_ul", (45*params$num_samples)*1.1,
+  "ampure_ul", (15*params$num_samples)*1.1,
+  "tips_300", 6*params$num_samples,
+  "ethanol_ul", 3*(150*params$num_samples)*1.1,
+  "low_te_ul", (45*params$num_samples)*1.1) 
+```
+
+# Extraction Methods
+
+
+## 2019-09-05
+**Prepare a solution of Lifton's Buffer**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "liftons_stock.Rmd"), run_pandoc = F)
+```
+
+**Prepare Lifton's buffer with proteinase K**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "liftons_w_enzyme_stock.Rmd"), run_pandoc = F)
+```
+
+**Prepare hybridization solution**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "hybrid_ali.Rmd"), run_pandoc = F)
+```
+
+**Prepare low TE solution**
+```{r eval=FALSE, include=FALSE}
+render(here("protocols", "low_te_stock.Rmd"), run_pandoc = F)
+```
+
+
+
+Turn on the incubator
+## 2018-07-26
+**Load samples for lysis**  
+1. Add 80uL Lifton's buffer to each well of a 96 well plate.  
+2. Add fin clips measuring 2-25mm^2 to each well.  
+3. Add 40uL enzyme solution to each well, pipet up and down to mix.  
+4. Seal plate and incubate at 55C overnight.  
+
+## 2018-07-27  
+**Extract DNA from lysate**  
+1. To a new plate add 45uL hybridization buffer to each well.  
+2. Add 15uL Agencourt Ampure beads.  
+3. Add 45uL of the lysate and pipet up and down to mix.  
+4. Incubate at room temperature for 5 minutes, then place on magnet and allow the wells to clear.  
+5.  Remove supernatant.  
+6. Remove from the magnet and use 150uL freshly prepared 80% EtOH to resuspend the beads.  
+7. Wash with ethanol again  
+8. wash with ethanol a 3rd time.  
+9. Allow beads to air dry on the magnet   
+10. Add 45uL low TE to elute DNA from the beads  
+
+Organize samples into plate format: 
+
+```{r data, echo=FALSE, eval=FALSE}
+# this code gets all sample_ids within the range stated in the params above.
+
+# connect to clownfish table in the db
+work <- leyte %>% tbl("clownfish") %>%
+  # choose only the sample_id column
+  select(sample_id)  %>% 
+  # pull the data into R
+  collect()%>% 
+  # choose only the rows that meet our requirements
+  filter(sample_id >= params$first, 
+    sample_id <= params$last, 
+    !is.na(sample_id)) %>% 
+  # make sure there aren't any duplicates
+  distinct(sample_id) %>% 
+  arrange(sample_id)
+
+# define wells
+plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>% 
+  mutate(sample_id = ifelse(row == "D" & col == 2, "XXXX", NA), 
+    sample_id = ifelse(row == "E" & col == 8, "XXXX", sample_id))
+
+# if the plate is not full
+x <- nrow(work) + 2
+if (x < 96) {
+  plate <- plate %>% 
+    slice(1:x)
+}
+
+# move all of the non-blank wells into their own table
+samples <- plate %>% 
+  filter(is.na(sample_id)) %>% 
+  select(-sample_id)
+
+# remove the non-blank wells from the plate table
+plate <- anti_join(plate, samples, by = c("row", "col"))
+
+# join the work sample_ids to the sample table well definitions
+samples <- cbind(samples, work)
+
+# rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks.
+plate <- rbind(plate, samples) %>% 
+  arrange(col, row)
+
+```
+1. Sample_id plate locations
+```{r sample_map, echo=FALSE, message=FALSE, eval=FALSE}
+platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$sample_id)
+knitr::kable(platemap, booktabs = T) %>% 
+  # use scale_down to get map to fit within the bounds of the pdf
+  kable_styling(latex_options = "scale_down")
+```
+```{r extr_ids, echo=FALSE, eval=FALSE}
+### ONLY DO THIS ONCE ###
+extracted <- lab %>% tbl("extraction") %>% 
+  summarise(last = max(extraction_id, na.rm = T)) %>% 
+  collect() %>% 
+  mutate(last = substr(last, 2,5))
+
+plate <- plate %>% 
+  mutate(well = 1:nrow(plate)) %>% 
+  mutate(extraction_id = paste("E", well + as.numeric(extracted$last), sep = "")) %>% 
+  mutate(well = paste(row, col, sep = "")) %>% 
+  mutate(method = "Ali", 
+    final_vol = "45")
+
+plate_name <- plate %>% 
+  summarise(first = min(extraction_id), 
+    last = max(extraction_id, na.rm = T))
+
+plate <- plate %>% 
+  mutate(plate = paste(plate_name$first, plate_name$last, sep = "-"))
+```
+2. Extraction_id plate locations
+```{r extr_map, echo=FALSE, message=FALSE, eval=FALSE}
+# created map table of only 3 columns becaues acast is having trouble parsing out which columns to use
+map <- plate %>%
+  select(row, col, extraction_id)
+platemap <- as.matrix(reshape2::acast(map, map$row ~ map$col), value.var = map$extraction_id)
+
+# remove row and col from plate
+plate <- select(plate, -row, -col)
+
+knitr::kable(platemap, booktabs = T) %>% 
+  kable_styling()
+
+```
+Write the newly assigned extraction_ids to the database
+```{r write, eval=FALSE}
+
+# dbWriteTable(lab, "extraction", plate, row.names = F, overwrite = F, append = T)
+
+```
+
+*Check out a generic DNA cleaner recipe from Bridgett vonHoldt to replace the very expensive version we use here.*

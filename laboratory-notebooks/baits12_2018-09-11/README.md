@@ -7,10 +7,10 @@ Baits12 went into [SEQ31](../SEQ31_2018-09-13)
 * pooled into [SEQ31](../SEQ31_2018-09-13)
 
 Pooled 4 pools of 15uL each for a total of 60uL. 
-- P125 
-- P126
-- P127
-- P128
+- [P125](../P125_2018-09-06)
+- [P126](../P126_2018-09-06)
+- [P127](../P127_2018-09-06)
+- [P128](../P128_2018-09-06)
 
 started 24hr incubation at 10:10am on 2018-09-11 Tuesday
 

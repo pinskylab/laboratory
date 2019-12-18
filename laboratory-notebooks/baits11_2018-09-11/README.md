@@ -4,10 +4,10 @@
 
 
 Pooled 4 pools of 15uL each for a total of 60uL
-P121
-P122
-P123
-P124
+[P121](../P121_2018-09-06)
+[P122](../P122_2018-09-06)
+[P123](../P123_2018-09-06)
+[P124](../P124_2018-09-06)
 
 started 24hr incubation at 10:10am on 2018-09-11 Tuesday
 

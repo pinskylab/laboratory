@@ -1,0 +1,12 @@
+nohup ./scripts/P103_process.sh &
+nohup ./scripts/P104_process.sh &
+nohup ./scripts/P107_process.sh &
+nohup ./scripts/P108_process.sh &
+nohup ./scripts/P109_process.sh &
+nohup ./scripts/P110_process.sh &
+nohup ./scripts/P111_process.sh &
+nohup ./scripts/P112_process.sh &
+nohup ./scripts/P113_process.sh &
+nohup ./scripts/P114_process.sh &
+nohup ./scripts/P115_process.sh &
+nohup ./scripts/P116_process.sh &

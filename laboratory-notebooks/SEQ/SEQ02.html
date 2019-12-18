@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 7.11 (457846)"/><meta name="keywords" content="Pinsky, seq, stacks"/><meta name="author" content="Michelle Stuart"/><meta name="created" content="2014-10-17 19:11:39 +0000"/><meta name="updated" content="2014-10-23 15:12:12 +0000"/><title>SEQ02</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<ul>
+<li><font color="#FF2600">Receive files from sequencer</font></li>
+<li><font color="#FF2600">Update where files are saved on amphiprion in sample_data sheet</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion miseq_2014_04_28]$ pwd<br/>
+/local/shared/pinsky_lab/sequencing/miseq_2014_04_28<br/></span><span style="font-size: 11px; font-family: Menlo;">Pool7-PCR_S1_L001_R1_001.fastq.gz</span><span style="font-size: 11px; font-family: Menlo;"> </span> <span style="font-size: 11px; font-family: Menlo;">Pool7-PCR_S1_L001_R2_001.fastq.gz</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Create a mysql database</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li>
+<div><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$ mysql -plarvae168</span><br/></font></div>
+<div><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; create database seq02;</span><br/></font></div>
+<div><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; show databases;</span><br/></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">mysql&gt; exit</font></span></div>
+<div><font color="#FF2600">Apply stacks configuration to database:<br/></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion ~]$ mysql -plarvae168 seq02 &lt; ~/local/share/stacks/sql/stacks.sql</font></span></div>
+</li>
+</ul>
+</li>
+<li><font color="#FF2600">Make project directory:</font>
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$ mkdir 02_seq02</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Make directories inside the seq directory</font>
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion ~]$ cd 01_seq03/<br/>
+[michelles@amphiprion 01_seq03]$ mkdir Pool7 samples stacks</font></span></li>
+</ul>
+</li>
+<li><font color="#FF2600">Copy barcodes file over from the boneyard</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion ~]$ cd 00_boneyard/seq03/<br/>
+[michelles@amphiprion seq03]$ cp barcodes ~/02_seq02/</font></span></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">nano’d it to only include the 16 barcodes we used in this run</span></font></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">saved as barcodes_7</span></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">make a new names_barcodes tab delimited file: make new sheet in Sample_Data, copy pool sample ID from Pool Contents sheet, copy barcode number from Ligations sheet, copy barcodes from barcodes sheet, then delete the middle barcode number column, for each pool into new sheet and save as tab delimited "names_Pool7.tsv", etc.<br/></font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600">Open the 4 documents in Komodo and fix the end of line characters by right clicking on the tab and looking at the properties (doing this with google sheets they were already in Unix)</font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Copy the names files into the correct pool directories:   </font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">nrb176:~ Michelle$ scp -r ~/Downloads/names_Pool7.tsv michelles@amphiprion.deenr.rutgers.edu:~/02_seq02/Pool7</font></span></li>
+</ul>
+</li>
+<li><font color="#FF2600">sign back into the server and run process radtags on the files</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ process_radtags -b barcodes_7 -c -q -r --renz_1 sbfI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -p /local/shared/pinsky_lab/sequencing/miseq_2014_04_28/ -P -o ./Pool7/</span><br/></font></li>
+</ul>
+</li>
+</ul>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">Using Phred+33 encoding for quality scores.<br/>
+Filtering reads for adapter sequence:<br/>
+  ACACTCTTTCCCTACACGACGCTCTTCCGATCT<br/>
+    1 mismatches allowed to adapter sequence.<br/>
+Found 1 paired input file(s).<br/>
+Searching for single-end, inlined barcodes.<br/>
+Loaded 192 barcodes (6bp).<br/>
+Processing file 1 of 1 [Pool7-PCR_S1_L001_R1_001.fastq.gz]<br/>
+  Reading data from:<br/>
+  /local/shared/pinsky_lab/sequencing/miseq_2014_04_28/Pool7-PCR_S1_L001_R1_001.fastq.gz and<br/>
+  /local/shared/pinsky_lab/sequencing/miseq_2014_04_28/Pool7-PCR_S1_L001_R2_001.fastq.gz<br/>
+  16577648 total reads; -1496442 ambiguous barcodes; -5750051 ambiguous RAD-Tags; +2017324 recovered; -2111 low quality reads; 9318008 retained reads.<br/>
+    11036 reads with adapter sequence.<br/>
+Closing files, flushing buffers...<br/>
+Outputing details to log: './Pool7/process_radtags.log'<br/>
+<br/>
+16577648 total sequences;<br/>
+  11036 reads contained adapter sequence;<br/>
+  1496442 ambiguous barcode drops;<br/>
+  2111 low quality read drops;<br/>
+  5750051 ambiguous RAD-Tag drops;<br/>
+9318008 retained reads.<br/></font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600"><br/></font></span></div>
+<div><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">Re-ran with the correct barcode file, first time ran with barcodes from SEQ03 (192 barcodes)_</span></font></div>
+<div><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">16577648 total sequences;<br/>
+  11034 reads contained adapter sequence;<br/>
+  1617694 ambiguous barcode drops;<br/>
+  2105 low quality read drops;<br/>
+  5686455 ambiguous RAD-Tag drops;<br/>
+9260360 retained reads.</span><font face="Menlo"><span style="font-size: 11px;"><br/></span></font></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">Hmmm-fewer reads, seems suspicious</font></span></div>
+<ul>
+<li><font color="#FF2600">###########################</font></li>
+<li><font color="#FF2600">Should’ve concatenated all 4 of the files generated by proc_rad into one sample file per : <a href="http://creskolab.uoregon.edu/stacks/manual/#clean">http://creskolab.uoregon.edu/stacks/manual/#clean</a></font></li>
+<li><font color="#FF2600">###########################</font></li>
+<li><font color="#FF2600">Rename files <br/></font></li>
+<li>
+<div><span style="font-family: Menlo; font-size: 11px;"><font color="#FF2600">[michelles@amphiprion Pool7]$ rename.for.dDocent names_Pool7.tsv </font></span></div>
+<div><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">a bunch weren’t renamed…take a look at rename.for.dDocent script</span></font></div>
+<div><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ nano ~/03_scripts/rename.for.dDocent</span><br/></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">changed:</font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">for ((i = 0; i &lt;= $LEN; i++));<br/>
+do<br/>
+mv sample_${BARCODES[$i]}.1.fq ${NAMES[$i]}.F.fq<br/>
+mv sample_${BARCODES[$i]}.2.fq ${NAMES[$i]}.R.fq<br/>
+mv sample_${BARCODES[$i]}.rem.1.fq $[NAMES[$i]}.rem.F.fq<br/>
+mv sample_${BARCODES[$i]}.rem.2.fq $[NAMES[$i]}.rem.R.fq<br/></font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600"><br/></font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">saved as rename.for.dDocent_10202014</font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600"><br/></font></span></div>
+<div><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">also updated names file to include additional barcodes…example GTCTAT is barcode #41, which was used for the first time in July 2014 (rehydrated then too, not even in the lab back in April so can’t be contaiminant)…let’s just ignore these for now and rename the rem files that coincide with our names file…</span></font></div>
+<div><font face="Menlo" color="#FF2600"><span style="font-size: 11px;"><br/></span></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion Pool7]$ chmod u+x ~/03_scripts/rename.for.dDocent_10202014<br/>
+[michelles@amphiprion Pool7]$ rename.for.dDocent_10202014 names_Pool7.tsv<br/>
+/local/home/michelles/03_scripts/rename.for.dDocent_10202014: line 21: unexpected EOF while looking for matching `]'<br/>
+/local/home/michelles/03_scripts/rename.for.dDocent_10202014: line 25: syntax error: unexpected end of file<br/></font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600"><br/></font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">/local/home/michelles/03_scripts/rename.for.dDocent_10202014: line 21: ${[NAMES[$i]}.rem.F.fq: bad substitution<br/></font></span></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600"><br/></font></span></div>
+<div><font color="#FF2600"><font face="Menlo"><span style="font-size: 11px;">script doesn’t work, moving on</span></font></font></div>
+<div><font color="#FF2600"><br/></font></div>
+</li>
+<li><font color="#FF2600">Move the renamed files into the samples directory</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ mv SPSO* ../samples</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Make list all of the samples in a format that can be copied and pasted into denovo_map</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ cd ..<br/>
+[michelles@amphiprion 02_seq02]$ ls -l ./samples/*.fq | mawk '{print "-s", $9, "\\"}'</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Run denovo_map:<br/></font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ nohup <a href="http://denovo_map.pl">denovo_map.pl</a> -b 1 -B seq02 -m 2 -M 4 -n 3 -t -T 10 -o ./stacks -s ./samples/SPSO14_001L052.F.fq \</span><font face="Menlo"><span style="font-size: 11px;">…</span></font></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Run rxstacks:</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion 02_seq02]$ rxstacks -b 1 -P ./stacks -o ./rxstacks -t 10 --prune_haplo --lnl_lim -8.0 —lnl_dist</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Make a list of files to run cstacks:</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><font face="Menlo"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ </span></font><font face="Menlo" style="font-size: 11px;">[michelles@amphiprion rxstacks]$ ls -l ../samples/*.fq | mawk '{print "-s ./"substr($9,<span style="background-color:rgb(255, 250, 165);-evernote-highlight:true;">12,16)</span>, "\\"}' </font><span style="background-color:rgb(255, 250, 165);-evernote-highlight:true;">- changed original to get SPSO paired end samples to work...</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Run cstacks:<br/></font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup cstacks -b 1 -o ./ -n 3 -p 10 -s ./SPSO14_001L052.F \</span><font face="Menlo"><span style="font-size: 11px;">…</span></font><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Delete intermediate files:</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ rm -r Pool7/</span><br/></font></li>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion 02_seq02]$ rm ./stacks/SPSO*<br/></font></span></li>
+</ul>
+</li>
+<li><font color="#FF2600">Find file list for sstacks (copy and paste from sample_data&gt;PoolContents?):</font></li>
+<li><font color="#FF2600">Amend hand_stacks:</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nano ~/03_scripts/hand_stacks.sh</span><br/></font></li>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">saved as hand_stacks_10-21-2014.sh</font></span></li>
+</ul>
+</li>
+<li><font color="#FF2600">Run hand_stacks</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ chmod u+x ~/03_scripts/hand_stacks_10-21-2014.sh<br/>
+[michelles@amphiprion rxstacks]$ hand_stacks_10-21-2014.sh<br/></span></font></li>
+<li><font color="#FF2600">need to include the .F and .R in the sample names, edit nano:</font></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ ls -l ../samples/*.fq | mawk '{print "./"substr($9,12,16)}'</span><br/></font></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ nano ~/03_scripts/hand_stacks_10-21-2014.sh <br/></span></font></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ hand_stacks_10-21-2014.sh<br/>
+Error: Unable to open matches file for writing.<br/></span></font></li>
+<li><font face="Menlo"><span style="font-size: 11px;"><font color="#FF2600">/local/home/michelles/03_scripts/hand_stacks_10-21-2014.sh: line 83: -p: command not found<br/></font></span></font></li>
+<li><font face="Menlo"><font color="#FF2600"><span style="font-size: 11px;">needed to delete “batch_1” from the -o ./</span></font></font></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ hand_stacks_10-21-2014.sh -didn’t nohup but it’s moving very quickly</span><br/></font></li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">/local/home/michelles/03_scripts/hand_stacks_10-21-2014.sh: line 83: -p: command not found - there wasn’t a # before the final line of the populations code so it was trying to read it…fixed in the 10-21-2014 version</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Are there any intermediate files that can be deleted?  - Done with ./samples directory</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ rm -r samples/</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Run populations - don’t filter this time around (no -m or -r, etc) - RAN IN SECONDS - small dataset</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ cd rxstacks/</span><br/></font></li>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion rxstacks]$ nohup populations -b 1 -P ./ -s -t 10 </font></span></li>
+</ul>
+</li>
+<li><font color="#FF2600">Load radtags to database</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ mv nohup.out rxpopulations_10-22-2014<br/>
+[michelles@amphiprion rxstacks]$ load_radtags.pl -D seq02 -p ./ -b 1 -c -B </span><br/></font></li>
+</ul>
+</li>
+<li><font face="Menlo"><span style="font-size: 11px;"><font color="#FF2600">ERROR 1062 (23000) at line 1: Duplicate entry '1' for key ‘PRIMARY’ - because this is rxstacks and regular stacks was already loaded?  - looking into forums</font></span></font></li>
+<li><font color="#FF2600">Make new database for rxstacks </font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion rxstacks]$ </span><span style="font-family: Menlo; font-size: 11px;">mysql -plarvae168</span></font></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#FF2600">mysql&gt; create database seq02rx;</font></span></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#FF2600">mysql&gt; exit</font></span></li>
+<li><font color="#FF2600">Apply stacks configuration to database:</font></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#FF2600">[michelles@amphiprion rxstacks]$ mysql -plarvae168 seq02rx &lt; ~/local/share/stacks/sql/stacks.sql</font></span></li>
+</ul>
+</li>
+<li><font color="#FF2600">Load radtags to database</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ load_radtags.pl -D seq02rx -p ./ -b 1 -c -B</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#FF2600">Index database</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#FF2600"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ <a href="http://index_radtags.pl">index_radtags.pl</a> -D seq02rx -c -t</span><br/></font></li>
+</ul>
+</li>
+<li><font face="Menlo" color="#FF2600"><span style="font-size: 11px;">Just found out that I used the output of proc_rad incorrectly…deleted the old files so I have to start over…</span></font></li>
+</ul>
+<div>
+<hr/>
+<span style="font-size: 11px; font-family: Menlo;">########################################</span><br/></div>
+<div>
+<div><font face="Menlo"><span style="font-size: 11px;">     10-23-2014</span></font></div>
+<div><span style="font-family: Menlo; font-size: 11px;">########################################</span><font face="Menlo"><span style="font-size: 11px;"><br/></span></font></div>
+<div style="margin-left: 2em;"/>
+</div>
+<ul>
+<li><font color="#C0C0C0">Receive files from sequencer</font></li>
+<li><font color="#C0C0C0">Update where files are saved on amphiprion in sample_data sheet</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#C0C0C0"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion miseq_2014_04_28]$ pwd<br/>
+/local/shared/pinsky_lab/sequencing/miseq_2014_04_28<br/></span><span style="font-size: 11px; font-family: Menlo;">Pool7-PCR_S1_L001_R1_001.fastq.gz</span><span style="font-size: 11px; font-family: Menlo;"> </span> <span style="font-size: 11px; font-family: Menlo;">Pool7-PCR_S1_L001_R2_001.fastq.gz</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#C0C0C0">Create a mysql database</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li>
+<div><font color="#C0C0C0"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$ mysql -plarvae168</span><br/></font></div>
+<div><font color="#C0C0C0"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; create database seq02;</span><br/></font></div>
+<div><font color="#C0C0C0"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; show databases;</span><br/></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#C0C0C0">mysql&gt; exit</font></span></div>
+<div><font color="#C0C0C0">Apply stacks configuration to database:<br/></font></div>
+<div><span style="font-size: 11px; font-family: Menlo;"><font color="#C0C0C0">[michelles@amphiprion ~]$ mysql -plarvae168 seq02 &lt; ~/local/share/stacks/sql/stacks.sql</font></span></div>
+</li>
+</ul>
+</li>
+<li><font color="#C0C0C0">Make project directory:</font>
+<ul>
+<li><font color="#C0C0C0"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$ mkdir 02_seq02</span><br/></font></li>
+</ul>
+</li>
+<li><font color="#C0C0C0">Make directories inside the seq directory</font>
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#C0C0C0">[michelles@amphiprion ~]$ cd 01_seq03/<br/>
+[michelles@amphiprion 01_seq03]$ mkdir Pool7 samples stacks</font></span></li>
+</ul>
+</li>
+<li><font color="#C0C0C0">Copy barcodes file over from the boneyard</font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#C0C0C0">[michelles@amphiprion ~]$ cd 00_boneyard/seq03/<br/>
+[michelles@amphiprion seq03]$ cp barcodes ~/02_seq02/</font></span></li>
+<li><font face="Menlo" color="#C0C0C0"><span style="font-size: 11px;">nano’d it to only include the 16 barcodes we used in this run</span></font></li>
+<li><font face="Menlo" color="#C0C0C0"><span style="font-size: 11px;">saved as barcodes_7</span></font></li>
+</ul>
+</li>
+<li>Make directories inside the seq directory</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ mkdir Pool7 samples</span></li>
+</ul>
+</li>
+<li>make a new names_barcodes tab delimited file: </li>
+<li style="list-style: none; display: inline">
+<ul>
+<li>Open Sample_data in Chrome (yes, it has to be chrome, other browsers don’t work properly as of 10-22-2014)</li>
+<li>Click on the Pool_contents tab and filter for the pool you are working on (Pool 7)</li>
+<li>Copy the sample names over to the first column of the Names tab</li>
+<li>drag down the formula to find the barcode</li>
+<li>for each pool download as tab delimited "names_Pool7.tsv", etc.</li>
+<li><b>delete all of the rows except for the first row (preserve the formula!)</b></li>
+<li>Open the document in Komodo and fix the end of line characters by right clicking on the tab and looking at the properties (doing this with google sheets they were already in Unix)</li>
+</ul>
+</li>
+<li>Copy the names files into the correct pool directories:   </li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">nrb176:~ Michelle$ scp -r ~/Downloads/names_Pool7.tsv michelles@amphiprion.deenr.rutgers.edu:~/02_seq02/Pool7</span></li>
+</ul>
+</li>
+<li>sign back into the server and run process radtags on the files</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$ cd 02_seq02/<br/>
+[michelles@amphiprion 02_seq02]$ process_radtags -b barcodes_7 -c -q -r --renz_1 sbfI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -p /local/shared/pinsky_lab/sequencing/miseq_2014_04_28/ -P -o ./Pool7/</span><br/></li>
+</ul>
+</li>
+<li>Cat the results and remove the original files</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ cat_pe names_Pool7.tsv</span></li>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ rm sample_*.1.fq<br/>
+[michelles@amphiprion Pool7]$ rm sample_*.2.fq<br/></span></li>
+</ul>
+</li>
+<li>Rename files - use the “se” version of dDocent because concatenated all of the files into one file<br/></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ rename.for.dDocent_se names_Pool7.tsv</span><br/></li>
+</ul>
+</li>
+<li>Move the renamed files into the samples directory</li>
+<li style="list-style: none">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ mv SPSO* ../samples</span><br/></li>
+</ul>
+</li>
+<li>Make list all of the samples in a format that can be copied and pasted into denovo_map</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font face="Menlo"><span style="font-size: 11px;">[michelles@amphiprion Pool7]$ cd ..</span></font><br/>
+<font face="Menlo"><span style="font-size: 11px;">[michelles@amphiprion 02_seq02]$ ls -l ./samples/*.fq | mawk '{print "-s", $9, "\\”}’</span></font></li>
+</ul>
+</li>
+<li>Run denovo_map (batch 2 because this is our second attempt):</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ nohup denovo_map.pl -b 2 -B seq02 -m 2 -M 4 -n 3 -t -T 10 -o ./stacks -s ./samples/SPSO14_001L052.fq \</span><br/></li>
+</ul>
+</li>
+<li>Run rxstacks:</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font face="Menlo"><span style="font-size: 11px;">[michelles@amphiprion 02_seq02]$ rxstacks -b 2 -P ./stacks -o ./rxstacks -t 10 --prune_haplo --lnl_lim -8.0 —lnl_dist</span></font></li>
+</ul>
+</li>
+</ul>
+<div><font face="Menlo"><span style="font-size: 11px;">########################################</span></font></div>
+<div><font face="Menlo"><span style="font-size: 11px;">     10-23-2014</span></font></div>
+<div><span style="font-family: Menlo; font-size: 11px;">########################################</span><font face="Menlo"><span style="font-size: 11px;"><br/></span></font></div>
+<ul>
+<li>Make a list of files to run cstacks:</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ cd rxstacks/<br/>
+[michelles@amphiprion rxstacks]$ ls -l ../samples/*.fq | mawk '{print "-s ./"substr($9,12,14), "\\"}'</span><br/></li>
+</ul>
+</li>
+<li>Run cstacks (ran this as batch 1 on 10-22-14):</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup cstacks -b 2 -o ./ -n 3 -p 10 -s ./SPSO14_001L052 \ </span></li>
+</ul>
+</li>
+<li>Delete intermediate files</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li>Batch 1 has been loaded to the sql database so the stacks sample files can be deleted:</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion stacks]$ rm SPSO*</span></li>
+</ul>
+</li>
+<li>Don’t think I need file lists anymore, deleting samples (copy file list here just in case)<br/></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">SPSO14_001L052.fq  SPSO14_005L056.fq  SPSO14_009L060.fq  SPSO14_013L064.fq<br/>
+SPSO14_002L053.fq  SPSO14_006L057.fq  SPSO14_010L061.fq  SPSO14_014L065.fq<br/>
+SPSO14_003L054.fq  SPSO14_007L058.fq  SPSO14_011L062.fq  SPSO14_015L066.fq<br/>
+SPSO14_004L055.fq  SPSO14_008L059.fq  SPSO14_012L063.fq</span><br/></li>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ rm -r samples/<br/></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Amend hand_stacks to reflect proper batch number (and get rid of .F. and .R.’s and .fq's):</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ nano ~/03_scripts/hand_stacks_10-21-2014.sh</span></li>
+<li><span style="font-family: Menlo; font-size: 11px;">saved as hand_stacks_10-23-2014.sh</span></li>
+</ul>
+</li>
+<li>Run hand_stacks</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ cd rxstacks/<br/>
+[michelles@amphiprion rxstacks]$ chmod u+x ~/03_scripts/hand_stacks_10-23-2014.sh </span></li>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup</span> hand_stacks_10-23-2014.sh</li>
+</ul>
+</li>
+<li>Are there any intermediate files that can be deleted?<font color="#C0C0C0"> </font> - Not now…</li>
+<li>Run populations - don’t filter this time around (no -m or -r, etc) - RAN IN SECONDS - small dataset</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ cd rxstacks/<br/>
+[michelles@amphiprion rxstacks]$ nohup populations -b 2 -P ./ -s -t 10</span></li>
+</ul>
+</li>
+<li>Create database for rxstacks - we are using the one created above and using it as batch 2</li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><font color="#C0C0C0">Make new database for rxstacks </font></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#C0C0C0">[michelles@amphiprion rxstacks]$ </font></span></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#C0C0C0">mysql -plarvae168</font></span></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#C0C0C0">mysql&gt; create database seq02rx;</font></span></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#C0C0C0">mysql&gt; exit</font></span></li>
+<li><font color="#C0C0C0">Apply stacks configuration to database:</font></li>
+<li><span style="font-family: Menlo; font-size: 11px;"><font color="#C0C0C0">[michelles@amphiprion rxstacks]$ mysql -plarvae168 seq02rx &lt; ~/local/share/stacks/sql/stacks.sql</font></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Load radtags to database<br/></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup load_radtags.pl -D seq02rx -p ./ -b 2 -c -B</span></li>
+</ul>
+</li>
+<li>Index database<br/></li>
+<li style="list-style: none; display: inline">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup <a href="http://index_radtags.pl">index_radtags.pl</a> -D seq02rx -c -t</span></li>
+</ul>
+</li>
+</ul>
+</body></html>

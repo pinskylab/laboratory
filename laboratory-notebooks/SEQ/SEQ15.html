@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 7.11 (457846)"/><meta name="keywords" content="ddocent, Pinsky, seq, seq15"/><meta name="altitude" content="24.26444435119629"/><meta name="author" content="Michelle Stuart"/><meta name="created" content="2016-06-28 12:13:01 +0000"/><meta name="latitude" content="40.49256756208536"/><meta name="longitude" content="-74.42962494646991"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-07-05 13:18:01 +0000"/><title>SEQ15</title></head><body>
+<div>
+<div>
+<div><br/></div>
+</div>
+<ul>
+<li>create a directory for the files
+<ul>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:32:41</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">sequencing</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir hiseq_2016_04_21_SEQ15<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:36:23</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">sequencing</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir hiseq_2016_06_01_SEQ16</span></li>
+</ul>
+</li>
+<li>Receive files from sequencer
+<ul>
+<li><a href="https://htseq.princeton.edu/cgi-bin/login.pl?redirect_url=https://htseq.princeton.edu/cgi-bin/dashboard.pl;userid=JAHOEY">https://htseq.princeton.edu/cgi-bin/login.pl?redirect_url=https://htseq.princeton.edu/cgi-bin/dashboard.pl</a></li>
+<li>Click on the sequencing run of interest in the box on the left that says “Recently Entered Samples"</li>
+<li>In the box titled Sample Provenance, click on the link following "This library was utilized within the following output(s):” - <b>repeat for each lane</b></li>
+<li>In the “Data and Statistics” box, in the bottom right corner is a green button that says “Batch Download Data Files"</li>
+<li>Click checkmarks next to the #_read_1_passed_filter.fastq.gz and #_read_2_passed_filter.fastq.gz</li>
+<li>Click “Prepare selected files for download” and copy the link</li>
+<li>In amphiprion, in the directory you made in the previous step, paste the link (can open 4 windows and do all 4 at once)
+<ul>
+<li><span style="color: rgb(0, 0, 0); font-family: 'lucida grande', verdana, geneva, arial; font-size: 13px; font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">wget -r <a href="https://htseq.princeton.edu/tmp/zbl9rsZMYMw1YCtNO/">https://htseq.princeton.edu/tmp/zbl9rsZMYMw1YCtNO/</a></span></li>
+<li><span style="color: rgb(0, 0, 0); font-family: 'lucida grande', verdana, geneva, arial; font-size: 13px; font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">wget -r <a href="https://htseq.princeton.edu/tmp/njec3iwfxtn9q69hl/">https://htseq.princeton.edu/tmp/njec3iwfxtn9q69hl/</a></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">wget -r <a href="https://htseq.princeton.edu/tmp/nWDCkEDOoZ8dDJ2gX/">https://htseq.princeton.edu/tmp/nWDCkEDOoZ8dDJ2gX</a><br/></span></li>
+<li><span style="color: rgb(0, 0, 0); font-family: 'lucida grande', verdana, geneva, arial; font-size: 13px; font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); float: none;">wget -r <a href="https://htseq.princeton.edu/tmp/urH68Kc0rAPLlZWAv/">https://htseq.princeton.edu/tmp/urH68Kc0rAPLlZWAv/</a></span></li>
+</ul>
+</li>
+<li><b>Repeat for all lanes</b></li>
+</ul>
+</li>
+<li>Update where files are saved on amphiprion in sample_data file, Sequencing sheet, amphiprion folder column</li>
+<li>Make a working directory - make separate pool directories to keep the process radtags output separate
+<ul>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:47:19</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">02-apcl-ddocent</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir 16seq 15seq</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:47:35</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">02-apcl-ddocent</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cd 15seq/<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:48:07</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir bcsplit Pool1 Pool2 Pool3 Pool4<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:48:22</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cd ../16seq/<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:48:35</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">16seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir bcsplit Pool1 Pool2 Pool3 Pool4</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:48:36</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">16seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cd bcsplit/<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:48:56</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir lane1 lane2<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:49:10</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cd ../../15seq/bcsplit/<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:49:19</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir lane1 lane2</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:49:42</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir logs<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 12:49:47</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">mkdir ../16seq/logs</span></li>
+</ul>
+</li>
+<li>In your logs directory, create an index file that is the Pool name tab separated from the index used on that pool.  The easiest way to do this is copy and paste from google sheets into a nano document: In the sample_data file, on the Names tab, type the pool numbers into the Pool ID column in the format below.  The spreadsheet will look up the proper indexes for you.  Then copy and paste into a blank nano document, save as index-seq##
+<ul>
+<li>P012    ATCACG</li>
+<li>P013    TGACCA</li>
+<li>P014    CAGATC</li>
+<li>P015    TAGCTT</li>
+</ul>
+</li>
+<li>Create a names file with the sample name tab separated from the barcode assigned to that sample.  The easiest way to make a names file is to copy and paste from google sheets. Copy the ligation ID’s from the pool and paste them into the names tab, copy and paste the result into a nano document in the logs directory.</li>
+<li>Create a barcodes file in your logs directory: from the sample_data file, highlight the barcodes column only on the barcodes sheet and paste into nano, do not hit enter after the final barcode, save as “barcodes”.  </li>
+</ul>
+<div>
+<div><br/></div>
+</div>
+<div><a style="color:rgb(105, 170, 53);" href="evernote:///view/154400311/s5/7e07d3ae-82ce-48f4-9856-fd63cb855ed6/7e07d3ae-82ce-48f4-9856-fd63cb855ed6/">barcode splitter</a>: </div>
+<div>
+<div><br/></div>
+</div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"> 1104  <a href="http://barcode_splitter.py">barcode_splitter.py</a> --bcfile ../../logs/index-seq15 --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_04_21_SEQ15/Clownfish-ddRADseq-SEQ15-for-158-cycles-HMTNCBCXX_1_Read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_04_21_SEQ15/Clownfish-ddRADseq-SEQ15-for-158-cycles-HMTNCBCXX_1_Read_2_Index_Read_passed_filter.fastq.gz &amp;</span></span></div>
+<div><span style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-variant-ligatures: no-common-ligatures; background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';"> 1105  cd ../lane2/</span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"> 1106* <a href="http://barcode_splitter.py">barcode_splitter.py</a> --bcfile ../../logs/index-seq15 --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq</span></span><a href="http://barcode_splitter.py/">http://barcode_splitter.py/</a><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);">_2016_04_21_SEQ15/Clownfish-ddRADseq-SEQ15-for-158-cycles-HMTNCBCXX_2_Read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_04_21_SEQ15/Clownfish-ddRADseq-SEQ15-for-158-cycles-HMTNCBCXX_2_Read_2_Index_Read_passed_filter.fastq</span></span></div>
+<div><span style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-variant-ligatures: no-common-ligatures; background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';"> 1107  top<br/>
+ 1108  cd ../../../<br/>
+ 1109  cd 16seq/bcsplit/lane1/<br/>
+ 1110  <a href="http://barcode_splitter.py">barcode_splitter.py</a> --bcfile ../../logs/index-seq15 --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_06_01_SEQ16/Clownfish-ddRADseq-SEQ16-for-158-cycles-HT2T3BCXX_1_Read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_06_01_SEQ16/Clownfish-ddRADseq-SEQ16-for-158-cycles-HT2T3BCXX_1_Read_2_Index_Read_passed_filter.fastq.gz &amp;<br/>
+ 1111  <a href="http://barcode_splitter.py">barcode_splitter.py</a> --bcfile ../../logs/index-seq16 --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_06_01_SEQ16/Clownfish-ddRADseq-SEQ16-for-158-cycles-HT2T3BCXX_1_Read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_06_01_SEQ16/Clownfish-ddRADseq-SEQ16-for-158-cycles-HT2T3BCXX_1_Read_2_Index_Read_passed_filter.fastq.gz &amp;<br/>
+ 1112  cd ..<br/>
+ 1113  cd lane2/</span></span></div>
+<div><span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';"> 1114  <a href="http://barcode_splitter.py">barcode_splitter.py</a> --bcfile ../../logs/index-seq16 --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_06_01_SEQ16/Clownfish-ddRADseq-SEQ16-for-158-cycles-HT2T3BCXX_2_Read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2016_06_01_SEQ16/Clownfish-ddRADseq-SEQ16-for-158-cycles-HT2T3BCXX_2_Read_2_Index_Read_passed_filter.fastq.gz &amp;</span></span></div>
+</div>
+<div><br/></div>
+<div>There was no nohup out because nohup isn’t following my path for some reason.</div>
+<div><br/></div>
+<div>
+<div>The output of barcode splitter is a log file, the names of all of the pools split into read-1 and read-2 fastq.gz files and unnamed reads that the program was unable to assign to an index.  Read-2 and unnamed read files can be deleted.  </div>
+<div><br/></div>
+<div>Cat the 2 lanes into one file for process radtags</div>
+</div>
+<div>
+<div><br/></div>
+</div>
+<ul>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 23:47:10</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cat ./lane1/P061-read-1.fastq.gz ./lane2/P061-read-1.fastq.gz &gt; ../Pool1/P061.fastq.gz</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 23:48:58</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cat ./lane1/P062-read-1.fastq.gz ./lane2/P062-read-1.fastq.gz &gt; ../Pool2/P062.fastq.gz</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 23:49:35</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cat ./lane1/P063-read-1.fastq.gz ./lane2/P063-read-1.fastq.gz &gt; ../Pool3/P063.fastq.gz</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-22 23:49:56</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">bcsplit</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cat ./lane1/P064-read-1.fastq.gz ./lane2/P064-read-1.fastq.gz &gt; ../Pool4/P064.fastq.gz</span></li>
+<li><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"><br/></span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:15:38</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">scripts</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">chmod u+x <a href="http://61process.sh">61process.sh</a> <a href="http://62process.sh">62process.sh</a> <a href="http://63process.sh">63process.sh</a> <a href="http://64process.sh">64process.sh</a></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:15:48</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">scripts</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cd ..</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:15:53</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup scripts/61process.sh &amp;</span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">[5] 30968</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:16:02</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup: ignoring input and appending output to `nohup.out'</span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb"><br/></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:16:03</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup scripts/62process.sh &amp;</span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">[6] 30970</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:16:10</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup: ignoring input and appending output to `nohup.out'</span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb"><br/></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:16:14</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup scripts/63process.sh &amp;</span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">[7] 30972</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:16:21</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup: ignoring input and appending output to `nohup.out'</span></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb"><br/></span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-07-02 09:16:22</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-variant-ligatures: no-common-ligatures; background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">nohup scripts/64process.sh &amp;</span></span></li>
+<li><span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">[8] 30974</span></span></li>
+</ul>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"><br/></span></span></div>
+<div> Move the process logs into the logs folder</div>
+<ul>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 14:34:35</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">mv Pool1/process_radtags.log ./logs/process61.log<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 14:37:51</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">mv Pool2/process_radtags.log ./logs/process62.log<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 14:38:01</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">mv Pool3/process_radtags.log ./logs/process63.log<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 14:38:13</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">mv Pool4/process_radtags.log ./logs/process64.log</span></li>
+</ul>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(214, 214, 214);"><br/></span></span></div>
+<div>Analyze the sequencing statististics to make sure everything looks like it is on the right track: use the  <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6"><a href="http://readprocesslog.py">readprocesslog.py</a></span> script</div>
+<ul>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 14:38:31</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">15seq</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">~/13-stacks_analysis_scripts/readprocesslog.py<br/>
+Enter the path and file name of the log, i.e. ./logs/16process.out: ./logs/process61.log</span></li>
+<li>repeat for all pools</li>
+<li>Grab the tsv with Fetch</li>
+<li><a style="color:#69aa35;" href="evernote:///view/154400311/s5/62543b08-c0e4-437a-9752-6cab289ce96d/62543b08-c0e4-437a-9752-6cab289ce96d/">Keep track of read statistics from sequencing run</a></li>
+</ul>
+<div><br/></div>
+<div>Rename the process radtags output to sample names</div>
+<ul>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 15:20:36</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">Pool1</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">sh rename.for.dDocent_se_gz ../logs/names_61</span></li>
+<li><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 15:20:58</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">Pool1</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">mv APCL_15* ../samples/</span></li>
+<li>Repeat for all pools</li>
+<li>rm -r Pool*</li>
+</ul>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(214, 214, 214);"><br/></span></span></div>
+<div>Trim and map the reads</div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 15:39:11</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">dDocent<br/>
+dDocent 2.18<br/>
+<br/>
+Contact <a href="mailto:jpuritz@gmail.com">jpuritz@gmail.com</a> with any problems<br/>
+<br/>
+ <br/>
+Checking for required software<br/>
+<br/>
+All required software is installed!<br/>
+192 individuals are detected. Is this correct? Enter yes or no and press [ENTER]<br/>
+yes<br/>
+Proceeding with 192 individuals<br/>
+dDocent detects 40 processors available on this system.<br/>
+Please enter the maximum number of processors to use for this analysis.<br/>
+0<br/>
+Incorrect. Please enter the number of processing cores on this computer<br/>
+15<br/>
+dDocent detects 252G maximum memory available on this system.<br/>
+Please enter the maximum memory to use for this analysis. The size can be postfixed with<br/>
+K, M, G, T, P, k, m, g, t, or p which would multiply the size with 1024, 1048576, 1073741824,<br/>
+1099511627776, 1125899906842624, 1000, 1000000, 1000000000, 1000000000000, or 1000000000000000 respectively.<br/>
+For example, to limit dDocent to ten gigabytes, enter 10G or 10g<br/>
+0<br/>
+<br/>
+Do you want to quality trim your reads?<br/>
+Type yes or no and press [ENTER]?<br/>
+yes<br/>
+<br/>
+Do you want to perform an assembly?<br/>
+Type yes or no and press [ENTER]?<br/>
+no<br/>
+<br/>
+Reference contigs need to be in a file named reference.fasta<br/>
+<br/>
+Do you want to map reads?  Type yes or no and press [ENTER]<br/>
+yes<br/>
+BWA will be used to map reads.  You may need to adjust -A -B and -O parameters for your taxa.<br/>
+Would you like to enter a new parameters now? Type yes or no and press [ENTER]<br/>
+yes<br/>
+Please enter new value for A (match score).  It should be an integer.  Default is 1.<br/>
+1<br/>
+Please enter new value for B (mismatch score).  It should be an integer.  Default is 4.<br/>
+4<br/>
+Please enter new value for O (gap penalty).  It should be an integer.  Default is 6.<br/>
+6<br/>
+Do you want to use FreeBayes to call SNPs?  Please type yes or no and press [ENTER]<br/>
+no<br/>
+<br/>
+Please enter your email address.  dDocent will email you when it is finished running.<br/>
+Don't worry; dDocent has no financial need to sell your email address to spammers.<br/>
+<a href="mailto:michelle.stuart@rutgers.edu">michelle.stuart@rutgers.edu</a><br/>
+<br/>
+<br/>
+At this point, all configuration information has been entered and dDocent may take several hours to run.<br/>
+It is recommended that you move this script to a background operation and disable terminal input and output.<br/>
+All data and logfiles will still be recorded.<br/>
+To do this:<br/>
+Press control and Z simultaneously<br/>
+Type 'bg' without the quotes and press enter<br/>
+Type 'disown -h' again without the quotes and press enter<br/>
+<br/>
+Now sit back, relax, and wait for your analysis to finish.<br/>
+Removing the _1 character and replacing with /1 in the name of every sequence<br/>
+^Z<br/>
+[1]+  Stopped                 dDocent<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 15:40:01</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">bg<br/>
+[1]+ dDocent &amp;<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 15:40:03</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">disown -h</span></div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4029d2; background-color: #d6d6d6">michelles 2016-07-04 15:40:06</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #009193; background-color: #d6d6d6">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #00a100; background-color: #d6d6d6">$</span></div>
+<div><br/></div>
+<div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">tar -zcvf seq15.tar.gz ../15seq/</span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"><br/></span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);">Next scp</span></span></div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #d6d6d6">scp -r /local/home/michelles/02-apcl-ddocent/compressed_dDocent_input/seq15.tar.gz mrs349@elf.rdi2.rutgers.edu:/project1/mlp195-001/compressed_dDocent_input/</span></div>
+</div>
+<div><br/></div>
+<div><a style="color:#69aa35;" href="evernote:///view/154400311/s5/94690cfa-369a-4d3b-a68b-598eb9741dda/94690cfa-369a-4d3b-a68b-598eb9741dda/">dDocent on Amphiprion seq03-16</a></div>
+<div><a style="color:#69aa35;" href="evernote:///view/154400311/s5/adc54dc7-b77e-4e6e-befa-49f0d22ffb8a/adc54dc7-b77e-4e6e-befa-49f0d22ffb8a/">dDocent on ELF seq03-16</a></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div>Before adding seq15 to the main data analysis, have to trim and map the reads.  Going to do this on amphiprion and ELF to see how it goes.</div>
+<div><br/></div>
+<div>copy the reference.fasta over</div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">/local/home/michelles/02-apcl-ddocent/12seq/samples</span></div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-28 08:14:32</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">cp reference.fasta ../../15seq/samples/</span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"><br/></span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);">In the samples folder (for seq15)</span></span></div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-28 08:15:25</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">dDocent<br/>
+dDocent 2.18<br/>
+<br/>
+Contact <a href="mailto:jpuritz@gmail.com">jpuritz@gmail.com</a> with any problems<br/>
+<br/>
+ <br/>
+Checking for required software<br/>
+<br/>
+All required software is installed!<br/>
+192 individuals are detected. Is this correct? Enter yes or no and press [ENTER]<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">yes</span><br/>
+Proceeding with 192 individuals<br/>
+dDocent detects 40 processors available on this system.<br/>
+Please enter the maximum number of processors to use for this analysis.<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">20</span><br/>
+dDocent detects 252G maximum memory available on this system.<br/>
+Please enter the maximum memory to use for this analysis. The size can be postfixed with<br/>
+K, M, G, T, P, k, m, g, t, or p which would multiply the size with 1024, 1048576, 1073741824,<br/>
+1099511627776, 1125899906842624, 1000, 1000000, 1000000000, 1000000000000, or 1000000000000000 respectively.<br/>
+For example, to limit dDocent to ten gigabytes, enter 10G or 10g<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">0</span><br/>
+<br/>
+Do you want to quality trim your reads?<br/>
+Type yes or no and press [ENTER]?<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">yes</span><br/>
+<br/>
+Do you want to perform an assembly?<br/>
+Type yes or no and press [ENTER]?<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">no</span><br/>
+<br/>
+Reference contigs need to be in a file named reference.fasta<br/>
+<br/>
+Do you want to map reads?  Type yes or no and press [ENTER]<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">yes</span><br/>
+BWA will be used to map reads.  You may need to adjust -A -B and -O parameters for your taxa.<br/>
+Would you like to enter a new parameters now? Type yes or no and press [ENTER]<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">yes</span><br/>
+Please enter new value for A (match score).  It should be an integer.  Default is 1.<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">1</span><br/>
+Please enter new value for B (mismatch score).  It should be an integer.  Default is 4.<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">4</span><br/>
+Please enter new value for O (gap penalty).  It should be an integer.  Default is 6.<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">6</span><br/>
+Do you want to use FreeBayes to call SNPs?  Please type yes or no and press [ENTER]<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;">no</span><br/>
+<br/>
+Please enter your email address.  dDocent will email you when it is finished running.<br/>
+Don't worry; dDocent has no financial need to sell your email address to spammers.<br/>
+<span style="background-color: rgb(255, 250, 165);-evernote-highlight:true;"><a href="mailto:michelle.stuart@rutgers.edu">michelle.stuart@rutgers.edu</a></span><br/>
+<br/>
+<br/>
+At this point, all configuration information has been entered and dDocent may take several hours to run.<br/>
+It is recommended that you move this script to a background operation and disable terminal input and output.<br/>
+All data and logfiles will still be recorded.<br/>
+To do this:<br/>
+Press control and Z simultaneously<br/>
+Type 'bg' without the quotes and press enter<br/>
+Type 'disown -h' again without the quotes and press enter<br/>
+<br/>
+Now sit back, relax, and wait for your analysis to finish.<br/>
+Removing the _1 character and replacing with /1 in the name of every sequence<br/>
+^Z<br/>
+[1]+  Stopped                 dDocent<br/></span><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-28 08:16:46</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; background-color: #ebebeb">bg<br/>
+[1]+ dDocent &amp;</span></div>
+<div><span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #4a2bda; background-color: #ebebeb">michelles 2016-06-28 08:16:50</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1baeba; background-color: #ebebeb">samples</span> <span style="font: 14.0px 'Courier New'; font-variant-ligatures: no-common-ligatures; color: #1daf14; background-color: #ebebeb">$</span> <span style="background-color: rgb(235, 235, 235);"><span style="font-family: 'Courier New';">disown -h</span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);">Finished at 8:52 - took ~30 minutes</span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"><br/></span></span></div>
+<hr/>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(214, 214, 214);">Get seq read count numbers</span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(214, 214, 214);"><br/></span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(214, 214, 214);">cp ~/13-stacks_analysis_scripts/readprocesslog.py ./scripts/</span></span><span style="font-family: 'Courier New';"><span style="background-color: rgb(214, 214, 214);"> </span></span></div>
+<div><span style="background-color: rgb(214, 214, 214);"><span style="font-family: 'Courier New';">./scripts/readprocesslog.py </span></span></div>
+<div><span style="font-family: 'Courier New';"><span style="background-color: rgb(235, 235, 235);"><br/></span></span></div>
+<div><a style="color:#69aa35;" href="evernote:///view/154400311/s5/94690cfa-369a-4d3b-a68b-598eb9741dda/94690cfa-369a-4d3b-a68b-598eb9741dda/">dDocent on Amphiprion June 28, 2016</a></div>
+</body></html>

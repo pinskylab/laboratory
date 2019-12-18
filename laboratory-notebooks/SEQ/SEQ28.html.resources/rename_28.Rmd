@@ -1,0 +1,23 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+rename seq28 files to remove extra F
+```{r}
+library(readr)
+x <- read.csv("names.csv", col.names = F, stringsAsFactors = F)
+
+# begin constructing the file of command lines
+write_file("#!/bin/bash", path = "rename_28.sh", append = F)
+write_file("\n", path = "rename_28.sh", append = T)
+
+for (i in 1:nrow(x)){
+  a <- paste0(x$FALSE.[i], ".F.F.fq.gz")
+  b <- paste0(x$FALSE.[i], ".F.fq.gz")
+  c <- paste("mv", a, b, sep = " ")
+  write_file(c, path = "rename_28.sh", append = T)
+  write_file("\n", path = "rename_28.sh", append = T)
+}
+```
+

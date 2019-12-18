@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 7.11 (457846)"/><meta name="keywords" content="ddRAD, Pinsky, Protocol, seq, seq04, seq05, stacks"/><meta name="altitude" content="27"/><meta name="author" content="Michelle Stuart"/><meta name="created" content="2015-02-09 15:35:34 +0000"/><meta name="latitude" content="40.54497283154127"/><meta name="longitude" content="-74.51113418656514"/><meta name="updated" content="2015-03-03 19:27:25 +0000"/><title>SEQ04 SEQ05</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<ul>
+<li><font color="#797979">Receive files from sequencer - we get fastq.gz files from the sequencer.  From the hiseq there are usually 2 files per lane, the forward pass and the reverse pass.  The forward pass contains all of our reads and is usually around 20GB.  The reverse pass is smaller and contains the index, which will allow barcode splitter to work.</font></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(121, 121, 121);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><span style="color: rgb(255, 126, 121);">ssh</span> <span style="color: rgb(138, 194, 158);">michelles@amphiprion.deenr.rutgers.edu</span></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(121, 121, 121);">Update where files are saved on amphiprion in sample_data sheet</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$</span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><span style="color: rgb(255, 126, 121);">cd</span> <span style="color: rgb(0, 150, 255);">/local/shared/pinsky_lab/sequencing/</span></span><span style="font-size: 11px; font-family: Menlo;"><br/></span> <span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion hiseq_2014_12_19_SEQ04]$</span></span> <span style="color: rgb(121, 121, 121);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><span style="color: rgb(255, 126, 121);">ls</span></span></span><span style="color: rgb(121, 121, 121);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="color: rgb(138, 194, 158);"><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_1_read_1_passed_filter.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_1_read_2_index_read_passed_filter.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_2_read_1_passed_filter.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_2_read_2_index_read_passed_filter.fastq.gz</span></span></span></li>
+<li><span style="color: rgb(121, 121, 121);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion hiseq_2014_12_19_SEQ05]$ <span style="color: rgb(255, 126, 121);">ls</span><br/></span><span style="color: rgb(142, 201, 162);"><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_1_read_1_passed_filter.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_1_read_2_index_read_passed_filter.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_2_read_1_passed_filter.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_2_read_2_index_read_passed_filter.fastq.gz</span></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(121, 121, 121);">Create a mysql database</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion ~]$ <span style="color: rgb(255, 126, 121);">mysql</span> <span style="color: rgb(138, 194, 158);">-plarvae168</span></span></span></li>
+<li><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; <span style="color: rgb(255, 126, 121);">create database</span> <span style="color: rgb(0, 150, 255);">seq04</span>;</span></span></li>
+<li><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; </span></span><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;"><span style="color: rgb(255, 126, 121);">create database</span></span></span> <span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;"><span style="color: rgb(0, 150, 255);">seq05</span>;</span></span></li>
+<li><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; <span style="color: rgb(255, 126, 121);">show databases</span>;</span></span></li>
+<li><span style="color: rgb(121, 121, 121);"><span style="font-size: 11px; font-family: Menlo;">mysql&gt; <span style="color: rgb(255, 126, 121);">exit</span></span></span></li>
+</ul>
+</li>
+</ul>
+<div><span style="color: rgb(121, 121, 121);"><br/></span></div>
+<ul>
+<li><span style="color: rgb(121, 121, 121);">Apply stacks configuration to database:</span></li>
+</ul>
+<div><span style="color: rgb(121, 121, 121);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion ~]$ mysql -plarvae168 seq04 &lt; ~/local/share/stacks/sql/stacks.sql</span></span></div>
+<div><span style="color: rgb(121, 121, 121);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[<span style="color: rgb(146, 146, 146);">michelles@amphiprion ~]$ mysql -plarvae168 seq05 &lt; ~/local/share/stacks/sql/stacks.sql</span></span></span><br/></div>
+<ul>
+<li><span style="color: rgb(146, 146, 146);">Make project directory:</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion ~]$ mkdir 01_seq04 02_seq05</span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Make directories inside the seq directory (bcsplit to house output from barcode splitter)</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion ~]$ cd 01_seq04/<br/>
+[michelles@amphiprion 01_seq04]$ mkdir bcsplit4 P20 P21 P22 P23 samples stacks<br/>
+[michelles@amphiprion 01_seq04]$ cd ../02_seq05/<br/>
+[michelles@amphiprion 02_seq05]$ mkdir bcsplit5 P24 P25 P26 P27 samples stacks<br/>
+[michelles@amphiprion 02_seq05]$ cd bcsplit5/<br/>
+[michelles@amphiprion bcsplit5]$ mkdir lane1<br/>
+[michelles@amphiprion bcsplit5]$ cd ../../01_seq04/<br/>
+[michelles@amphiprion 01_seq04]$ cd bcsplit4/<br/>
+[michelles@amphiprion bcsplit4]$ mkdir lane1<br/></span><span style="font-size: 11px; font-family: Menlo;"><br/></span></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">In the bcsplit directory, use nano to make an index file for barcode splitter: </span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion bcsplit4]$ nano</span></span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool020  TGACCA</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool021  ACAGTG</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool022  GCCAAT</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool023  CAGATC</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px;"><span style="font-family: Menlo;">save as "index"</span></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion bcsplit5]$ nano</span></span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool024  ACTTGA</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool025  TAGCTT</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool026  GGCTAC</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">Pool027  CTTGTA</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px;"><span style="font-family: Menlo;">save as "index"</span></span></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Run barcode splitter on 1st lane from the split directory</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ <span style="color: rgb(145, 145, 145);">barcode_splitter.py --bcfile index --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ04/clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_1_read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ04/clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_1_read_2_index_read_passed_filter.fastq.gz</span></span></span></li>
+<li><span style="color: rgb(146, 146, 146);">can ctrl-z, bg to run in background (or nohup)</span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ cd ../../02_seq05/bcsplit5/<br/>
+[michelles@amphiprion bcsplit5]$ nano index<br/>
+[michelles@amphiprion bcsplit5]$ <span style="color: rgb(146, 146, 146);">barcode_splitter.py --bcfile index --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ05/clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_1_read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ05/clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_1_read_2_index_read_passed_filter.fastq.gz</span></span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px;"><span style="font-family: Menlo;">ctrl-z, bg</span></span></span></li>
+<li><font color="#929292" face="Menlo"><span style="font-size: 11px;">had a type-o in the index file for seq05</span><span style="font-size: 11px;">…</span><span style="font-size: 11px;">had to </span><span style="font-size: 11px;">“</span><span style="font-size: 11px;">top</span><span style="font-size: 11px;">”</span><span style="font-size: 11px;"> and kill processes and start over (figured out I had a </span><span style="font-size: 11px;">typo</span><span style="font-size: 11px;"> because I looked at the output in the bcsplit4 and bcsplit5 folders and there wasn</span><span style="font-size: 11px;">’</span><span style="font-size: 11px;">t a pool 26, clearly something was wrong</span><span style="font-size: 11px;">…</span><span style="font-size: 11px;">)</span></font></li>
+<li><font color="#929292" face="Menlo"><span style="font-size: 11px;">started at 11:25am on Feb 9, 2015</span><span style="font-size: 11px;">…still running at 7:48PM</span><span style="font-size: 11px;">…</span><span style="font-size: 11px;">Finished around 7:00AM</span></font></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ ls -lh<br/>
+total 20G<br/>
+-rw-rw-r--. 1 michelles michelles   60 Feb  9 11:04 index<br/>
+drwxrwxr-x. 2 michelles michelles 4.0K Feb  9 10:49</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">lane1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-------. 1 michelles michelles  182 Feb 10 06:38 nohup.out<br/>
+-rw-rw-r--. 1 michelles michelles 4.2G Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool020-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 210M Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool020-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 4.5G Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool021-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 239M Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool021-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 5.2G Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool022-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 251M Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool022-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 4.6G Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool023-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 223M Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool023-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 681M Feb 10 06:38</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">unmatched-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+<span style="color: rgb(145, 145, 145);">-rw-rw-r--. 1 michelles michelles  43M Feb 10 06:38</span></span> <span style="color: rgb(145, 145, 145);"><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">unmatched-read-2.fastq.gz</span></span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit5]$ ls -lh<br/>
+total 21G<br/>
+-rw-rw-r--. 1 michelles michelles   60 Feb  9 11:12 index<br/>
+drwxrwxr-x. 2 michelles michelles 4.0K Feb  9 10:49</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">lane1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-------. 1 michelles michelles  182 Feb 10 06:31 nohup.out<br/>
+-rw-rw-r--. 1 michelles michelles 3.2G Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool024-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 165M Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool024-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+<span style="background-color:rgb(255, 204, 102);-evernote-highlight:true;">-rw-rw-r--. 1 michelles michelles 7.6G Feb 10 06:31</span></span> <span style="background-color:rgb(255, 204, 102);-evernote-highlight:true;"><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool025-read-1.fastq.gz</span></span></span></li>
+<li><font face="Menlo"><span style="font-size: 11px;">Is this so big because originally our index file had the type-o that the index for Pool 25 and the index for Pool 26 both had “Pool025” listed…did the re-do append instead of overwriting? - Need to do a test for this to see if bcsplit appends or overwrites</span></font><span style="font-family: Menlo; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; color: rgb(145, 145, 145);"><br/>
+-rw-rw-r--. 1 michelles michelles 378M Feb 10 06:31</span> <span style="color: rgb(145, 145, 145);"><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool025-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 3.5G Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool026-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 186M Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool026-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 4.2G Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool027-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 209M Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">Pool027-read-2.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles 983M Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">unmatched-read-1.fastq.gz</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+-rw-rw-r--. 1 michelles michelles  61M Feb 10 06:31</span> <span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; font-family: Menlo;">unmatched-read-2.fastq.gz</span></span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);">move all of these files into a "lane 1 directory” or lane 2 will overwrite</span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ mv Pool* ./lane1</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+[michelles@amphiprion bcsplit4]$ cd ../../02_seq05/bcsplit5/</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+[michelles@amphiprion bcsplit5]$ mv Pool* ./lane1</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ nohup <span style="color: rgb(146, 146, 146);">barcode_splitter.py --bcfile index --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ04/clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_2_read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ04/clownfish-ddradseq-seq04-for-222-cycles-hau8radxx_2_read_2_index_read_passed_filter.fastq.gz</span></span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit5]$ nohup <span style="color: rgb(146, 146, 146);">barcode_splitter.py --bcfile index --idxread 2 --suffix .fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ05/clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_2_read_1_passed_filter.fastq.gz /local/shared/pinsky_lab/sequencing/hiseq_2014_12_19_SEQ05/clownfish-ddradseq-seq05-for-222-cycles-hau41adxx_2_read_2_index_read_passed_filter.fastq.gz </span></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);">combine all of the results (<span style="color: rgb(255, 38, 0);">read-2 fastqs are the index only, do not need to go forward with them like I did here</span>):</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool020-read-1.fastq.gz ./Pool020-read-1.fastq.gz &gt; Pool020.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool021-read-1.fastq.gz ./Pool021-read-1.fastq.gz &gt; Pool021.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool021-read-2.fastq.gz ./Pool021-read-2.fastq.gz &gt; Pool021-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool020-read-2.fastq.gz ./Pool020-read-2.fastq.gz &gt; Pool020-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool022-read-1.fastq.gz ./Pool022-read-1.fastq.gz &gt; Pool022.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool022-read-2.fastq.gz ./Pool022-read-2.fastq.gz &gt; Pool022-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool023-read-1.fastq.gz ./Pool023-read-1.fastq.gz &gt; Pool023.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cat ./lane1/Pool023-read-2.fastq.gz ./Pool023-read-2.fastq.gz &gt; Pool023-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit4]$ cd ../../02_seq05/bcsplit5/</span></span></li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool024-read-2.fastq.gz ./Pool024-read-2.fastq.gz &gt; Pool024-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool024-read-1.fastq.gz ./Pool024-read-1.fastq.gz &gt; Pool024.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool025-read-1.fastq.gz ./Pool025-read-1.fastq.gz &gt; Pool025.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool025-read-2.fastq.gz ./Pool025-read-2.fastq.gz &gt; Pool025-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool026-read-2.fastq.gz ./Pool026-read-2.fastq.gz &gt; Pool026-read2.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool026-read-1.fastq.gz ./Pool026-read-1.fastq.gz &gt; Pool026.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool027-read-1.fastq.gz ./Pool027-read-1.fastq.gz &gt; Pool027.fastq.gz<br/>
+[michelles@amphiprion bcsplit5]$ cat ./lane1/Pool027-read-2.fastq.gz ./Pool027-read-2.fastq.gz &gt; Pool027-read2.fastq.gz</span></span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">make a new names_barcodes tab delimited file: </span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);">Open Sample_data in Chrome (yes, it has to be chrome, other browsers don’t work properly as of 10-22-2014)</span></li>
+<li><span style="color: rgb(146, 146, 146);">Click on the Ligations tab and filter for the pool you are working on (Pool 7)</span></li>
+<li><span style="color: rgb(146, 146, 146);">Copy the sample names over to the first column of the Names tab</span></li>
+<li><span style="color: rgb(146, 146, 146);">drag down the formula to find the barcode</span></li>
+<li><span style="color: rgb(146, 146, 146);">for each pool download as tab delimited "names_Pool7.tsv", etc.</span></li>
+<li><span style="color: rgb(146, 146, 146);">Open the document in Komodo and fix the end of line characters by right clicking on the tab and looking at the properties (doing this with google sheets they were already in Unix)</span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Copy the names files into the correct pool directories:  </span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">Michelles-MacBook:~ michelle$ scp -r ~/Downloads/names*.tsv michelles@amphiprion.deenr.rutgers.edu:~/01_seq04/</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ mv *Pool20* P20</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ mv *Pool21* P21<br/>
+[michelles@amphiprion 01_seq04]$ mv *Pool22* P22<br/>
+[michelles@amphiprion 01_seq04]$ mv *Pool23* P23</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ mv *Pool24* ../02_seq05/P24<br/>
+[michelles@amphiprion 01_seq04]$ mv *Pool25* ../02_seq05/P25<br/>
+[michelles@amphiprion 01_seq04]$ mv *Pool26* ../02_seq05/P26<br/>
+[michelles@amphiprion 01_seq04]$ mv *Pool27* ../02_seq05/P27</span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Move the barcode split results into the pools directories</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ mv Pool020.f* ../P20</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ mv Pool020-read2* ../P20</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ mv Pool021-read2* ../P21<br/>
+[michelles@amphiprion bcsplit4]$ mv Pool022-read2* ../P22<br/>
+[michelles@amphiprion bcsplit4]$ mv Pool023-read2* ../P23<br/>
+[michelles@amphiprion bcsplit4]$ mv Pool021.f* ../P21<br/>
+[michelles@amphiprion bcsplit4]$ mv Pool022.f* ../P22<br/>
+[michelles@amphiprion bcsplit4]$ mv Pool023.f* ../P23</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ cd ../../02_seq05/bcsplit5/<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool024.f* ../P24<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool025.f* ../P25<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool026.f* ../P26<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool027.f* ../P27<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool024-read2* ../P24<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool025-read2* ../P25<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool026-read2* ../P26<br/>
+[michelles@amphiprion bcsplit5]$ mv Pool027-read2* ../P27</span></span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);">Delete intermediate files</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion lane1]$ rm Pool*</span></span></li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion lane1]$ cd ..<br/>
+[michelles@amphiprion bcsplit5]$ rm Pool*</span></span></li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit5]$ cd ../../01_seq04/bcsplit4/</span></span></li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion bcsplit4]$ rm Pool*<br/>
+[michelles@amphiprion bcsplit4]$ cd lane1/</span><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/>
+[michelles@amphiprion lane1]$ rm Pool*</span></span></li>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion bcsplit]$ rm *-1.fastq.gz - This deletes unmatched from lane 2!!!<br/></font></span></li>
+<li><span style="font-size: 11px; font-family: Menlo;"><font color="#FF2600">[michelles@amphiprion bcsplit]$ rm *-2.fastq.gz - This deletes unmatched from lane 2!!!</font></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Download a barcodes file: from the sample_data spreadsheet, download barcodes sheet as tsv and copy to the server</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq03]$ cp barcodes ../../01_seq04/</span></span><br/></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);">Run process radtags on the files</span> - <span style="color: rgb(255, 38, 0);">NOHUP!!!!</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P20/Pool020.fastq.gz -o ./P20</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P21/Pool021.fastq.gz -o ./P21</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P22/Pool022.fastq.gz -o ./P22</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 01_seq04]$ nohup process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P23/Pool023.fastq.gz -o ./P23</span></span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 02_seq05]$ nohup process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P24/Pool024.fastq.gz -o ./P24</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 02_seq05]$ nohup process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P25/Pool025.fastq.gz -o ./P25</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion 02_seq05]$ nohup process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P26/Pool026.fastq.gz -o ./P26</span></span></li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion ~]$ nohup process_radtags -b barcodes -c -q -r --renz_1 pstI --renz_2 mluCI -i gzfastq --adapter_1 ACACTCTTTCCCTACACGACGCTCTTCCGATCT -f ./P27/Pool027.fastq.gz -o ./P27</span></span></li>
+</ul>
+</li>
+</ul>
+<div><span style="color: rgb(145, 145, 145);"><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></span></div>
+<ul>
+<li><span style="color: rgb(145, 145, 145);">After process_radtags, all of the pools are still in separate directories. Rename files and Move into one directory<span style="font-size: 11px; font-family: Menlo;"> </span><br/>
+<span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion P27]$ nano names_Pool27.tsv<br/>
+[michelles@amphiprion P27]$ sh rename.for.dDocent_se names_Pool27.tsv<br/>
+APCL13_613L975<br/>
+AAACAC<br/>
+[michelles@amphiprion P27]$ rm Poo*<br/>
+[michelles@amphiprion P27]$ mv process_radtags.log P27process_radtags.log</span></span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);">if final barcode is not getting assigned, nano the names_ file, get rid of the final end of line character, and re-run.  It will look like it might not be working but “ls” will show that the final file was renamed.</span></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);">Delete intermediate files (the barcode split output, which can be recreated if needed):</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion bcsplit]$ rm Pool1*</span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);">Move the renamed files into the samples directory</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ mv SPSO* ../samples</span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Make list all of the samples in a format that can be copied and pasted into denovo_map</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion Pool7]$ cd ..<br/>
+[michelles@amphiprion 02_seq02]$ ls -l ./samples/*.fq | mawk '{print "-s", $9, "\\"}'</span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Run denovo_map (takes 5 days):</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ nohup <span style="color: rgb(146, 146, 146);">denovo_map.pl -b 1 -B seq02 -m 2 -M 4 -n 3 -t -T 10 -o ./stacks -s <span style="color: rgb(145, 145, 145);">./samples/SPSO14_001L052.F.fq \</span></span></span><span style="color: rgb(145, 145, 145);"><font face="Menlo"><span style="font-size: 11px;">…</span></font></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(145, 145, 145);">Run rxstacks (took a couple hours):</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion 01_seq04]$ rxstacks -b 1 -P ./stacks -o ./rxstacks -t 10 --prune_haplo --lnl_lim -8.0 --lnl_dist</span></span></li>
+<li><span style="color: rgb(145, 145, 145);"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion 02_seq05]$ rxstacks -b 1 -P ./stacks -o ./rxstacks -t 10 --prune_haplo --lnl_lim -8.0 --lnl_dist</span></span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><span style="color: rgb(146, 146, 146);">Make a list of files to run cstacks (same code line in both seq04/rxstacks and seq05/rxstacks directories):</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">[michelles@amphiprion rxstacks]$ ls -l ../samples/*.fq | mawk '{print "-s ./"substr($9,12,14), "\\"}'</span></span></li>
+</ul>
+</li>
+<li><font color="#929292">Run cstacks (started at 1:45PM on Monday 2/16)</font> <font color="#FF2600">make sure to run it to aclarkii catalog using --catalog</font><font color="#929292">:</font></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><font color="#929292" face="Menlo"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ nohup cstacks -b 1 —o ./ --catalog ../../aclarkii -n 3 -p 8 -s ./APCL13_021L662 \...</span></font><br/>
+<br/></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Delete intermediate files:</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ rm -r Pool7/</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 02_seq02]$ rm ./stacks/SPSO*</span></span></li>
+</ul>
+</li>
+</ul>
+<div><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></span></div>
+<div><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></span></div>
+<ul>
+<li><span style="color: rgb(146, 146, 146);">Find file list for sstacks (copy and paste) :</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><font face="Menlo"><span style="font-size: 11px;">ls -l ../samples/*.fq | mawk '{print substr($9,12,14)}'</span></font></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Amend hand_stacks:</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nano ~/03_scripts/hand_stacks.sh</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">saved as handstacks_seq04 and </span><font face="Menlo"><span style="font-size: 11px;">handstacks_seq05</span></font></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Run hand_stacks (ran in a couple of hours)</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><font face="Menlo"><span style="font-size: 11px;">[michelles@amphiprion rxstacks]$ chmod u+x ~/03_scripts/handstacks_seq04</span></font></span></li>
+<li><span style="font-size: 11px;"><span style="font-family: Menlo;"><span style="color: rgb(146, 146, 146);"><br/></span></span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><font face="Menlo"><span style="font-size: 11px;">~/03_scripts/handstacks_seq05</span></font></span><span style="color: rgb(146, 146, 146);"><font face="Menlo"><span style="font-size: 11px;"> </span></font></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Run populations - don’t filter this time around (no -m or -r, etc) </span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 01_seq04]$ cd rxstacks/</span></span></li>
+<li><span style="font-size: 11px; font-family: Menlo;"><span style="color: rgb(146, 146, 146);">[michelles@amphiprion rxstacks]$ nohup populations -b 1 -P ./ -s -t 10</span> </span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Make new database for rxstacks </span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion rxstacks]$ </span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-family: Menlo; font-size: 11px;">mysql -plarvae168</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-family: Menlo; font-size: 11px;">mysql&gt; create database seq04rx seq05rx;</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-family: Menlo; font-size: 11px;">mysql&gt; exit</span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Apply stacks configuration to database:</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion rxstacks]$ mysql -plarvae168 seq04rx &lt; ~/local/share/stacks/sql/stacks.sql</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-family: Menlo; font-size: 11px;">[michelles@amphiprion rxstacks]$ mysql -plarvae168 seq05rx &lt; ~/local/share/stacks/sql/stacks.sql</span></span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></li>
+</ul>
+</li>
+<li><span style="color: rgb(146, 146, 146);">Load radtags to database</span></li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup load_radtags.pl -D seq04rx -p ./ -b 1 -c -B</span></span></li>
+<li><span style="color: rgb(146, 146, 146);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup load_radtags.pl -D seq05rx -p ./ -b 1 -c -B</span></span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></li>
+</ul>
+</li>
+<li>Index database</li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="color: rgb(145, 145, 145);"><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup <span style="color: rgb(145, 145, 145);">index_radtags.pl -D seq04rx -c -t</span></span></span></li>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup index_radtags.pl -D seq05rx -c -t</span></li>
+</ul>
+</li>
+<li>Run populations to produce gene pop file</li>
+<li style="display:inline;list-style:none;">
+<ul>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion 01_seq04]$ cd rxstacks/</span></li>
+<li><span style="font-size: 11px; font-family: Menlo;">[michelles@amphiprion rxstacks]$ nohup </span> <font face="Menlo"><span style="font-size: 11px;">populations -b 1 -P ./ -t 10 -r 90 -m 30 -s --genepop where m is the coverage and r is the percent of the population.  Start at 90/30, try 90/10, 80/30, 80/10, etc until you get 200 loci</span></font></li>
+</ul>
+</li>
+<li>In Windows,</li>
+<li><font color="#011993" face="monospace">Logged in to windows using the larva password</font><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Started Cervus</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Click on Tools&gt;Convert Genotype File&gt;Genepop to Cervus</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">2 digit format</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">do not use first ID as population name</span></span><br/>
+<br/>
+<span style="color: rgb(0, 143, 0);"><span style="font-family: monospace;">Converted 192 individuals in one population at 1132 loci</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Clicked on Analysis&gt;Allele Frequency </span></span><font color="#011993" face="monospace">Analysis</font><br/>
+<br/>
+<font color="#011993" face="monospace">Choose the cervus file just created</font><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">ID in column 2</span></span><br/>
+<br/>
+<font color="#011993" face="monospace">First allele in column 3</font><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Number of loci <span style="color: rgb(255, 38, 0);">1132 </span></span></span><font color="#011993" face="monospace">gives error and says there are 1134 loci, so running that</font><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Save as seq04</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">OK</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Now run a simulation of parentage analysis</span></span><br/>
+<br/>
+<font color="#011993" face="monospace">Click on analysis&gt;simulation of parentage analysis&gt;sexes of pair unknown</font><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Change parent number to </span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Saved as seq04simpar</span></span><br/>
+<br/>
+<span style="font-family: monospace;"><span style="color: rgb(1, 25, 147);">Change to LOD</span></span><br/>
+<br/>
+Ran simulated parentage with 2000 parents, 5000 offspring 0.1 proport samples, .86 typed loci, .01 mismatch, LOD.  Computer says it will take 2 hours. - computer froze, dropped it down to 1000 parents, 2000 offspring - took 6+ hours to run</li>
+<li>Create parent and offspring files: <a href="evernote:///view/603126/s5/5120bb1a-bb28-4773-ae9f-6cf0cc684d66/5120bb1a-bb28-4773-ae9f-6cf0cc684d66/" style="color:#69aa35;">To make an adult/juvenile file</a></li>
+<li>Run parentage analysis in Cervus - make sure the csv’s have unix line endings in komodo (if only 1 offspring runs, this is the problem).</li>
+</ul>
+<div><span style="color: rgb(255, 126, 121);"><br/></span></div>
+<div><span style="color: rgb(255, 126, 121);">If running colony, need a marker file that contains the marker IDs, if they are dominant or codominant, and gene dropping, mutation rates.</span></div>
+</body></html>

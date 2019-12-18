@@ -34,7 +34,7 @@ Copying Jupiter notebook over to R notebook so it can be seen here:
 
 2018-09-13 Thursday
 * pooled 3 baits into seq Ron
-    * baits 12
+    * [baits 12](../baits-12_2018-09-11)
     * baits 11
     * baits 10
     * (#baits.nb.html)

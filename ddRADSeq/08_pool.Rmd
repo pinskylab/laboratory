@@ -1,9 +1,0 @@
----
-title: "Pool"
-output:
-  html_notebook:
-    code_folding: hide
-    df_print: paged
----
-
-This document is going to create plate maps that show which ligations went into which pools.

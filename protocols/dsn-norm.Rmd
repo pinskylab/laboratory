@@ -5,7 +5,8 @@ params:
   num_rna: 4
   num_lib: 1
 ---
-```{r setup}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 
 ```
@@ -29,7 +30,7 @@ DSN normalization is critical ensuring an even distribution of coverage across p
 
 #### DSN needs to be properly dilued and should be tested for activity levels before proceeding
 
-#### The protocol below was taken from Illumina's recommendations [LINK](https://support.illumina.com/content/dam/illumina-support/documents/myillumina/7836bd3e-3358-4834-b2f7-80f80acb4e3f/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
+#### The protocol below was taken from Illumina's recommendations [LINK](https://github.com/pinskylab/laboratory/blob/master/documentation/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
 #### Reagents
 
 | Reagent| Supplier|

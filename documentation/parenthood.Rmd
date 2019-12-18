@@ -1,0 +1,20 @@
+---
+title: "Parenthood or Knitting with Children"
+output: html_notebook
+---
+
+Is there a way to call several R documents, bring all of their environments into one environment, and knit together a large report that contains the text of all of those documents?
+
+The answer seems to be to use {r child="segment_document1"}.  
+
+I initially had some problems with this because I was starting from an existing set of Rmds.  They all had yaml headers and output into a html_notebook format.  I was getting a lot of errors until I removed the yaml header from my child documents and changed the output of my parent document to html_document.  Thank you so much to [Joseph Casillas](https://github.com/jvcasillas) for helping me find these answers.  Who knew that pinging a random stranger on twitter could lead to so much kindness?  His great UA Thesis repo is very helpful.  I also found [Yihui's Child website](https://yihui.org/knitr/demo/child/) helpful.  His [First Notebook War](https://yihui.org/en/2018/09/notebook-war/) page also looks interesting.
+
+However, calling a child document doesn't bring in the environment from the child, so I can't compile of a list of needed supplies as I move through my documents.
+
+The answer might be to use a combination of R scripts for code and Rmd files for text, but I don't want to segment my workflow too much.  I'd like for each task to have its own document.  Sometimes working through these tasks takes months. I'd like to be able to have just that one task open while I'm working on it.  However, I'd like to be able to compile all of the tasks into one document at the beginning of project, to see what supplies need to be purchased and to make a game plan.  I'd like to compile all of the tasks at the end to generate a lab notebook of what I've done, including all of the small changes I made to tasks here or there as I worked through them.
+
+I then found [this post by Dolf Andringa](http://allican.be/blog/2016/02/07/rmarkdown_loops_and_knitr.html).  He suggests calling the knit_child function from within a chunk.  This allows me to have my yaml back in my individual documents so that I can use them on their own.  However, it still isn't bringing the environment from the child to the parent.  And it also isn't working consistently.  Sometimes it will knit the document, and sometimes I get an error "Error in setwd(opts_knit$get("output.dir")) : character argument expected".  Ultimately, there is no difference that I can find between this and the {r child="child.Rmd"} method.  I've even been able to add parameters back into my child document.
+
+## Nesting dolls - can I call a child from within a child?
+
+I had to remove all of the params from my grandchild document, but it appears to work.  I made sure that my child document could knit the grandchild document as a standalone, then tried knitting it from the master document and I had success.  I cannot use params in the grand child document but in my case these are stock solutions that generally have the same volume, which was my only parameter, so I think that will work nicely.

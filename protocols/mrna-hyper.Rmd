@@ -17,11 +17,19 @@ library(kableExtra)
 ```{r}
 mrna_capture <- tribble(~item, ~quantity,
                         "kapa_mrna_hyper_kit_script_ul", params$num_samples,
-                        "tubes_200ul", 1, 
-                        "tips_100", 2,
-                        "tubes_200ul", params$num_samples,
-                        "tips_100", 8 * params$num_samples,
-                        "ph2o_ml", 0.025 * params$num_samples)
+                        "tubes_1.7ml", 5,
+                        "falcon_15ml", 2,
+                        "falcon_50ml", 1,
+                        "tubes_200ul", params$num_samples * 3,
+                        "plates", params$num_samples * 1,
+                        "tips_100", 36 * params$num_samples,
+                        "tips_1000", 6 * params$num_samples,
+                        "tips_10", 1 * params$num_samples,
+                        "ph2o_ml", 0.061 * params$num_samples * params$rxn_multiplier, 
+                        "ethanol_ul", 1200 * params$num_samples * params$rxn_multiplier)
+
+kable(mrna_capture) %>% 
+  kable_styling("bordered")
 ```
 
 

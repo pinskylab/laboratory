@@ -1,0 +1,100 @@
+---
+title: "DSN Preparation"
+subtitle: "updated `r Sys.Date()`"
+output: html_notebook
+params:
+  num_rna: 22
+  num_lib: 1
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+
+```{r}
+dsn_norm <- tribble(~item, ~quantity,
+               "tips_100", params$num_rna,
+               "tips_100", 5,
+               "tips_10", 3,
+               "tubes_200ul", 3,
+               "tubes_1.7ml", 1,
+               "tips_1000", 3,
+               "1_M_HEPES_ul", 200,
+               "5_M_nacl_ul", 400,
+               "ph2o_ml", 0.4, 
+               "dsn_kit", 1,
+               "tube_screw_1.5ml", 1) %>% 
+  mutate(quantity = quantity * params$num_lib)
+
+kable(dsn_norm) %>% 
+  kable_styling("bordered") %>% 
+  add_header_above(c("Supplies" = 2))
+```
+
+DSN normalization is critical ensuring an even distribution of coverage across probes.  There are a genes that are highly expressed in all cells and DSN normalization helps to remove these high abundance probes and transcripts.  
+
+#### DSN needs to be properly diluted and should be tested for activity levels before proceeding
+
+#### The protocol below was taken from Illumina's recommendations [LINK](https://github.com/pinskylab/laboratory/blob/master/documentation/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
+#### Reagents
+
+| Reagent| Supplier|
+|----------|--------------|
+|1 M HEPES buffer solution|Invitrogen, part # 15630‐080 |
+|5 M NaCl solution|Ambion, part # AM9760G|
+|KAPA HiFi HotStart PCR kit with dNTPs|Kapa, part #KK2502|
+|Strip tubes|General lab supplier|
+|DSN Kit|Evrogen, part # EA001 Sigma Aldrich, part # E7023|
+|Ethanol 200 proof (absolute) for molecular biology (500 ml)|AB, part # 4333764F|
+|PCR Primer PE 1.0|Included in Kapa stranded mRNA kit|
+|PCR Primer PE 2.0|Included in Kapa stranded mRNA kit|
+|SPRI beads|Agencourt AMPure, part # 29152; KAPA Pure Beads, part #KK8000|
+|Nuclease-free water|General lab supplier|
+
+#### Equipment
+- Thermocycler
+- Magentic stand compatible with strip tubes
+
+#### Things that can be done ahead of time
+1. Pool individual RNA libraries in equal quantities to create a single pool of 500 ng.  This pool will now be called the sample. *For example pool 125 ng each of four individual libraries.*  
+
+2. Create a 4X hybridization solution and store in a screw cap tube for future use at -15˚C to -25˚C:
+*This recipe has been cut in half to fit the 0.5mL screw cap tubes we currently have in stock, it normally is for 1000 uL, this recipe is prepared for `r params$num_lib` library(ies) pooled from `r params$num_rna` sample(s).*
+```{r}
+kable(tribble(~Reagent, ~Volume_ul,
+              "1 M HEPES buffer solution",100,
+              "5 M NaCl solution",200,
+              "Nuclease free water", 200,
+              "Total Volume Per sample", 500) %>% 
+        mutate(Volume_ul = Volume_ul*params$num_lib)) %>% 
+  kable_styling("bordered")
+```
+
+3. Set one side thermocycler or heat block to hold at 68˚C and pre-heat it.
+
+#### Procedure
+
+1. Prepare the following reaction mix in a separate, sterile, nuclease‐free 200 ul PCR tube on ice for each sample to be normalized.
+
+|Component|Volume|
+|---------|------|
+|Sample library (500 ng)| 13.5 ul|
+|4X Hybridization buffer| 4.5 ull|
+|Total Volume Per Sample|18 ul|
+
+* NOTE: The sample library volume is optimized for the removal of rRNA from a non‐poly‐A selected library. For a reduction of highly expressed transcripts from a poly‐A selected library, more sample library may be needed for optimal results.*
+
+2. Gently pipette the entire volume up and down 10 times, then centrifuge briefly to mix.  
+3. Transfer the entire volume of reaction mix directly to the bottom of a new, sterile, nuclease‐free 200 ul PCR tube, using a pipette. Do not let the sample contact the side of the tube during the process.  
+
+4. Incubate the reaction mix tube on the thermal cycler using the following PCR cycling conditions:
+
+|Step|Temp|Duration|
+|----|----|--------|
+|Initial denaturation|98 °C|2 min|
+|Treatment|68 °C|5 hours|
+
+**Caution: Following incubation, keep the thermal cycler lid closed and the temperature held at 68°C. Do not remove the reaction mix tube from thermal cycler prior to and during DSN treatment.**

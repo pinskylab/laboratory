@@ -187,6 +187,7 @@ Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
 [Extract
 DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
 
+  - Takes 22 hours with a 16 hour overnight lysis step.  
   - **elute DNA into 35ul water or Tris-HCl and continue immediately to
     next step. Do not use an EDTA containing solution like TE to
     elute.**
@@ -194,16 +195,56 @@ DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html
 [Fragment
 DNA](https://pinskylab.github.io/laboratory/protocols/kapa-hyper.nb.html)
 
+  - Takes 2 hours.  
   - EecSeq protocol says to use 1/2 the reaction volume recommended by
     KAPA.
 
 [End
 Repair](https://pinskylab.github.io/laboratory/protocols/end-repair.nb.html)
 
+  - Takes 2 hours.
+
 [Adapter
 ligation](https://pinskylab.github.io/laboratory/protocols/ligation_eecseq.nb.html)
-[Quantification](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
-[Amplification](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)  
+
+  - Takes 3
+hours.
+
+[Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+
+  - Takes 1/2 hour  
+  - use 55ul of sample and 44ul of **Kapa Pure Beads**.  
+  - Conduct the cleanup in plates.  
+  - Elute 11 μl of 12.5ul of 10 mM Tris-HCl (pH 8.0) into a fresh
+plate.
+
+[Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
+
+  - Takes 1/2 hour
+
+[Pool](https://pinskylab.github.io/laboratory/protocols/pool.nb.html)
+
+  - Takes 1
+hour
+
+[Amplification](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)
+
+  - Takes 1/2 hour plus thermocycler
+time
+
+[Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+
+  - Takes 1/2 hour  
+  - use 25ul of sample and 25ul of **Kapa Pure Beads**.  
+  - Conduct the cleanup in a 1.7mL tube.  
+  - Elute 15ul of 10 mM Tris-HCl (pH 8.0) or water into a screw cap tube
+    if stopping.
+
+### Safe Stopping Point
+
+This is a safe stopping point. If you are stopping, store your sample at
+‐15° to ‐25°C.
+
 [Hybridization and
 Capture](https://pinskylab.github.io/laboratory/protocols/hybridization_eecseq.nb.html)  
 [Library

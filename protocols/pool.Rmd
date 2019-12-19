@@ -1,5 +1,7 @@
 ---
 title: "Pool samples"
+subtitle: "updated `r Sys.Date()`"
+output: html_notebook
 params:
   num_samples_in: 160
   num_pools_out: 1

@@ -1,16 +1,18 @@
 ---
 title: "Library Amplification"
+subtitle: "updated `r Sys.Date()`"
+output: html_notebook
 params:
   num_seq_lib: 1
 ---
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(knitr)
+library(kableExtra)
 ```
 
-### Library Amplification
+[Manufacturer's instructions](https://github.com/pinskylab/laboratory/blob/master/documentation/kapa-hyper-plus-dna.pdf)
 
-- Assemble each library amplification reaction as follows per pool:
 ```{r}
 amp <- tribble(~item, ~quantity,
                  "kapa_hifi_hotstart_readymix_ul", 12.5 * params$num_seq_lib,
@@ -24,16 +26,32 @@ amp <- tribble(~item, ~quantity,
 
 ```
 
+### Library Amplification
+
+5.1 Assemble each library amplification reaction as follows per pool:
 
 |Component|Volume|
 |---------|------|
 |KAPA HiFi HotStart ReadyMix (2X) | 12.5 μl|
-|PCR1_P5 Primer (Universal)  | 1.25 μl|
-|PCR2 Primer (Indexed)  | 1.25 μl|
+|PCR1_F Primer (Universal)  | 1.25 μl|
+|PCR2_R Primer (Indexed)  | 1.25 μl|
 |Adapter-ligated library pool| 10.0 μl|
-|--Total Volume--| --25 μl--| 
+|**Total Volume**| **25 μl**|  
 
-- Calculate number of cycles needed based on previous quants
+5.2 Mix thoroughly and centrifuge briefly.
+
+5.3 Amplify using the following cycling protocol:
+
+|Step|Temp|Duration|Cycles|
+|----|----|--------|------|
+|Initial denaturation|98 °C|45 sec|1|
+|Denaturation|98 °C|15 sec|X|
+|Annealing-|60 °C|30 sec|X|
+|Extension|72 °C|30 sec|X|
+|Final Extension|72 °C|1 min|1|
+|Hold|4 °C | ∞|1|
+
+- For X in the table above, calculate number of cycles needed based on previous quants
 
 |Amount of adapter-ligated DNA in amplification reaction| Number of cycles required to generate 1 μg of library DNA| 
 |--------------|-------------------------------------------|
@@ -45,18 +63,6 @@ amp <- tribble(~item, ~quantity,
 |5 ng|11-12|
 |1 ng|12-13|
 
-### For Puritz and Lotterhos (2017), 6 PCR cycles were used.
+**For Puritz and Lotterhos (2017), 6 PCR cycles were used.**
 
-- Mix thoroughly and centrifuge briefly.
-- Amplify using the following cycling protocol:
-
-|Step|Temp|Duration|Cycles|
-|----|----|--------|------|
-|Initial denaturation|98 °C|45 sec|1|
-|Denaturation|98 °C|15 sec|X|
-|Annealing-|60 °C|30 sec|X|
-|Extension|72 °C|30 sec|X|
-|Final Extension|72 °C|1 min|1|
-|Hold|4 °C | ∞|1|
-
-- Proceed immediately to the next step
+5.4 Proceed immediately to the next step

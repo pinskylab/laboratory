@@ -1,0 +1,47 @@
+---
+title: "DSN Treatment"
+subtitle: "updated `r Sys.Date()`"
+output: html_notebook
+params:
+  num_lib: 1
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+This process removes dsDNA, representing highly abundant transcripts, from the reaction mixture by treatment with DSN. DSN is a thermal stable double‐stranded nuclease that has been isolated from the Kamchatka crab. DSN will remove the dsDNA while preserving the ssDNA.
+
+#### Things that can be done ahead of time  
+- Dilute the 10X DSN Master buffer supplied in the DSN kit to 2X with nuclease‐free water.  
+- Prepare the DSN enzyme according to the manufacturers instructions.
+
+#### Procedure
+1. Pre‐heat the 2X DSN buffer on the pre‐heated heat block at 68°C.  *Note: Do not remove the 2X DSN buffer from the heat block during DSN treatment.*  
+
+2. Quickly add 20 ul of pre‐heated 2X DSN buffer to the first reaction mix tube.  
+
+3. With the reaction mix tube remaining within the thermal cycler, gently pipette the entire volume up and down 10 times to mix thoroughly using a pipette set to 40 ul.  
+- **Caution: Pipette the solution directly to the bottom of the PCR tube and do not let the sample contact the side of the tube during the process.**  
+- *Note: It is important to keep the thermal cycler closed, except for the time necessary to add the 2X DSN buffer and mix. When preparing more than one reaction mix tube, keep the thermal cycler lid closed when extracting the 2X DSN buffer from its tube, then open the thermal cycler lid only for the time necessary to add and mix the 2X DSN buffer.*  
+
+4. Repeat steps 2 and 3 for each reaction mix tube.  
+5. Incubate the reaction mix tubes on the thermal cycler at 68°C for 10 minutes.
+6. Quickly add 2 ul of DSN enzyme to the first reaction mix tube using a 2 ul pipette.  
+7. With the reaction mix tube remaining within the thermal cycler, gently pipette the entire volume up and down 10 times to mix thoroughly using a pipette set to 40 ul.  
+- **Caution: Pipette the solution directly to the bottom of the PCR tube and do not let the sample contact the side of the tube during the process.**  
+- *NOTE: It is important to keep the thermal cycler closed, except for the time necessary to add the DSN enzyme and mix. Failure to do so may decrease the normalization efficiency due to the non‐specific digestion of secondary structures formed by ss‐DNA.*  
+8. Repeat steps 6 and 7 for each reaction mix tube.  
+9. Incubate the reaction mix tubes on the thermal cycler at 68°C for 25 minutes.  
+10. Add 40 ul of 2X DSN stop solution to each reaction mix tube. Gently pipette the entire volume up and down to mix thoroughly, then place the tubes on ice.
+
+---
+
+### Safe Stopping Point
+This is a safe stopping point. If you are stopping, store your sample at ‐15° to ‐25°C.
+
+
+
+---

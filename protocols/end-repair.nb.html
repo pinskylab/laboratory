@@ -1830,7 +1830,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    ddRADSeq - under construction
+    ddRADSeq
      
     <span class="caret"></span>
   </a>
@@ -1887,7 +1887,7 @@ $(document).ready(function () {
       <a href="rna_extraction_tri.nb.html">1. RNA Extraction</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">2. Quantify</a>
+      <a href="quant_rna.nb.html">2. Quantify</a>
     </li>
     <li>
       <a href="bioanalyzer.nb.html">3. Visualize</a>
@@ -1896,37 +1896,82 @@ $(document).ready(function () {
       <a href="anneal.nb.html">4. Anneal RNA Adapters</a>
     </li>
     <li>
-      <a href="mrna-capture.nb.html">5. mRNA Capture</a>
+      <a href="mrna-hyper.nb.html">5. mRNA Capture</a>
     </li>
     <li>
-      <a href="synthesis_eecseq.nb.html">6. Synthesis</a>
+      <a href="quant_dna.nb.html">6. Quantify</a>
     </li>
     <li>
-      <a href="ampure.nb.html">7. Cleanup</a>
+      <a href="dsn-norm.nb.html">7. DSN Normalization</a>
     </li>
     <li>
-      <a href="a-tailing.nb.html">8. A-Tailing</a>
+      <a href="ampure.nb.html">8. Cleanup</a>
     </li>
     <li>
-      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
+      <a href="dsn-pcr.nb.html">9. DSN Enrichment PCR</a>
     </li>
     <li>
-      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
+      <a href="ampure.nb.html">10. Cleanup</a>
     </li>
     <li>
-      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
+      <a href="quant_dna.nb.html">11. Quant Libraries</a>
     </li>
     <li>
-      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
+      <a href="remove-adapters_eecseq.nb.html">12. Remove sequencing adapters</a>
     </li>
     <li>
-      <a href="ampure.nb.html">13. Cleanup</a>
+      <a href="bioanalyzer.nb.html">13. Visualize</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">14. Quantify</a>
+      <a href="ampure.nb.html">14. Cleanup</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
+      <a href="ampure.nb.html">15. 2nd Cleanup</a>
+    </li>
+    <li>
+      <a href="biotin_eecseq.nb.html">16. Biotin Labeling</a>
+    </li>
+    <li>
+      <a href="ampure.nb.html">17. Cleanup</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">18. Quantify</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">19. Visualize</a>
+    </li>
+    <li>
+      <a href="anneal.nb.html">20. Anneal P1 Adapters</a>
+    </li>
+    <li>
+      <a href="dna_extraction_ali.nb.html">21. Extract DNA</a>
+    </li>
+    <li>
+      <a href="kapa-hyper.nb.html">22. Fragment DNA</a>
+    </li>
+    <li>
+      <a href="end-repair.nb.html">23. End Repair</a>
+    </li>
+    <li>
+      <a href="ligation_eecseq.nb.html">24. Adapter ligation</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">25. Quantify</a>
+    </li>
+    <li>
+      <a href="lib-amp_eecseq.nb.html">26. Amplification</a>
+    </li>
+    <li>
+      <a href="hybridization_eecseq.nb.html">27. Hybridization and Capture</a>
+    </li>
+    <li>
+      <a href="lib-reamp_eecseq.nb.html">28. Library Re-amplification</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">29. Quant Final Libraries</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">30. Verify</a>
     </li>
   </ul>
 </li>
@@ -1953,14 +1998,18 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">End Repair</h1>
+<h3 class="subtitle">updated 2019-12-19</h3>
 
 </div>
 
 
 <!-- rnb-text-begin -->
+<p><a href="https://github.com/pinskylab/laboratory/blob/master/documentation/kapa-hyper-plus-dna.pdf">Manufacturer’s instructions</a></p>
 <!-- rnb-text-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>2.1 In the same plate/tube(s) in which enzymatic fragmentation was performed, assemble each end repair and A-tailing reaction as follows:</p>
 <table>
@@ -2018,10 +2067,11 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<p><em>- Both the fragmentation and end repair enzymes are inactivated at 65°C. When reactions are set up according to recommendations, additional fragmentation should be negligible. The brief period of end repair is sufficient for enzymatically fragmented DNA.</em> <em>- If proceeding to the adapter ligation reaction setup without any delay, the reaction may be cooled to 20°C instead of 4°C.</em></p>
+<p><em>- Both the fragmentation and end repair enzymes are inactivated at 65°C. When reactions are set up according to recommendations, additional fragmentation should be negligible. The brief period of end repair is sufficient for enzymatically fragmented DNA.</em></p>
+<p><em>- If proceeding to the adapter ligation reaction setup without any delay, the reaction may be cooled to 20°C instead of 4°C.</em></p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRW5kIFJlcGFpciIKb3V0cHV0OiBodG1sX25vdGVib29rCnBhcmFtczoKICBudW1fc2FtcGxlczogMTYwCi0tLQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0KbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKYGBge3J9CnJlcGFpciA8LSB0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksCiAgICAgICAgICAgICAgICAgICJ0aXBzXzEwIiwgMiwKICAgICAgICAgICAgICAgICAgKQpgYGAKCjIuMSBJbiB0aGUgc2FtZSBwbGF0ZS90dWJlKHMpIGluIHdoaWNoIGVuenltYXRpYyBmcmFnbWVudGF0aW9uIHdhcyBwZXJmb3JtZWQsIGFzc2VtYmxlIGVhY2ggZW5kIHJlcGFpciBhbmQgQS10YWlsaW5nIHJlYWN0aW9uIGFzIGZvbGxvd3M6Cgp8Q29tcG9uZW50fFZvbHVtZXwxLzIgcnhufAp8LS0tLXwtLS0tfC0tLS18CnxGcmFnbWVudGVkLCBkb3VibGUtc3RyYW5kZWQgRE5BfDUwIM68THwgMjUgzrxMfApFbmQgUmVwYWlyICYgQS1UYWlsaW5nIEJ1ZmZlcip8NyDOvEx8IDMuNSDOvEx8CnxFbmQgUmVwYWlyICYgQS1UYWlsaW5nIEVuenltZSBNaXgqfDMgzrxMfCAxLjUgzrxMfAp8KipUb3RhbCB2b2x1bWU6Kip8Kio2MCDOvEwqKnwqKjMwIM68TCoqfAoKKlRoZSBidWZmZXIgYW5kIGVuenltZSBtaXggc2hvdWxkIHByZWZlcmFibHkgYmUgcHJlLW1peGVkIGFuZCBhZGRlZCBpbiBhIHNpbmdsZSBwaXBldHRpbmcgc3RlcC4gUHJlbWl4ZXMgYXJlIHN0YWJsZSBmb3Ig4omkMjQgaHJzIGF0IHJvb20gdGVtcGVyYXR1cmUsIGZvciDiiaQzIGRheXMgYXQgNMKwQywgYW5kIGZvciDiiaQ0IHdlZWtzIGF0IC0yMMKwQy4qCgoyLjIgVm9ydGV4IGdlbnRseSBhbmQgc3BpbiBkb3duIGJyaWVmbHkuIFJldHVybiB0aGUgcmVhY3Rpb24gcGxhdGUvdHViZShzKSB0byBpY2UuIFByb2NlZWQgaW1tZWRpYXRlbHkgdG8gdGhlIG5leHQgc3RlcC4KCgoyLjMgSW5jdWJhdGUgaW4gYSB0aGVybW9jeWNsZXIgcHJvZ3JhbW1lZCBhcyBvdXRsaW5lZCBiZWxvdy4gQSBoZWF0ZWQgbGlkIGlzIHJlcXVpcmVkIGZvciB0aGlzIHN0ZXAuIElmIHBvc3NpYmxlLCBzZXQgdGhlIHRlbXBlcmF0dXJlIG9mIHRoZSBoZWF0ZWQgbGlkIHRvIH44NcKwQyAoaW5zdGVhZCBvZiB0aGUgdXN1YWwgMTA1wrBDKS4KCnxTdGVwfFRlbXB8VGltZXwKfC0tLS18LS0tLXwtLS0tLS0tLXwKfEVuZCByZXBhaXIgYW5kIEEtdGFpbGluZyAyfDY1IMKwQ3wzMCBtaW58CnxIb2xkfDTCsEMgfCDiiJ58CiotIEJvdGggdGhlIGZyYWdtZW50YXRpb24gYW5kIGVuZCByZXBhaXIgZW56eW1lcyBhcmUgaW5hY3RpdmF0ZWQgYXQgNjXCsEMuIFdoZW4gcmVhY3Rpb25zIGFyZSBzZXQgdXAgYWNjb3JkaW5nIHRvIHJlY29tbWVuZGF0aW9ucywgYWRkaXRpb25hbCBmcmFnbWVudGF0aW9uIHNob3VsZCBiZSBuZWdsaWdpYmxlLiBUaGUgYnJpZWYgcGVyaW9kIG9mIGVuZCByZXBhaXIgaXMgc3VmZmljaWVudCBmb3IgZW56eW1hdGljYWxseSBmcmFnbWVudGVkIEROQS4qCiotIElmIHByb2NlZWRpbmcgdG8gdGhlIGFkYXB0ZXIgbGlnYXRpb24gcmVhY3Rpb24gc2V0dXAgd2l0aG91dCBhbnkgZGVsYXksIHRoZSByZWFjdGlvbiBtYXkgYmUgY29vbGVkIHRvIDIwwrBDIGluc3RlYWQgb2YgNMKwQy4qCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRW5kIFJlcGFpciIKc3VidGl0bGU6ICJ1cGRhdGVkIGByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKcGFyYW1zOgogIG51bV9zYW1wbGVzOiAxNjAKLS0tCgpbTWFudWZhY3R1cmVyJ3MgaW5zdHJ1Y3Rpb25zXShodHRwczovL2dpdGh1Yi5jb20vcGluc2t5bGFiL2xhYm9yYXRvcnkvYmxvYi9tYXN0ZXIvZG9jdW1lbnRhdGlvbi9rYXBhLWh5cGVyLXBsdXMtZG5hLnBkZikKCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgpgYGB7cn0KcmVwYWlyIDwtIHRyaWJibGUofml0ZW0sIH5xdWFudGl0eSwKICAgICAgICAgICAgICAgICAgInRpcHNfMTAiLCAyLAogICAgICAgICAgICAgICAgICApCmBgYAoKMi4xIEluIHRoZSBzYW1lIHBsYXRlL3R1YmUocykgaW4gd2hpY2ggZW56eW1hdGljIGZyYWdtZW50YXRpb24gd2FzIHBlcmZvcm1lZCwgYXNzZW1ibGUgZWFjaCBlbmQgcmVwYWlyIGFuZCBBLXRhaWxpbmcgcmVhY3Rpb24gYXMgZm9sbG93czoKCnxDb21wb25lbnR8Vm9sdW1lfDEvMiByeG58CnwtLS0tfC0tLS18LS0tLXwKfEZyYWdtZW50ZWQsIGRvdWJsZS1zdHJhbmRlZCBETkF8NTAgzrxMfCAyNSDOvEx8CkVuZCBSZXBhaXIgJiBBLVRhaWxpbmcgQnVmZmVyKnw3IM68THwgMy41IM68THwKfEVuZCBSZXBhaXIgJiBBLVRhaWxpbmcgRW56eW1lIE1peCp8MyDOvEx8IDEuNSDOvEx8CnwqKlRvdGFsIHZvbHVtZToqKnwqKjYwIM68TCoqfCoqMzAgzrxMKip8CgoqVGhlIGJ1ZmZlciBhbmQgZW56eW1lIG1peCBzaG91bGQgcHJlZmVyYWJseSBiZSBwcmUtbWl4ZWQgYW5kIGFkZGVkIGluIGEgc2luZ2xlIHBpcGV0dGluZyBzdGVwLiBQcmVtaXhlcyBhcmUgc3RhYmxlIGZvciDiiaQyNCBocnMgYXQgcm9vbSB0ZW1wZXJhdHVyZSwgZm9yIOKJpDMgZGF5cyBhdCA0wrBDLCBhbmQgZm9yIOKJpDQgd2Vla3MgYXQgLTIwwrBDLioKCjIuMiBWb3J0ZXggZ2VudGx5IGFuZCBzcGluIGRvd24gYnJpZWZseS4gUmV0dXJuIHRoZSByZWFjdGlvbiBwbGF0ZS90dWJlKHMpIHRvIGljZS4gUHJvY2VlZCBpbW1lZGlhdGVseSB0byB0aGUgbmV4dCBzdGVwLgoKCjIuMyBJbmN1YmF0ZSBpbiBhIHRoZXJtb2N5Y2xlciBwcm9ncmFtbWVkIGFzIG91dGxpbmVkIGJlbG93LiBBIGhlYXRlZCBsaWQgaXMgcmVxdWlyZWQgZm9yIHRoaXMgc3RlcC4gSWYgcG9zc2libGUsIHNldCB0aGUgdGVtcGVyYXR1cmUgb2YgdGhlIGhlYXRlZCBsaWQgdG8gfjg1wrBDIChpbnN0ZWFkIG9mIHRoZSB1c3VhbCAxMDXCsEMpLgoKfFN0ZXB8VGVtcHxUaW1lfAp8LS0tLXwtLS0tfC0tLS0tLS0tfAp8RW5kIHJlcGFpciBhbmQgQS10YWlsaW5nIDJ8NjUgwrBDfDMwIG1pbnwKfEhvbGR8NMKwQyB8IOKInnwKCiotIEJvdGggdGhlIGZyYWdtZW50YXRpb24gYW5kIGVuZCByZXBhaXIgZW56eW1lcyBhcmUgaW5hY3RpdmF0ZWQgYXQgNjXCsEMuIFdoZW4gcmVhY3Rpb25zIGFyZSBzZXQgdXAgYWNjb3JkaW5nIHRvIHJlY29tbWVuZGF0aW9ucywgYWRkaXRpb25hbCBmcmFnbWVudGF0aW9uIHNob3VsZCBiZSBuZWdsaWdpYmxlLiBUaGUgYnJpZWYgcGVyaW9kIG9mIGVuZCByZXBhaXIgaXMgc3VmZmljaWVudCBmb3IgZW56eW1hdGljYWxseSBmcmFnbWVudGVkIEROQS4qCgoqLSBJZiBwcm9jZWVkaW5nIHRvIHRoZSBhZGFwdGVyIGxpZ2F0aW9uIHJlYWN0aW9uIHNldHVwIHdpdGhvdXQgYW55IGRlbGF5LCB0aGUgcmVhY3Rpb24gbWF5IGJlIGNvb2xlZCB0byAyMMKwQyBpbnN0ZWFkIG9mIDTCsEMuKgoK</div>
 
 
 

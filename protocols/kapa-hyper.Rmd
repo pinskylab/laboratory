@@ -1,11 +1,14 @@
 ---
 title: "Kapa HyperPlus DNA Fragmentation"
+subtitle: "updated `r Sys.Date()`"
 output: html_notebook
 params:
   num_samples: 160
 ---
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(knitr)
+library(kableExtra)
 ```
 [Manufacturer's instructions](https://github.com/pinskylab/laboratory/blob/master/documentation/kapa-hyper-plus-dna.pdf)
 
@@ -21,25 +24,37 @@ hyper <- tribble(~item, ~quantity,
   mutate(quantity = quantity * params$num_samples) %>% 
   mutate(item = ifelse(item == "kapa_frag_enzyme_ul", ifelse(quantity > 240, "kapa_frag_enzyme_96_ul", "kapa_frag_enzyme_24_ul"), item), 
          item = ifelse(item == "kapa_frag_enzyme_24_ul", ifelse(quantity < 240, "kapa_frag_enzyme_96_ul", "kapa_frag_enzyme_24_ul"), item))
+
+kable(hyper) %>% 
+  kable_styling("bordered") %>% 
+  add_header_above(c("Supplies" = 2))
 ```
 
 ## Enzymatic Fragmentation
-1.1 If the DNA samples contain EDTA, perform a 3X bead-based cleanup with KAPA Pure Beads to remove EDTA prior to fragmentation. Please refer to the KAPA Pure Beads Technical Data Sheet for a detailed DNA cleanup protocol.
+**If the DNA samples contain EDTA, perform a 3X bead-based cleanup with KAPA Pure Beads to remove EDTA prior to fragmentation. Please refer to the KAPA Pure Beads Technical Data Sheet for a detailed DNA cleanup protocol.**
+
 Alternatively, prepare a sufficient volume of appropriately diluted Conditioning Solution (5 μL per DNA sample, plus excess). Refer to Table 2 (p. 4) for guidelines on the dilution of the Conditioning Solution.
-Dilute the amount of dsDNA to be used for library construction as follows:
-- If the DNA preparation does not contain EDTA, dilute in 10 mM Tris-HCl (pH 8.0 – 8.5) in a total of 35 μL
--  If the DNA preparation does contain EDTA, dilute in the EDTA-containing buffer in which samples are currently suspended, in a total of 30 μL. To each reaction with 30 μL of EDTA-containing DNA, add 5μL of diluted Conditioning Solution.
+
+1.1. Dilute the amount of dsDNA to be used for library construction as follows:  
+
+- If the DNA preparation does not contain EDTA, dilute in 10 mM Tris-HCl (pH 8.0 – 8.5) in a total of 35 μL  
+
+-  If the DNA preparation does contain EDTA, dilute in the EDTA-containing buffer in which samples are currently suspended, in a total of 30 μL. To each reaction with 30 μL of EDTA-containing DNA, add 5μL of diluted Conditioning Solution.  
+
 
 1.2 Mix by gentle vortexing or pipetting up and down.
 
 1.3 Assemble each fragmentation reaction on ice by adding the components in this order:
 
+*The KAPA Frag Buffer and Enzyme may be pre-mixed and kept on ice prior to reaction setup, and dispensed as a single solution. Please note the volume of buffer is less than the volume of enzyme in this reaction.*
+
 |Component|Full Volume|1/2 rxn|
 |----|----|----|
 |Double-stranded DNA (with Cond Sol, if needed)|35 μL|17.5 μL|
-|KAPA Frag Buffer (10X)*|5 μL|2.5 μL|
-|KAPA Frag Enzyme*|10 μL|5 μL|
+|KAPA Frag Buffer (10X)|5 μL|2.5 μL|
+|KAPA Frag Enzyme|10 μL|5 μL|
 |**Total volume:**|**50 μL**|**25 μL**|
+
 
 1.4 Vortex gently and spin down briefly. Return the plate/tube(s) to ice. Proceed immediately to the next step.
 
@@ -51,5 +66,13 @@ Dilute the amount of dsDNA to be used for library construction as follows:
 |Fragmentation|37°C|see table below|
 |HOLD|4°C|∞|
 
-
+```{r}
+kable(tribble(~`Mode fragment length`, ~`Incubation time at 37°C`, ~`Optimization range`,
+              "600 bp","5 min","3 – 10 min",
+              "350 bp","10 min","5 – 20 min",
+              "200 bp","20 min","10 – 25 min",
+              "150 bp","30 min","20 – 40 min")) %>% 
+  kable_styling("bordered") %>% 
+  add_footnote(c("These parameters are a good starting point for high-quality genomic DNA. Please refer to Appendix 2: Optimization of Fragmentation Parameters (p. 16) for guidelines on how to optimize fragmentation time and temperature. If incubation times longer than the recommended range are needed, samples likely contain inhibitors which impact the fragmentation efficiency. Bead-based DNA cleanup, prior to fragmentation, is recommended over longer fragmentation times."))
+```
 1.6 Transfer reactions to ice, and proceed immediately to End Repair and A-tailing (step 2).

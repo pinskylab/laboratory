@@ -1,15 +1,14 @@
-2018-09-13 Thursday 
-* finished baits
-* pooled into [SEQ31](../SEQ31_2018-09-13)
+Here you can find notes on all procedures conducted by MRS in the course of the APCL wetlab work.  
 
+[Extractions](https://pinskylab.github.io/laboratory/laboratory-notebooks/extractions/index.html)
 
-Pooled 4 pools of 15uL each for a total of 60uL
-P121
-P122
-P123
-P124
+[Digests](https://pinskylab.github.io/laboratory/laboratory-notebooks/digests/index.html)
 
-started 24hr incubation at 10:10am on 2018-09-11 Tuesday
+[Ligation](https://pinskylab.github.io/laboratory/laboratory-notebooks/ligations/index.html)
 
-indexes in this baits reaction are 5-8
-[pdf](db_change.pdf)
+[PCR-Pools](https://pinskylab.github.io/laboratory/laboratory-notebooks/PCR-Pools/index.html)
+
+[Baits](https://pinskylab.github.io/laboratory/laboratory-notebooks/baits/index.html)
+
+[SEQ](https://pinskylab.github.io/laboratory/laboratory-notebooks/SEQ/index.html)
+

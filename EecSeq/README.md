@@ -16,47 +16,49 @@ procedures.**
 
 ## \[RNA Prep\]
 
-  - [1. RNA
-    Extraction](https://pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
-    - Takes 1.5 hours
+[RNA
+Extraction](https://pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
+- Takes 1.5
+hours
 
-  - [2.
-    Quantify](https://pinskylab.github.io/laboratory/protocols/quant_rna.nb.html)
-    - Takes 0.5 hours
+[Quantify](https://pinskylab.github.io/laboratory/protocols/quant_rna.nb.html)
+- Takes 0.5
+hours
 
-  - [3.
-    Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
-    - Takes 1/2 day to get results back. Can only get bioanalyzer runs
-    on M, T, W.
+[Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
+- Takes 1/2 day to get results back. Can only get bioanalyzer runs on M,
+T, W.
 
-  - [4. Anneal
-    adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
-    
-      - Anneal the SAI adapters designed for Illumina TruSeq.
+[Anneal
+adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
+- Takes 45 minutes  
+\- Anneal the SAI adapters designed for Illumina TruSeq.
 
-  - [5. mRNA
-    capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
-    - Takes 6 hours
+[mRNA
+capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
+- Takes 6
+hours
 
-  - [6.
-    Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
-    - Takes 1/2 hour.
+[Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
+- Takes 1/2 hour. - **Safe Stopping Point**  
+This is a safe stopping point. If you are stopping for more than a week,
+store your sample at ‐15° to ‐25°C.
 
-  - **Safe Stopping Point**  
-    This is a safe stopping point. If you are stopping for more than a
-    week, store your sample at ‐15° to ‐25°C.  
+[DSN
+prep](https://pinskylab.github.io/laboratory/protocols/dsn-prep.nb.html)
+- Takes 6 hours (5 hours on thermocycler)
 
-  - [7. DSN
-    Normalization](https://pinskylab.github.io/laboratory/protocols/dsn-norm.nb.html)  
+[DSN
+Treatment](https://pinskylab.github.io/laboratory/protocols/dsn-treat.nb.html)
+- Takes 1 hour
 
-  - **Safe Stopping Point**  
-    This is a safe stopping point. If you are stopping, store your
-    sample at ‐15° to ‐25°C.
+**Safe Stopping Point**  
+This is a safe stopping point. If you are stopping, store your sample at
+‐15° to
+‐25°C.
 
-  - [8.
-    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
-    
-      - Use a sample volume of 80ul and an ampure volume of 160ul.
+[Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
+\- Use a sample volume of 80ul and an ampure volume of 160ul.
 
   - [9. DSN Enrichment
     PCR](https://pinskylab.github.io/laboratory/protocols/dsn-pcr.nb.html)

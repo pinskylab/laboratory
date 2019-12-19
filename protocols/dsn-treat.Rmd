@@ -12,6 +12,8 @@ library(knitr)
 library(kableExtra)
 ```
 
+#### The protocol below was taken from [Illumina's recommendations](https://github.com/pinskylab/laboratory/blob/master/documentation/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
+
 This process removes dsDNA, representing highly abundant transcripts, from the reaction mixture by treatment with DSN. DSN is a thermal stable double‐stranded nuclease that has been isolated from the Kamchatka crab. DSN will remove the dsDNA while preserving the ssDNA.
 
 #### Things that can be done ahead of time  

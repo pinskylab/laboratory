@@ -20,6 +20,7 @@ dsn_pcr <- tribble(~item, ~quantity,
   mutate(quantity = quantity * params$num_samples)
 ```
 
+#### The protocol below was taken from [Illumina's recommendations](https://github.com/pinskylab/laboratory/blob/master/documentation/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
 
 ### PCR Enrichment of DSN Normalized Library
 

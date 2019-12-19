@@ -38,7 +38,7 @@ DSN normalization is critical ensuring an even distribution of coverage across p
 
 #### DSN needs to be properly diluted and should be tested for activity levels before proceeding
 
-#### The protocol below was taken from Illumina's recommendations [LINK](https://github.com/pinskylab/laboratory/blob/master/documentation/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
+#### The protocol below was taken from [Illumina's recommendations](https://github.com/pinskylab/laboratory/blob/master/documentation/dsn_normalization_sampleprep_application_note_15014673_c.pdf)
 #### Reagents
 
 | Reagent| Supplier|

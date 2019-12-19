@@ -31,8 +31,9 @@ T, W.
 
 [Anneal
 adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
-- Takes 45 minutes  
-\- Anneal the SAI adapters designed for Illumina TruSeq.
+
+  - Takes 45 minutes  
+  - Anneal the SAI adapters designed for Illumina TruSeq.
 
 [mRNA
 capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
@@ -58,19 +59,24 @@ This is a safe stopping point. If you are stopping, store your sample at
 ‐25°C.
 
 [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-\- Use a sample volume of 80ul and an ampure volume of 160ul.
+\- Use a sample volume of 80ul and an ampure volume of 128ul.  
+\- Conduct the cleanup in a 1.7mL tube.  
+\- Elute 25ul into a 200uL tube using 10 mM Tris-HCl (pH 8.0).
 
-  - [9. DSN Enrichment
-    PCR](https://pinskylab.github.io/laboratory/protocols/dsn-pcr.nb.html)
+[DSN Enrichment
+PCR](https://pinskylab.github.io/laboratory/protocols/dsn-pcr.nb.html) -
+Takes 1/2 hour plus thermocycler
+time.
 
-  - [10.
-    Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
-    
-      - Use a sample volume of 50ul and an ampure volume of 80ul.
+[Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+- Takes 1/2 hour  
+\- Use a sample volume of 50ul and an ampure volume of 80ul.  
+\- Conduct the cleanup in a 1.7mL tube.  
+\- Elute 22 μl of 10 mM Tris-HCl (pH 8.0) into a 200uL
+tube.
 
-  - [11. Quant
-    Libraries](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
-    - Takes 1/2 hour.
+[Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
+- Takes 1/2 hour.
 
 Split finished cDNA library for each sample into two vials  
 \- One tube for sequencing  

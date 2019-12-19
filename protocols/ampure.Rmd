@@ -1,5 +1,6 @@
 ---
 title: "Ampure SPRI cleanup"
+subtitle: "updated `r Sys.Date()`"
 output: html_notebook
 params:
   sample_vol_ul: 25
@@ -40,9 +41,12 @@ kable(ampure) %>%
 * Keeping the plate/tube on the magnet, add 200 μl of 80% ethanol.
 * Incubate the plate/tube at room temperature for ≥30 sec.
 * Carefully remove and discard the ethanol. Try to remove all residual ethanol without disturbing the beads.
-* Dry the beads at room temperature, until all of the ethanol has evaporated. **Caution: over-drying the beads may result in dramatic yield loss.**
-* Remove the plate/tube from the magnet.
-* Thoroughly resuspend the beads in 25 μl of 10 mM Tris-HCl (pH 8.0). 
-* Incubate the plate/tube at room temperature for 2 min to allow the DNA to elute off the beads.
-* Place the plate/tube on a magnet to capture the beads. Incubate until the liquid is clear.
-* Transfer 24 μl of the clear supernatant to a new plate/tube and proceed to next step.
+- Cap the tubes or seal the plate.  
+- Remove the plate from the magnetic stand and briefly centrifuge at 1,000 rpm for 10 seconds.  
+- Uncap the tubes or remove the seal.  
+- Place the plate on the magnetic stand for 30 seconds at room temperature, then remove and discard the EtOH using a 10 μl pipette.
+- Heat the plate on the pre‐heated heat block for 1–2 minutes at 37°C until the pellet appears dry.  **NOTE: Over‐dried beads will contain many cracks in the pellet. If this is the case, place the plate in the magnetic stand. The bead pellet is very light when over‐dried and will be easily blown out of the well.  If the bead is not dry enough, the DNA recovery rate is lower due to the remaining EtOH.
+- Add elution buffer to each pellet to elute the DNA.  Check the protocol for volume and type of buffer.  If nothing is listed, 25 ul of TE for DNA or 25 ul of nuclease free water for RNA. Gently pipette the entire volume up and down 5 times to mix thoroughly.  
+- Incubate the plate for 2 minutes at room temperature, then gently pipette the entire volume up and down 10 times to mix thoroughly.  *NOTE: If the beads are over‐dried, you will need to incubate the plate a longer time.*  
+- Place the plate on the magnetic stand for 1 minute at room temperature.  
+- Transfer all of each supernatant to a separate, new, nuclease‐free tube or plate.

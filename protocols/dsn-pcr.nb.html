@@ -1830,7 +1830,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    ddRADSeq - under construction
+    ddRADSeq
      
     <span class="caret"></span>
   </a>
@@ -1887,7 +1887,7 @@ $(document).ready(function () {
       <a href="rna_extraction_tri.nb.html">1. RNA Extraction</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">2. Quantify</a>
+      <a href="quant_rna.nb.html">2. Quantify</a>
     </li>
     <li>
       <a href="bioanalyzer.nb.html">3. Visualize</a>
@@ -1896,37 +1896,82 @@ $(document).ready(function () {
       <a href="anneal.nb.html">4. Anneal RNA Adapters</a>
     </li>
     <li>
-      <a href="mrna-capture.nb.html">5. mRNA Capture</a>
+      <a href="mrna-hyper.nb.html">5. mRNA Capture</a>
     </li>
     <li>
-      <a href="synthesis_eecseq.nb.html">6. Synthesis</a>
+      <a href="quant_dna.nb.html">6. Quantify</a>
     </li>
     <li>
-      <a href="ampure.nb.html">7. Cleanup</a>
+      <a href="dsn-norm.nb.html">7. DSN Normalization</a>
     </li>
     <li>
-      <a href="a-tailing.nb.html">8. A-Tailing</a>
+      <a href="ampure.nb.html">8. Cleanup</a>
     </li>
     <li>
-      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
+      <a href="dsn-pcr.nb.html">9. DSN Enrichment PCR</a>
     </li>
     <li>
-      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
+      <a href="ampure.nb.html">10. Cleanup</a>
     </li>
     <li>
-      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
+      <a href="quant_dna.nb.html">11. Quant Libraries</a>
     </li>
     <li>
-      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
+      <a href="remove-adapters_eecseq.nb.html">12. Remove sequencing adapters</a>
     </li>
     <li>
-      <a href="ampure.nb.html">13. Cleanup</a>
+      <a href="bioanalyzer.nb.html">13. Visualize</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">14. Quantify</a>
+      <a href="ampure.nb.html">14. Cleanup</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
+      <a href="ampure.nb.html">15. 2nd Cleanup</a>
+    </li>
+    <li>
+      <a href="biotin_eecseq.nb.html">16. Biotin Labeling</a>
+    </li>
+    <li>
+      <a href="ampure.nb.html">17. Cleanup</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">18. Quantify</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">19. Visualize</a>
+    </li>
+    <li>
+      <a href="anneal.nb.html">20. Anneal P1 Adapters</a>
+    </li>
+    <li>
+      <a href="dna_extraction_ali.nb.html">21. Extract DNA</a>
+    </li>
+    <li>
+      <a href="kapa-hyper.nb.html">22. Fragment DNA</a>
+    </li>
+    <li>
+      <a href="end-repair.nb.html">23. End Repair</a>
+    </li>
+    <li>
+      <a href="ligation_eecseq.nb.html">24. Adapter ligation</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">25. Quantify</a>
+    </li>
+    <li>
+      <a href="lib-amp_eecseq.nb.html">26. Amplification</a>
+    </li>
+    <li>
+      <a href="hybridization_eecseq.nb.html">27. Hybridization and Capture</a>
+    </li>
+    <li>
+      <a href="lib-reamp_eecseq.nb.html">28. Library Re-amplification</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">29. Quant Final Libraries</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">30. Verify</a>
     </li>
   </ul>
 </li>
@@ -1953,17 +1998,25 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">DSN PCR</h1>
+<h3 class="subtitle">updated 2019-12-19</h3>
 
 </div>
 
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="pcr-enrichment-of-dsn-normalized-library" class="section level3">
 <h3>PCR Enrichment of DSN Normalized Library</h3>
+<ol style="list-style-type: decimal">
+<li>Prepare the following PCR reaction mix in a separate, sterile, nuclease‐free tube for each of the samples being prepared. Mix well by pipetting up and down several times.</li>
+</ol>
 <table>
 <thead>
 <tr class="header">
@@ -1985,15 +2038,14 @@ $(document).ready(function () {
 <td>5 ul</td>
 </tr>
 <tr class="even">
-<td>–Total Volume per sample–</td>
-<td>–50 ul–</td>
+<td><strong>Total Volume per sample</strong></td>
+<td><strong>50 ul</strong></td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Mix well by pipetting up and down several times</li>
+<ol start="2" style="list-style-type: decimal">
 <li>Amplify the library using the following thermal cycling protocol:</li>
-</ul>
+</ol>
 <table>
 <thead>
 <tr class="header">
@@ -2017,7 +2069,7 @@ $(document).ready(function () {
 <td>12</td>
 </tr>
 <tr class="odd">
-<td>Annealing-</td>
+<td>Annealing</td>
 <td>60 °C</td>
 <td>30 sec</td>
 <td>12</td>
@@ -2045,7 +2097,7 @@ $(document).ready(function () {
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRFNOIFBDUiIKb3V0cHV0OiBodG1sX25vdGVib29rCnBhcmFtczoKICBudW1fc2FtcGxlczogNAotLS0KYGBge3Igc2V0dXB9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCmBgYHtyfQpkc25fcGNyIDwtIHRyaWJibGUofml0ZW0sIH5xdWFudGl0eSwKICAgICAgICAgICAgICAgICAgICJrYXBhX2hpZmlfaG90c3RhcnRfcmVhZHltaXhfdWwiLCAyNSwKICAgICAgICAgICAgICAgICAgICJrYXBhXzEweF9saWJyYXJ5X2FtcF9tYXN0ZXJfbWl4X3VsIiwgNSwKICAgICAgICAgICAgICAgICAgICJ0dWJlc18yMDB1bCIsIDMsCiAgICAgICAgICAgICAgICAgICAidGlwc18xMCIsIDEsCiAgICAgICAgICAgICAgICAgICAidGlwc18xMDAiLCAzCiAgICAgICAgICAgICAgICAgICApICU+JSAKICBtdXRhdGUocXVhbnRpdHkgPSBxdWFudGl0eSAqIHBhcmFtcyRudW1fc2FtcGxlcykKYGBgCgoKIyMjIFBDUiBFbnJpY2htZW50IG9mIERTTiBOb3JtYWxpemVkIExpYnJhcnkKCnxDb21wb25lbnR8Vm9sdW1lfAp8LS0tLS0tLS0tfC0tLS0tLXwKfERTTiBUcmVhdGVkIExpYnJhcnkgfCAzMCB1bHwKfDJYIEtBUEEgSGlGaSBIb3RTdGFydCBSZWFkeU1peHwgMjUgdWx8CnwxMFggS0FQQSBMaWJyYXJ5IEFtcGxpZmljYXRpb24gUHJpbWVyIE1peHwgNSB1bHwKfC0tVG90YWwgVm9sdW1lIHBlciBzYW1wbGUtLXwgLS01MCB1bC0tfAoKLSBNaXggd2VsbCBieSBwaXBldHRpbmcgdXAgYW5kIGRvd24gc2V2ZXJhbCB0aW1lcwotIEFtcGxpZnkgdGhlIGxpYnJhcnkgdXNpbmcgdGhlIGZvbGxvd2luZyB0aGVybWFsIGN5Y2xpbmcgcHJvdG9jb2w6Cgp8U3RlcHxUZW1wfER1cmF0aW9ufEN5Y2xlc3wKfC0tLS18LS0tLXwtLS0tLS0tLXwtLS0tLS18CnxJbml0aWFsIGRlbmF0dXJhdGlvbnw5OCDCsEN8NDUgc2VjfDF8CnxEZW5hdHVyYXRpb258OTggwrBDfDE1IHNlY3wxMnwKfEFubmVhbGluZy18NjAgwrBDfDMwIHNlY3wxMnwKfEV4dGVuc2lvbnw3MiDCsEN8MzAgc2VjfDEyfAp8RmluYWwgRXh0ZW5zaW9ufDcyIMKwQ3w1IG1pbnwxfAp8SG9sZHwxMCDCsEMgfCDiiJ58MXwKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRFNOIFBDUiIKc3VidGl0bGU6ICJ1cGRhdGVkIGByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKcGFyYW1zOgogIG51bV9zYW1wbGVzOiAxCi0tLQpgYGB7ciBzZXR1cH0KbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKYGBge3J9CmRzbl9wY3IgPC0gdHJpYmJsZSh+aXRlbSwgfnF1YW50aXR5LAogICAgICAgICAgICAgICAgICAgImthcGFfaGlmaV9ob3RzdGFydF9yZWFkeW1peF91bCIsIDI1LAogICAgICAgICAgICAgICAgICAgImthcGFfMTB4X2xpYnJhcnlfYW1wX21hc3Rlcl9taXhfdWwiLCA1LAogICAgICAgICAgICAgICAgICAgInR1YmVzXzIwMHVsIiwgMywKICAgICAgICAgICAgICAgICAgICJ0aXBzXzEwIiwgMSwKICAgICAgICAgICAgICAgICAgICJ0aXBzXzEwMCIsIDMKICAgICAgICAgICAgICAgICAgICkgJT4lIAogIG11dGF0ZShxdWFudGl0eSA9IHF1YW50aXR5ICogcGFyYW1zJG51bV9zYW1wbGVzKQpgYGAKCgojIyMgUENSIEVucmljaG1lbnQgb2YgRFNOIE5vcm1hbGl6ZWQgTGlicmFyeQoKMS4gUHJlcGFyZSB0aGUgZm9sbG93aW5nIFBDUiByZWFjdGlvbiBtaXggaW4gYSBzZXBhcmF0ZSwgc3RlcmlsZSwgbnVjbGVhc2XigJBmcmVlIHR1YmUgZm9yIGVhY2ggb2YgdGhlIHNhbXBsZXMgYmVpbmcgcHJlcGFyZWQuICBNaXggd2VsbCBieSBwaXBldHRpbmcgdXAgYW5kIGRvd24gc2V2ZXJhbCB0aW1lcy4gIAoKfENvbXBvbmVudHxWb2x1bWV8CnwtLS0tLS0tLS18LS0tLS0tfAp8RFNOIFRyZWF0ZWQgTGlicmFyeSB8IDMwIHVsfAp8MlggS0FQQSBIaUZpIEhvdFN0YXJ0IFJlYWR5TWl4fCAyNSB1bHwKfDEwWCBLQVBBIExpYnJhcnkgQW1wbGlmaWNhdGlvbiBQcmltZXIgTWl4fCA1IHVsfAp8KipUb3RhbCBWb2x1bWUgcGVyIHNhbXBsZSoqfCoqNTAgdWwqKnwKCgoyLiBBbXBsaWZ5IHRoZSBsaWJyYXJ5IHVzaW5nIHRoZSBmb2xsb3dpbmcgdGhlcm1hbCBjeWNsaW5nIHByb3RvY29sOiAgCgoKfFN0ZXB8VGVtcHxEdXJhdGlvbnxDeWNsZXN8CnwtLS0tfC0tLS18LS0tLS0tLS18LS0tLS0tfAp8SW5pdGlhbCBkZW5hdHVyYXRpb258OTggwrBDfDQ1IHNlY3wxfAp8RGVuYXR1cmF0aW9ufDk4IMKwQ3wxNSBzZWN8MTJ8CnxBbm5lYWxpbmd8NjAgwrBDfDMwIHNlY3wxMnwKfEV4dGVuc2lvbnw3MiDCsEN8MzAgc2VjfDEyfAp8RmluYWwgRXh0ZW5zaW9ufDcyIMKwQ3w1IG1pbnwxfAp8SG9sZHwxMCDCsEMgfCDiiJ58MXwKCg==</div>
 
 
 

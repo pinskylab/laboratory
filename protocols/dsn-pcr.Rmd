@@ -1,8 +1,9 @@
 ---
 title: "DSN PCR"
+subtitle: "updated `r Sys.Date()`"
 output: html_notebook
 params:
-  num_samples: 4
+  num_samples: 1
 ---
 ```{r setup}
 library(tidyverse)
@@ -22,21 +23,24 @@ dsn_pcr <- tribble(~item, ~quantity,
 
 ### PCR Enrichment of DSN Normalized Library
 
+1. Prepare the following PCR reaction mix in a separate, sterile, nuclease‐free tube for each of the samples being prepared.  Mix well by pipetting up and down several times.  
+
 |Component|Volume|
 |---------|------|
 |DSN Treated Library | 30 ul|
 |2X KAPA HiFi HotStart ReadyMix| 25 ul|
 |10X KAPA Library Amplification Primer Mix| 5 ul|
-|--Total Volume per sample--| --50 ul--|
+|**Total Volume per sample**|**50 ul**|
 
-- Mix well by pipetting up and down several times
-- Amplify the library using the following thermal cycling protocol:
+
+2. Amplify the library using the following thermal cycling protocol:  
+
 
 |Step|Temp|Duration|Cycles|
 |----|----|--------|------|
 |Initial denaturation|98 °C|45 sec|1|
 |Denaturation|98 °C|15 sec|12|
-|Annealing-|60 °C|30 sec|12|
+|Annealing|60 °C|30 sec|12|
 |Extension|72 °C|30 sec|12|
 |Final Extension|72 °C|5 min|1|
 |Hold|10 °C | ∞|1|

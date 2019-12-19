@@ -1830,7 +1830,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    ddRADSeq - under construction
+    ddRADSeq
      
     <span class="caret"></span>
   </a>
@@ -1887,7 +1887,7 @@ $(document).ready(function () {
       <a href="rna_extraction_tri.nb.html">1. RNA Extraction</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">2. Quantify</a>
+      <a href="quant_rna.nb.html">2. Quantify</a>
     </li>
     <li>
       <a href="bioanalyzer.nb.html">3. Visualize</a>
@@ -1896,37 +1896,82 @@ $(document).ready(function () {
       <a href="anneal.nb.html">4. Anneal RNA Adapters</a>
     </li>
     <li>
-      <a href="mrna-capture.nb.html">5. mRNA Capture</a>
+      <a href="mrna-hyper.nb.html">5. mRNA Capture</a>
     </li>
     <li>
-      <a href="synthesis_eecseq.nb.html">6. Synthesis</a>
+      <a href="quant_dna.nb.html">6. Quantify</a>
     </li>
     <li>
-      <a href="ampure.nb.html">7. Cleanup</a>
+      <a href="dsn-norm.nb.html">7. DSN Normalization</a>
     </li>
     <li>
-      <a href="a-tailing.nb.html">8. A-Tailing</a>
+      <a href="ampure.nb.html">8. Cleanup</a>
     </li>
     <li>
-      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
+      <a href="dsn-pcr.nb.html">9. DSN Enrichment PCR</a>
     </li>
     <li>
-      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
+      <a href="ampure.nb.html">10. Cleanup</a>
     </li>
     <li>
-      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
+      <a href="quant_dna.nb.html">11. Quant Libraries</a>
     </li>
     <li>
-      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
+      <a href="remove-adapters_eecseq.nb.html">12. Remove sequencing adapters</a>
     </li>
     <li>
-      <a href="ampure.nb.html">13. Cleanup</a>
+      <a href="bioanalyzer.nb.html">13. Visualize</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">14. Quantify</a>
+      <a href="ampure.nb.html">14. Cleanup</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
+      <a href="ampure.nb.html">15. 2nd Cleanup</a>
+    </li>
+    <li>
+      <a href="biotin_eecseq.nb.html">16. Biotin Labeling</a>
+    </li>
+    <li>
+      <a href="ampure.nb.html">17. Cleanup</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">18. Quantify</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">19. Visualize</a>
+    </li>
+    <li>
+      <a href="anneal.nb.html">20. Anneal P1 Adapters</a>
+    </li>
+    <li>
+      <a href="dna_extraction_ali.nb.html">21. Extract DNA</a>
+    </li>
+    <li>
+      <a href="kapa-hyper.nb.html">22. Fragment DNA</a>
+    </li>
+    <li>
+      <a href="end-repair.nb.html">23. End Repair</a>
+    </li>
+    <li>
+      <a href="ligation_eecseq.nb.html">24. Adapter ligation</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">25. Quantify</a>
+    </li>
+    <li>
+      <a href="lib-amp_eecseq.nb.html">26. Amplification</a>
+    </li>
+    <li>
+      <a href="hybridization_eecseq.nb.html">27. Hybridization and Capture</a>
+    </li>
+    <li>
+      <a href="lib-reamp_eecseq.nb.html">28. Library Re-amplification</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">29. Quant Final Libraries</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">30. Verify</a>
     </li>
   </ul>
 </li>
@@ -1960,24 +2005,13 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-text-begin -->
+<p><a href="https://github.com/pinskylab/laboratory/blob/master/documentation/kapa-hyper-plus-dna.pdf">Manufacturer’s instructions</a></p>
 <p>Jon Puritz says to do 1/2 reactions so reaction volumes adjustments have been added to the table.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaHlwZXIgPC0gdHJpYmJsZSh+aXRlbSwgfnF1YW50aXR5LFxuICAgICAgICAgICAgICAgICBcInRpcHNfMTAwXCIsIDIsXG4gICAgICAgICAgICAgICAgIFwidGlwc18xMFwiLCAyLCBcbiAgICAgICAgICAgICAgICAgXCJ0dWJlc18yMDB1bFwiLCAxLFxuICAgICAgICAgICAgICAgICBcImthcGFfZnJhZ19lbnp5bWVfdWxcIiwgNSxcbiAgICAgICAgICAgICAgICAgKSAlPiUgXG4gIG11dGF0ZShxdWFudGl0eSA9IHF1YW50aXR5ICogcGFyYW1zJG51bV9zYW1wbGVzKSAlPiUgXG4gIG11dGF0ZShpdGVtID0gaWZlbHNlKGl0ZW0gPT0gXCJrYXBhX2ZyYWdfZW56eW1lX3VsXCIsIGlmZWxzZShxdWFudGl0eSA+IDI0MCwgXCJrYXBhX2ZyYWdfZW56eW1lXzk2X3VsXCIsIFwia2FwYV9mcmFnX2VuenltZV8yNF91bFwiKSwgaXRlbSksIFxuICAgICAgICAgaXRlbSA9IGlmZWxzZShpdGVtID09IFwia2FwYV9mcmFnX2VuenltZV8yNF91bFwiLCBpZmVsc2UocXVhbnRpdHkgPCAyNDAsIFwia2FwYV9mcmFnX2VuenltZV85Nl91bFwiLCBcImthcGFfZnJhZ19lbnp5bWVfMjRfdWxcIiksIGl0ZW0pKVxuXG5gYGAifQ== -->
-<pre class="r"><code>hyper &lt;- tribble(~item, ~quantity,
-                 &quot;tips_100&quot;, 2,
-                 &quot;tips_10&quot;, 2, 
-                 &quot;tubes_200ul&quot;, 1,
-                 &quot;kapa_frag_enzyme_ul&quot;, 5,
-                 ) %&gt;% 
-  mutate(quantity = quantity * params$num_samples) %&gt;% 
-  mutate(item = ifelse(item == &quot;kapa_frag_enzyme_ul&quot;, ifelse(quantity &gt; 240, &quot;kapa_frag_enzyme_96_ul&quot;, &quot;kapa_frag_enzyme_24_ul&quot;), item), 
-         item = ifelse(item == &quot;kapa_frag_enzyme_24_ul&quot;, ifelse(quantity &lt; 240, &quot;kapa_frag_enzyme_96_ul&quot;, &quot;kapa_frag_enzyme_24_ul&quot;), item))
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gdHJpYmJsZSh+aXRlbSwgfnF1YW50aXR5LCBcInRpcHNfMTAwXCIsIDIsIFwidGlwc18xMFwiLCAyLCBcInR1YmVzXzIwMHVsXCIsICA6IFxuICBjb3VsZCBub3QgZmluZCBmdW5jdGlvbiBcInRyaWJibGVcIlxuIn0= -->
-<pre><code>Error in tribble(~item, ~quantity, &quot;tips_100&quot;, 2, &quot;tips_10&quot;, 2, &quot;tubes_200ul&quot;,  : 
-  could not find function &quot;tribble&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gdHJpYmJsZSh+aXRlbSwgfnF1YW50aXR5LCBcXHRpcHNfMTAwXFwsIDIsIFxcdGlwc18xMFxcLCAyLCBcXHR1YmVzXzIwMHVsXFwsICA6IFxuICBjb3VsZCBub3QgZmluZCBmdW5jdGlvbiBcXHRyaWJibGVcXFxuIn0= -->
+<pre><code>Error in tribble(~item, ~quantity, \tips_100\, 2, \tips_10\, 2, \tubes_200ul\,  : 
+  could not find function \tribble\</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2049,7 +2083,7 @@ $(document).ready(function () {
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiS2FwYSBIeXBlclBsdXMgRE5BIEZyYWdtZW50YXRpb24iCm91dHB1dDogaHRtbF9ub3RlYm9vawpwYXJhbXM6CiAgbnVtX3NhbXBsZXM6IDE2MAotLS0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCkpvbiBQdXJpdHogc2F5cyB0byBkbyAxLzIgcmVhY3Rpb25zIHNvIHJlYWN0aW9uIHZvbHVtZXMgYWRqdXN0bWVudHMgaGF2ZSBiZWVuIGFkZGVkIHRvIHRoZSB0YWJsZS4KCmBgYHtyfQpoeXBlciA8LSB0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksCiAgICAgICAgICAgICAgICAgInRpcHNfMTAwIiwgMiwKICAgICAgICAgICAgICAgICAidGlwc18xMCIsIDIsIAogICAgICAgICAgICAgICAgICJ0dWJlc18yMDB1bCIsIDEsCiAgICAgICAgICAgICAgICAgImthcGFfZnJhZ19lbnp5bWVfdWwiLCA1LAogICAgICAgICAgICAgICAgICkgJT4lIAogIG11dGF0ZShxdWFudGl0eSA9IHF1YW50aXR5ICogcGFyYW1zJG51bV9zYW1wbGVzKSAlPiUgCiAgbXV0YXRlKGl0ZW0gPSBpZmVsc2UoaXRlbSA9PSAia2FwYV9mcmFnX2VuenltZV91bCIsIGlmZWxzZShxdWFudGl0eSA+IDI0MCwgImthcGFfZnJhZ19lbnp5bWVfOTZfdWwiLCAia2FwYV9mcmFnX2VuenltZV8yNF91bCIpLCBpdGVtKSwgCiAgICAgICAgIGl0ZW0gPSBpZmVsc2UoaXRlbSA9PSAia2FwYV9mcmFnX2VuenltZV8yNF91bCIsIGlmZWxzZShxdWFudGl0eSA8IDI0MCwgImthcGFfZnJhZ19lbnp5bWVfOTZfdWwiLCAia2FwYV9mcmFnX2VuenltZV8yNF91bCIpLCBpdGVtKSkKYGBgCgojIyBFbnp5bWF0aWMgRnJhZ21lbnRhdGlvbgoxLjEgSWYgdGhlIEROQSBzYW1wbGVzIGNvbnRhaW4gRURUQSwgcGVyZm9ybSBhIDNYIGJlYWQtYmFzZWQgY2xlYW51cCB3aXRoIEtBUEEgUHVyZSBCZWFkcyB0byByZW1vdmUgRURUQSBwcmlvciB0byBmcmFnbWVudGF0aW9uLiBQbGVhc2UgcmVmZXIgdG8gdGhlIEtBUEEgUHVyZSBCZWFkcyBUZWNobmljYWwgRGF0YSBTaGVldCBmb3IgYSBkZXRhaWxlZCBETkEgY2xlYW51cCBwcm90b2NvbC4KQWx0ZXJuYXRpdmVseSwgcHJlcGFyZSBhIHN1ZmZpY2llbnQgdm9sdW1lIG9mIGFwcHJvcHJpYXRlbHkgZGlsdXRlZCBDb25kaXRpb25pbmcgU29sdXRpb24gKDUgzrxMIHBlciBETkEgc2FtcGxlLCBwbHVzIGV4Y2VzcykuIFJlZmVyIHRvIFRhYmxlIDIgKHAuIDQpIGZvciBndWlkZWxpbmVzIG9uIHRoZSBkaWx1dGlvbiBvZiB0aGUgQ29uZGl0aW9uaW5nIFNvbHV0aW9uLgpEaWx1dGUgdGhlIGFtb3VudCBvZiBkc0ROQSB0byBiZSB1c2VkIGZvciBsaWJyYXJ5IGNvbnN0cnVjdGlvbiBhcyBmb2xsb3dzOgotIElmIHRoZSBETkEgcHJlcGFyYXRpb24gZG9lcyBub3QgY29udGFpbiBFRFRBLCBkaWx1dGUgaW4gMTAgbU0gVHJpcy1IQ2wgKHBIIDguMCDigJMgOC41KSBpbiBhIHRvdGFsIG9mIDM1IM68TAotICBJZiB0aGUgRE5BIHByZXBhcmF0aW9uIGRvZXMgY29udGFpbiBFRFRBLCBkaWx1dGUgaW4gdGhlIEVEVEEtY29udGFpbmluZyBidWZmZXIgaW4gd2hpY2ggc2FtcGxlcyBhcmUgY3VycmVudGx5IHN1c3BlbmRlZCwgaW4gYSB0b3RhbCBvZiAzMCDOvEwuIFRvIGVhY2ggcmVhY3Rpb24gd2l0aCAzMCDOvEwgb2YgRURUQS1jb250YWluaW5nIEROQSwgYWRkIDXOvEwgb2YgZGlsdXRlZCBDb25kaXRpb25pbmcgU29sdXRpb24uCgoxLjIgTWl4IGJ5IGdlbnRsZSB2b3J0ZXhpbmcgb3IgcGlwZXR0aW5nIHVwIGFuZCBkb3duLgoKMS4zIEFzc2VtYmxlIGVhY2ggZnJhZ21lbnRhdGlvbiByZWFjdGlvbiBvbiBpY2UgYnkgYWRkaW5nIHRoZSBjb21wb25lbnRzIGluIHRoaXMgb3JkZXI6Cgp8Q29tcG9uZW50fEZ1bGwgVm9sdW1lfDEvMiByeG58CnwtLS0tfC0tLS18LS0tLXwKfERvdWJsZS1zdHJhbmRlZCBETkEgKHdpdGggQ29uZCBTb2wsIGlmIG5lZWRlZCl8MzUgzrxMfDE3LjUgzrxMfAp8S0FQQSBGcmFnIEJ1ZmZlciAoMTBYKSp8NSDOvEx8Mi41IM68THwKfEtBUEEgRnJhZyBFbnp5bWUqfDEwIM68THw1IM68THwKfCoqVG90YWwgdm9sdW1lOioqfCoqNTAgzrxMKip8KioyNSDOvEwqKnwKCjEuNCBWb3J0ZXggZ2VudGx5IGFuZCBzcGluIGRvd24gYnJpZWZseS4gUmV0dXJuIHRoZSBwbGF0ZS90dWJlKHMpIHRvIGljZS4gUHJvY2VlZCBpbW1lZGlhdGVseSB0byB0aGUgbmV4dCBzdGVwLgoKMS41IEluY3ViYXRlIGluIGEgdGhlcm1vY3ljbGVyLCBwcmUtY29vbGVkIHRvIDTCsEMgYW5kIHByb2dyYW1tZWQgYXMgb3V0bGluZWQgYmVsb3cuIEEgaGVhdGVkIGxpZCBpcyBub3QgcmVxdWlyZWQgZm9yIHRoaXMgc3RlcC4gSWYgdXNlZCwgc2V0IHRoZSB0ZW1wZXJhdHVyZSBvZiB0aGUgaGVhdGVkIGxpZCB0byDiiaQ1MMKwQy4KCnxTdGVwfFRlbXAufER1cmF0aW9ufAp8LS0tLXwtLS0tLXwtLS0tLS0tLXwKfFByZS1jb29sIGJsb2NrfDTCsEN8TkF8CnxGcmFnbWVudGF0aW9ufDM3wrBDfHNlZSB0YWJsZSBiZWxvd3wKfEhPTER8NMKwQ3ziiJ58CgoKMS42IFRyYW5zZmVyIHJlYWN0aW9ucyB0byBpY2UsIGFuZCBwcm9jZWVkIGltbWVkaWF0ZWx5IHRvIEVuZCBSZXBhaXIgYW5kIEEtdGFpbGluZyAoc3RlcCAyKS4K</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiS2FwYSBIeXBlclBsdXMgRE5BIEZyYWdtZW50YXRpb24iCm91dHB1dDogaHRtbF9ub3RlYm9vawpwYXJhbXM6CiAgbnVtX3NhbXBsZXM6IDE2MAotLS0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKW01hbnVmYWN0dXJlcidzIGluc3RydWN0aW9uc10oaHR0cHM6Ly9naXRodWIuY29tL3BpbnNreWxhYi9sYWJvcmF0b3J5L2Jsb2IvbWFzdGVyL2RvY3VtZW50YXRpb24va2FwYS1oeXBlci1wbHVzLWRuYS5wZGYpCgpKb24gUHVyaXR6IHNheXMgdG8gZG8gMS8yIHJlYWN0aW9ucyBzbyByZWFjdGlvbiB2b2x1bWVzIGFkanVzdG1lbnRzIGhhdmUgYmVlbiBhZGRlZCB0byB0aGUgdGFibGUuCgpgYGB7cn0KaHlwZXIgPC0gdHJpYmJsZSh+aXRlbSwgfnF1YW50aXR5LAogICAgICAgICAgICAgICAgICJ0aXBzXzEwMCIsIDIsCiAgICAgICAgICAgICAgICAgInRpcHNfMTAiLCAyLCAKICAgICAgICAgICAgICAgICAidHViZXNfMjAwdWwiLCAxLAogICAgICAgICAgICAgICAgICJrYXBhX2ZyYWdfZW56eW1lX3VsIiwgNSwKICAgICAgICAgICAgICAgICApICU+JSAKICBtdXRhdGUocXVhbnRpdHkgPSBxdWFudGl0eSAqIHBhcmFtcyRudW1fc2FtcGxlcykgJT4lIAogIG11dGF0ZShpdGVtID0gaWZlbHNlKGl0ZW0gPT0gImthcGFfZnJhZ19lbnp5bWVfdWwiLCBpZmVsc2UocXVhbnRpdHkgPiAyNDAsICJrYXBhX2ZyYWdfZW56eW1lXzk2X3VsIiwgImthcGFfZnJhZ19lbnp5bWVfMjRfdWwiKSwgaXRlbSksIAogICAgICAgICBpdGVtID0gaWZlbHNlKGl0ZW0gPT0gImthcGFfZnJhZ19lbnp5bWVfMjRfdWwiLCBpZmVsc2UocXVhbnRpdHkgPCAyNDAsICJrYXBhX2ZyYWdfZW56eW1lXzk2X3VsIiwgImthcGFfZnJhZ19lbnp5bWVfMjRfdWwiKSwgaXRlbSkpCmBgYAoKIyMgRW56eW1hdGljIEZyYWdtZW50YXRpb24KMS4xIElmIHRoZSBETkEgc2FtcGxlcyBjb250YWluIEVEVEEsIHBlcmZvcm0gYSAzWCBiZWFkLWJhc2VkIGNsZWFudXAgd2l0aCBLQVBBIFB1cmUgQmVhZHMgdG8gcmVtb3ZlIEVEVEEgcHJpb3IgdG8gZnJhZ21lbnRhdGlvbi4gUGxlYXNlIHJlZmVyIHRvIHRoZSBLQVBBIFB1cmUgQmVhZHMgVGVjaG5pY2FsIERhdGEgU2hlZXQgZm9yIGEgZGV0YWlsZWQgRE5BIGNsZWFudXAgcHJvdG9jb2wuCkFsdGVybmF0aXZlbHksIHByZXBhcmUgYSBzdWZmaWNpZW50IHZvbHVtZSBvZiBhcHByb3ByaWF0ZWx5IGRpbHV0ZWQgQ29uZGl0aW9uaW5nIFNvbHV0aW9uICg1IM68TCBwZXIgRE5BIHNhbXBsZSwgcGx1cyBleGNlc3MpLiBSZWZlciB0byBUYWJsZSAyIChwLiA0KSBmb3IgZ3VpZGVsaW5lcyBvbiB0aGUgZGlsdXRpb24gb2YgdGhlIENvbmRpdGlvbmluZyBTb2x1dGlvbi4KRGlsdXRlIHRoZSBhbW91bnQgb2YgZHNETkEgdG8gYmUgdXNlZCBmb3IgbGlicmFyeSBjb25zdHJ1Y3Rpb24gYXMgZm9sbG93czoKLSBJZiB0aGUgRE5BIHByZXBhcmF0aW9uIGRvZXMgbm90IGNvbnRhaW4gRURUQSwgZGlsdXRlIGluIDEwIG1NIFRyaXMtSENsIChwSCA4LjAg4oCTIDguNSkgaW4gYSB0b3RhbCBvZiAzNSDOvEwKLSAgSWYgdGhlIEROQSBwcmVwYXJhdGlvbiBkb2VzIGNvbnRhaW4gRURUQSwgZGlsdXRlIGluIHRoZSBFRFRBLWNvbnRhaW5pbmcgYnVmZmVyIGluIHdoaWNoIHNhbXBsZXMgYXJlIGN1cnJlbnRseSBzdXNwZW5kZWQsIGluIGEgdG90YWwgb2YgMzAgzrxMLiBUbyBlYWNoIHJlYWN0aW9uIHdpdGggMzAgzrxMIG9mIEVEVEEtY29udGFpbmluZyBETkEsIGFkZCA1zrxMIG9mIGRpbHV0ZWQgQ29uZGl0aW9uaW5nIFNvbHV0aW9uLgoKMS4yIE1peCBieSBnZW50bGUgdm9ydGV4aW5nIG9yIHBpcGV0dGluZyB1cCBhbmQgZG93bi4KCjEuMyBBc3NlbWJsZSBlYWNoIGZyYWdtZW50YXRpb24gcmVhY3Rpb24gb24gaWNlIGJ5IGFkZGluZyB0aGUgY29tcG9uZW50cyBpbiB0aGlzIG9yZGVyOgoKfENvbXBvbmVudHxGdWxsIFZvbHVtZXwxLzIgcnhufAp8LS0tLXwtLS0tfC0tLS18CnxEb3VibGUtc3RyYW5kZWQgRE5BICh3aXRoIENvbmQgU29sLCBpZiBuZWVkZWQpfDM1IM68THwxNy41IM68THwKfEtBUEEgRnJhZyBCdWZmZXIgKDEwWCkqfDUgzrxMfDIuNSDOvEx8CnxLQVBBIEZyYWcgRW56eW1lKnwxMCDOvEx8NSDOvEx8CnwqKlRvdGFsIHZvbHVtZToqKnwqKjUwIM68TCoqfCoqMjUgzrxMKip8CgoxLjQgVm9ydGV4IGdlbnRseSBhbmQgc3BpbiBkb3duIGJyaWVmbHkuIFJldHVybiB0aGUgcGxhdGUvdHViZShzKSB0byBpY2UuIFByb2NlZWQgaW1tZWRpYXRlbHkgdG8gdGhlIG5leHQgc3RlcC4KCjEuNSBJbmN1YmF0ZSBpbiBhIHRoZXJtb2N5Y2xlciwgcHJlLWNvb2xlZCB0byA0wrBDIGFuZCBwcm9ncmFtbWVkIGFzIG91dGxpbmVkIGJlbG93LiBBIGhlYXRlZCBsaWQgaXMgbm90IHJlcXVpcmVkIGZvciB0aGlzIHN0ZXAuIElmIHVzZWQsIHNldCB0aGUgdGVtcGVyYXR1cmUgb2YgdGhlIGhlYXRlZCBsaWQgdG8g4omkNTDCsEMuCgp8U3RlcHxUZW1wLnxEdXJhdGlvbnwKfC0tLS18LS0tLS18LS0tLS0tLS18CnxQcmUtY29vbCBibG9ja3w0wrBDfE5BfAp8RnJhZ21lbnRhdGlvbnwzN8KwQ3xzZWUgdGFibGUgYmVsb3d8CnxIT0xEfDTCsEN84oiefAoKCjEuNiBUcmFuc2ZlciByZWFjdGlvbnMgdG8gaWNlLCBhbmQgcHJvY2VlZCBpbW1lZGlhdGVseSB0byBFbmQgUmVwYWlyIGFuZCBBLXRhaWxpbmcgKHN0ZXAgMikuCg==</div>
 
 
 

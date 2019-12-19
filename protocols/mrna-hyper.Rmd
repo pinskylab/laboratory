@@ -5,6 +5,7 @@ params:
   num_samples: 22
   rxn_multiplier: 1
 ---
+[Manufacturer's Instructions](https://github.com/pinskylab/laboratory/blob/master/documentation/kapa-mrna-hyper.pdf)
 
 In the params section, change rxn multiplier to 0.5 if doing 1/2 reactions, or 0.25 if doing 1/4 reactions.
 ```{r setup, include=FALSE}

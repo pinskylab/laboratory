@@ -19,7 +19,7 @@ biotin <- tribble(~item, ~quantity,
   mutate(quantity = quantity * params$num_samples)
 ```
 
-[Manufacturer's instructions](https://github.com/pinskylab/laboratory/blob/master/documentation/MAN0012659_Biotin_DecaLabel_DNA_Labeling_UG.pdf)
+[Manufacturer's instructions](https://github.com/pinskylab/laboratory/blob/master/documentation/Biotin_DecaLabel.pdf)
 
 ### Materials needed
 

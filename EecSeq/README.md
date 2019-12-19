@@ -125,66 +125,89 @@ This is a safe stopping point. If you are stopping, store your sample at
 ‐15° to
 ‐25°C.
 
-[Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-\- Takes 1/2 hour  
-\- use 45ul of sample and 81ul of ampure.  
-\- Conduct the cleanup in a 1.7mL tube.  
-\- Elute 20 μl of 22ul of 10 mM Tris-HCl (pH 8.0) into a 200uL tube.
+[Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 
-  - **Safe Stopping Point** This is a safe stopping point. If you are
-    stopping, store your sample at ‐15° to
+  - Takes 1/2 hour  
+  - use 45ul of sample and 81ul of ampure.  
+  - Conduct the cleanup in a 1.7mL tube.  
+  - Elute 20 μl of 22ul of 10 mM Tris-HCl (pH 8.0) into a 200uL tube.
+
+### Safe Stopping Point
+
+This is a safe stopping point. If you are stopping, store your sample at
+‐15° to
 ‐25°C.
 
-[Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-\- Takes 1/2 hour  
-\- use 22ul of sample and 33ul of ampure.  
-\- Conduct the cleanup in a 1.7mL tube.  
-\- Elute 30 μl of 31ul of 10 mM Tris-HCl (pH 8.0) into a 200uL tube.
+[Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
+
+  - Takes 1/2 hour  
+  - use 22ul of sample and 33ul of ampure.  
+  - Conduct the cleanup in a 1.7mL tube.  
+  - Elute 30 μl of 31ul of 10 mM Tris-HCl (pH 8.0) into a 200uL tube.
 
 [Biotin
-Labeling](https://pinskylab.github.io/laboratory/protocols/biotin_eecseq.nb.html)
+Labeling](https://pinskylab.github.io/laboratory/protocols/biotin_eecseq.nb.html)  
+\- Takes 21 hours, 20 hours on heat
+block.
 
-[17.
-Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
-\- use 50ul of sample and 75ul of ampure.
+[Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 
-[18.
-Quantify](https://pinskylab.github.io/laboratory/protocols/Qubit-HS.nb.html)  
-[19.
-Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)  
-\- **Safe Stopping Point**  
+  - Takes 1/2 hour  
+  - use 50ul of sample and 75ul of ampure.  
+  - Conduct the cleanup in a 1.7mL tube.  
+  - Elute 20 μl of 10 mM Tris-HCl (pH 8.0) into a 200uL
+tube.
+
+[Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
+
+  - Takes 1/2
+hour
+
+[Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
+
+  - Takes 1/2 day to get results back. Can only get bioanalyzer runs on
+    M, T, W.  
+  - Check against the bioanalyzer results in the [Puritz
+    protocol](https://github.com/jpuritz/EecSeq/blob/master/Protocol.md#probe-synthesis)
+    to make sure everything looks the way it should.
+
+### Safe Stopping Point
+
 This is a safe stopping point. If you are stopping, store your sample at
 ‐15° to ‐25°C.
 
-## \[Genomic Library Prep\]
+## Genomic Library Prep
 
-[20. Anneal
+[Anneal
 Adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
 
-[21. Extract
-DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)  
-\- **elute DNA into 35ul water or Tris-HCl and continue immediately to
-next step. Do not use an EDTA containing solution like TE to elute.**
+  - Takes 1 hour.  
+  - There is a specific set of adapters made for the EecSeq project.
 
-[22. Fragment
+[Extract
+DNA](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
+
+  - **elute DNA into 35ul water or Tris-HCl and continue immediately to
+    next step. Do not use an EDTA containing solution like TE to
+    elute.**
+
+[Fragment
 DNA](https://pinskylab.github.io/laboratory/protocols/kapa-hyper.nb.html)
 
-    - EecSeq protocol says to use 1/2 the reaction volume recommended by KAPA.
+  - EecSeq protocol says to use 1/2 the reaction volume recommended by
+    KAPA.
 
-[23. End
+[End
 Repair](https://pinskylab.github.io/laboratory/protocols/end-repair.nb.html)
 
-[24. Adapter
+[Adapter
 ligation](https://pinskylab.github.io/laboratory/protocols/ligation_eecseq.nb.html)
-[25.
-Quantification](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
-[26.
-Amplification](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)  
-[27. Hybridization and
+[Quantification](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
+[Amplification](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)  
+[Hybridization and
 Capture](https://pinskylab.github.io/laboratory/protocols/hybridization_eecseq.nb.html)  
-[28. Library
+[Library
 Re-amplification](https://pinskylab.github.io/laboratory/protocols/lib-reamp_eecseq.nb.html)
-[29. Quant Final
+[Quant Final
 Libraries](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
-[30.
-Verify](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
+[Verify](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)

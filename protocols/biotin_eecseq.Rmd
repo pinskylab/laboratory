@@ -19,6 +19,8 @@ biotin <- tribble(~item, ~quantity,
   mutate(quantity = quantity * params$num_samples)
 ```
 
+[Manufacturer's instructions](https://github.com/pinskylab/laboratory/blob/master/documentation/MAN0012659_Biotin_DecaLabel_DNA_Labeling_UG.pdf)
+
 ### Materials needed
 
 | Reagent                                | Producer         | Catalog #      |            
@@ -52,9 +54,11 @@ a. Add the following components in the same tube:
 b. Shake the tube and spin down in a microcentrifuge for 3-5 seconds.  
 c. Incubate for 12-20 hours at 37°C on heat block. 
 
+3. Stop the reaction by the addition of 1 μl of 0.5 M EDTA, pH 8.0.
+
 ---
 #### Optional:Control reaction
-- Add the following components into 1.5 ml microcentrifuge tube:
+1. Add the following components into 1.5 ml microcentrifuge tube:
 
 |Component|Volume|
 |---------|------|
@@ -63,12 +67,17 @@ c. Incubate for 12-20 hours at 37°C on heat block.
 | Water, nuclease-free| 9 ul|
 |**Total Volume**| **44 ul**|
 
-- Vortex the tube and spin down in a microcentrifuge for 3-5 s
+- Vortex the tube and spin down in a microcentrifuge for 3-5 seconds
 - Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly in microcentrifuge.
-- Add the following components in the same tube:
+2. Add the following components in the same tube:
 
 |Component|Volume|
 |---------|------|
 |Biotin Labeling Mix| 5 ul|
 |Klenow fragment, exo– (5 u)| 1 ul|
 |**Total Volume**| **50 ul**|
+
+b. Shake the tube and spin down in a microcentrifuge for 3-5 seconds.  
+c. Incubate for 12-20 hours at 37°C on heat block.
+
+3. Stop the reaction by the addition of 1 μl of 0.5 M EDTA, pH 8.0.

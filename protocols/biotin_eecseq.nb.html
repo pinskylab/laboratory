@@ -1830,7 +1830,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    ddRADSeq - under construction
+    ddRADSeq
      
     <span class="caret"></span>
   </a>
@@ -1887,7 +1887,7 @@ $(document).ready(function () {
       <a href="rna_extraction_tri.nb.html">1. RNA Extraction</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">2. Quantify</a>
+      <a href="quant_rna.nb.html">2. Quantify</a>
     </li>
     <li>
       <a href="bioanalyzer.nb.html">3. Visualize</a>
@@ -1896,37 +1896,82 @@ $(document).ready(function () {
       <a href="anneal.nb.html">4. Anneal RNA Adapters</a>
     </li>
     <li>
-      <a href="mrna-capture.nb.html">5. mRNA Capture</a>
+      <a href="mrna-hyper.nb.html">5. mRNA Capture</a>
     </li>
     <li>
-      <a href="synthesis_eecseq.nb.html">6. Synthesis</a>
+      <a href="quant_dna.nb.html">6. Quantify</a>
     </li>
     <li>
-      <a href="ampure.nb.html">7. Cleanup</a>
+      <a href="dsn-norm.nb.html">7. DSN Normalization</a>
     </li>
     <li>
-      <a href="a-tailing.nb.html">8. A-Tailing</a>
+      <a href="ampure.nb.html">8. Cleanup</a>
     </li>
     <li>
-      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
+      <a href="dsn-pcr.nb.html">9. DSN Enrichment PCR</a>
     </li>
     <li>
-      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
+      <a href="ampure.nb.html">10. Cleanup</a>
     </li>
     <li>
-      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
+      <a href="quant_dna.nb.html">11. Quant Libraries</a>
     </li>
     <li>
-      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
+      <a href="remove-adapters_eecseq.nb.html">12. Remove sequencing adapters</a>
     </li>
     <li>
-      <a href="ampure.nb.html">13. Cleanup</a>
+      <a href="bioanalyzer.nb.html">13. Visualize</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">14. Quantify</a>
+      <a href="ampure.nb.html">14. Cleanup</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
+      <a href="ampure.nb.html">15. 2nd Cleanup</a>
+    </li>
+    <li>
+      <a href="biotin_eecseq.nb.html">16. Biotin Labeling</a>
+    </li>
+    <li>
+      <a href="ampure.nb.html">17. Cleanup</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">18. Quantify</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">19. Visualize</a>
+    </li>
+    <li>
+      <a href="anneal.nb.html">20. Anneal P1 Adapters</a>
+    </li>
+    <li>
+      <a href="dna_extraction_ali.nb.html">21. Extract DNA</a>
+    </li>
+    <li>
+      <a href="kapa-hyper.nb.html">22. Fragment DNA</a>
+    </li>
+    <li>
+      <a href="end-repair.nb.html">23. End Repair</a>
+    </li>
+    <li>
+      <a href="ligation_eecseq.nb.html">24. Adapter ligation</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">25. Quantify</a>
+    </li>
+    <li>
+      <a href="lib-amp_eecseq.nb.html">26. Amplification</a>
+    </li>
+    <li>
+      <a href="hybridization_eecseq.nb.html">27. Hybridization and Capture</a>
+    </li>
+    <li>
+      <a href="lib-reamp_eecseq.nb.html">28. Library Re-amplification</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">29. Quant Final Libraries</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">30. Verify</a>
     </li>
   </ul>
 </li>
@@ -1959,8 +2004,12 @@ $(document).ready(function () {
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="materials-needed" class="section level3">
 <h3>Materials needed</h3>
@@ -1983,9 +2032,12 @@ $(document).ready(function () {
 </div>
 <div id="procedure" class="section level3">
 <h3>Procedure</h3>
-<ul>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
 <li>Add the following components into 1.5 ml microcentrifuge tube:</li>
-</ul>
+</ol>
 <table>
 <thead>
 <tr class="header">
@@ -2007,16 +2059,23 @@ $(document).ready(function () {
 <td>14 ul</td>
 </tr>
 <tr class="even">
-<td>–Total Volume–</td>
-<td>–44 ul–</td>
+<td><strong>Total Volume</strong></td>
+<td><strong>44 ul</strong></td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Vortex the tube and spin down in a microcentrifuge for 3-5 s</li>
-<li>Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.</li>
+<p><em>RE stands for Restriction Enzyme and MBN stands for Mung Bean</em></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Vortex the tube and spin down in a microcentrifuge for 3-5 seconds.</li>
+<li>Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.<br />
+</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
 <li>Add the following components in the same tube:</li>
-</ul>
+</ol>
 <table>
 <thead>
 <tr class="header">
@@ -2034,15 +2093,16 @@ $(document).ready(function () {
 <td>1 ul</td>
 </tr>
 <tr class="odd">
-<td>–Total Volume–</td>
-<td>–50 ul–</td>
+<td><strong>Total Volume</strong></td>
+<td><strong>50 ul</strong></td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Shake the tube and spin down in a microcentrifuge for 3-5 s.</li>
-<li>Incubate for 12-20 hours at 37°C.</li>
-</ul>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Shake the tube and spin down in a microcentrifuge for 3-5 seconds.<br />
+</li>
+<li>Incubate for 12-20 hours at 37°C on heat block.</li>
+</ol>
 <hr />
 <div id="optionalcontrol-reaction" class="section level4">
 <h4>Optional:Control reaction</h4>
@@ -2070,14 +2130,14 @@ $(document).ready(function () {
 <td>9 ul</td>
 </tr>
 <tr class="even">
-<td>–Total Volume–</td>
-<td>–44 ul–</td>
+<td><strong>Total Volume</strong></td>
+<td><strong>44 ul</strong></td>
 </tr>
 </tbody>
 </table>
 <ul>
 <li>Vortex the tube and spin down in a microcentrifuge for 3-5 s</li>
-<li>Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.</li>
+<li>Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly in microcentrifuge.</li>
 <li>Add the following components in the same tube:</li>
 </ul>
 <table>
@@ -2097,8 +2157,8 @@ $(document).ready(function () {
 <td>1 ul</td>
 </tr>
 <tr class="odd">
-<td>–Total Volume–</td>
-<td>–50 ul–</td>
+<td><strong>Total Volume</strong></td>
+<td><strong>50 ul</strong></td>
 </tr>
 </tbody>
 </table>
@@ -2106,7 +2166,7 @@ $(document).ready(function () {
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQmlvdGluIExhYmVsaW5nIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKcGFyYW1zOgogIG51bV9zYW1wbGVzOiAxCi0tLQpgYGB7ciBzZXR1cH0KbGlicmFyeSh0aWR5dmVyc2UpCmBgYAoKYGBge3J9CmJpb3RpbiA8LSB0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksCiAgICAgICAgICAgICAgICAgICJ0aXBzXzEwMCIsIDQsCiAgICAgICAgICAgICAgICAgICJ0aXBzXzEwIiwgNiwgCiAgICAgICAgICAgICAgICAgICJwaDJvX21sIiwgMC4wMjMsCiAgICAgICAgICAgICAgICAgICJ0dWJlc18xLjdtbCIsIDIsCiAgICAgICAgICAgICAgICAgICJkZWNhbGFiZWxfYmlvdGluX2tsZW5vd191bCIsIDIpICU+JSAKICBtdXRhdGUocXVhbnRpdHkgPSBxdWFudGl0eSAqIHBhcmFtcyRudW1fc2FtcGxlcykKYGBgCgojIyMgTWF0ZXJpYWxzIG5lZWRlZAoKfCBSZWFnZW50ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IFByb2R1Y2VyICAgICAgICAgfCBDYXRhbG9nICMgICAgICB8ICAgICAgICAgICAgCnwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLXwKfERlY2FMYWJlbOKEoiBCaW90aW4gRE5BIExhYmVsaW5nIEtpdCB8VGhlcm1vIFNjaWVudGlmaWMgfCBGRVJLMDY1MSAgIHwgICAgICAgICAgICAgICAgICAgICAKCiMjIyBQcm9jZWR1cmUKCi0gQWRkIHRoZSBmb2xsb3dpbmcgY29tcG9uZW50cyBpbnRvIDEuNSBtbCBtaWNyb2NlbnRyaWZ1Z2UgdHViZToKCnxDb21wb25lbnR8Vm9sdW1lfAp8LS0tLS0tLS0tfC0tLS0tLXwKfFJFIGFuZCBNQk4gdHJlYXRlZCBEU04gTGlicmFyeXwgMjAgdWx8CnxEZWNhbnVjbGVvdGlkZSBpbiA1WCBSZWFjdGlvbiBCdWZmZXJ8IDEwIHVsfAp8IFdhdGVyLCBudWNsZWFzZS1mcmVlfCAxNCB1bHwKfC0tVG90YWwgVm9sdW1lLS18IC0tNDQgdWwtLXwKCi0gVm9ydGV4IHRoZSB0dWJlIGFuZCBzcGluIGRvd24gaW4gYSBtaWNyb2NlbnRyaWZ1Z2UgZm9yIDMtNSBzCi0gSW5jdWJhdGUgdGhlIHR1YmUgaW4gYSBib2lsaW5nIHdhdGVyIGJhdGggZm9yIDUtMTAgbWluIGFuZCBjb29sIGl0IG9uIGljZS4gU3BpbiBkb3duIHF1aWNrbHkuCi0gQWRkIHRoZSBmb2xsb3dpbmcgY29tcG9uZW50cyBpbiB0aGUgc2FtZSB0dWJlOgoKfENvbXBvbmVudHxWb2x1bWV8CnwtLS0tLS0tLS18LS0tLS0tfAp8QmlvdGluIExhYmVsaW5nIE1peHwgNSB1bHwKfEtsZW5vdyBmcmFnbWVudCwgZXhv4oCTICg1IHUpfCAxIHVsfAp8LS1Ub3RhbCBWb2x1bWUtLXwgLS01MCB1bC0tfAoKLSBTaGFrZSB0aGUgdHViZSBhbmQgc3BpbiBkb3duIGluIGEgbWljcm9jZW50cmlmdWdlIGZvciAzLTUgcy4gCi0gSW5jdWJhdGUgZm9yIDEyLTIwIGhvdXJzIGF0IDM3wrBDLiAKCi0tLQojIyMjIE9wdGlvbmFsOkNvbnRyb2wgcmVhY3Rpb24KLSBBZGQgdGhlIGZvbGxvd2luZyBjb21wb25lbnRzIGludG8gMS41IG1sIG1pY3JvY2VudHJpZnVnZSB0dWJlOgoKfENvbXBvbmVudHxWb2x1bWV8CnwtLS0tLS0tLS18LS0tLS0tfAp8Q29udHJvbCBUZW1wbGF0ZSwgMTAgbmcvdWwgfCAyNSB1bHwKfERlY2FudWNsZW90aWRlIGluIDVYIFJlYWN0aW9uIEJ1ZmZlcnwgMTAgdWx8CnwgV2F0ZXIsIG51Y2xlYXNlLWZyZWV8IDkgdWx8CnwtLVRvdGFsIFZvbHVtZS0tfCAtLTQ0IHVsLS18CgotIFZvcnRleCB0aGUgdHViZSBhbmQgc3BpbiBkb3duIGluIGEgbWljcm9jZW50cmlmdWdlIGZvciAzLTUgcwotIEluY3ViYXRlIHRoZSB0dWJlIGluIGEgYm9pbGluZyB3YXRlciBiYXRoIGZvciA1LTEwIG1pbiBhbmQgY29vbCBpdCBvbiBpY2UuIFNwaW4gZG93biBxdWlja2x5LgotIEFkZCB0aGUgZm9sbG93aW5nIGNvbXBvbmVudHMgaW4gdGhlIHNhbWUgdHViZToKCnxDb21wb25lbnR8Vm9sdW1lfAp8LS0tLS0tLS0tfC0tLS0tLXwKfEJpb3RpbiBMYWJlbGluZyBNaXh8IDUgdWx8CnxLbGVub3cgZnJhZ21lbnQsIGV4b+KAkyAoNSB1KXwgMSB1bHwKfC0tVG90YWwgVm9sdW1lLS18IC0tNTAgdWwtLXwK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQmlvdGluIExhYmVsaW5nIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKcGFyYW1zOgogIG51bV9zYW1wbGVzOiAxCi0tLQoKYGBge3Igc2V0dXB9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCmBgYHtyfQpiaW90aW4gPC0gdHJpYmJsZSh+aXRlbSwgfnF1YW50aXR5LAogICAgICAgICAgICAgICAgICAidGlwc18xMDAiLCA0LAogICAgICAgICAgICAgICAgICAidGlwc18xMCIsIDYsIAogICAgICAgICAgICAgICAgICAicGgyb19tbCIsIDAuMDIzLAogICAgICAgICAgICAgICAgICAidHViZXNfMS43bWwiLCAyLAogICAgICAgICAgICAgICAgICAiZGVjYWxhYmVsX2Jpb3Rpbl9rbGVub3dfdWwiLCAyKSAlPiUgCiAgbXV0YXRlKHF1YW50aXR5ID0gcXVhbnRpdHkgKiBwYXJhbXMkbnVtX3NhbXBsZXMpCmBgYAoKIyMjIE1hdGVyaWFscyBuZWVkZWQKCnwgUmVhZ2VudCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBQcm9kdWNlciAgICAgICAgIHwgQ2F0YWxvZyAjICAgICAgfCAgICAgICAgICAgIAp8LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS18CnxEZWNhTGFiZWzihKIgQmlvdGluIEROQSBMYWJlbGluZyBLaXQgfFRoZXJtbyBTY2llbnRpZmljIHwgRkVSSzA2NTEgICB8ICAgICAgICAgICAgICAgICAgICAgCgojIyMgUHJvY2VkdXJlCgoxLiAKYS4gQWRkIHRoZSBmb2xsb3dpbmcgY29tcG9uZW50cyBpbnRvIDEuNSBtbCBtaWNyb2NlbnRyaWZ1Z2UgdHViZToKCnxDb21wb25lbnR8Vm9sdW1lfAp8LS0tLS0tLS0tfC0tLS0tLXwKfFJFIGFuZCBNQk4gdHJlYXRlZCBEU04gTGlicmFyeXwgMjAgdWx8CnxEZWNhbnVjbGVvdGlkZSBpbiA1WCBSZWFjdGlvbiBCdWZmZXJ8IDEwIHVsfAp8IFdhdGVyLCBudWNsZWFzZS1mcmVlfCAxNCB1bHwKfCoqVG90YWwgVm9sdW1lKip8ICoqNDQgdWwqKnwKKlJFIHN0YW5kcyBmb3IgUmVzdHJpY3Rpb24gRW56eW1lIGFuZCBNQk4gc3RhbmRzIGZvciBNdW5nIEJlYW4qCgpiLiBWb3J0ZXggdGhlIHR1YmUgYW5kIHNwaW4gZG93biBpbiBhIG1pY3JvY2VudHJpZnVnZSBmb3IgMy01IHNlY29uZHMuCmMuIEluY3ViYXRlIHRoZSB0dWJlIGluIGEgYm9pbGluZyB3YXRlciBiYXRoIGZvciA1LTEwIG1pbiBhbmQgY29vbCBpdCBvbiBpY2UuIFNwaW4gZG93biBxdWlja2x5LiAgCjIuIAphLiBBZGQgdGhlIGZvbGxvd2luZyBjb21wb25lbnRzIGluIHRoZSBzYW1lIHR1YmU6Cgp8Q29tcG9uZW50fFZvbHVtZXwKfC0tLS0tLS0tLXwtLS0tLS18CnxCaW90aW4gTGFiZWxpbmcgTWl4fCA1IHVsfAp8S2xlbm93IGZyYWdtZW50LCBleG/igJMgKDUgdSl8IDEgdWx8CnwqKlRvdGFsIFZvbHVtZSoqfCAqKjUwIHVsKip8CgpiLiBTaGFrZSB0aGUgdHViZSBhbmQgc3BpbiBkb3duIGluIGEgbWljcm9jZW50cmlmdWdlIGZvciAzLTUgc2Vjb25kcy4gIApjLiBJbmN1YmF0ZSBmb3IgMTItMjAgaG91cnMgYXQgMzfCsEMgb24gaGVhdCBibG9jay4gCgotLS0KIyMjIyBPcHRpb25hbDpDb250cm9sIHJlYWN0aW9uCi0gQWRkIHRoZSBmb2xsb3dpbmcgY29tcG9uZW50cyBpbnRvIDEuNSBtbCBtaWNyb2NlbnRyaWZ1Z2UgdHViZToKCnxDb21wb25lbnR8Vm9sdW1lfAp8LS0tLS0tLS0tfC0tLS0tLXwKfENvbnRyb2wgVGVtcGxhdGUsIDEwIG5nL3VsIHwgMjUgdWx8CnxEZWNhbnVjbGVvdGlkZSBpbiA1WCBSZWFjdGlvbiBCdWZmZXJ8IDEwIHVsfAp8IFdhdGVyLCBudWNsZWFzZS1mcmVlfCA5IHVsfAp8KipUb3RhbCBWb2x1bWUqKnwgKio0NCB1bCoqfAoKLSBWb3J0ZXggdGhlIHR1YmUgYW5kIHNwaW4gZG93biBpbiBhIG1pY3JvY2VudHJpZnVnZSBmb3IgMy01IHMKLSBJbmN1YmF0ZSB0aGUgdHViZSBpbiBhIGJvaWxpbmcgd2F0ZXIgYmF0aCBmb3IgNS0xMCBtaW4gYW5kIGNvb2wgaXQgb24gaWNlLiBTcGluIGRvd24gcXVpY2tseSBpbiBtaWNyb2NlbnRyaWZ1Z2UuCi0gQWRkIHRoZSBmb2xsb3dpbmcgY29tcG9uZW50cyBpbiB0aGUgc2FtZSB0dWJlOgoKfENvbXBvbmVudHxWb2x1bWV8CnwtLS0tLS0tLS18LS0tLS0tfAp8QmlvdGluIExhYmVsaW5nIE1peHwgNSB1bHwKfEtsZW5vdyBmcmFnbWVudCwgZXhv4oCTICg1IHUpfCAxIHVsfAp8KipUb3RhbCBWb2x1bWUqKnwgKio1MCB1bCoqfAo=</div>
 
 
 

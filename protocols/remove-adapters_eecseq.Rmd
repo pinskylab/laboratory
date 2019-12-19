@@ -27,7 +27,7 @@ remove <- tribble(~item, ~quantity,
 |Agencourt AMPure XP  |Beckman Coulter   | A63881|
 
 ### Procedure
-- Setup a restriction digest using 1 ug of DSN library
+1. Setup a restriction digest using 1 ug of DSN library
 
 |Component|Volume|
 |---------|------|
@@ -35,17 +35,17 @@ remove <- tribble(~item, ~quantity,
 |SalI-HF Enzyme (100 units)| 1 ul |
 | Molecular Grade H20| 22.75 ul|
 | DSN Enriched Library| 12.25 ul|
-|--Total Volume--| --40 ul--|
+|**Total Volume**| **40 ul**|
 
-- Incubate reactions in thermocycler at 37°C for at least 8 hours, prefereably 12-16 hours.
+2. Incubate reactions in thermocycler at 37°C for at least 8 hours, prefereably 12-16 hours.
 
-- --Using the same tubes from the previous step-- combine the following:
+3. **Using the same tubes from the previous step** combine the following:
 
 |Component|Volume|
 |---------|------|
 |Digested Library| 40 ul|
 |10X Mung Bean Nuclease buffer| 4.5 ul|
 |Mung Bean Nuclease (10 units per ul)| 0.5 ul|
-|--Total Volume--| --45 ul--|
+|**Total Volume**| **45 ul**|
 
-- Incubate at 30°C for 30 minutes
+4. Incubate at 30°C for 30 minutes

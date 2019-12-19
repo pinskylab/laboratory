@@ -4,6 +4,7 @@ output: html_notebook
 params:
   num_samples: 1
 ---
+
 ```{r setup}
 library(tidyverse)
 ```
@@ -26,27 +27,30 @@ biotin <- tribble(~item, ~quantity,
 
 ### Procedure
 
-- Add the following components into 1.5 ml microcentrifuge tube:
+1. 
+a. Add the following components into 1.5 ml microcentrifuge tube:
 
 |Component|Volume|
 |---------|------|
 |RE and MBN treated DSN Library| 20 ul|
 |Decanucleotide in 5X Reaction Buffer| 10 ul|
 | Water, nuclease-free| 14 ul|
-|--Total Volume--| --44 ul--|
+|**Total Volume**| **44 ul**|
+*RE stands for Restriction Enzyme and MBN stands for Mung Bean*
 
-- Vortex the tube and spin down in a microcentrifuge for 3-5 s
-- Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.
-- Add the following components in the same tube:
+b. Vortex the tube and spin down in a microcentrifuge for 3-5 seconds.
+c. Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.  
+2. 
+a. Add the following components in the same tube:
 
 |Component|Volume|
 |---------|------|
 |Biotin Labeling Mix| 5 ul|
 |Klenow fragment, exo– (5 u)| 1 ul|
-|--Total Volume--| --50 ul--|
+|**Total Volume**| **50 ul**|
 
-- Shake the tube and spin down in a microcentrifuge for 3-5 s. 
-- Incubate for 12-20 hours at 37°C. 
+b. Shake the tube and spin down in a microcentrifuge for 3-5 seconds.  
+c. Incubate for 12-20 hours at 37°C on heat block. 
 
 ---
 #### Optional:Control reaction
@@ -57,14 +61,14 @@ biotin <- tribble(~item, ~quantity,
 |Control Template, 10 ng/ul | 25 ul|
 |Decanucleotide in 5X Reaction Buffer| 10 ul|
 | Water, nuclease-free| 9 ul|
-|--Total Volume--| --44 ul--|
+|**Total Volume**| **44 ul**|
 
 - Vortex the tube and spin down in a microcentrifuge for 3-5 s
-- Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly.
+- Incubate the tube in a boiling water bath for 5-10 min and cool it on ice. Spin down quickly in microcentrifuge.
 - Add the following components in the same tube:
 
 |Component|Volume|
 |---------|------|
 |Biotin Labeling Mix| 5 ul|
 |Klenow fragment, exo– (5 u)| 1 ul|
-|--Total Volume--| --50 ul--|
+|**Total Volume**| **50 ul**|

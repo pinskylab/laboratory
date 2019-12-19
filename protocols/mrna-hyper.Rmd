@@ -33,101 +33,9 @@ kable(mrna_capture) %>%
 ```
 
 
-### 1. Prepare mastermixes for number of libraries (individual RNA extractions)
-  - See tables in manual and tables below for guidelines:
+### 1. ~~Prepare mastermixes for number of libraries (individual RNA extractions)~~ Don't prepare reagents until the stopping point before they are needed.  
+Reagents evaporate in the PCR hood and this protocol takes several hours.
 
-```{r}
-first_strand <- tribble(~item, ~volume, 
-                   "ul of 1st strand synthesis buffer", 11,
-                   "ul of KAPA Script", 1) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
-
-kable(first_strand) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("1st Strand Master Mix" = 2))
-
-```
-
-```{r}
-second_strand <- tribble(~item, ~volume, 
-                   "ul 2nd Strand Marking Buffer", 31,
-                   "ul 2nd Strand Synthesis and A-tailing enzyme mix", 2) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
-
-kable(second_strand) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("2nd Strand and A-tailing Master Mix" = 2))
-```
-
-```{r}
-adapter_lig <- tribble(~item, ~volume, 
-                   "ul Ligation Buffer", 40,
-                   "ul DNA ligase", 10) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
-
-kable(adapter_lig) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("Adapter Ligation Master Mix" = 2))
-```
-
-```{r}
-library_amp <- tribble(~item, ~volume, 
-                   "ul HiFi HotStart ReadyMix", 25,
-                   "ul Library Amplification Primer Mix", 5) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
-
-kable(library_amp) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("Library Amplification Master Mix" = 2))
-```
-
-
-```{r}
-bead <- tribble(~item, ~volume, 
-                   "ul post-lig cleanup", 70,
-                   "ul Library Amplification cleanup", 50) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
-  summarise(volume = sum(volume))
-
-kable(bead) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("ul Kapa pure beads needed" = 1))
-```
-
-```{r}
-PEG <- tribble(~item, ~volume, 
-                   "ul 2nd post-lig cleanup", 35) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
-  summarise(volume = sum(volume))
-
-kable(PEG) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("ul PEG/NaCl needed" = 1))
-```
-```{r}
-etoh <- tribble(~item, ~volume, 
-                "ul 1st post-lig cleanup", 400,
-                "ul 2nd post-lig cleanup", 400,
-                "ul Library Amplification cleanup", 400) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
-  summarise(volume = sum(volume)/1000)
-
-kable(etoh) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("mL 80% EtOH needed" = 1))
-```
-```{r}
-elut <- tribble(~item, ~volume, 
-                "ul 1st post-lig cleanup", 50,
-                "ul 2nd post-lig cleanup", 22,
-                "ul Library Amplification cleanup", 22) %>%
-  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
-  summarise(volume = sum(volume))
-
-kable(elut) %>% 
-    kable_styling("bordered") %>%
-  add_header_above(c("ul 10mM Tris-HCl ph 8.0-8.5 Elution buffer needed" = 1))
-```
 
 ### 2. mRNA Capture
 This protocol requires 50 ng – 1 μg of intact total RNA, in 50 μL of RNase-free water. Degraded or fragmented total RNA will result in significant 3'-bias.
@@ -224,6 +132,86 @@ Thoroughly resuspend the mRNA Capture Beads with captured mRNA prepared in step 
 
 # SAFE STOPPING POINT OVERNIGHT ONLY
 Resuspended beads with captured mRNA may be stored at 4°C for ≤24 hrs. Do not freeze the samples as this will damage the beads. When ready, proceed to step 3.3.  
+
+## Prep reagents for next set of steps:
+```{r}
+first_strand <- tribble(~item, ~volume, 
+                        "ul of 1st strand synthesis buffer", 11,
+                        "ul of KAPA Script", 1) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(first_strand) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("1st Strand Master Mix" = 2))
+
+```
+
+```{r}
+second_strand <- tribble(~item, ~volume, 
+                         "ul 2nd Strand Marking Buffer", 31,
+                         "ul 2nd Strand Synthesis and A-tailing enzyme mix", 2) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(second_strand) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("2nd Strand and A-tailing Master Mix" = 2))
+```
+
+```{r}
+adapter_lig <- tribble(~item, ~volume, 
+                       "ul Ligation Buffer", 40,
+                       "ul DNA ligase", 10) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(adapter_lig) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("Adapter Ligation Master Mix" = 2))
+```
+```{r}
+bead <- tribble(~item, ~volume, 
+                "ul post-lig cleanup", 70,
+                "ul Library Amplification cleanup", 50) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume))
+
+kable(bead) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("ul Kapa pure beads needed" = 1))
+```
+```{r}
+etoh <- tribble(~item, ~volume, 
+                "ul 1st post-lig cleanup", 400,
+                "ul 2nd post-lig cleanup", 400,
+                "ul Library Amplification cleanup", 400) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume)/1000)
+
+kable(etoh) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("mL 80% EtOH needed" = 1))
+```
+```{r}
+elut <- tribble(~item, ~volume, 
+                "ul 1st post-lig cleanup", 50,
+                "ul 2nd post-lig cleanup", 22,
+                "ul Library Amplification cleanup", 22) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume))
+
+kable(elut) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("ul 10mM Tris-HCl ph 8.0-8.5 Elution buffer needed" = 1))
+```
+```{r}
+PEG <- tribble(~item, ~volume, 
+               "ul 2nd post-lig cleanup", 35) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier) %>% 
+  summarise(volume = sum(volume))
+
+kable(PEG) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("ul PEG/NaCl needed" = 1))
+```
 
 #### 3.3  
 Place the plate/tube(s) in a thermocycler and carry out the fragmentation and priming program given in the table below:  
@@ -383,6 +371,19 @@ Incubate the plate/tube(s) at room temperature for 2 min to elute DNA off the be
 
 # SAFE STOPPING POINT OVERNIGHT ONLY
 The solution with resuspended beads can be stored at 4°C for ≤24 hrs. Do not freeze the beads, as this can result in dramatic loss of DNA. When ready, proceed to 2nd Post-ligation Cleanup (step 8).
+
+## Prep the remaining reagents needed for next steps, make fresh EtOH every day of protocol.
+
+```{r}
+library_amp <- tribble(~item, ~volume, 
+                       "ul HiFi HotStart ReadyMix", 25,
+                       "ul Library Amplification Primer Mix", 5) %>%
+  mutate(volume = volume * params$num_samples * params$rxn_multiplier)
+
+kable(library_amp) %>% 
+  kable_styling("bordered") %>%
+  add_header_above(c("Library Amplification Master Mix" = 2))
+```
 
 ### 8. 2nd Post-ligation Cleanup  
 

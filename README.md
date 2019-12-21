@@ -13,10 +13,8 @@ manuscript.
 
 ### [ddRADSeq](ddRADSeq)
 
-This
-[method](https://pinskylab.github.io/laboratory/ddRADSeq/index.html) is
-used in our *Amphiprion clarkii* clownfish project and our *Paralichthys
-dentatus* summer flounder project.
+This is used in our *Amphiprion clarkii* clownfish project and our
+*Paralichthys dentatus* summer flounder project.
 
 ### [Nextera](Nextera)
 

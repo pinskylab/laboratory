@@ -4,8 +4,7 @@ params:
   num_negs: 0
   num_wells: 96
   rxn_size_ul: 20
-output: 
-  html_notebook: default
+output: html_notebook
 ---
 1. Update db with PCR numbers and indices.  
 ```{r update_db, echo=FALSE, message=FALSE}

@@ -1830,7 +1830,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    ddRADSeq - under construction
+    ddRADSeq
      
     <span class="caret"></span>
   </a>
@@ -1887,7 +1887,7 @@ $(document).ready(function () {
       <a href="rna_extraction_tri.nb.html">1. RNA Extraction</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">2. Quantify</a>
+      <a href="quant_rna.nb.html">2. Quantify</a>
     </li>
     <li>
       <a href="bioanalyzer.nb.html">3. Visualize</a>
@@ -1896,37 +1896,82 @@ $(document).ready(function () {
       <a href="anneal.nb.html">4. Anneal RNA Adapters</a>
     </li>
     <li>
-      <a href="mrna-capture.nb.html">5. mRNA Capture</a>
+      <a href="mrna-hyper.nb.html">5. mRNA Capture</a>
     </li>
     <li>
-      <a href="synthesis_eecseq.nb.html">6. Synthesis</a>
+      <a href="quant_dna.nb.html">6. Quantify</a>
     </li>
     <li>
-      <a href="ampure.nb.html">7. Cleanup</a>
+      <a href="dsn-norm.nb.html">7. DSN Normalization</a>
     </li>
     <li>
-      <a href="a-tailing.nb.html">8. A-Tailing</a>
+      <a href="ampure.nb.html">8. Cleanup</a>
     </li>
     <li>
-      <a href="rna_ligation_eecseq.nb.html">9. RNA adapter ligation</a>
+      <a href="dsn-pcr.nb.html">9. DSN Enrichment PCR</a>
     </li>
     <li>
-      <a href="ampure.nb.html">10. Post-Ligation Cleanup 1</a>
+      <a href="ampure.nb.html">10. Cleanup</a>
     </li>
     <li>
-      <a href="ampure.nb.html">11. Post-Ligation Cleanup 2</a>
+      <a href="quant_dna.nb.html">11. Quant Libraries</a>
     </li>
     <li>
-      <a href="rna_amp_eecseq.nb.html">12. RNA library amplification</a>
+      <a href="remove-adapters_eecseq.nb.html">12. Remove sequencing adapters</a>
     </li>
     <li>
-      <a href="ampure.nb.html">13. Cleanup</a>
+      <a href="bioanalyzer.nb.html">13. Visualize</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">14. Quantify</a>
+      <a href="ampure.nb.html">14. Cleanup</a>
     </li>
     <li>
-      <a href="Qubit-HS.nb.html">15. DSN Normalization</a>
+      <a href="ampure.nb.html">15. 2nd Cleanup</a>
+    </li>
+    <li>
+      <a href="biotin_eecseq.nb.html">16. Biotin Labeling</a>
+    </li>
+    <li>
+      <a href="ampure.nb.html">17. Cleanup</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">18. Quantify</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">19. Visualize</a>
+    </li>
+    <li>
+      <a href="anneal.nb.html">20. Anneal P1 Adapters</a>
+    </li>
+    <li>
+      <a href="dna_extraction_ali.nb.html">21. Extract DNA</a>
+    </li>
+    <li>
+      <a href="kapa-hyper.nb.html">22. Fragment DNA</a>
+    </li>
+    <li>
+      <a href="end-repair.nb.html">23. End Repair</a>
+    </li>
+    <li>
+      <a href="ligation_eecseq.nb.html">24. Adapter ligation</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">25. Quantify</a>
+    </li>
+    <li>
+      <a href="lib-amp_eecseq.nb.html">26. Amplification</a>
+    </li>
+    <li>
+      <a href="hybridization_eecseq.nb.html">27. Hybridization and Capture</a>
+    </li>
+    <li>
+      <a href="lib-reamp_eecseq.nb.html">28. Library Re-amplification</a>
+    </li>
+    <li>
+      <a href="quant_dna.nb.html">29. Quant Final Libraries</a>
+    </li>
+    <li>
+      <a href="bioanalyzer.nb.html">30. Verify</a>
     </li>
   </ul>
 </li>
@@ -1985,231 +2030,269 @@ rm(digest_guide)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<!-- *Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.*   -->
-<!-- Explanation of parameters: -->
-<!-- ```{r} -->
-<!-- (params) -->
-<!-- ``` -->
-<!-- first: the first extraction in the range of samples for this plate -->
-<!-- last: the last extraciton in the range of samples for this plate -->
-<!-- digest_rxn_size: the size in uL of each digest reaction. -->
-<!-- **This protocol assumes that you have read and understand the manufacturer’s instructions attached below.  Please read the full manufacturer’s instructions before using this abbreviated protocol.** -->
-<!-- ```{r setup, include = FALSE} -->
-<!-- knitr::opts_chunk$set( -->
-<!--    echo = FALSE, -->
-<!--    message = FALSE, -->
-<!--    warning = FALSE -->
-<!-- ) -->
-<!-- # load libraries -->
-<!-- library(tidyverse) -->
-<!-- library(kableExtra) -->
-<!-- library(knitr) -->
-<!-- # load functions -->
-<!-- source("~/db-connections.R") -->
-<!-- # load data -->
-<!-- lab <- read_db("Laboratory") -->
-<!-- ``` -->
-<!-- ## Prep for digest -->
-<!-- The most difficult part of the digest is figuring out where to put the samples.  In most cases, it is very straightforward.  You pull the sample from the extraction plate and place it in the same well on the digest plate.  For example, if an extract is in A4 of the extraction plate, run the digestion reaction in well A4 of the digest plate.   -->
-<!-- If this is the case, the source plate map would look like this: -->
-<!-- ```{r} -->
-<!-- need_digest <- lab %>% tbl("extraction") %>% collect() %>%  -->
-<!--   # hasn't been digested -->
-<!--   filter(extraction_id >= params$first & extraction_id <= params$last) %>%  -->
-<!--   # select columns -->
-<!--   select(extraction_id, well, plate, quant) %>%  -->
-<!--   # need enough material to work with -->
-<!--   filter(quant > 5) %>%  -->
-<!--   # sort by extraction id -->
-<!--   arrange(extraction_id) %>%  -->
-<!--   # create row and column ids from well -->
-<!--   mutate(row = substr(well, 1,1),  -->
-<!--          col = as.numeric(substr(well, 2,3))) %>%  -->
-<!--   select(row, col, extraction_id) -->
-<!-- # define wells -->
-<!-- plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>%  -->
-<!--   mutate(extraction_id = ifelse(row == "D" & col == 2, "XXXX", NA),  -->
-<!--     extraction_id = ifelse(row == "E" & col == 8, "XXXX", extraction_id)) -->
-<!-- # if the plate is not full -->
-<!-- x <- nrow(need_digest) + 2 -->
-<!-- if (x < 96) { -->
-<!--   plate <- plate %>%  -->
-<!--     slice(1:x) -->
-<!-- } -->
-<!-- # remove the non-blank wells from the plate table -->
-<!-- plate <- anti_join(plate, need_digest, by = c("row", "col")) -->
-<!-- # rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks. -->
-<!-- plate <- rbind(plate, need_digest) %>%  -->
-<!--   arrange(col, row) -->
-<!-- platemap <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction) -->
-<!-- knitr::kable(platemap, booktabs = T) %>%  -->
-<!--   # use scale_down to get map to fit within the bounds of the pdf -->
-<!--   kable_styling(latex_options = "scale_down") -->
-<!-- ``` -->
-<!-- However, sometimes we skip some samples that did not perform well, or we want to digest a bunch of extracts from random plates.  If it is not a simple plate to plate transfer, the source plate map would look like this: -->
-<!-- ```{r} -->
-<!-- digested <- lab %>% tbl("digest") %>% collect() -->
-<!-- # TODO: should filter this for successful digests -->
-<!--   need_digest <- lab %>% tbl("extraction") %>% collect() %>%  -->
-<!--   # hasn't been digested -->
-<!--   filter(!extraction_id %in% digested$extraction_id) %>%  -->
-<!--   # select columns -->
-<!--   select(extraction_id, well, plate, quant) %>%  -->
-<!--   # need enough material to work with -->
-<!--   filter(quant > 5) %>%  -->
-<!--   # needs to be in a plate -->
-<!--   filter(!is.na(plate)) %>%  -->
-<!--   # sort by extraction id -->
-<!--   arrange(extraction_id) -->
-<!--   # define wells -->
-<!-- plate <- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %>%  -->
-<!--   mutate(extraction_id = ifelse(row == "D" & col == 2, "XXXX", NA),  -->
-<!--     extraction_id = ifelse(row == "E" & col == 8, "XXXX", extraction_id)) -->
-<!-- # if the plate is not full -->
-<!-- x <- nrow(need_digest) + 2 -->
-<!-- if (x < 96) { -->
-<!--   if(x < 48){ -->
-<!--     plate <- plate %>%  -->
-<!--       slice(1:x-1) -->
-<!--   }else{ -->
-<!--     plate <- plate %>%  -->
-<!--     slice(1:x) -->
-<!--   } -->
-<!-- } -->
-<!-- # move all of the non-blank wells into their own table -->
-<!-- samples <- plate %>%  -->
-<!--   filter(is.na(extraction_id)) %>%  -->
-<!--   select(-extraction_id) -->
-<!-- # remove the non-blank wells from the plate table -->
-<!-- plate <- anti_join(plate, samples, by = c("row", "col")) -->
-<!-- # join the work sample_ids to the sample table well definitions -->
-<!-- samples <- cbind(samples, need_digest) %>%  -->
-<!--   select(row, col, extraction_id) -->
-<!-- # rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks. -->
-<!-- plate <- rbind(plate, samples) %>%  -->
-<!--   arrange(col, row) -->
-<!-- source_map <- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction) -->
-<!-- knitr::kable(source_map, booktabs = T) %>%  -->
-<!--   # use scale_down to get map to fit within the bounds of the pdf -->
-<!--   kable_styling(latex_options = "scale_down") -->
-<!-- ``` -->
-<!-- A digest id must be created for these samples.   -->
-<!-- **Only do this step once!**   -->
-<!-- It creates new digest_ids for the database.   -->
-<!-- The destination plate map would look like this:   -->
-<!-- ```{r} -->
-<!-- ### ONLY DO THIS ONCE ### -->
-<!-- dig_max <- lab %>% tbl("digest") %>%  -->
-<!--   summarise(last = max(digest_id, na.rm = T)) %>%  -->
-<!--   collect() %>%  -->
-<!--   mutate(last = as.numeric(substr(last, 2,5))) -->
-<!-- x <- dig_max$last+1 -->
-<!-- y <- dig_max$last+nrow(plate) -->
-<!-- id_range <- x:y -->
-<!-- plate <- plate %>%  -->
-<!--   mutate(digest_id = paste0("D", id_range), -->
-<!--          well = paste(row, col, sep = ""),  -->
-<!--          enzymes = "PstI-MluCI", -->
-<!--          vol_in = 30, -->
-<!--          final_vol = 45) -->
-<!-- plate_name <- plate %>%  -->
-<!--   summarise(first = min(digest_id),  -->
-<!--     last = max(digest_id, na.rm = T)) -->
-<!-- dest_map <- plate %>%  -->
-<!--   mutate(plate = paste(plate_name$first, plate_name$last, sep = "-")) %>%  -->
-<!--   select(row, col, digest_id) -->
-<!-- dest_map <- as.matrix(reshape2::acast(dest_map, dest_map$row ~ dest_map$col), value.var = dest_map$digest_id) -->
-<!-- knitr::kable(dest_map, booktabs = T) %>%  -->
-<!--   kable_styling() -->
-<!-- ``` -->
-<!-- Print out plate maps and highlight source maps for ease of loading.  Make sure to note any samples that are heavily concentrated and need to be diluted. -->
-<!-- Prepare digest plate by loading 30uL of sample in to the plate. -->
-<!-- For the October 2017 set of plates, I highlighted the 15uL samples on the maps in orange and the “hole-fillers” in pink, then any samples I could take with a multichannel with a blue line down the column. -->
-<!-- To load, I first used a single channel pipet to fill in the 15uL samples (extra concentrated samples), pulling the tips from the same location they were on the plate.  Then I filled in the water for the 15uL wells and change the pipet to 30uL to fill the blanks. -->
-<!-- Then I added any 30uL “hole fillers” - again using the tips from the same location in the tip box. -->
-<!-- At this point, any empty wells on the plate correspond to tips in the tip box.  I used the multichannel pipet to pick up the tips and held them up to the plate to make sure no tips were going into already filled wells, and no empty wells were being left empty.  Then I filled the rest of the plate. -->
-<!-- ## Make the master mix recipe in a falcon tube or smaller tube if possible: -->
-<!-- ```{r} -->
-<!-- num_samples <- nrow(plate) -->
-<!-- # make some room for error 15% -->
-<!-- samples_with_error <- floor(num_samples * 1.15) -->
-<!-- # use a total of 10 enzyme Units per 50uL reaction, 5 of each enzyme. -->
-<!-- digest_rxn <- read_csv("item, concentration, per_reaction -->
-<!--                        sample, NA, NA -->
-<!--                        enzyme1, NA, NA -->
-<!--                        enzyme2, NA, NA -->
-<!--                        buffer, NA, NA -->
-<!--                        pH2O, NA, NA") %>%  -->
-<!--   mutate(per_reaction = ifelse(item == "sample", params$digest_rxn_size/1.6666, per_reaction),  -->
-<!--          concentration = ifelse(item =="enzyme1", 100000, concentration), -->
-<!--          per_reaction = ifelse(item == "enzyme1", (params$digest_rxn_size)/10/(concentration/1000), per_reaction), -->
-<!--          concentration = ifelse(item =="enzyme2", 10000, concentration), -->
-<!--           per_reaction = ifelse(item == "enzyme2", (params$digest_rxn_size)/10/(concentration/1000), per_reaction), -->
-<!--          concentration = ifelse(item =="buffer", 10, concentration), -->
-<!--           per_reaction = ifelse(item == "buffer", params$digest_rxn_size/concentration, per_reaction)) -->
-<!-- pH2O <- digest_rxn %>%  -->
-<!--   summarise(this = params$digest_rxn_size-sum(per_reaction, na.rm=T)) -->
-<!-- digest_rxn <- digest_rxn %>%  -->
-<!--   mutate(per_reaction = ifelse(item == "pH2O", pH2O$this, per_reaction), -->
-<!--          master_mix = per_reaction * samples_with_error,  -->
-<!--          master_mix = ifelse(item == "sample", NA, master_mix)) -->
-<!-- # double check the math - should return TRUE -->
-<!-- (params$digest_rxn_size*samples_with_error)-(params$digest_rxn_size*.6*samples_with_error) == round(sum(digest_rxn$master_mix, na.rm=T)) -->
-<!-- print(paste0("Total master mix volume is ", round(sum(digest_rxn$master_mix, na.rm=T)), "mL")) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- kable_styling(kable(digest_rxn)) -->
-<!-- ``` -->
-<!--     * split the master mix into 8 wells, use a multichannel pipet to pipet 12µL of master mix into each sample well.  -->
-<!-- ```{r} -->
-<!-- print(paste0("Split into 8 wells by pipetting ", (round(sum(digest_rxn$master_mix, na.rm=T)))/8, "ul into each well")) -->
-<!-- ``` -->
-<!-- # Supplies needed plus the volumes on the master mix recipe. -->
-<!-- ```{r} -->
-<!-- digest <- tibble( -->
-<!--   plates = num_samples/96, -->
-<!--   tubes = num_samples/96,  -->
-<!--   plate_seals = num_samples/96,  -->
-<!--   tips_100 = num_samples * 2 + (ceiling(digest_rxn$master_mix[3]/100)),# referring to enzyme2 -->
-<!--   tips_10 = ceiling(digest_rxn$master_mix[2]/10), # referring to enzyme1 -->
-<!--   tips_300 = ceiling(digest_rxn$master_mix[4]/100), # referring to buffer -->
-<!--   tips_1000 = ceiling(digest_rxn$master_mix[5]/1000) # referring to pH2O -->
-<!--   ) -->
-<!-- ``` -->
-<!--         * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation. -->
-<!-- * Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI longer than one hour, PstI is active 2-4 hours, don’t need to heat kill digests -->
-<!-- Clean the digests using 1.5x the volume of the digest (75µL) Ampure per sample. Put the plates on yellow lifts on the magnet so that the pellet is lower before you finish the alcohol steps.   Because these are in plates and it is difficult to get all of the elute out of the well, elute in 45µL of buffer and pull 40µL from the well to place in a new cleaned digest plate.  Update the database. - Ampure clean up protocol -->
-<!-- Quantifiy - quant-it pico green - import the quantification results into the Sample_Data spreadsheet, Digests Page quant column.  For any sample with a negative quantification value, change the Ligated? column value to N/A (the rest should contain a formula that results in the value “FALSE”).  Also, add an “_F” to the extraction ID (not the digest ID) in the extraction ID column (example: PADE14_093E1516 becomes PADE14_093E1516_F).  This digest failed and so the sample should not reflect that a successful digest exits. -->
-<!--     * More decision making is necessary at this point.  If an extract has less than 5ng/ul DNA, it will most likely fail to digest well.  This is a tough call, some digests with much less than 5ng/ul have ligated successfully and others have not.  Proceed with caution. If there are plenty of samples to choose from, choose the desired number with the most “sample_ng_in”. -->
-<!--         * As of 8/19/2014  -->
-<!--             * any extraction less than 5ng/µL we are putting on the back burner to continue processing at a later date -->
-<!--             * anything that is more than 5ng/µL but makes less than 1µg of DNA when you multiply the quant result by 30µL (the digest addition amount) - calculate the amount of extract to make 1µg DNA and clean that amount, elute in 30µL and add to digest plate  -->
-<!--             * As of 11/2014 we are not worried about “too low” DNA and are not cleaning samples that are below 1000ng.  We have successfully digested down to 100ng.   -->
-<!--             * anything that makes more than 5µg of DNA when you multiply the quant result by 30µL - add 15µL of extract to plate and 15µL pH2O - do the math to make sure this dilution will still be less than 5µg. -->
-<!--     * For the time being, enter the ExtractID in the Digest ID column for ease of sorting (it is easiest to work on extract plates in sample order) - do this by entering the formula =right(B1882,5) in column A -->
-<!--     * Sort by Extract Id (no digest number yet, will sort by sample number), only the range of this plate!!! -->
-<!--     * Fill in date, enzyme, Digest# and replace the Extract# in the Digest_ID column with the formula to concatenate a digest ID. -->
-<!--     * print a map of your extraction plate and new digest plate -->
-<!-- * highlight samples in printed extraction plate maps -->
-<!-- * pipeted aliquot to digest plate for a 50µL digestion reaction -->
-<!-- * Print a plate map and determine which samples can be digested as is, and which need to be diluted - highlight accordingly -->
-<!-- Optimizing Restriction Endonuclease Reactions | New England Biolabs -->
-<!-- For a 50µL rxn, use: -->
-<!-- 1µg DNA - fill to volume w/ pH2O -->
-<!-- 5µL 10x buffer (50µL/10x=5) -->
-<!-- Want a total of 10U in rxn -->
-<!-- For single digest: -->
-<!-- if enzyme is 10,000U/mL - 1µL = 10U -->
-<!-- if enzyme is 20,000U/mL - 0.5µL = 10U -->
-<!-- For double digest -->
-<!-- if enzyme is 10,000U/mL - 0.5µL = 5U -->
-<!-- if enzyme is 20,000U/mL - 0.25µL = 5U  -->
-<!-- PstI - cutsite is  https://www.neb.com/products/r0140-psti -->
-<!-- MluCI - cutsite is  https://www.neb.com/products/r0538-mluci -->
-<!-- EcoRI cutsite is  https://www.neb.com/products/r0101-ecori -->
+<p><em>Copy and paste this file into the lab-notebooks folder, changing the name to match the sample range you are currently working on.</em></p>
+<p>Explanation of parameters:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIChwYXJhbXMpIFxuYGBgIn0= -->
+<pre class="r"><code> (params) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>first: the first extraction in the range of samples for this plate last: the last extraciton in the range of samples for this plate digest_rxn_size: the size in uL of each digest reaction.</p>
+<p><strong>This protocol assumes that you have read and understand the manufacturer’s instructions attached below. Please read the full manufacturer’s instructions before using this abbreviated protocol.</strong></p>
+<!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<p>## Prep for digest The most difficult part of the digest is figuring out where to put the samples. In most cases, it is very straightforward. You pull the sample from the extraction plate and place it in the same well on the digest plate. For example, if an extract is in A4 of the extraction plate, run the digestion reaction in well A4 of the digest plate.</p>
+<p>If this is the case, the source plate map would look like this:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIG5lZWRfZGlnZXN0IDwtIGxhYiAlPiUgdGJsKFwiZXh0cmFjdGlvblwiKSAlPiUgY29sbGVjdCgpICU+JSAgXG4gICAjIGhhc24ndCBiZWVuIGRpZ2VzdGVkIFxuICAgZmlsdGVyKGV4dHJhY3Rpb25faWQgPj0gcGFyYW1zJGZpcnN0ICYgZXh0cmFjdGlvbl9pZCA8PSBwYXJhbXMkbGFzdCkgJT4lICBcbiAgICMgc2VsZWN0IGNvbHVtbnMgXG4gICBzZWxlY3QoZXh0cmFjdGlvbl9pZCwgd2VsbCwgcGxhdGUsIHF1YW50KSAlPiUgIFxuICAgIyBuZWVkIGVub3VnaCBtYXRlcmlhbCB0byB3b3JrIHdpdGggXG4gICBmaWx0ZXIocXVhbnQgPiA1KSAlPiUgIFxuICAgIyBzb3J0IGJ5IGV4dHJhY3Rpb24gaWQgXG4gICBhcnJhbmdlKGV4dHJhY3Rpb25faWQpICU+JSAgXG4gICAjIGNyZWF0ZSByb3cgYW5kIGNvbHVtbiBpZHMgZnJvbSB3ZWxsIFxuICAgbXV0YXRlKHJvdyA9IHN1YnN0cih3ZWxsLCAxLDEpLCAgXG4gICAgICAgICAgY29sID0gYXMubnVtZXJpYyhzdWJzdHIod2VsbCwgMiwzKSkpICU+JSAgXG4gICBzZWxlY3Qocm93LCBjb2wsIGV4dHJhY3Rpb25faWQpIFxuXG4gIyBkZWZpbmUgd2VsbHMgXG4gcGxhdGUgPC0gZGF0YS5mcmFtZShyb3cgPSByZXAoTEVUVEVSU1sxOjhdLCAxMiksIGNvbCA9IHVubGlzdChsYXBwbHkoMToxMiwgcmVwLCA4KSkpICU+JSAgXG4gICBtdXRhdGUoZXh0cmFjdGlvbl9pZCA9IGlmZWxzZShyb3cgPT0gXCJEXCIgJiBjb2wgPT0gMiwgXCJYWFhYXCIsIE5BKSwgIFxuICAgICBleHRyYWN0aW9uX2lkID0gaWZlbHNlKHJvdyA9PSBcIkVcIiAmIGNvbCA9PSA4LCBcIlhYWFhcIiwgZXh0cmFjdGlvbl9pZCkpIFxuXG4gIyBpZiB0aGUgcGxhdGUgaXMgbm90IGZ1bGwgXG4geCA8LSBucm93KG5lZWRfZGlnZXN0KSArIDIgXG4gaWYgKHggPCA5NikgeyBcbiAgIHBsYXRlIDwtIHBsYXRlICU+JSAgXG4gICAgIHNsaWNlKDE6eCkgXG4gfSBcblxuICMgcmVtb3ZlIHRoZSBub24tYmxhbmsgd2VsbHMgZnJvbSB0aGUgcGxhdGUgdGFibGUgXG4gcGxhdGUgPC0gYW50aV9qb2luKHBsYXRlLCBuZWVkX2RpZ2VzdCwgYnkgPSBjKFwicm93XCIsIFwiY29sXCIpKSBcblxuICMgcmVqb2luIHRoZSBzYW1wbGVzIGludG8gdGhlIHBsYXRlIHdpdGggdGhlIGJsYW5rcywgcmVzdWx0aW5nIGluIGEgcGxhdGUgb2YgZGVmaW5lZCB3ZWxscyBmb3Igc2FtcGxlcyBhbmQgYmxhbmtzLiBcbiBwbGF0ZSA8LSByYmluZChwbGF0ZSwgbmVlZF9kaWdlc3QpICU+JSAgXG4gICBhcnJhbmdlKGNvbCwgcm93KSBcblxuIHBsYXRlbWFwIDwtIGFzLm1hdHJpeChyZXNoYXBlMjo6YWNhc3QocGxhdGUsIHBsYXRlJHJvdyB+IHBsYXRlJGNvbCksIHZhbHVlLnZhciA9IHBsYXRlJGV4dHJhY3Rpb24pIFxuIGtuaXRyOjprYWJsZShwbGF0ZW1hcCwgYm9va3RhYnMgPSBUKSAlPiUgIFxuICAgIyB1c2Ugc2NhbGVfZG93biB0byBnZXQgbWFwIHRvIGZpdCB3aXRoaW4gdGhlIGJvdW5kcyBvZiB0aGUgcGRmIFxuICAga2FibGVfc3R5bGluZyhsYXRleF9vcHRpb25zID0gXCJzY2FsZV9kb3duXCIpIFxuXG5cbmBgYCJ9 -->
+<pre class="r"><code> need_digest &lt;- lab %&gt;% tbl(&quot;extraction&quot;) %&gt;% collect() %&gt;%  
+   # hasn&#39;t been digested 
+   filter(extraction_id &gt;= params$first &amp; extraction_id &lt;= params$last) %&gt;%  
+   # select columns 
+   select(extraction_id, well, plate, quant) %&gt;%  
+   # need enough material to work with 
+   filter(quant &gt; 5) %&gt;%  
+   # sort by extraction id 
+   arrange(extraction_id) %&gt;%  
+   # create row and column ids from well 
+   mutate(row = substr(well, 1,1),  
+          col = as.numeric(substr(well, 2,3))) %&gt;%  
+   select(row, col, extraction_id) 
+
+ # define wells 
+ plate &lt;- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %&gt;%  
+   mutate(extraction_id = ifelse(row == &quot;D&quot; &amp; col == 2, &quot;XXXX&quot;, NA),  
+     extraction_id = ifelse(row == &quot;E&quot; &amp; col == 8, &quot;XXXX&quot;, extraction_id)) 
+
+ # if the plate is not full 
+ x &lt;- nrow(need_digest) + 2 
+ if (x &lt; 96) { 
+   plate &lt;- plate %&gt;%  
+     slice(1:x) 
+ } 
+
+ # remove the non-blank wells from the plate table 
+ plate &lt;- anti_join(plate, need_digest, by = c(&quot;row&quot;, &quot;col&quot;)) 
+
+ # rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks. 
+ plate &lt;- rbind(plate, need_digest) %&gt;%  
+   arrange(col, row) 
+
+ platemap &lt;- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction) 
+ knitr::kable(platemap, booktabs = T) %&gt;%  
+   # use scale_down to get map to fit within the bounds of the pdf 
+   kable_styling(latex_options = &quot;scale_down&quot;) 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>However, sometimes we skip some samples that did not perform well, or we want to digest a bunch of extracts from random plates. If it is not a simple plate to plate transfer, the source plate map would look like this:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIGRpZ2VzdGVkIDwtIGxhYiAlPiUgdGJsKFwiZGlnZXN0XCIpICU+JSBjb2xsZWN0KCkgXG4gIyBUT0RPOiBzaG91bGQgZmlsdGVyIHRoaXMgZm9yIHN1Y2Nlc3NmdWwgZGlnZXN0cyBcblxuICAgbmVlZF9kaWdlc3QgPC0gbGFiICU+JSB0YmwoXCJleHRyYWN0aW9uXCIpICU+JSBjb2xsZWN0KCkgJT4lICBcbiAgICMgaGFzbid0IGJlZW4gZGlnZXN0ZWQgXG4gICBmaWx0ZXIoIWV4dHJhY3Rpb25faWQgJWluJSBkaWdlc3RlZCRleHRyYWN0aW9uX2lkKSAlPiUgIFxuICAgIyBzZWxlY3QgY29sdW1ucyBcbiAgIHNlbGVjdChleHRyYWN0aW9uX2lkLCB3ZWxsLCBwbGF0ZSwgcXVhbnQpICU+JSAgXG4gICAjIG5lZWQgZW5vdWdoIG1hdGVyaWFsIHRvIHdvcmsgd2l0aCBcbiAgIGZpbHRlcihxdWFudCA+IDUpICU+JSAgXG4gICAjIG5lZWRzIHRvIGJlIGluIGEgcGxhdGUgXG4gICBmaWx0ZXIoIWlzLm5hKHBsYXRlKSkgJT4lICBcbiAgICMgc29ydCBieSBleHRyYWN0aW9uIGlkIFxuICAgYXJyYW5nZShleHRyYWN0aW9uX2lkKSBcblxuICAgIyBkZWZpbmUgd2VsbHMgXG4gcGxhdGUgPC0gZGF0YS5mcmFtZShyb3cgPSByZXAoTEVUVEVSU1sxOjhdLCAxMiksIGNvbCA9IHVubGlzdChsYXBwbHkoMToxMiwgcmVwLCA4KSkpICU+JSAgXG4gICBtdXRhdGUoZXh0cmFjdGlvbl9pZCA9IGlmZWxzZShyb3cgPT0gXCJEXCIgJiBjb2wgPT0gMiwgXCJYWFhYXCIsIE5BKSwgIFxuICAgICBleHRyYWN0aW9uX2lkID0gaWZlbHNlKHJvdyA9PSBcIkVcIiAmIGNvbCA9PSA4LCBcIlhYWFhcIiwgZXh0cmFjdGlvbl9pZCkpIFxuXG4gIyBpZiB0aGUgcGxhdGUgaXMgbm90IGZ1bGwgXG4geCA8LSBucm93KG5lZWRfZGlnZXN0KSArIDIgXG4gaWYgKHggPCA5NikgeyBcbiAgIGlmKHggPCA0OCl7IFxuICAgICBwbGF0ZSA8LSBwbGF0ZSAlPiUgIFxuICAgICAgIHNsaWNlKDE6eC0xKSBcbiAgIH1lbHNleyBcbiAgICAgcGxhdGUgPC0gcGxhdGUgJT4lICBcbiAgICAgc2xpY2UoMTp4KSBcbiAgIH0gXG4gfSBcblxuICMgbW92ZSBhbGwgb2YgdGhlIG5vbi1ibGFuayB3ZWxscyBpbnRvIHRoZWlyIG93biB0YWJsZSBcbiBzYW1wbGVzIDwtIHBsYXRlICU+JSAgXG4gICBmaWx0ZXIoaXMubmEoZXh0cmFjdGlvbl9pZCkpICU+JSAgXG4gICBzZWxlY3QoLWV4dHJhY3Rpb25faWQpIFxuXG4gIyByZW1vdmUgdGhlIG5vbi1ibGFuayB3ZWxscyBmcm9tIHRoZSBwbGF0ZSB0YWJsZSBcbiBwbGF0ZSA8LSBhbnRpX2pvaW4ocGxhdGUsIHNhbXBsZXMsIGJ5ID0gYyhcInJvd1wiLCBcImNvbFwiKSkgXG5cbiAjIGpvaW4gdGhlIHdvcmsgc2FtcGxlX2lkcyB0byB0aGUgc2FtcGxlIHRhYmxlIHdlbGwgZGVmaW5pdGlvbnMgXG4gc2FtcGxlcyA8LSBjYmluZChzYW1wbGVzLCBuZWVkX2RpZ2VzdCkgJT4lICBcbiAgIHNlbGVjdChyb3csIGNvbCwgZXh0cmFjdGlvbl9pZCkgXG5cbiAjIHJlam9pbiB0aGUgc2FtcGxlcyBpbnRvIHRoZSBwbGF0ZSB3aXRoIHRoZSBibGFua3MsIHJlc3VsdGluZyBpbiBhIHBsYXRlIG9mIGRlZmluZWQgd2VsbHMgZm9yIHNhbXBsZXMgYW5kIGJsYW5rcy4gXG4gcGxhdGUgPC0gcmJpbmQocGxhdGUsIHNhbXBsZXMpICU+JSAgXG4gICBhcnJhbmdlKGNvbCwgcm93KSBcblxuIHNvdXJjZV9tYXAgPC0gYXMubWF0cml4KHJlc2hhcGUyOjphY2FzdChwbGF0ZSwgcGxhdGUkcm93IH4gcGxhdGUkY29sKSwgdmFsdWUudmFyID0gcGxhdGUkZXh0cmFjdGlvbikgXG4ga25pdHI6OmthYmxlKHNvdXJjZV9tYXAsIGJvb2t0YWJzID0gVCkgJT4lICBcbiAgICMgdXNlIHNjYWxlX2Rvd24gdG8gZ2V0IG1hcCB0byBmaXQgd2l0aGluIHRoZSBib3VuZHMgb2YgdGhlIHBkZiBcbiAgIGthYmxlX3N0eWxpbmcobGF0ZXhfb3B0aW9ucyA9IFwic2NhbGVfZG93blwiKSBcbmBgYCJ9 -->
+<pre class="r"><code> digested &lt;- lab %&gt;% tbl(&quot;digest&quot;) %&gt;% collect() 
+ # TODO: should filter this for successful digests 
+
+   need_digest &lt;- lab %&gt;% tbl(&quot;extraction&quot;) %&gt;% collect() %&gt;%  
+   # hasn&#39;t been digested 
+   filter(!extraction_id %in% digested$extraction_id) %&gt;%  
+   # select columns 
+   select(extraction_id, well, plate, quant) %&gt;%  
+   # need enough material to work with 
+   filter(quant &gt; 5) %&gt;%  
+   # needs to be in a plate 
+   filter(!is.na(plate)) %&gt;%  
+   # sort by extraction id 
+   arrange(extraction_id) 
+
+   # define wells 
+ plate &lt;- data.frame(row = rep(LETTERS[1:8], 12), col = unlist(lapply(1:12, rep, 8))) %&gt;%  
+   mutate(extraction_id = ifelse(row == &quot;D&quot; &amp; col == 2, &quot;XXXX&quot;, NA),  
+     extraction_id = ifelse(row == &quot;E&quot; &amp; col == 8, &quot;XXXX&quot;, extraction_id)) 
+
+ # if the plate is not full 
+ x &lt;- nrow(need_digest) + 2 
+ if (x &lt; 96) { 
+   if(x &lt; 48){ 
+     plate &lt;- plate %&gt;%  
+       slice(1:x-1) 
+   }else{ 
+     plate &lt;- plate %&gt;%  
+     slice(1:x) 
+   } 
+ } 
+
+ # move all of the non-blank wells into their own table 
+ samples &lt;- plate %&gt;%  
+   filter(is.na(extraction_id)) %&gt;%  
+   select(-extraction_id) 
+
+ # remove the non-blank wells from the plate table 
+ plate &lt;- anti_join(plate, samples, by = c(&quot;row&quot;, &quot;col&quot;)) 
+
+ # join the work sample_ids to the sample table well definitions 
+ samples &lt;- cbind(samples, need_digest) %&gt;%  
+   select(row, col, extraction_id) 
+
+ # rejoin the samples into the plate with the blanks, resulting in a plate of defined wells for samples and blanks. 
+ plate &lt;- rbind(plate, samples) %&gt;%  
+   arrange(col, row) 
+
+ source_map &lt;- as.matrix(reshape2::acast(plate, plate$row ~ plate$col), value.var = plate$extraction) 
+ knitr::kable(source_map, booktabs = T) %&gt;%  
+   # use scale_down to get map to fit within the bounds of the pdf 
+   kable_styling(latex_options = &quot;scale_down&quot;) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>A digest id must be created for these samples.<br />
+<strong>Only do this step once!</strong><br />
+It creates new digest_ids for the database.<br />
+The destination plate map would look like this:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICMjIyBPTkxZIERPIFRISVMgT05DRSAjIyMgXG4gZGlnX21heCA8LSBsYWIgJT4lIHRibChcImRpZ2VzdFwiKSAlPiUgIFxuICAgc3VtbWFyaXNlKGxhc3QgPSBtYXgoZGlnZXN0X2lkLCBuYS5ybSA9IFQpKSAlPiUgIFxuICAgY29sbGVjdCgpICU+JSAgXG4gICBtdXRhdGUobGFzdCA9IGFzLm51bWVyaWMoc3Vic3RyKGxhc3QsIDIsNSkpKSBcblxuIHggPC0gZGlnX21heCRsYXN0KzEgXG4geSA8LSBkaWdfbWF4JGxhc3QrbnJvdyhwbGF0ZSkgXG4gaWRfcmFuZ2UgPC0geDp5IFxuXG4gcGxhdGUgPC0gcGxhdGUgJT4lICBcbiAgIG11dGF0ZShkaWdlc3RfaWQgPSBwYXN0ZTAoXCJEXCIsIGlkX3JhbmdlKSwgXG4gICAgICAgICAgd2VsbCA9IHBhc3RlKHJvdywgY29sLCBzZXAgPSBcIlwiKSwgIFxuICAgICAgICAgIGVuenltZXMgPSBcIlBzdEktTWx1Q0lcIiwgXG4gICAgICAgICAgdm9sX2luID0gMzAsIFxuICAgICAgICAgIGZpbmFsX3ZvbCA9IDQ1KSBcblxuIHBsYXRlX25hbWUgPC0gcGxhdGUgJT4lICBcbiAgIHN1bW1hcmlzZShmaXJzdCA9IG1pbihkaWdlc3RfaWQpLCAgXG4gICAgIGxhc3QgPSBtYXgoZGlnZXN0X2lkLCBuYS5ybSA9IFQpKSBcblxuIGRlc3RfbWFwIDwtIHBsYXRlICU+JSAgXG4gICBtdXRhdGUocGxhdGUgPSBwYXN0ZShwbGF0ZV9uYW1lJGZpcnN0LCBwbGF0ZV9uYW1lJGxhc3QsIHNlcCA9IFwiLVwiKSkgJT4lICBcbiAgIHNlbGVjdChyb3csIGNvbCwgZGlnZXN0X2lkKSBcblxuIGRlc3RfbWFwIDwtIGFzLm1hdHJpeChyZXNoYXBlMjo6YWNhc3QoZGVzdF9tYXAsIGRlc3RfbWFwJHJvdyB+IGRlc3RfbWFwJGNvbCksIHZhbHVlLnZhciA9IGRlc3RfbWFwJGRpZ2VzdF9pZCkgXG5cbiBrbml0cjo6a2FibGUoZGVzdF9tYXAsIGJvb2t0YWJzID0gVCkgJT4lICBcbiAgIGthYmxlX3N0eWxpbmcoKSBcblxuYGBgIn0= -->
+<pre class="r"><code> ### ONLY DO THIS ONCE ### 
+ dig_max &lt;- lab %&gt;% tbl(&quot;digest&quot;) %&gt;%  
+   summarise(last = max(digest_id, na.rm = T)) %&gt;%  
+   collect() %&gt;%  
+   mutate(last = as.numeric(substr(last, 2,5))) 
+
+ x &lt;- dig_max$last+1 
+ y &lt;- dig_max$last+nrow(plate) 
+ id_range &lt;- x:y 
+
+ plate &lt;- plate %&gt;%  
+   mutate(digest_id = paste0(&quot;D&quot;, id_range), 
+          well = paste(row, col, sep = &quot;&quot;),  
+          enzymes = &quot;PstI-MluCI&quot;, 
+          vol_in = 30, 
+          final_vol = 45) 
+
+ plate_name &lt;- plate %&gt;%  
+   summarise(first = min(digest_id),  
+     last = max(digest_id, na.rm = T)) 
+
+ dest_map &lt;- plate %&gt;%  
+   mutate(plate = paste(plate_name$first, plate_name$last, sep = &quot;-&quot;)) %&gt;%  
+   select(row, col, digest_id) 
+
+ dest_map &lt;- as.matrix(reshape2::acast(dest_map, dest_map$row ~ dest_map$col), value.var = dest_map$digest_id) 
+
+ knitr::kable(dest_map, booktabs = T) %&gt;%  
+   kable_styling() 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Print out plate maps and highlight source maps for ease of loading. Make sure to note any samples that are heavily concentrated and need to be diluted.</p>
+<p>Prepare digest plate by loading 30uL of sample in to the plate.</p>
+<p>For the October 2017 set of plates, I highlighted the 15uL samples on the maps in orange and the “hole-fillers” in pink, then any samples I could take with a multichannel with a blue line down the column.</p>
+<p>To load, I first used a single channel pipet to fill in the 15uL samples (extra concentrated samples), pulling the tips from the same location they were on the plate. Then I filled in the water for the 15uL wells and change the pipet to 30uL to fill the blanks. Then I added any 30uL “hole fillers” - again using the tips from the same location in the tip box.</p>
+<p>At this point, any empty wells on the plate correspond to tips in the tip box. I used the multichannel pipet to pick up the tips and held them up to the plate to make sure no tips were going into already filled wells, and no empty wells were being left empty. Then I filled the rest of the plate.</p>
+<p>## Make the master mix recipe in a falcon tube or smaller tube if possible:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIG51bV9zYW1wbGVzIDwtIG5yb3cocGxhdGUpIFxuXG4gIyBtYWtlIHNvbWUgcm9vbSBmb3IgZXJyb3IgMTUlIFxuIHNhbXBsZXNfd2l0aF9lcnJvciA8LSBmbG9vcihudW1fc2FtcGxlcyAqIDEuMTUpIFxuXG4gIyB1c2UgYSB0b3RhbCBvZiAxMCBlbnp5bWUgVW5pdHMgcGVyIDUwdUwgcmVhY3Rpb24sIDUgb2YgZWFjaCBlbnp5bWUuIFxuXG4gZGlnZXN0X3J4biA8LSByZWFkX2NzdihcIml0ZW0sIGNvbmNlbnRyYXRpb24sIHBlcl9yZWFjdGlvbiBcbiAgICAgICAgICAgICAgICAgICAgICAgIHNhbXBsZSwgTkEsIE5BIFxuICAgICAgICAgICAgICAgICAgICAgICAgZW56eW1lMSwgTkEsIE5BIFxuICAgICAgICAgICAgICAgICAgICAgICAgZW56eW1lMiwgTkEsIE5BIFxuICAgICAgICAgICAgICAgICAgICAgICAgYnVmZmVyLCBOQSwgTkEgXG4gICAgICAgICAgICAgICAgICAgICAgICBwSDJPLCBOQSwgTkFcIikgJT4lICBcbiAgIG11dGF0ZShwZXJfcmVhY3Rpb24gPSBpZmVsc2UoaXRlbSA9PSBcInNhbXBsZVwiLCBwYXJhbXMkZGlnZXN0X3J4bl9zaXplLzEuNjY2NiwgcGVyX3JlYWN0aW9uKSwgIFxuICAgICAgICAgIGNvbmNlbnRyYXRpb24gPSBpZmVsc2UoaXRlbSA9PVwiZW56eW1lMVwiLCAxMDAwMDAsIGNvbmNlbnRyYXRpb24pLCBcbiAgICAgICAgICBwZXJfcmVhY3Rpb24gPSBpZmVsc2UoaXRlbSA9PSBcImVuenltZTFcIiwgKHBhcmFtcyRkaWdlc3RfcnhuX3NpemUpLzEwLyhjb25jZW50cmF0aW9uLzEwMDApLCBwZXJfcmVhY3Rpb24pLCBcbiAgICAgICAgICBjb25jZW50cmF0aW9uID0gaWZlbHNlKGl0ZW0gPT1cImVuenltZTJcIiwgMTAwMDAsIGNvbmNlbnRyYXRpb24pLCBcbiAgICAgICAgICAgcGVyX3JlYWN0aW9uID0gaWZlbHNlKGl0ZW0gPT0gXCJlbnp5bWUyXCIsIChwYXJhbXMkZGlnZXN0X3J4bl9zaXplKS8xMC8oY29uY2VudHJhdGlvbi8xMDAwKSwgcGVyX3JlYWN0aW9uKSwgXG4gICAgICAgICAgY29uY2VudHJhdGlvbiA9IGlmZWxzZShpdGVtID09XCJidWZmZXJcIiwgMTAsIGNvbmNlbnRyYXRpb24pLCBcbiAgICAgICAgICAgcGVyX3JlYWN0aW9uID0gaWZlbHNlKGl0ZW0gPT0gXCJidWZmZXJcIiwgcGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZS9jb25jZW50cmF0aW9uLCBwZXJfcmVhY3Rpb24pKSBcblxuIHBIMk8gPC0gZGlnZXN0X3J4biAlPiUgIFxuICAgc3VtbWFyaXNlKHRoaXMgPSBwYXJhbXMkZGlnZXN0X3J4bl9zaXplLXN1bShwZXJfcmVhY3Rpb24sIG5hLnJtPVQpKSBcblxuIGRpZ2VzdF9yeG4gPC0gZGlnZXN0X3J4biAlPiUgIFxuICAgbXV0YXRlKHBlcl9yZWFjdGlvbiA9IGlmZWxzZShpdGVtID09IFwicEgyT1wiLCBwSDJPJHRoaXMsIHBlcl9yZWFjdGlvbiksIFxuICAgICAgICAgIG1hc3Rlcl9taXggPSBwZXJfcmVhY3Rpb24gKiBzYW1wbGVzX3dpdGhfZXJyb3IsICBcbiAgICAgICAgICBtYXN0ZXJfbWl4ID0gaWZlbHNlKGl0ZW0gPT0gXCJzYW1wbGVcIiwgTkEsIG1hc3Rlcl9taXgpKSBcblxuICMgZG91YmxlIGNoZWNrIHRoZSBtYXRoIC0gc2hvdWxkIHJldHVybiBUUlVFIFxuIChwYXJhbXMkZGlnZXN0X3J4bl9zaXplKnNhbXBsZXNfd2l0aF9lcnJvciktKHBhcmFtcyRkaWdlc3RfcnhuX3NpemUqLjYqc2FtcGxlc193aXRoX2Vycm9yKSA9PSByb3VuZChzdW0oZGlnZXN0X3J4biRtYXN0ZXJfbWl4LCBuYS5ybT1UKSkgXG5cbiBwcmludChwYXN0ZTAoXCJUb3RhbCBtYXN0ZXIgbWl4IHZvbHVtZSBpcyBcIiwgcm91bmQoc3VtKGRpZ2VzdF9yeG4kbWFzdGVyX21peCwgbmEucm09VCkpLCBcIm1MXCIpKSBcbmBgYCJ9 -->
+<pre class="r"><code> num_samples &lt;- nrow(plate) 
+
+ # make some room for error 15% 
+ samples_with_error &lt;- floor(num_samples * 1.15) 
+
+ # use a total of 10 enzyme Units per 50uL reaction, 5 of each enzyme. 
+
+ digest_rxn &lt;- read_csv(&quot;item, concentration, per_reaction 
+                        sample, NA, NA 
+                        enzyme1, NA, NA 
+                        enzyme2, NA, NA 
+                        buffer, NA, NA 
+                        pH2O, NA, NA&quot;) %&gt;%  
+   mutate(per_reaction = ifelse(item == &quot;sample&quot;, params$digest_rxn_size/1.6666, per_reaction),  
+          concentration = ifelse(item ==&quot;enzyme1&quot;, 100000, concentration), 
+          per_reaction = ifelse(item == &quot;enzyme1&quot;, (params$digest_rxn_size)/10/(concentration/1000), per_reaction), 
+          concentration = ifelse(item ==&quot;enzyme2&quot;, 10000, concentration), 
+           per_reaction = ifelse(item == &quot;enzyme2&quot;, (params$digest_rxn_size)/10/(concentration/1000), per_reaction), 
+          concentration = ifelse(item ==&quot;buffer&quot;, 10, concentration), 
+           per_reaction = ifelse(item == &quot;buffer&quot;, params$digest_rxn_size/concentration, per_reaction)) 
+
+ pH2O &lt;- digest_rxn %&gt;%  
+   summarise(this = params$digest_rxn_size-sum(per_reaction, na.rm=T)) 
+
+ digest_rxn &lt;- digest_rxn %&gt;%  
+   mutate(per_reaction = ifelse(item == &quot;pH2O&quot;, pH2O$this, per_reaction), 
+          master_mix = per_reaction * samples_with_error,  
+          master_mix = ifelse(item == &quot;sample&quot;, NA, master_mix)) 
+
+ # double check the math - should return TRUE 
+ (params$digest_rxn_size*samples_with_error)-(params$digest_rxn_size*.6*samples_with_error) == round(sum(digest_rxn$master_mix, na.rm=T)) 
+
+ print(paste0(&quot;Total master mix volume is &quot;, round(sum(digest_rxn$master_mix, na.rm=T)), &quot;mL&quot;)) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIGthYmxlX3N0eWxpbmcoa2FibGUoZGlnZXN0X3J4bikpIFxuYGBgIn0= -->
+<pre class="r"><code> kable_styling(kable(digest_rxn)) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<pre><code> * split the master mix into 8 wells, use a multichannel pipet to pipet 12µL of master mix into each sample well.  </code></pre>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIHByaW50KHBhc3RlMChcIlNwbGl0IGludG8gOCB3ZWxscyBieSBwaXBldHRpbmcgXCIsIChyb3VuZChzdW0oZGlnZXN0X3J4biRtYXN0ZXJfbWl4LCBuYS5ybT1UKSkpLzgsIFwidWwgaW50byBlYWNoIHdlbGxcIikpIFxuYGBgIn0= -->
+<pre class="r"><code> print(paste0(&quot;Split into 8 wells by pipetting &quot;, (round(sum(digest_rxn$master_mix, na.rm=T)))/8, &quot;ul into each well&quot;)) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p># Supplies needed plus the volumes on the master mix recipe.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIGRpZ2VzdCA8LSB0aWJibGUoIFxuICAgcGxhdGVzID0gbnVtX3NhbXBsZXMvOTYsIFxuICAgdHViZXMgPSBudW1fc2FtcGxlcy85NiwgIFxuICAgcGxhdGVfc2VhbHMgPSBudW1fc2FtcGxlcy85NiwgIFxuICAgdGlwc18xMDAgPSBudW1fc2FtcGxlcyAqIDIgKyAoY2VpbGluZyhkaWdlc3RfcnhuJG1hc3Rlcl9taXhbM10vMTAwKSksIyByZWZlcnJpbmcgdG8gZW56eW1lMiBcbiAgIHRpcHNfMTAgPSBjZWlsaW5nKGRpZ2VzdF9yeG4kbWFzdGVyX21peFsyXS8xMCksICMgcmVmZXJyaW5nIHRvIGVuenltZTEgXG4gICB0aXBzXzMwMCA9IGNlaWxpbmcoZGlnZXN0X3J4biRtYXN0ZXJfbWl4WzRdLzEwMCksICMgcmVmZXJyaW5nIHRvIGJ1ZmZlciBcbiAgIHRpcHNfMTAwMCA9IGNlaWxpbmcoZGlnZXN0X3J4biRtYXN0ZXJfbWl4WzVdLzEwMDApICMgcmVmZXJyaW5nIHRvIHBIMk8gXG4gICApIFxuYGBgIn0= -->
+<pre class="r"><code> digest &lt;- tibble( 
+   plates = num_samples/96, 
+   tubes = num_samples/96,  
+   plate_seals = num_samples/96,  
+   tips_100 = num_samples * 2 + (ceiling(digest_rxn$master_mix[3]/100)),# referring to enzyme2 
+   tips_10 = ceiling(digest_rxn$master_mix[2]/10), # referring to enzyme1 
+   tips_300 = ceiling(digest_rxn$master_mix[4]/100), # referring to buffer 
+   tips_1000 = ceiling(digest_rxn$master_mix[5]/1000) # referring to pH2O 
+   ) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<pre><code>     * Do not add the master mix to all of the wells and then add the sample.  Because you are working with active enzymes, they should be the last things added to the master mix and the last step of plate preparation. </code></pre>
+<ul>
+<li>Incubate PstI and MluCI at 37˚ - No benefit from incubating MluCI longer than one hour, PstI is active 2-4 hours, don’t need to heat kill digests</li>
+</ul>
+<p>Clean the digests using 1.5x the volume of the digest (75µL) Ampure per sample. Put the plates on yellow lifts on the magnet so that the pellet is lower before you finish the alcohol steps. Because these are in plates and it is difficult to get all of the elute out of the well, elute in 45µL of buffer and pull 40µL from the well to place in a new cleaned digest plate. Update the database. - Ampure clean up protocol</p>
+<p>Quantifiy - quant-it pico green - import the quantification results into the Sample_Data spreadsheet, Digests Page quant column. For any sample with a negative quantification value, change the Ligated? column value to N/A (the rest should contain a formula that results in the value “FALSE”). Also, add an “_F” to the extraction ID (not the digest ID) in the extraction ID column (example: PADE14_093E1516 becomes PADE14_093E1516_F). This digest failed and so the sample should not reflect that a successful digest exits.</p>
+<pre><code> * More decision making is necessary at this point.  If an extract has less than 5ng/ul DNA, it will most likely fail to digest well.  This is a tough call, some digests with much less than 5ng/ul have ligated successfully and others have not.  Proceed with caution. If there are plenty of samples to choose from, choose the desired number with the most “sample_ng_in”. 
+     * As of 8/19/2014  
+         * any extraction less than 5ng/µL we are putting on the back burner to continue processing at a later date 
+         * anything that is more than 5ng/µL but makes less than 1µg of DNA when you multiply the quant result by 30µL (the digest addition amount) - calculate the amount of extract to make 1µg DNA and clean that amount, elute in 30µL and add to digest plate  
+         * As of 11/2014 we are not worried about “too low” DNA and are not cleaning samples that are below 1000ng.  We have successfully digested down to 100ng.   
+         * anything that makes more than 5µg of DNA when you multiply the quant result by 30µL - add 15µL of extract to plate and 15µL pH2O - do the math to make sure this dilution will still be less than 5µg. 
+ * For the time being, enter the ExtractID in the Digest ID column for ease of sorting (it is easiest to work on extract plates in sample order) - do this by entering the formula =right(B1882,5) in column A 
+ * Sort by Extract Id (no digest number yet, will sort by sample number), only the range of this plate!!! 
+ * Fill in date, enzyme, Digest# and replace the Extract# in the Digest_ID column with the formula to concatenate a digest ID. 
+ * print a map of your extraction plate and new digest plate </code></pre>
+<ul>
+<li>highlight samples in printed extraction plate maps</li>
+<li>pipeted aliquot to digest plate for a 50µL digestion reaction</li>
+<li>Print a plate map and determine which samples can be digested as is, and which need to be diluted - highlight accordingly</li>
+</ul>
+<p>Optimizing Restriction Endonuclease Reactions | New England Biolabs For a 50µL rxn, use:</p>
+<p>1µg DNA - fill to volume w/ pH2O 5µL 10x buffer (50µL/10x=5)</p>
+<p>Want a total of 10U in rxn For single digest: if enzyme is 10,000U/mL - 1µL = 10U if enzyme is 20,000U/mL - 0.5µL = 10U</p>
+<p>For double digest if enzyme is 10,000U/mL - 0.5µL = 5U if enzyme is 20,000U/mL - 0.25µL = 5U</p>
+<p>PstI - cutsite is <a href="https://www.neb.com/products/r0140-psti" class="uri">https://www.neb.com/products/r0140-psti</a></p>
+<p>MluCI - cutsite is <a href="https://www.neb.com/products/r0538-mluci" class="uri">https://www.neb.com/products/r0538-mluci</a></p>
+<p>EcoRI cutsite is <a href="https://www.neb.com/products/r0101-ecori" class="uri">https://www.neb.com/products/r0101-ecori</a></p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGlnZXN0IE1ldGhvZCIKb3V0cHV0OgogIGh0bWxfbm90ZWJvb2s6CiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUKICAgIGRmX3ByaW50OiBwYWdlZApwYXJhbXM6CiAgZmlyc3Q6IGZpcnN0CiAgbGFzdDogbGFzdAogIGRpZ2VzdF9yeG5fc2l6ZTogNTAKICBudW1fZG5hX3NhbXBsZXM6IDk2CiAgZW56eW1lX3VuaXRzOiA1Ci0tLQpgYGB7ciBpbmNsdWRlPUZBTFNFfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgpgYGB7cn0KZGlnZXN0X2d1aWRlIDwtdHJpYmJsZSh+aXRlbSwgfmluaXRpYWxfY29uYywgfmluaXRpYWxfdm9sX3VsLCAKICAgICAgICAgICAgICAgICAgICJwc3RpXzEwMDAwMHUvbWxfdWwiLCAxMDAwMDAsIChwYXJhbXMkZW56eW1lX3VuaXRzLzUwKnBhcmFtcyRkaWdlc3RfcnhuX3NpemUpLygxMDApLAogICAgICAgICAgICAgICAgICAgIm1sdWNpXzEwMDAwdS9tTF91bCIsIDEwMDAwLCAocGFyYW1zJGVuenltZV91bml0cy81MCpwYXJhbXMkZGlnZXN0X3J4bl9zaXplKS8oMTApLAogICAgICAgICAgICAgICAgICAgIjEweF9idWZmZXJfdWwiLCAxMCwgcGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZS8xMCwKICAgICAgICAgICAgICAgICAgICJwaDJvX3VsIiwgMCwgMCkgJT4lIAogIG11dGF0ZShmaW5hbF92b2xfdWwgPSBwYXJhbXMkZGlnZXN0X3J4bl9zaXplLAogICAgICAgICBpbml0aWFsX3ZvbF91bCA9IGlmZWxzZShpdGVtID09ICJwaDJvX3VsIixmaW5hbF92b2xfdWwgLSBzdW0oaW5pdGlhbF92b2xfdWwsIG5hLnJtID0gVCksIGluaXRpYWxfdm9sX3VsKSkKCmRpZ2VzdF9kbmEgPC0gZGlnZXN0X2d1aWRlICU+JSAKICBzZWxlY3QoaXRlbSwgaW5pdGlhbF92b2xfdWwpICU+JSAKICByZW5hbWUocXVhbnRpdHkgPSBpbml0aWFsX3ZvbF91bCkgJT4lIAogIG11dGF0ZShpdGVtID0gaWZlbHNlKGl0ZW0gPT0gInBoMm9fdWwiLCAicGgyb19tbCIsIGl0ZW0pLCAKICAgICAgICAgcXVhbnRpdHkgPSBpZmVsc2UoaXRlbSA9PSAicGgyb19tbCIsIHF1YW50aXR5LzEwMDAsIHF1YW50aXR5KSkgJT4lIAogIGJpbmRfcm93cyh0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksCiAgICAgICAgICAgICAgICAgICAgIGlmZWxzZShwYXJhbXMkbnVtX3NhbXBsZXMgPDIwLCAidHViZXNfMjAwdWwiLCAicGxhdGVzIiksIGlmZWxzZShwYXJhbXMkbnVtX3NhbXBsZXMgPCAyMCwgcGFyYW1zJG51bV9zYW1wbGVzLCBjZWlsaW5nKHBhcmFtcyRudW1fc2FtcGxlcy85NikpLAogICAgICAgICAgICAidGlwc18xMCIsIDMsCiAgICAgICAgICAgICJ0aXBzXzEwMCIsIDEsCiAgICAgICAgICAgICJ0aXBzXzEwMCIsIHBhcmFtcyRudW1fc2FtcGxlcykpCnJtKGRpZ2VzdF9ndWlkZSkKYGBgCgo8IS0tICpDb3B5IGFuZCBwYXN0ZSB0aGlzIGZpbGUgaW50byB0aGUgbGFiLW5vdGVib29rcyBmb2xkZXIsIGNoYW5naW5nIHRoZSBuYW1lIHRvIG1hdGNoIHRoZSBzYW1wbGUgcmFuZ2UgeW91IGFyZSBjdXJyZW50bHkgd29ya2luZyBvbi4qICAgLS0+Cgo8IS0tIEV4cGxhbmF0aW9uIG9mIHBhcmFtZXRlcnM6IC0tPgo8IS0tIGBgYHtyfSAtLT4KPCEtLSAocGFyYW1zKSAtLT4KPCEtLSBgYGAgLS0+CjwhLS0gZmlyc3Q6IHRoZSBmaXJzdCBleHRyYWN0aW9uIGluIHRoZSByYW5nZSBvZiBzYW1wbGVzIGZvciB0aGlzIHBsYXRlIC0tPgo8IS0tIGxhc3Q6IHRoZSBsYXN0IGV4dHJhY2l0b24gaW4gdGhlIHJhbmdlIG9mIHNhbXBsZXMgZm9yIHRoaXMgcGxhdGUgLS0+CjwhLS0gZGlnZXN0X3J4bl9zaXplOiB0aGUgc2l6ZSBpbiB1TCBvZiBlYWNoIGRpZ2VzdCByZWFjdGlvbi4gLS0+CgoKCjwhLS0gKipUaGlzIHByb3RvY29sIGFzc3VtZXMgdGhhdCB5b3UgaGF2ZSByZWFkIGFuZCB1bmRlcnN0YW5kIHRoZSBtYW51ZmFjdHVyZXLigJlzIGluc3RydWN0aW9ucyBhdHRhY2hlZCBiZWxvdy4gIFBsZWFzZSByZWFkIHRoZSBmdWxsIG1hbnVmYWN0dXJlcuKAmXMgaW5zdHJ1Y3Rpb25zIGJlZm9yZSB1c2luZyB0aGlzIGFiYnJldmlhdGVkIHByb3RvY29sLioqIC0tPgoKPCEtLSBgYGB7ciBzZXR1cCwgaW5jbHVkZSA9IEZBTFNFfSAtLT4KPCEtLSBrbml0cjo6b3B0c19jaHVuayRzZXQoIC0tPgo8IS0tIAllY2hvID0gRkFMU0UsIC0tPgo8IS0tIAltZXNzYWdlID0gRkFMU0UsIC0tPgo8IS0tIAl3YXJuaW5nID0gRkFMU0UgLS0+CjwhLS0gKSAtLT4KPCEtLSAjIGxvYWQgbGlicmFyaWVzIC0tPgo8IS0tIGxpYnJhcnkodGlkeXZlcnNlKSAtLT4KPCEtLSBsaWJyYXJ5KGthYmxlRXh0cmEpIC0tPgo8IS0tIGxpYnJhcnkoa25pdHIpIC0tPgoKPCEtLSAjIGxvYWQgZnVuY3Rpb25zIC0tPgo8IS0tIHNvdXJjZSgifi9kYi1jb25uZWN0aW9ucy5SIikgLS0+Cgo8IS0tICMgbG9hZCBkYXRhIC0tPgo8IS0tIGxhYiA8LSByZWFkX2RiKCJMYWJvcmF0b3J5IikgLS0+CjwhLS0gYGBgIC0tPgoKCjwhLS0gIyMgUHJlcCBmb3IgZGlnZXN0IC0tPgo8IS0tIFRoZSBtb3N0IGRpZmZpY3VsdCBwYXJ0IG9mIHRoZSBkaWdlc3QgaXMgZmlndXJpbmcgb3V0IHdoZXJlIHRvIHB1dCB0aGUgc2FtcGxlcy4gIEluIG1vc3QgY2FzZXMsIGl0IGlzIHZlcnkgc3RyYWlnaHRmb3J3YXJkLiAgWW91IHB1bGwgdGhlIHNhbXBsZSBmcm9tIHRoZSBleHRyYWN0aW9uIHBsYXRlIGFuZCBwbGFjZSBpdCBpbiB0aGUgc2FtZSB3ZWxsIG9uIHRoZSBkaWdlc3QgcGxhdGUuICBGb3IgZXhhbXBsZSwgaWYgYW4gZXh0cmFjdCBpcyBpbiBBNCBvZiB0aGUgZXh0cmFjdGlvbiBwbGF0ZSwgcnVuIHRoZSBkaWdlc3Rpb24gcmVhY3Rpb24gaW4gd2VsbCBBNCBvZiB0aGUgZGlnZXN0IHBsYXRlLiAgIC0tPgoKPCEtLSBJZiB0aGlzIGlzIHRoZSBjYXNlLCB0aGUgc291cmNlIHBsYXRlIG1hcCB3b3VsZCBsb29rIGxpa2UgdGhpczogLS0+CjwhLS0gYGBge3J9IC0tPgo8IS0tIG5lZWRfZGlnZXN0IDwtIGxhYiAlPiUgdGJsKCJleHRyYWN0aW9uIikgJT4lIGNvbGxlY3QoKSAlPiUgIC0tPgo8IS0tICAgIyBoYXNuJ3QgYmVlbiBkaWdlc3RlZCAtLT4KPCEtLSAgIGZpbHRlcihleHRyYWN0aW9uX2lkID49IHBhcmFtcyRmaXJzdCAmIGV4dHJhY3Rpb25faWQgPD0gcGFyYW1zJGxhc3QpICU+JSAgLS0+CjwhLS0gICAjIHNlbGVjdCBjb2x1bW5zIC0tPgo8IS0tICAgc2VsZWN0KGV4dHJhY3Rpb25faWQsIHdlbGwsIHBsYXRlLCBxdWFudCkgJT4lICAtLT4KPCEtLSAgICMgbmVlZCBlbm91Z2ggbWF0ZXJpYWwgdG8gd29yayB3aXRoIC0tPgo8IS0tICAgZmlsdGVyKHF1YW50ID4gNSkgJT4lICAtLT4KPCEtLSAgICMgc29ydCBieSBleHRyYWN0aW9uIGlkIC0tPgo8IS0tICAgYXJyYW5nZShleHRyYWN0aW9uX2lkKSAlPiUgIC0tPgo8IS0tICAgIyBjcmVhdGUgcm93IGFuZCBjb2x1bW4gaWRzIGZyb20gd2VsbCAtLT4KPCEtLSAgIG11dGF0ZShyb3cgPSBzdWJzdHIod2VsbCwgMSwxKSwgIC0tPgo8IS0tICAgICAgICAgIGNvbCA9IGFzLm51bWVyaWMoc3Vic3RyKHdlbGwsIDIsMykpKSAlPiUgIC0tPgo8IS0tICAgc2VsZWN0KHJvdywgY29sLCBleHRyYWN0aW9uX2lkKSAtLT4KCjwhLS0gIyBkZWZpbmUgd2VsbHMgLS0+CjwhLS0gcGxhdGUgPC0gZGF0YS5mcmFtZShyb3cgPSByZXAoTEVUVEVSU1sxOjhdLCAxMiksIGNvbCA9IHVubGlzdChsYXBwbHkoMToxMiwgcmVwLCA4KSkpICU+JSAgLS0+CjwhLS0gICBtdXRhdGUoZXh0cmFjdGlvbl9pZCA9IGlmZWxzZShyb3cgPT0gIkQiICYgY29sID09IDIsICJYWFhYIiwgTkEpLCAgLS0+CjwhLS0gICAgIGV4dHJhY3Rpb25faWQgPSBpZmVsc2Uocm93ID09ICJFIiAmIGNvbCA9PSA4LCAiWFhYWCIsIGV4dHJhY3Rpb25faWQpKSAtLT4KCjwhLS0gIyBpZiB0aGUgcGxhdGUgaXMgbm90IGZ1bGwgLS0+CjwhLS0geCA8LSBucm93KG5lZWRfZGlnZXN0KSArIDIgLS0+CjwhLS0gaWYgKHggPCA5NikgeyAtLT4KPCEtLSAgIHBsYXRlIDwtIHBsYXRlICU+JSAgLS0+CjwhLS0gICAgIHNsaWNlKDE6eCkgLS0+CjwhLS0gfSAtLT4KCjwhLS0gIyByZW1vdmUgdGhlIG5vbi1ibGFuayB3ZWxscyBmcm9tIHRoZSBwbGF0ZSB0YWJsZSAtLT4KPCEtLSBwbGF0ZSA8LSBhbnRpX2pvaW4ocGxhdGUsIG5lZWRfZGlnZXN0LCBieSA9IGMoInJvdyIsICJjb2wiKSkgLS0+Cgo8IS0tICMgcmVqb2luIHRoZSBzYW1wbGVzIGludG8gdGhlIHBsYXRlIHdpdGggdGhlIGJsYW5rcywgcmVzdWx0aW5nIGluIGEgcGxhdGUgb2YgZGVmaW5lZCB3ZWxscyBmb3Igc2FtcGxlcyBhbmQgYmxhbmtzLiAtLT4KPCEtLSBwbGF0ZSA8LSByYmluZChwbGF0ZSwgbmVlZF9kaWdlc3QpICU+JSAgLS0+CjwhLS0gICBhcnJhbmdlKGNvbCwgcm93KSAtLT4KCjwhLS0gcGxhdGVtYXAgPC0gYXMubWF0cml4KHJlc2hhcGUyOjphY2FzdChwbGF0ZSwgcGxhdGUkcm93IH4gcGxhdGUkY29sKSwgdmFsdWUudmFyID0gcGxhdGUkZXh0cmFjdGlvbikgLS0+CjwhLS0ga25pdHI6OmthYmxlKHBsYXRlbWFwLCBib29rdGFicyA9IFQpICU+JSAgLS0+CjwhLS0gICAjIHVzZSBzY2FsZV9kb3duIHRvIGdldCBtYXAgdG8gZml0IHdpdGhpbiB0aGUgYm91bmRzIG9mIHRoZSBwZGYgLS0+CjwhLS0gICBrYWJsZV9zdHlsaW5nKGxhdGV4X29wdGlvbnMgPSAic2NhbGVfZG93biIpIC0tPgoKCjwhLS0gYGBgIC0tPgoKCgo8IS0tIEhvd2V2ZXIsIHNvbWV0aW1lcyB3ZSBza2lwIHNvbWUgc2FtcGxlcyB0aGF0IGRpZCBub3QgcGVyZm9ybSB3ZWxsLCBvciB3ZSB3YW50IHRvIGRpZ2VzdCBhIGJ1bmNoIG9mIGV4dHJhY3RzIGZyb20gcmFuZG9tIHBsYXRlcy4gIElmIGl0IGlzIG5vdCBhIHNpbXBsZSBwbGF0ZSB0byBwbGF0ZSB0cmFuc2ZlciwgdGhlIHNvdXJjZSBwbGF0ZSBtYXAgd291bGQgbG9vayBsaWtlIHRoaXM6IC0tPgo8IS0tIGBgYHtyfSAtLT4KPCEtLSBkaWdlc3RlZCA8LSBsYWIgJT4lIHRibCgiZGlnZXN0IikgJT4lIGNvbGxlY3QoKSAtLT4KPCEtLSAjIFRPRE86IHNob3VsZCBmaWx0ZXIgdGhpcyBmb3Igc3VjY2Vzc2Z1bCBkaWdlc3RzIC0tPgoKPCEtLSAgIG5lZWRfZGlnZXN0IDwtIGxhYiAlPiUgdGJsKCJleHRyYWN0aW9uIikgJT4lIGNvbGxlY3QoKSAlPiUgIC0tPgo8IS0tICAgIyBoYXNuJ3QgYmVlbiBkaWdlc3RlZCAtLT4KPCEtLSAgIGZpbHRlcighZXh0cmFjdGlvbl9pZCAlaW4lIGRpZ2VzdGVkJGV4dHJhY3Rpb25faWQpICU+JSAgLS0+CjwhLS0gICAjIHNlbGVjdCBjb2x1bW5zIC0tPgo8IS0tICAgc2VsZWN0KGV4dHJhY3Rpb25faWQsIHdlbGwsIHBsYXRlLCBxdWFudCkgJT4lICAtLT4KPCEtLSAgICMgbmVlZCBlbm91Z2ggbWF0ZXJpYWwgdG8gd29yayB3aXRoIC0tPgo8IS0tICAgZmlsdGVyKHF1YW50ID4gNSkgJT4lICAtLT4KPCEtLSAgICMgbmVlZHMgdG8gYmUgaW4gYSBwbGF0ZSAtLT4KPCEtLSAgIGZpbHRlcighaXMubmEocGxhdGUpKSAlPiUgIC0tPgo8IS0tICAgIyBzb3J0IGJ5IGV4dHJhY3Rpb24gaWQgLS0+CjwhLS0gICBhcnJhbmdlKGV4dHJhY3Rpb25faWQpIC0tPgoKPCEtLSAgICMgZGVmaW5lIHdlbGxzIC0tPgo8IS0tIHBsYXRlIDwtIGRhdGEuZnJhbWUocm93ID0gcmVwKExFVFRFUlNbMTo4XSwgMTIpLCBjb2wgPSB1bmxpc3QobGFwcGx5KDE6MTIsIHJlcCwgOCkpKSAlPiUgIC0tPgo8IS0tICAgbXV0YXRlKGV4dHJhY3Rpb25faWQgPSBpZmVsc2Uocm93ID09ICJEIiAmIGNvbCA9PSAyLCAiWFhYWCIsIE5BKSwgIC0tPgo8IS0tICAgICBleHRyYWN0aW9uX2lkID0gaWZlbHNlKHJvdyA9PSAiRSIgJiBjb2wgPT0gOCwgIlhYWFgiLCBleHRyYWN0aW9uX2lkKSkgLS0+Cgo8IS0tICMgaWYgdGhlIHBsYXRlIGlzIG5vdCBmdWxsIC0tPgo8IS0tIHggPC0gbnJvdyhuZWVkX2RpZ2VzdCkgKyAyIC0tPgo8IS0tIGlmICh4IDwgOTYpIHsgLS0+CjwhLS0gICBpZih4IDwgNDgpeyAtLT4KPCEtLSAgICAgcGxhdGUgPC0gcGxhdGUgJT4lICAtLT4KPCEtLSAgICAgICBzbGljZSgxOngtMSkgLS0+CjwhLS0gICB9ZWxzZXsgLS0+CjwhLS0gICAgIHBsYXRlIDwtIHBsYXRlICU+JSAgLS0+CjwhLS0gICAgIHNsaWNlKDE6eCkgLS0+CjwhLS0gICB9IC0tPgo8IS0tIH0gLS0+Cgo8IS0tICMgbW92ZSBhbGwgb2YgdGhlIG5vbi1ibGFuayB3ZWxscyBpbnRvIHRoZWlyIG93biB0YWJsZSAtLT4KPCEtLSBzYW1wbGVzIDwtIHBsYXRlICU+JSAgLS0+CjwhLS0gICBmaWx0ZXIoaXMubmEoZXh0cmFjdGlvbl9pZCkpICU+JSAgLS0+CjwhLS0gICBzZWxlY3QoLWV4dHJhY3Rpb25faWQpIC0tPgoKPCEtLSAjIHJlbW92ZSB0aGUgbm9uLWJsYW5rIHdlbGxzIGZyb20gdGhlIHBsYXRlIHRhYmxlIC0tPgo8IS0tIHBsYXRlIDwtIGFudGlfam9pbihwbGF0ZSwgc2FtcGxlcywgYnkgPSBjKCJyb3ciLCAiY29sIikpIC0tPgoKPCEtLSAjIGpvaW4gdGhlIHdvcmsgc2FtcGxlX2lkcyB0byB0aGUgc2FtcGxlIHRhYmxlIHdlbGwgZGVmaW5pdGlvbnMgLS0+CjwhLS0gc2FtcGxlcyA8LSBjYmluZChzYW1wbGVzLCBuZWVkX2RpZ2VzdCkgJT4lICAtLT4KPCEtLSAgIHNlbGVjdChyb3csIGNvbCwgZXh0cmFjdGlvbl9pZCkgLS0+Cgo8IS0tICMgcmVqb2luIHRoZSBzYW1wbGVzIGludG8gdGhlIHBsYXRlIHdpdGggdGhlIGJsYW5rcywgcmVzdWx0aW5nIGluIGEgcGxhdGUgb2YgZGVmaW5lZCB3ZWxscyBmb3Igc2FtcGxlcyBhbmQgYmxhbmtzLiAtLT4KPCEtLSBwbGF0ZSA8LSByYmluZChwbGF0ZSwgc2FtcGxlcykgJT4lICAtLT4KPCEtLSAgIGFycmFuZ2UoY29sLCByb3cpIC0tPgoKPCEtLSBzb3VyY2VfbWFwIDwtIGFzLm1hdHJpeChyZXNoYXBlMjo6YWNhc3QocGxhdGUsIHBsYXRlJHJvdyB+IHBsYXRlJGNvbCksIHZhbHVlLnZhciA9IHBsYXRlJGV4dHJhY3Rpb24pIC0tPgo8IS0tIGtuaXRyOjprYWJsZShzb3VyY2VfbWFwLCBib29rdGFicyA9IFQpICU+JSAgLS0+CjwhLS0gICAjIHVzZSBzY2FsZV9kb3duIHRvIGdldCBtYXAgdG8gZml0IHdpdGhpbiB0aGUgYm91bmRzIG9mIHRoZSBwZGYgLS0+CjwhLS0gICBrYWJsZV9zdHlsaW5nKGxhdGV4X29wdGlvbnMgPSAic2NhbGVfZG93biIpIC0tPgo8IS0tIGBgYCAtLT4KCjwhLS0gQSBkaWdlc3QgaWQgbXVzdCBiZSBjcmVhdGVkIGZvciB0aGVzZSBzYW1wbGVzLiAgIC0tPgo8IS0tICoqT25seSBkbyB0aGlzIHN0ZXAgb25jZSEqKiAgIC0tPgo8IS0tIEl0IGNyZWF0ZXMgbmV3IGRpZ2VzdF9pZHMgZm9yIHRoZSBkYXRhYmFzZS4gICAtLT4KPCEtLSBUaGUgZGVzdGluYXRpb24gcGxhdGUgbWFwIHdvdWxkIGxvb2sgbGlrZSB0aGlzOiAgIC0tPgoKPCEtLSBgYGB7cn0gLS0+CjwhLS0gIyMjIE9OTFkgRE8gVEhJUyBPTkNFICMjIyAtLT4KPCEtLSBkaWdfbWF4IDwtIGxhYiAlPiUgdGJsKCJkaWdlc3QiKSAlPiUgIC0tPgo8IS0tICAgc3VtbWFyaXNlKGxhc3QgPSBtYXgoZGlnZXN0X2lkLCBuYS5ybSA9IFQpKSAlPiUgIC0tPgo8IS0tICAgY29sbGVjdCgpICU+JSAgLS0+CjwhLS0gICBtdXRhdGUobGFzdCA9IGFzLm51bWVyaWMoc3Vic3RyKGxhc3QsIDIsNSkpKSAtLT4KCjwhLS0geCA8LSBkaWdfbWF4JGxhc3QrMSAtLT4KPCEtLSB5IDwtIGRpZ19tYXgkbGFzdCtucm93KHBsYXRlKSAtLT4KPCEtLSBpZF9yYW5nZSA8LSB4OnkgLS0+Cgo8IS0tIHBsYXRlIDwtIHBsYXRlICU+JSAgLS0+CjwhLS0gICBtdXRhdGUoZGlnZXN0X2lkID0gcGFzdGUwKCJEIiwgaWRfcmFuZ2UpLCAtLT4KPCEtLSAgICAgICAgICB3ZWxsID0gcGFzdGUocm93LCBjb2wsIHNlcCA9ICIiKSwgIC0tPgo8IS0tICAgICAgICAgIGVuenltZXMgPSAiUHN0SS1NbHVDSSIsIC0tPgo8IS0tICAgICAgICAgIHZvbF9pbiA9IDMwLCAtLT4KPCEtLSAgICAgICAgICBmaW5hbF92b2wgPSA0NSkgLS0+Cgo8IS0tIHBsYXRlX25hbWUgPC0gcGxhdGUgJT4lICAtLT4KPCEtLSAgIHN1bW1hcmlzZShmaXJzdCA9IG1pbihkaWdlc3RfaWQpLCAgLS0+CjwhLS0gICAgIGxhc3QgPSBtYXgoZGlnZXN0X2lkLCBuYS5ybSA9IFQpKSAtLT4KCjwhLS0gZGVzdF9tYXAgPC0gcGxhdGUgJT4lICAtLT4KPCEtLSAgIG11dGF0ZShwbGF0ZSA9IHBhc3RlKHBsYXRlX25hbWUkZmlyc3QsIHBsYXRlX25hbWUkbGFzdCwgc2VwID0gIi0iKSkgJT4lICAtLT4KPCEtLSAgIHNlbGVjdChyb3csIGNvbCwgZGlnZXN0X2lkKSAtLT4KCjwhLS0gZGVzdF9tYXAgPC0gYXMubWF0cml4KHJlc2hhcGUyOjphY2FzdChkZXN0X21hcCwgZGVzdF9tYXAkcm93IH4gZGVzdF9tYXAkY29sKSwgdmFsdWUudmFyID0gZGVzdF9tYXAkZGlnZXN0X2lkKSAtLT4KCjwhLS0ga25pdHI6OmthYmxlKGRlc3RfbWFwLCBib29rdGFicyA9IFQpICU+JSAgLS0+CjwhLS0gICBrYWJsZV9zdHlsaW5nKCkgLS0+Cgo8IS0tIGBgYCAtLT4KCgoKCjwhLS0gUHJpbnQgb3V0IHBsYXRlIG1hcHMgYW5kIGhpZ2hsaWdodCBzb3VyY2UgbWFwcyBmb3IgZWFzZSBvZiBsb2FkaW5nLiAgTWFrZSBzdXJlIHRvIG5vdGUgYW55IHNhbXBsZXMgdGhhdCBhcmUgaGVhdmlseSBjb25jZW50cmF0ZWQgYW5kIG5lZWQgdG8gYmUgZGlsdXRlZC4gLS0+Cgo8IS0tIFByZXBhcmUgZGlnZXN0IHBsYXRlIGJ5IGxvYWRpbmcgMzB1TCBvZiBzYW1wbGUgaW4gdG8gdGhlIHBsYXRlLiAtLT4KCjwhLS0gRm9yIHRoZSBPY3RvYmVyIDIwMTcgc2V0IG9mIHBsYXRlcywgSSBoaWdobGlnaHRlZCB0aGUgMTV1TCBzYW1wbGVzIG9uIHRoZSBtYXBzIGluIG9yYW5nZSBhbmQgdGhlIOKAnGhvbGUtZmlsbGVyc+KAnSBpbiBwaW5rLCB0aGVuIGFueSBzYW1wbGVzIEkgY291bGQgdGFrZSB3aXRoIGEgbXVsdGljaGFubmVsIHdpdGggYSBibHVlIGxpbmUgZG93biB0aGUgY29sdW1uLiAtLT4KCjwhLS0gVG8gbG9hZCwgSSBmaXJzdCB1c2VkIGEgc2luZ2xlIGNoYW5uZWwgcGlwZXQgdG8gZmlsbCBpbiB0aGUgMTV1TCBzYW1wbGVzIChleHRyYSBjb25jZW50cmF0ZWQgc2FtcGxlcyksIHB1bGxpbmcgdGhlIHRpcHMgZnJvbSB0aGUgc2FtZSBsb2NhdGlvbiB0aGV5IHdlcmUgb24gdGhlIHBsYXRlLiAgVGhlbiBJIGZpbGxlZCBpbiB0aGUgd2F0ZXIgZm9yIHRoZSAxNXVMIHdlbGxzIGFuZCBjaGFuZ2UgdGhlIHBpcGV0IHRvIDMwdUwgdG8gZmlsbCB0aGUgYmxhbmtzLiAtLT4KPCEtLSBUaGVuIEkgYWRkZWQgYW55IDMwdUwg4oCcaG9sZSBmaWxsZXJz4oCdIC0gYWdhaW4gdXNpbmcgdGhlIHRpcHMgZnJvbSB0aGUgc2FtZSBsb2NhdGlvbiBpbiB0aGUgdGlwIGJveC4gLS0+Cgo8IS0tIEF0IHRoaXMgcG9pbnQsIGFueSBlbXB0eSB3ZWxscyBvbiB0aGUgcGxhdGUgY29ycmVzcG9uZCB0byB0aXBzIGluIHRoZSB0aXAgYm94LiAgSSB1c2VkIHRoZSBtdWx0aWNoYW5uZWwgcGlwZXQgdG8gcGljayB1cCB0aGUgdGlwcyBhbmQgaGVsZCB0aGVtIHVwIHRvIHRoZSBwbGF0ZSB0byBtYWtlIHN1cmUgbm8gdGlwcyB3ZXJlIGdvaW5nIGludG8gYWxyZWFkeSBmaWxsZWQgd2VsbHMsIGFuZCBubyBlbXB0eSB3ZWxscyB3ZXJlIGJlaW5nIGxlZnQgZW1wdHkuICBUaGVuIEkgZmlsbGVkIHRoZSByZXN0IG9mIHRoZSBwbGF0ZS4gLS0+CgoKPCEtLSAjIyBNYWtlIHRoZSBtYXN0ZXIgbWl4IHJlY2lwZSBpbiBhIGZhbGNvbiB0dWJlIG9yIHNtYWxsZXIgdHViZSBpZiBwb3NzaWJsZTogLS0+CjwhLS0gYGBge3J9IC0tPgo8IS0tIG51bV9zYW1wbGVzIDwtIG5yb3cocGxhdGUpIC0tPgoKPCEtLSAjIG1ha2Ugc29tZSByb29tIGZvciBlcnJvciAxNSUgLS0+CjwhLS0gc2FtcGxlc193aXRoX2Vycm9yIDwtIGZsb29yKG51bV9zYW1wbGVzICogMS4xNSkgLS0+Cgo8IS0tICMgdXNlIGEgdG90YWwgb2YgMTAgZW56eW1lIFVuaXRzIHBlciA1MHVMIHJlYWN0aW9uLCA1IG9mIGVhY2ggZW56eW1lLiAtLT4KCjwhLS0gZGlnZXN0X3J4biA8LSByZWFkX2NzdigiaXRlbSwgY29uY2VudHJhdGlvbiwgcGVyX3JlYWN0aW9uIC0tPgo8IS0tICAgICAgICAgICAgICAgICAgICAgICAgc2FtcGxlLCBOQSwgTkEgLS0+CjwhLS0gICAgICAgICAgICAgICAgICAgICAgICBlbnp5bWUxLCBOQSwgTkEgLS0+CjwhLS0gICAgICAgICAgICAgICAgICAgICAgICBlbnp5bWUyLCBOQSwgTkEgLS0+CjwhLS0gICAgICAgICAgICAgICAgICAgICAgICBidWZmZXIsIE5BLCBOQSAtLT4KPCEtLSAgICAgICAgICAgICAgICAgICAgICAgIHBIMk8sIE5BLCBOQSIpICU+JSAgLS0+CjwhLS0gICBtdXRhdGUocGVyX3JlYWN0aW9uID0gaWZlbHNlKGl0ZW0gPT0gInNhbXBsZSIsIHBhcmFtcyRkaWdlc3RfcnhuX3NpemUvMS42NjY2LCBwZXJfcmVhY3Rpb24pLCAgLS0+CjwhLS0gICAgICAgICAgY29uY2VudHJhdGlvbiA9IGlmZWxzZShpdGVtID09ImVuenltZTEiLCAxMDAwMDAsIGNvbmNlbnRyYXRpb24pLCAtLT4KPCEtLSAgICAgICAgICBwZXJfcmVhY3Rpb24gPSBpZmVsc2UoaXRlbSA9PSAiZW56eW1lMSIsIChwYXJhbXMkZGlnZXN0X3J4bl9zaXplKS8xMC8oY29uY2VudHJhdGlvbi8xMDAwKSwgcGVyX3JlYWN0aW9uKSwgLS0+CjwhLS0gICAgICAgICAgY29uY2VudHJhdGlvbiA9IGlmZWxzZShpdGVtID09ImVuenltZTIiLCAxMDAwMCwgY29uY2VudHJhdGlvbiksIC0tPgo8IS0tICAgICAgICAgICBwZXJfcmVhY3Rpb24gPSBpZmVsc2UoaXRlbSA9PSAiZW56eW1lMiIsIChwYXJhbXMkZGlnZXN0X3J4bl9zaXplKS8xMC8oY29uY2VudHJhdGlvbi8xMDAwKSwgcGVyX3JlYWN0aW9uKSwgLS0+CjwhLS0gICAgICAgICAgY29uY2VudHJhdGlvbiA9IGlmZWxzZShpdGVtID09ImJ1ZmZlciIsIDEwLCBjb25jZW50cmF0aW9uKSwgLS0+CjwhLS0gICAgICAgICAgIHBlcl9yZWFjdGlvbiA9IGlmZWxzZShpdGVtID09ICJidWZmZXIiLCBwYXJhbXMkZGlnZXN0X3J4bl9zaXplL2NvbmNlbnRyYXRpb24sIHBlcl9yZWFjdGlvbikpIC0tPgoKPCEtLSBwSDJPIDwtIGRpZ2VzdF9yeG4gJT4lICAtLT4KPCEtLSAgIHN1bW1hcmlzZSh0aGlzID0gcGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZS1zdW0ocGVyX3JlYWN0aW9uLCBuYS5ybT1UKSkgLS0+Cgo8IS0tIGRpZ2VzdF9yeG4gPC0gZGlnZXN0X3J4biAlPiUgIC0tPgo8IS0tICAgbXV0YXRlKHBlcl9yZWFjdGlvbiA9IGlmZWxzZShpdGVtID09ICJwSDJPIiwgcEgyTyR0aGlzLCBwZXJfcmVhY3Rpb24pLCAtLT4KPCEtLSAgICAgICAgICBtYXN0ZXJfbWl4ID0gcGVyX3JlYWN0aW9uICogc2FtcGxlc193aXRoX2Vycm9yLCAgLS0+CjwhLS0gICAgICAgICAgbWFzdGVyX21peCA9IGlmZWxzZShpdGVtID09ICJzYW1wbGUiLCBOQSwgbWFzdGVyX21peCkpIC0tPgoKPCEtLSAjIGRvdWJsZSBjaGVjayB0aGUgbWF0aCAtIHNob3VsZCByZXR1cm4gVFJVRSAtLT4KPCEtLSAocGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZSpzYW1wbGVzX3dpdGhfZXJyb3IpLShwYXJhbXMkZGlnZXN0X3J4bl9zaXplKi42KnNhbXBsZXNfd2l0aF9lcnJvcikgPT0gcm91bmQoc3VtKGRpZ2VzdF9yeG4kbWFzdGVyX21peCwgbmEucm09VCkpIC0tPgoKPCEtLSBwcmludChwYXN0ZTAoIlRvdGFsIG1hc3RlciBtaXggdm9sdW1lIGlzICIsIHJvdW5kKHN1bShkaWdlc3RfcnhuJG1hc3Rlcl9taXgsIG5hLnJtPVQpKSwgIm1MIikpIC0tPgo8IS0tIGBgYCAtLT4KPCEtLSBgYGB7cn0gLS0+CjwhLS0ga2FibGVfc3R5bGluZyhrYWJsZShkaWdlc3RfcnhuKSkgLS0+CjwhLS0gYGBgIC0tPgoKPCEtLSAgICAgKiBzcGxpdCB0aGUgbWFzdGVyIG1peCBpbnRvIDggd2VsbHMsIHVzZSBhIG11bHRpY2hhbm5lbCBwaXBldCB0byBwaXBldCAxMsK1TCBvZiBtYXN0ZXIgbWl4IGludG8gZWFjaCBzYW1wbGUgd2VsbC4gIC0tPgo8IS0tIGBgYHtyfSAtLT4KPCEtLSBwcmludChwYXN0ZTAoIlNwbGl0IGludG8gOCB3ZWxscyBieSBwaXBldHRpbmcgIiwgKHJvdW5kKHN1bShkaWdlc3RfcnhuJG1hc3Rlcl9taXgsIG5hLnJtPVQpKSkvOCwgInVsIGludG8gZWFjaCB3ZWxsIikpIC0tPgo8IS0tIGBgYCAtLT4KCjwhLS0gIyBTdXBwbGllcyBuZWVkZWQgcGx1cyB0aGUgdm9sdW1lcyBvbiB0aGUgbWFzdGVyIG1peCByZWNpcGUuIC0tPgo8IS0tIGBgYHtyfSAtLT4KPCEtLSBkaWdlc3QgPC0gdGliYmxlKCAtLT4KPCEtLSAgIHBsYXRlcyA9IG51bV9zYW1wbGVzLzk2LCAtLT4KPCEtLSAgIHR1YmVzID0gbnVtX3NhbXBsZXMvOTYsICAtLT4KPCEtLSAgIHBsYXRlX3NlYWxzID0gbnVtX3NhbXBsZXMvOTYsICAtLT4KPCEtLSAgIHRpcHNfMTAwID0gbnVtX3NhbXBsZXMgKiAyICsgKGNlaWxpbmcoZGlnZXN0X3J4biRtYXN0ZXJfbWl4WzNdLzEwMCkpLCMgcmVmZXJyaW5nIHRvIGVuenltZTIgLS0+CjwhLS0gICB0aXBzXzEwID0gY2VpbGluZyhkaWdlc3RfcnhuJG1hc3Rlcl9taXhbMl0vMTApLCAjIHJlZmVycmluZyB0byBlbnp5bWUxIC0tPgo8IS0tICAgdGlwc18zMDAgPSBjZWlsaW5nKGRpZ2VzdF9yeG4kbWFzdGVyX21peFs0XS8xMDApLCAjIHJlZmVycmluZyB0byBidWZmZXIgLS0+CjwhLS0gICB0aXBzXzEwMDAgPSBjZWlsaW5nKGRpZ2VzdF9yeG4kbWFzdGVyX21peFs1XS8xMDAwKSAjIHJlZmVycmluZyB0byBwSDJPIC0tPgo8IS0tICAgKSAtLT4KPCEtLSBgYGAgLS0+CgoKPCEtLSAgICAgICAgICogRG8gbm90IGFkZCB0aGUgbWFzdGVyIG1peCB0byBhbGwgb2YgdGhlIHdlbGxzIGFuZCB0aGVuIGFkZCB0aGUgc2FtcGxlLiAgQmVjYXVzZSB5b3UgYXJlIHdvcmtpbmcgd2l0aCBhY3RpdmUgZW56eW1lcywgdGhleSBzaG91bGQgYmUgdGhlIGxhc3QgdGhpbmdzIGFkZGVkIHRvIHRoZSBtYXN0ZXIgbWl4IGFuZCB0aGUgbGFzdCBzdGVwIG9mIHBsYXRlIHByZXBhcmF0aW9uLiAtLT4KPCEtLSAqIEluY3ViYXRlIFBzdEkgYW5kIE1sdUNJIGF0IDM3y5ogLSBObyBiZW5lZml0IGZyb20gaW5jdWJhdGluZyBNbHVDSSBsb25nZXIgdGhhbiBvbmUgaG91ciwgUHN0SSBpcyBhY3RpdmUgMi00IGhvdXJzLCBkb27igJl0IG5lZWQgdG8gaGVhdCBraWxsIGRpZ2VzdHMgLS0+Cgo8IS0tIENsZWFuIHRoZSBkaWdlc3RzIHVzaW5nIDEuNXggdGhlIHZvbHVtZSBvZiB0aGUgZGlnZXN0ICg3NcK1TCkgQW1wdXJlIHBlciBzYW1wbGUuIFB1dCB0aGUgcGxhdGVzIG9uIHllbGxvdyBsaWZ0cyBvbiB0aGUgbWFnbmV0IHNvIHRoYXQgdGhlIHBlbGxldCBpcyBsb3dlciBiZWZvcmUgeW91IGZpbmlzaCB0aGUgYWxjb2hvbCBzdGVwcy4gICBCZWNhdXNlIHRoZXNlIGFyZSBpbiBwbGF0ZXMgYW5kIGl0IGlzIGRpZmZpY3VsdCB0byBnZXQgYWxsIG9mIHRoZSBlbHV0ZSBvdXQgb2YgdGhlIHdlbGwsIGVsdXRlIGluIDQ1wrVMIG9mIGJ1ZmZlciBhbmQgcHVsbCA0MMK1TCBmcm9tIHRoZSB3ZWxsIHRvIHBsYWNlIGluIGEgbmV3IGNsZWFuZWQgZGlnZXN0IHBsYXRlLiAgVXBkYXRlIHRoZSBkYXRhYmFzZS4gLSBBbXB1cmUgY2xlYW4gdXAgcHJvdG9jb2wgLS0+Cgo8IS0tIFF1YW50aWZpeSAtIHF1YW50LWl0IHBpY28gZ3JlZW4gLSBpbXBvcnQgdGhlIHF1YW50aWZpY2F0aW9uIHJlc3VsdHMgaW50byB0aGUgU2FtcGxlX0RhdGEgc3ByZWFkc2hlZXQsIERpZ2VzdHMgUGFnZSBxdWFudCBjb2x1bW4uICBGb3IgYW55IHNhbXBsZSB3aXRoIGEgbmVnYXRpdmUgcXVhbnRpZmljYXRpb24gdmFsdWUsIGNoYW5nZSB0aGUgTGlnYXRlZD8gY29sdW1uIHZhbHVlIHRvIE4vQSAodGhlIHJlc3Qgc2hvdWxkIGNvbnRhaW4gYSBmb3JtdWxhIHRoYXQgcmVzdWx0cyBpbiB0aGUgdmFsdWUg4oCcRkFMU0XigJ0pLiAgQWxzbywgYWRkIGFuIOKAnF9G4oCdIHRvIHRoZSBleHRyYWN0aW9uIElEIChub3QgdGhlIGRpZ2VzdCBJRCkgaW4gdGhlIGV4dHJhY3Rpb24gSUQgY29sdW1uIChleGFtcGxlOiBQQURFMTRfMDkzRTE1MTYgYmVjb21lcyBQQURFMTRfMDkzRTE1MTZfRikuICBUaGlzIGRpZ2VzdCBmYWlsZWQgYW5kIHNvIHRoZSBzYW1wbGUgc2hvdWxkIG5vdCByZWZsZWN0IHRoYXQgYSBzdWNjZXNzZnVsIGRpZ2VzdCBleGl0cy4gLS0+CgoKCgoKCgoKCgoKPCEtLSAgICAgKiBNb3JlIGRlY2lzaW9uIG1ha2luZyBpcyBuZWNlc3NhcnkgYXQgdGhpcyBwb2ludC4gIElmIGFuIGV4dHJhY3QgaGFzIGxlc3MgdGhhbiA1bmcvdWwgRE5BLCBpdCB3aWxsIG1vc3QgbGlrZWx5IGZhaWwgdG8gZGlnZXN0IHdlbGwuICBUaGlzIGlzIGEgdG91Z2ggY2FsbCwgc29tZSBkaWdlc3RzIHdpdGggbXVjaCBsZXNzIHRoYW4gNW5nL3VsIGhhdmUgbGlnYXRlZCBzdWNjZXNzZnVsbHkgYW5kIG90aGVycyBoYXZlIG5vdC4gIFByb2NlZWQgd2l0aCBjYXV0aW9uLiBJZiB0aGVyZSBhcmUgcGxlbnR5IG9mIHNhbXBsZXMgdG8gY2hvb3NlIGZyb20sIGNob29zZSB0aGUgZGVzaXJlZCBudW1iZXIgd2l0aCB0aGUgbW9zdCDigJxzYW1wbGVfbmdfaW7igJ0uIC0tPgo8IS0tICAgICAgICAgKiBBcyBvZiA4LzE5LzIwMTQgIC0tPgo8IS0tICAgICAgICAgICAgICogYW55IGV4dHJhY3Rpb24gbGVzcyB0aGFuIDVuZy/CtUwgd2UgYXJlIHB1dHRpbmcgb24gdGhlIGJhY2sgYnVybmVyIHRvIGNvbnRpbnVlIHByb2Nlc3NpbmcgYXQgYSBsYXRlciBkYXRlIC0tPgo8IS0tICAgICAgICAgICAgICogYW55dGhpbmcgdGhhdCBpcyBtb3JlIHRoYW4gNW5nL8K1TCBidXQgbWFrZXMgbGVzcyB0aGFuIDHCtWcgb2YgRE5BIHdoZW4geW91IG11bHRpcGx5IHRoZSBxdWFudCByZXN1bHQgYnkgMzDCtUwgKHRoZSBkaWdlc3QgYWRkaXRpb24gYW1vdW50KSAtIGNhbGN1bGF0ZSB0aGUgYW1vdW50IG9mIGV4dHJhY3QgdG8gbWFrZSAxwrVnIEROQSBhbmQgY2xlYW4gdGhhdCBhbW91bnQsIGVsdXRlIGluIDMwwrVMIGFuZCBhZGQgdG8gZGlnZXN0IHBsYXRlICAtLT4KPCEtLSAgICAgICAgICAgICAqIEFzIG9mIDExLzIwMTQgd2UgYXJlIG5vdCB3b3JyaWVkIGFib3V0IOKAnHRvbyBsb3figJ0gRE5BIGFuZCBhcmUgbm90IGNsZWFuaW5nIHNhbXBsZXMgdGhhdCBhcmUgYmVsb3cgMTAwMG5nLiAgV2UgaGF2ZSBzdWNjZXNzZnVsbHkgZGlnZXN0ZWQgZG93biB0byAxMDBuZy4gICAtLT4KPCEtLSAgICAgICAgICAgICAqIGFueXRoaW5nIHRoYXQgbWFrZXMgbW9yZSB0aGFuIDXCtWcgb2YgRE5BIHdoZW4geW91IG11bHRpcGx5IHRoZSBxdWFudCByZXN1bHQgYnkgMzDCtUwgLSBhZGQgMTXCtUwgb2YgZXh0cmFjdCB0byBwbGF0ZSBhbmQgMTXCtUwgcEgyTyAtIGRvIHRoZSBtYXRoIHRvIG1ha2Ugc3VyZSB0aGlzIGRpbHV0aW9uIHdpbGwgc3RpbGwgYmUgbGVzcyB0aGFuIDXCtWcuIC0tPgo8IS0tICAgICAqIEZvciB0aGUgdGltZSBiZWluZywgZW50ZXIgdGhlIEV4dHJhY3RJRCBpbiB0aGUgRGlnZXN0IElEIGNvbHVtbiBmb3IgZWFzZSBvZiBzb3J0aW5nIChpdCBpcyBlYXNpZXN0IHRvIHdvcmsgb24gZXh0cmFjdCBwbGF0ZXMgaW4gc2FtcGxlIG9yZGVyKSAtIGRvIHRoaXMgYnkgZW50ZXJpbmcgdGhlIGZvcm11bGEgPXJpZ2h0KEIxODgyLDUpIGluIGNvbHVtbiBBIC0tPgo8IS0tICAgICAqIFNvcnQgYnkgRXh0cmFjdCBJZCAobm8gZGlnZXN0IG51bWJlciB5ZXQsIHdpbGwgc29ydCBieSBzYW1wbGUgbnVtYmVyKSwgb25seSB0aGUgcmFuZ2Ugb2YgdGhpcyBwbGF0ZSEhISAtLT4KPCEtLSAgICAgKiBGaWxsIGluIGRhdGUsIGVuenltZSwgRGlnZXN0IyBhbmQgcmVwbGFjZSB0aGUgRXh0cmFjdCMgaW4gdGhlIERpZ2VzdF9JRCBjb2x1bW4gd2l0aCB0aGUgZm9ybXVsYSB0byBjb25jYXRlbmF0ZSBhIGRpZ2VzdCBJRC4gLS0+CjwhLS0gICAgICogcHJpbnQgYSBtYXAgb2YgeW91ciBleHRyYWN0aW9uIHBsYXRlIGFuZCBuZXcgZGlnZXN0IHBsYXRlIC0tPgo8IS0tICogaGlnaGxpZ2h0IHNhbXBsZXMgaW4gcHJpbnRlZCBleHRyYWN0aW9uIHBsYXRlIG1hcHMgLS0+CjwhLS0gKiBwaXBldGVkIGFsaXF1b3QgdG8gZGlnZXN0IHBsYXRlIGZvciBhIDUwwrVMIGRpZ2VzdGlvbiByZWFjdGlvbiAtLT4KPCEtLSAqIFByaW50IGEgcGxhdGUgbWFwIGFuZCBkZXRlcm1pbmUgd2hpY2ggc2FtcGxlcyBjYW4gYmUgZGlnZXN0ZWQgYXMgaXMsIGFuZCB3aGljaCBuZWVkIHRvIGJlIGRpbHV0ZWQgLSBoaWdobGlnaHQgYWNjb3JkaW5nbHkgLS0+CgoKCjwhLS0gT3B0aW1pemluZyBSZXN0cmljdGlvbiBFbmRvbnVjbGVhc2UgUmVhY3Rpb25zIHwgTmV3IEVuZ2xhbmQgQmlvbGFicyAtLT4KPCEtLSBGb3IgYSA1MMK1TCByeG4sIHVzZTogLS0+Cgo8IS0tIDHCtWcgRE5BIC0gZmlsbCB0byB2b2x1bWUgdy8gcEgyTyAtLT4KPCEtLSA1wrVMIDEweCBidWZmZXIgKDUwwrVMLzEweD01KSAtLT4KCjwhLS0gV2FudCBhIHRvdGFsIG9mIDEwVSBpbiByeG4gLS0+CjwhLS0gRm9yIHNpbmdsZSBkaWdlc3Q6IC0tPgo8IS0tIGlmIGVuenltZSBpcyAxMCwwMDBVL21MIC0gMcK1TCA9IDEwVSAtLT4KPCEtLSBpZiBlbnp5bWUgaXMgMjAsMDAwVS9tTCAtIDAuNcK1TCA9IDEwVSAtLT4KCjwhLS0gRm9yIGRvdWJsZSBkaWdlc3QgLS0+CjwhLS0gaWYgZW56eW1lIGlzIDEwLDAwMFUvbUwgLSAwLjXCtUwgPSA1VSAtLT4KPCEtLSBpZiBlbnp5bWUgaXMgMjAsMDAwVS9tTCAtIDAuMjXCtUwgPSA1VSAgLS0+Cgo8IS0tIFBzdEkgLSBjdXRzaXRlIGlzICBodHRwczovL3d3dy5uZWIuY29tL3Byb2R1Y3RzL3IwMTQwLXBzdGkgLS0+Cgo8IS0tIE1sdUNJIC0gY3V0c2l0ZSBpcyAgaHR0cHM6Ly93d3cubmViLmNvbS9wcm9kdWN0cy9yMDUzOC1tbHVjaSAtLT4KCjwhLS0gRWNvUkkgY3V0c2l0ZSBpcyAgaHR0cHM6Ly93d3cubmViLmNvbS9wcm9kdWN0cy9yMDEwMS1lY29yaSAtLT4K</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGlnZXN0IE1ldGhvZCIKb3V0cHV0OgogIGh0bWxfbm90ZWJvb2s6CiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUKICAgIGRmX3ByaW50OiBwYWdlZApwYXJhbXM6CiAgZmlyc3Q6IGZpcnN0CiAgbGFzdDogbGFzdAogIGRpZ2VzdF9yeG5fc2l6ZTogNTAKICBudW1fZG5hX3NhbXBsZXM6IDk2CiAgZW56eW1lX3VuaXRzOiA1Ci0tLQpgYGB7ciBpbmNsdWRlPUZBTFNFfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgpgYGB7cn0KZGlnZXN0X2d1aWRlIDwtdHJpYmJsZSh+aXRlbSwgfmluaXRpYWxfY29uYywgfmluaXRpYWxfdm9sX3VsLCAKICAgICAgICAgICAgICAgICAgICJwc3RpXzEwMDAwMHUvbWxfdWwiLCAxMDAwMDAsIChwYXJhbXMkZW56eW1lX3VuaXRzLzUwKnBhcmFtcyRkaWdlc3RfcnhuX3NpemUpLygxMDApLAogICAgICAgICAgICAgICAgICAgIm1sdWNpXzEwMDAwdS9tTF91bCIsIDEwMDAwLCAocGFyYW1zJGVuenltZV91bml0cy81MCpwYXJhbXMkZGlnZXN0X3J4bl9zaXplKS8oMTApLAogICAgICAgICAgICAgICAgICAgIjEweF9idWZmZXJfdWwiLCAxMCwgcGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZS8xMCwKICAgICAgICAgICAgICAgICAgICJwaDJvX3VsIiwgMCwgMCkgJT4lIAogIG11dGF0ZShmaW5hbF92b2xfdWwgPSBwYXJhbXMkZGlnZXN0X3J4bl9zaXplLAogICAgICAgICBpbml0aWFsX3ZvbF91bCA9IGlmZWxzZShpdGVtID09ICJwaDJvX3VsIixmaW5hbF92b2xfdWwgLSBzdW0oaW5pdGlhbF92b2xfdWwsIG5hLnJtID0gVCksIGluaXRpYWxfdm9sX3VsKSkKCmRpZ2VzdF9kbmEgPC0gZGlnZXN0X2d1aWRlICU+JSAKICBzZWxlY3QoaXRlbSwgaW5pdGlhbF92b2xfdWwpICU+JSAKICByZW5hbWUocXVhbnRpdHkgPSBpbml0aWFsX3ZvbF91bCkgJT4lIAogIG11dGF0ZShpdGVtID0gaWZlbHNlKGl0ZW0gPT0gInBoMm9fdWwiLCAicGgyb19tbCIsIGl0ZW0pLCAKICAgICAgICAgcXVhbnRpdHkgPSBpZmVsc2UoaXRlbSA9PSAicGgyb19tbCIsIHF1YW50aXR5LzEwMDAsIHF1YW50aXR5KSkgJT4lIAogIGJpbmRfcm93cyh0cmliYmxlKH5pdGVtLCB+cXVhbnRpdHksCiAgICAgICAgICAgICAgICAgICAgIGlmZWxzZShwYXJhbXMkbnVtX3NhbXBsZXMgPDIwLCAidHViZXNfMjAwdWwiLCAicGxhdGVzIiksIGlmZWxzZShwYXJhbXMkbnVtX3NhbXBsZXMgPCAyMCwgcGFyYW1zJG51bV9zYW1wbGVzLCBjZWlsaW5nKHBhcmFtcyRudW1fc2FtcGxlcy85NikpLAogICAgICAgICAgICAidGlwc18xMCIsIDMsCiAgICAgICAgICAgICJ0aXBzXzEwMCIsIDEsCiAgICAgICAgICAgICJ0aXBzXzEwMCIsIHBhcmFtcyRudW1fc2FtcGxlcykpCnJtKGRpZ2VzdF9ndWlkZSkKYGBgCgogKkNvcHkgYW5kIHBhc3RlIHRoaXMgZmlsZSBpbnRvIHRoZSBsYWItbm90ZWJvb2tzIGZvbGRlciwgY2hhbmdpbmcgdGhlIG5hbWUgdG8gbWF0Y2ggdGhlIHNhbXBsZSByYW5nZSB5b3UgYXJlIGN1cnJlbnRseSB3b3JraW5nIG9uLiogICAKCiBFeHBsYW5hdGlvbiBvZiBwYXJhbWV0ZXJzOiAKYGBge3J9IAogKHBhcmFtcykgCmBgYCAKIGZpcnN0OiB0aGUgZmlyc3QgZXh0cmFjdGlvbiBpbiB0aGUgcmFuZ2Ugb2Ygc2FtcGxlcyBmb3IgdGhpcyBwbGF0ZSAKIGxhc3Q6IHRoZSBsYXN0IGV4dHJhY2l0b24gaW4gdGhlIHJhbmdlIG9mIHNhbXBsZXMgZm9yIHRoaXMgcGxhdGUgCiBkaWdlc3RfcnhuX3NpemU6IHRoZSBzaXplIGluIHVMIG9mIGVhY2ggZGlnZXN0IHJlYWN0aW9uLiAKCgoKICoqVGhpcyBwcm90b2NvbCBhc3N1bWVzIHRoYXQgeW91IGhhdmUgcmVhZCBhbmQgdW5kZXJzdGFuZCB0aGUgbWFudWZhY3R1cmVy4oCZcyBpbnN0cnVjdGlvbnMgYXR0YWNoZWQgYmVsb3cuICBQbGVhc2UgcmVhZCB0aGUgZnVsbCBtYW51ZmFjdHVyZXLigJlzIGluc3RydWN0aW9ucyBiZWZvcmUgdXNpbmcgdGhpcyBhYmJyZXZpYXRlZCBwcm90b2NvbC4qKiAKCmBgYHtyIHNldHVwLCBpbmNsdWRlID0gRkFMU0V9IAoga25pdHI6Om9wdHNfY2h1bmskc2V0KCAKIAllY2hvID0gRkFMU0UsIAogCW1lc3NhZ2UgPSBGQUxTRSwgCiAJd2FybmluZyA9IEZBTFNFIAogKSAKICMgbG9hZCBsaWJyYXJpZXMgCiBsaWJyYXJ5KHRpZHl2ZXJzZSkgCiBsaWJyYXJ5KGthYmxlRXh0cmEpIAogbGlicmFyeShrbml0cikgCgogIyBsb2FkIGZ1bmN0aW9ucyAKIHNvdXJjZSgifi9kYi1jb25uZWN0aW9ucy5SIikgCgogIyBsb2FkIGRhdGEgCiBsYWIgPC0gcmVhZF9kYigiTGFib3JhdG9yeSIpIApgYGAgCgoKICMjIFByZXAgZm9yIGRpZ2VzdCAKIFRoZSBtb3N0IGRpZmZpY3VsdCBwYXJ0IG9mIHRoZSBkaWdlc3QgaXMgZmlndXJpbmcgb3V0IHdoZXJlIHRvIHB1dCB0aGUgc2FtcGxlcy4gIEluIG1vc3QgY2FzZXMsIGl0IGlzIHZlcnkgc3RyYWlnaHRmb3J3YXJkLiAgWW91IHB1bGwgdGhlIHNhbXBsZSBmcm9tIHRoZSBleHRyYWN0aW9uIHBsYXRlIGFuZCBwbGFjZSBpdCBpbiB0aGUgc2FtZSB3ZWxsIG9uIHRoZSBkaWdlc3QgcGxhdGUuICBGb3IgZXhhbXBsZSwgaWYgYW4gZXh0cmFjdCBpcyBpbiBBNCBvZiB0aGUgZXh0cmFjdGlvbiBwbGF0ZSwgcnVuIHRoZSBkaWdlc3Rpb24gcmVhY3Rpb24gaW4gd2VsbCBBNCBvZiB0aGUgZGlnZXN0IHBsYXRlLiAgIAoKIElmIHRoaXMgaXMgdGhlIGNhc2UsIHRoZSBzb3VyY2UgcGxhdGUgbWFwIHdvdWxkIGxvb2sgbGlrZSB0aGlzOiAKYGBge3J9IAogbmVlZF9kaWdlc3QgPC0gbGFiICU+JSB0YmwoImV4dHJhY3Rpb24iKSAlPiUgY29sbGVjdCgpICU+JSAgCiAgICMgaGFzbid0IGJlZW4gZGlnZXN0ZWQgCiAgIGZpbHRlcihleHRyYWN0aW9uX2lkID49IHBhcmFtcyRmaXJzdCAmIGV4dHJhY3Rpb25faWQgPD0gcGFyYW1zJGxhc3QpICU+JSAgCiAgICMgc2VsZWN0IGNvbHVtbnMgCiAgIHNlbGVjdChleHRyYWN0aW9uX2lkLCB3ZWxsLCBwbGF0ZSwgcXVhbnQpICU+JSAgCiAgICMgbmVlZCBlbm91Z2ggbWF0ZXJpYWwgdG8gd29yayB3aXRoIAogICBmaWx0ZXIocXVhbnQgPiA1KSAlPiUgIAogICAjIHNvcnQgYnkgZXh0cmFjdGlvbiBpZCAKICAgYXJyYW5nZShleHRyYWN0aW9uX2lkKSAlPiUgIAogICAjIGNyZWF0ZSByb3cgYW5kIGNvbHVtbiBpZHMgZnJvbSB3ZWxsIAogICBtdXRhdGUocm93ID0gc3Vic3RyKHdlbGwsIDEsMSksICAKICAgICAgICAgIGNvbCA9IGFzLm51bWVyaWMoc3Vic3RyKHdlbGwsIDIsMykpKSAlPiUgIAogICBzZWxlY3Qocm93LCBjb2wsIGV4dHJhY3Rpb25faWQpIAoKICMgZGVmaW5lIHdlbGxzIAogcGxhdGUgPC0gZGF0YS5mcmFtZShyb3cgPSByZXAoTEVUVEVSU1sxOjhdLCAxMiksIGNvbCA9IHVubGlzdChsYXBwbHkoMToxMiwgcmVwLCA4KSkpICU+JSAgCiAgIG11dGF0ZShleHRyYWN0aW9uX2lkID0gaWZlbHNlKHJvdyA9PSAiRCIgJiBjb2wgPT0gMiwgIlhYWFgiLCBOQSksICAKICAgICBleHRyYWN0aW9uX2lkID0gaWZlbHNlKHJvdyA9PSAiRSIgJiBjb2wgPT0gOCwgIlhYWFgiLCBleHRyYWN0aW9uX2lkKSkgCgogIyBpZiB0aGUgcGxhdGUgaXMgbm90IGZ1bGwgCiB4IDwtIG5yb3cobmVlZF9kaWdlc3QpICsgMiAKIGlmICh4IDwgOTYpIHsgCiAgIHBsYXRlIDwtIHBsYXRlICU+JSAgCiAgICAgc2xpY2UoMTp4KSAKIH0gCgogIyByZW1vdmUgdGhlIG5vbi1ibGFuayB3ZWxscyBmcm9tIHRoZSBwbGF0ZSB0YWJsZSAKIHBsYXRlIDwtIGFudGlfam9pbihwbGF0ZSwgbmVlZF9kaWdlc3QsIGJ5ID0gYygicm93IiwgImNvbCIpKSAKCiAjIHJlam9pbiB0aGUgc2FtcGxlcyBpbnRvIHRoZSBwbGF0ZSB3aXRoIHRoZSBibGFua3MsIHJlc3VsdGluZyBpbiBhIHBsYXRlIG9mIGRlZmluZWQgd2VsbHMgZm9yIHNhbXBsZXMgYW5kIGJsYW5rcy4gCiBwbGF0ZSA8LSByYmluZChwbGF0ZSwgbmVlZF9kaWdlc3QpICU+JSAgCiAgIGFycmFuZ2UoY29sLCByb3cpIAoKIHBsYXRlbWFwIDwtIGFzLm1hdHJpeChyZXNoYXBlMjo6YWNhc3QocGxhdGUsIHBsYXRlJHJvdyB+IHBsYXRlJGNvbCksIHZhbHVlLnZhciA9IHBsYXRlJGV4dHJhY3Rpb24pIAoga25pdHI6OmthYmxlKHBsYXRlbWFwLCBib29rdGFicyA9IFQpICU+JSAgCiAgICMgdXNlIHNjYWxlX2Rvd24gdG8gZ2V0IG1hcCB0byBmaXQgd2l0aGluIHRoZSBib3VuZHMgb2YgdGhlIHBkZiAKICAga2FibGVfc3R5bGluZyhsYXRleF9vcHRpb25zID0gInNjYWxlX2Rvd24iKSAKCgpgYGAKCgoKIEhvd2V2ZXIsIHNvbWV0aW1lcyB3ZSBza2lwIHNvbWUgc2FtcGxlcyB0aGF0IGRpZCBub3QgcGVyZm9ybSB3ZWxsLCBvciB3ZSB3YW50IHRvIGRpZ2VzdCBhIGJ1bmNoIG9mIGV4dHJhY3RzIGZyb20gcmFuZG9tIHBsYXRlcy4gIElmIGl0IGlzIG5vdCBhIHNpbXBsZSBwbGF0ZSB0byBwbGF0ZSB0cmFuc2ZlciwgdGhlIHNvdXJjZSBwbGF0ZSBtYXAgd291bGQgbG9vayBsaWtlIHRoaXM6IApgYGB7cn0gCiBkaWdlc3RlZCA8LSBsYWIgJT4lIHRibCgiZGlnZXN0IikgJT4lIGNvbGxlY3QoKSAKICMgVE9ETzogc2hvdWxkIGZpbHRlciB0aGlzIGZvciBzdWNjZXNzZnVsIGRpZ2VzdHMgCgogICBuZWVkX2RpZ2VzdCA8LSBsYWIgJT4lIHRibCgiZXh0cmFjdGlvbiIpICU+JSBjb2xsZWN0KCkgJT4lICAKICAgIyBoYXNuJ3QgYmVlbiBkaWdlc3RlZCAKICAgZmlsdGVyKCFleHRyYWN0aW9uX2lkICVpbiUgZGlnZXN0ZWQkZXh0cmFjdGlvbl9pZCkgJT4lICAKICAgIyBzZWxlY3QgY29sdW1ucyAKICAgc2VsZWN0KGV4dHJhY3Rpb25faWQsIHdlbGwsIHBsYXRlLCBxdWFudCkgJT4lICAKICAgIyBuZWVkIGVub3VnaCBtYXRlcmlhbCB0byB3b3JrIHdpdGggCiAgIGZpbHRlcihxdWFudCA+IDUpICU+JSAgCiAgICMgbmVlZHMgdG8gYmUgaW4gYSBwbGF0ZSAKICAgZmlsdGVyKCFpcy5uYShwbGF0ZSkpICU+JSAgCiAgICMgc29ydCBieSBleHRyYWN0aW9uIGlkIAogICBhcnJhbmdlKGV4dHJhY3Rpb25faWQpIAoKICAgIyBkZWZpbmUgd2VsbHMgCiBwbGF0ZSA8LSBkYXRhLmZyYW1lKHJvdyA9IHJlcChMRVRURVJTWzE6OF0sIDEyKSwgY29sID0gdW5saXN0KGxhcHBseSgxOjEyLCByZXAsIDgpKSkgJT4lICAKICAgbXV0YXRlKGV4dHJhY3Rpb25faWQgPSBpZmVsc2Uocm93ID09ICJEIiAmIGNvbCA9PSAyLCAiWFhYWCIsIE5BKSwgIAogICAgIGV4dHJhY3Rpb25faWQgPSBpZmVsc2Uocm93ID09ICJFIiAmIGNvbCA9PSA4LCAiWFhYWCIsIGV4dHJhY3Rpb25faWQpKSAKCiAjIGlmIHRoZSBwbGF0ZSBpcyBub3QgZnVsbCAKIHggPC0gbnJvdyhuZWVkX2RpZ2VzdCkgKyAyIAogaWYgKHggPCA5NikgeyAKICAgaWYoeCA8IDQ4KXsgCiAgICAgcGxhdGUgPC0gcGxhdGUgJT4lICAKICAgICAgIHNsaWNlKDE6eC0xKSAKICAgfWVsc2V7IAogICAgIHBsYXRlIDwtIHBsYXRlICU+JSAgCiAgICAgc2xpY2UoMTp4KSAKICAgfSAKIH0gCgogIyBtb3ZlIGFsbCBvZiB0aGUgbm9uLWJsYW5rIHdlbGxzIGludG8gdGhlaXIgb3duIHRhYmxlIAogc2FtcGxlcyA8LSBwbGF0ZSAlPiUgIAogICBmaWx0ZXIoaXMubmEoZXh0cmFjdGlvbl9pZCkpICU+JSAgCiAgIHNlbGVjdCgtZXh0cmFjdGlvbl9pZCkgCgogIyByZW1vdmUgdGhlIG5vbi1ibGFuayB3ZWxscyBmcm9tIHRoZSBwbGF0ZSB0YWJsZSAKIHBsYXRlIDwtIGFudGlfam9pbihwbGF0ZSwgc2FtcGxlcywgYnkgPSBjKCJyb3ciLCAiY29sIikpIAoKICMgam9pbiB0aGUgd29yayBzYW1wbGVfaWRzIHRvIHRoZSBzYW1wbGUgdGFibGUgd2VsbCBkZWZpbml0aW9ucyAKIHNhbXBsZXMgPC0gY2JpbmQoc2FtcGxlcywgbmVlZF9kaWdlc3QpICU+JSAgCiAgIHNlbGVjdChyb3csIGNvbCwgZXh0cmFjdGlvbl9pZCkgCgogIyByZWpvaW4gdGhlIHNhbXBsZXMgaW50byB0aGUgcGxhdGUgd2l0aCB0aGUgYmxhbmtzLCByZXN1bHRpbmcgaW4gYSBwbGF0ZSBvZiBkZWZpbmVkIHdlbGxzIGZvciBzYW1wbGVzIGFuZCBibGFua3MuIAogcGxhdGUgPC0gcmJpbmQocGxhdGUsIHNhbXBsZXMpICU+JSAgCiAgIGFycmFuZ2UoY29sLCByb3cpIAoKIHNvdXJjZV9tYXAgPC0gYXMubWF0cml4KHJlc2hhcGUyOjphY2FzdChwbGF0ZSwgcGxhdGUkcm93IH4gcGxhdGUkY29sKSwgdmFsdWUudmFyID0gcGxhdGUkZXh0cmFjdGlvbikgCiBrbml0cjo6a2FibGUoc291cmNlX21hcCwgYm9va3RhYnMgPSBUKSAlPiUgIAogICAjIHVzZSBzY2FsZV9kb3duIHRvIGdldCBtYXAgdG8gZml0IHdpdGhpbiB0aGUgYm91bmRzIG9mIHRoZSBwZGYgCiAgIGthYmxlX3N0eWxpbmcobGF0ZXhfb3B0aW9ucyA9ICJzY2FsZV9kb3duIikgCmBgYCAKCiBBIGRpZ2VzdCBpZCBtdXN0IGJlIGNyZWF0ZWQgZm9yIHRoZXNlIHNhbXBsZXMuICAgCiAqKk9ubHkgZG8gdGhpcyBzdGVwIG9uY2UhKiogICAKIEl0IGNyZWF0ZXMgbmV3IGRpZ2VzdF9pZHMgZm9yIHRoZSBkYXRhYmFzZS4gICAKIFRoZSBkZXN0aW5hdGlvbiBwbGF0ZSBtYXAgd291bGQgbG9vayBsaWtlIHRoaXM6ICAgCgpgYGB7cn0gCiAjIyMgT05MWSBETyBUSElTIE9OQ0UgIyMjIAogZGlnX21heCA8LSBsYWIgJT4lIHRibCgiZGlnZXN0IikgJT4lICAKICAgc3VtbWFyaXNlKGxhc3QgPSBtYXgoZGlnZXN0X2lkLCBuYS5ybSA9IFQpKSAlPiUgIAogICBjb2xsZWN0KCkgJT4lICAKICAgbXV0YXRlKGxhc3QgPSBhcy5udW1lcmljKHN1YnN0cihsYXN0LCAyLDUpKSkgCgogeCA8LSBkaWdfbWF4JGxhc3QrMSAKIHkgPC0gZGlnX21heCRsYXN0K25yb3cocGxhdGUpIAogaWRfcmFuZ2UgPC0geDp5IAoKIHBsYXRlIDwtIHBsYXRlICU+JSAgCiAgIG11dGF0ZShkaWdlc3RfaWQgPSBwYXN0ZTAoIkQiLCBpZF9yYW5nZSksIAogICAgICAgICAgd2VsbCA9IHBhc3RlKHJvdywgY29sLCBzZXAgPSAiIiksICAKICAgICAgICAgIGVuenltZXMgPSAiUHN0SS1NbHVDSSIsIAogICAgICAgICAgdm9sX2luID0gMzAsIAogICAgICAgICAgZmluYWxfdm9sID0gNDUpIAoKIHBsYXRlX25hbWUgPC0gcGxhdGUgJT4lICAKICAgc3VtbWFyaXNlKGZpcnN0ID0gbWluKGRpZ2VzdF9pZCksICAKICAgICBsYXN0ID0gbWF4KGRpZ2VzdF9pZCwgbmEucm0gPSBUKSkgCgogZGVzdF9tYXAgPC0gcGxhdGUgJT4lICAKICAgbXV0YXRlKHBsYXRlID0gcGFzdGUocGxhdGVfbmFtZSRmaXJzdCwgcGxhdGVfbmFtZSRsYXN0LCBzZXAgPSAiLSIpKSAlPiUgIAogICBzZWxlY3Qocm93LCBjb2wsIGRpZ2VzdF9pZCkgCgogZGVzdF9tYXAgPC0gYXMubWF0cml4KHJlc2hhcGUyOjphY2FzdChkZXN0X21hcCwgZGVzdF9tYXAkcm93IH4gZGVzdF9tYXAkY29sKSwgdmFsdWUudmFyID0gZGVzdF9tYXAkZGlnZXN0X2lkKSAKCiBrbml0cjo6a2FibGUoZGVzdF9tYXAsIGJvb2t0YWJzID0gVCkgJT4lICAKICAga2FibGVfc3R5bGluZygpIAoKYGBgIAoKCgoKIFByaW50IG91dCBwbGF0ZSBtYXBzIGFuZCBoaWdobGlnaHQgc291cmNlIG1hcHMgZm9yIGVhc2Ugb2YgbG9hZGluZy4gIE1ha2Ugc3VyZSB0byBub3RlIGFueSBzYW1wbGVzIHRoYXQgYXJlIGhlYXZpbHkgY29uY2VudHJhdGVkIGFuZCBuZWVkIHRvIGJlIGRpbHV0ZWQuIAoKIFByZXBhcmUgZGlnZXN0IHBsYXRlIGJ5IGxvYWRpbmcgMzB1TCBvZiBzYW1wbGUgaW4gdG8gdGhlIHBsYXRlLiAKCiBGb3IgdGhlIE9jdG9iZXIgMjAxNyBzZXQgb2YgcGxhdGVzLCBJIGhpZ2hsaWdodGVkIHRoZSAxNXVMIHNhbXBsZXMgb24gdGhlIG1hcHMgaW4gb3JhbmdlIGFuZCB0aGUg4oCcaG9sZS1maWxsZXJz4oCdIGluIHBpbmssIHRoZW4gYW55IHNhbXBsZXMgSSBjb3VsZCB0YWtlIHdpdGggYSBtdWx0aWNoYW5uZWwgd2l0aCBhIGJsdWUgbGluZSBkb3duIHRoZSBjb2x1bW4uIAoKIFRvIGxvYWQsIEkgZmlyc3QgdXNlZCBhIHNpbmdsZSBjaGFubmVsIHBpcGV0IHRvIGZpbGwgaW4gdGhlIDE1dUwgc2FtcGxlcyAoZXh0cmEgY29uY2VudHJhdGVkIHNhbXBsZXMpLCBwdWxsaW5nIHRoZSB0aXBzIGZyb20gdGhlIHNhbWUgbG9jYXRpb24gdGhleSB3ZXJlIG9uIHRoZSBwbGF0ZS4gIFRoZW4gSSBmaWxsZWQgaW4gdGhlIHdhdGVyIGZvciB0aGUgMTV1TCB3ZWxscyBhbmQgY2hhbmdlIHRoZSBwaXBldCB0byAzMHVMIHRvIGZpbGwgdGhlIGJsYW5rcy4gCiBUaGVuIEkgYWRkZWQgYW55IDMwdUwg4oCcaG9sZSBmaWxsZXJz4oCdIC0gYWdhaW4gdXNpbmcgdGhlIHRpcHMgZnJvbSB0aGUgc2FtZSBsb2NhdGlvbiBpbiB0aGUgdGlwIGJveC4gCgogQXQgdGhpcyBwb2ludCwgYW55IGVtcHR5IHdlbGxzIG9uIHRoZSBwbGF0ZSBjb3JyZXNwb25kIHRvIHRpcHMgaW4gdGhlIHRpcCBib3guICBJIHVzZWQgdGhlIG11bHRpY2hhbm5lbCBwaXBldCB0byBwaWNrIHVwIHRoZSB0aXBzIGFuZCBoZWxkIHRoZW0gdXAgdG8gdGhlIHBsYXRlIHRvIG1ha2Ugc3VyZSBubyB0aXBzIHdlcmUgZ29pbmcgaW50byBhbHJlYWR5IGZpbGxlZCB3ZWxscywgYW5kIG5vIGVtcHR5IHdlbGxzIHdlcmUgYmVpbmcgbGVmdCBlbXB0eS4gIFRoZW4gSSBmaWxsZWQgdGhlIHJlc3Qgb2YgdGhlIHBsYXRlLiAKCgogIyMgTWFrZSB0aGUgbWFzdGVyIG1peCByZWNpcGUgaW4gYSBmYWxjb24gdHViZSBvciBzbWFsbGVyIHR1YmUgaWYgcG9zc2libGU6IApgYGB7cn0gCiBudW1fc2FtcGxlcyA8LSBucm93KHBsYXRlKSAKCiAjIG1ha2Ugc29tZSByb29tIGZvciBlcnJvciAxNSUgCiBzYW1wbGVzX3dpdGhfZXJyb3IgPC0gZmxvb3IobnVtX3NhbXBsZXMgKiAxLjE1KSAKCiAjIHVzZSBhIHRvdGFsIG9mIDEwIGVuenltZSBVbml0cyBwZXIgNTB1TCByZWFjdGlvbiwgNSBvZiBlYWNoIGVuenltZS4gCgogZGlnZXN0X3J4biA8LSByZWFkX2NzdigiaXRlbSwgY29uY2VudHJhdGlvbiwgcGVyX3JlYWN0aW9uIAogICAgICAgICAgICAgICAgICAgICAgICBzYW1wbGUsIE5BLCBOQSAKICAgICAgICAgICAgICAgICAgICAgICAgZW56eW1lMSwgTkEsIE5BIAogICAgICAgICAgICAgICAgICAgICAgICBlbnp5bWUyLCBOQSwgTkEgCiAgICAgICAgICAgICAgICAgICAgICAgIGJ1ZmZlciwgTkEsIE5BIAogICAgICAgICAgICAgICAgICAgICAgICBwSDJPLCBOQSwgTkEiKSAlPiUgIAogICBtdXRhdGUocGVyX3JlYWN0aW9uID0gaWZlbHNlKGl0ZW0gPT0gInNhbXBsZSIsIHBhcmFtcyRkaWdlc3RfcnhuX3NpemUvMS42NjY2LCBwZXJfcmVhY3Rpb24pLCAgCiAgICAgICAgICBjb25jZW50cmF0aW9uID0gaWZlbHNlKGl0ZW0gPT0iZW56eW1lMSIsIDEwMDAwMCwgY29uY2VudHJhdGlvbiksIAogICAgICAgICAgcGVyX3JlYWN0aW9uID0gaWZlbHNlKGl0ZW0gPT0gImVuenltZTEiLCAocGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZSkvMTAvKGNvbmNlbnRyYXRpb24vMTAwMCksIHBlcl9yZWFjdGlvbiksIAogICAgICAgICAgY29uY2VudHJhdGlvbiA9IGlmZWxzZShpdGVtID09ImVuenltZTIiLCAxMDAwMCwgY29uY2VudHJhdGlvbiksIAogICAgICAgICAgIHBlcl9yZWFjdGlvbiA9IGlmZWxzZShpdGVtID09ICJlbnp5bWUyIiwgKHBhcmFtcyRkaWdlc3RfcnhuX3NpemUpLzEwLyhjb25jZW50cmF0aW9uLzEwMDApLCBwZXJfcmVhY3Rpb24pLCAKICAgICAgICAgIGNvbmNlbnRyYXRpb24gPSBpZmVsc2UoaXRlbSA9PSJidWZmZXIiLCAxMCwgY29uY2VudHJhdGlvbiksIAogICAgICAgICAgIHBlcl9yZWFjdGlvbiA9IGlmZWxzZShpdGVtID09ICJidWZmZXIiLCBwYXJhbXMkZGlnZXN0X3J4bl9zaXplL2NvbmNlbnRyYXRpb24sIHBlcl9yZWFjdGlvbikpIAoKIHBIMk8gPC0gZGlnZXN0X3J4biAlPiUgIAogICBzdW1tYXJpc2UodGhpcyA9IHBhcmFtcyRkaWdlc3RfcnhuX3NpemUtc3VtKHBlcl9yZWFjdGlvbiwgbmEucm09VCkpIAoKIGRpZ2VzdF9yeG4gPC0gZGlnZXN0X3J4biAlPiUgIAogICBtdXRhdGUocGVyX3JlYWN0aW9uID0gaWZlbHNlKGl0ZW0gPT0gInBIMk8iLCBwSDJPJHRoaXMsIHBlcl9yZWFjdGlvbiksIAogICAgICAgICAgbWFzdGVyX21peCA9IHBlcl9yZWFjdGlvbiAqIHNhbXBsZXNfd2l0aF9lcnJvciwgIAogICAgICAgICAgbWFzdGVyX21peCA9IGlmZWxzZShpdGVtID09ICJzYW1wbGUiLCBOQSwgbWFzdGVyX21peCkpIAoKICMgZG91YmxlIGNoZWNrIHRoZSBtYXRoIC0gc2hvdWxkIHJldHVybiBUUlVFIAogKHBhcmFtcyRkaWdlc3RfcnhuX3NpemUqc2FtcGxlc193aXRoX2Vycm9yKS0ocGFyYW1zJGRpZ2VzdF9yeG5fc2l6ZSouNipzYW1wbGVzX3dpdGhfZXJyb3IpID09IHJvdW5kKHN1bShkaWdlc3RfcnhuJG1hc3Rlcl9taXgsIG5hLnJtPVQpKSAKCiBwcmludChwYXN0ZTAoIlRvdGFsIG1hc3RlciBtaXggdm9sdW1lIGlzICIsIHJvdW5kKHN1bShkaWdlc3RfcnhuJG1hc3Rlcl9taXgsIG5hLnJtPVQpKSwgIm1MIikpIApgYGAgCmBgYHtyfSAKIGthYmxlX3N0eWxpbmcoa2FibGUoZGlnZXN0X3J4bikpIApgYGAgCgogICAgICogc3BsaXQgdGhlIG1hc3RlciBtaXggaW50byA4IHdlbGxzLCB1c2UgYSBtdWx0aWNoYW5uZWwgcGlwZXQgdG8gcGlwZXQgMTLCtUwgb2YgbWFzdGVyIG1peCBpbnRvIGVhY2ggc2FtcGxlIHdlbGwuICAKYGBge3J9IAogcHJpbnQocGFzdGUwKCJTcGxpdCBpbnRvIDggd2VsbHMgYnkgcGlwZXR0aW5nICIsIChyb3VuZChzdW0oZGlnZXN0X3J4biRtYXN0ZXJfbWl4LCBuYS5ybT1UKSkpLzgsICJ1bCBpbnRvIGVhY2ggd2VsbCIpKSAKYGBgIAoKICMgU3VwcGxpZXMgbmVlZGVkIHBsdXMgdGhlIHZvbHVtZXMgb24gdGhlIG1hc3RlciBtaXggcmVjaXBlLiAKYGBge3J9IAogZGlnZXN0IDwtIHRpYmJsZSggCiAgIHBsYXRlcyA9IG51bV9zYW1wbGVzLzk2LCAKICAgdHViZXMgPSBudW1fc2FtcGxlcy85NiwgIAogICBwbGF0ZV9zZWFscyA9IG51bV9zYW1wbGVzLzk2LCAgCiAgIHRpcHNfMTAwID0gbnVtX3NhbXBsZXMgKiAyICsgKGNlaWxpbmcoZGlnZXN0X3J4biRtYXN0ZXJfbWl4WzNdLzEwMCkpLCMgcmVmZXJyaW5nIHRvIGVuenltZTIgCiAgIHRpcHNfMTAgPSBjZWlsaW5nKGRpZ2VzdF9yeG4kbWFzdGVyX21peFsyXS8xMCksICMgcmVmZXJyaW5nIHRvIGVuenltZTEgCiAgIHRpcHNfMzAwID0gY2VpbGluZyhkaWdlc3RfcnhuJG1hc3Rlcl9taXhbNF0vMTAwKSwgIyByZWZlcnJpbmcgdG8gYnVmZmVyIAogICB0aXBzXzEwMDAgPSBjZWlsaW5nKGRpZ2VzdF9yeG4kbWFzdGVyX21peFs1XS8xMDAwKSAjIHJlZmVycmluZyB0byBwSDJPIAogICApIApgYGAgCgoKICAgICAgICAgKiBEbyBub3QgYWRkIHRoZSBtYXN0ZXIgbWl4IHRvIGFsbCBvZiB0aGUgd2VsbHMgYW5kIHRoZW4gYWRkIHRoZSBzYW1wbGUuICBCZWNhdXNlIHlvdSBhcmUgd29ya2luZyB3aXRoIGFjdGl2ZSBlbnp5bWVzLCB0aGV5IHNob3VsZCBiZSB0aGUgbGFzdCB0aGluZ3MgYWRkZWQgdG8gdGhlIG1hc3RlciBtaXggYW5kIHRoZSBsYXN0IHN0ZXAgb2YgcGxhdGUgcHJlcGFyYXRpb24uIAogKiBJbmN1YmF0ZSBQc3RJIGFuZCBNbHVDSSBhdCAzN8uaIC0gTm8gYmVuZWZpdCBmcm9tIGluY3ViYXRpbmcgTWx1Q0kgbG9uZ2VyIHRoYW4gb25lIGhvdXIsIFBzdEkgaXMgYWN0aXZlIDItNCBob3VycywgZG9u4oCZdCBuZWVkIHRvIGhlYXQga2lsbCBkaWdlc3RzIAoKIENsZWFuIHRoZSBkaWdlc3RzIHVzaW5nIDEuNXggdGhlIHZvbHVtZSBvZiB0aGUgZGlnZXN0ICg3NcK1TCkgQW1wdXJlIHBlciBzYW1wbGUuIFB1dCB0aGUgcGxhdGVzIG9uIHllbGxvdyBsaWZ0cyBvbiB0aGUgbWFnbmV0IHNvIHRoYXQgdGhlIHBlbGxldCBpcyBsb3dlciBiZWZvcmUgeW91IGZpbmlzaCB0aGUgYWxjb2hvbCBzdGVwcy4gICBCZWNhdXNlIHRoZXNlIGFyZSBpbiBwbGF0ZXMgYW5kIGl0IGlzIGRpZmZpY3VsdCB0byBnZXQgYWxsIG9mIHRoZSBlbHV0ZSBvdXQgb2YgdGhlIHdlbGwsIGVsdXRlIGluIDQ1wrVMIG9mIGJ1ZmZlciBhbmQgcHVsbCA0MMK1TCBmcm9tIHRoZSB3ZWxsIHRvIHBsYWNlIGluIGEgbmV3IGNsZWFuZWQgZGlnZXN0IHBsYXRlLiAgVXBkYXRlIHRoZSBkYXRhYmFzZS4gLSBBbXB1cmUgY2xlYW4gdXAgcHJvdG9jb2wgCgogUXVhbnRpZml5IC0gcXVhbnQtaXQgcGljbyBncmVlbiAtIGltcG9ydCB0aGUgcXVhbnRpZmljYXRpb24gcmVzdWx0cyBpbnRvIHRoZSBTYW1wbGVfRGF0YSBzcHJlYWRzaGVldCwgRGlnZXN0cyBQYWdlIHF1YW50IGNvbHVtbi4gIEZvciBhbnkgc2FtcGxlIHdpdGggYSBuZWdhdGl2ZSBxdWFudGlmaWNhdGlvbiB2YWx1ZSwgY2hhbmdlIHRoZSBMaWdhdGVkPyBjb2x1bW4gdmFsdWUgdG8gTi9BICh0aGUgcmVzdCBzaG91bGQgY29udGFpbiBhIGZvcm11bGEgdGhhdCByZXN1bHRzIGluIHRoZSB2YWx1ZSDigJxGQUxTReKAnSkuICBBbHNvLCBhZGQgYW4g4oCcX0bigJ0gdG8gdGhlIGV4dHJhY3Rpb24gSUQgKG5vdCB0aGUgZGlnZXN0IElEKSBpbiB0aGUgZXh0cmFjdGlvbiBJRCBjb2x1bW4gKGV4YW1wbGU6IFBBREUxNF8wOTNFMTUxNiBiZWNvbWVzIFBBREUxNF8wOTNFMTUxNl9GKS4gIFRoaXMgZGlnZXN0IGZhaWxlZCBhbmQgc28gdGhlIHNhbXBsZSBzaG91bGQgbm90IHJlZmxlY3QgdGhhdCBhIHN1Y2Nlc3NmdWwgZGlnZXN0IGV4aXRzLiAKCgoKCgoKCgoKCgogICAgICogTW9yZSBkZWNpc2lvbiBtYWtpbmcgaXMgbmVjZXNzYXJ5IGF0IHRoaXMgcG9pbnQuICBJZiBhbiBleHRyYWN0IGhhcyBsZXNzIHRoYW4gNW5nL3VsIEROQSwgaXQgd2lsbCBtb3N0IGxpa2VseSBmYWlsIHRvIGRpZ2VzdCB3ZWxsLiAgVGhpcyBpcyBhIHRvdWdoIGNhbGwsIHNvbWUgZGlnZXN0cyB3aXRoIG11Y2ggbGVzcyB0aGFuIDVuZy91bCBoYXZlIGxpZ2F0ZWQgc3VjY2Vzc2Z1bGx5IGFuZCBvdGhlcnMgaGF2ZSBub3QuICBQcm9jZWVkIHdpdGggY2F1dGlvbi4gSWYgdGhlcmUgYXJlIHBsZW50eSBvZiBzYW1wbGVzIHRvIGNob29zZSBmcm9tLCBjaG9vc2UgdGhlIGRlc2lyZWQgbnVtYmVyIHdpdGggdGhlIG1vc3Qg4oCcc2FtcGxlX25nX2lu4oCdLiAKICAgICAgICAgKiBBcyBvZiA4LzE5LzIwMTQgIAogICAgICAgICAgICAgKiBhbnkgZXh0cmFjdGlvbiBsZXNzIHRoYW4gNW5nL8K1TCB3ZSBhcmUgcHV0dGluZyBvbiB0aGUgYmFjayBidXJuZXIgdG8gY29udGludWUgcHJvY2Vzc2luZyBhdCBhIGxhdGVyIGRhdGUgCiAgICAgICAgICAgICAqIGFueXRoaW5nIHRoYXQgaXMgbW9yZSB0aGFuIDVuZy/CtUwgYnV0IG1ha2VzIGxlc3MgdGhhbiAxwrVnIG9mIEROQSB3aGVuIHlvdSBtdWx0aXBseSB0aGUgcXVhbnQgcmVzdWx0IGJ5IDMwwrVMICh0aGUgZGlnZXN0IGFkZGl0aW9uIGFtb3VudCkgLSBjYWxjdWxhdGUgdGhlIGFtb3VudCBvZiBleHRyYWN0IHRvIG1ha2UgMcK1ZyBETkEgYW5kIGNsZWFuIHRoYXQgYW1vdW50LCBlbHV0ZSBpbiAzMMK1TCBhbmQgYWRkIHRvIGRpZ2VzdCBwbGF0ZSAgCiAgICAgICAgICAgICAqIEFzIG9mIDExLzIwMTQgd2UgYXJlIG5vdCB3b3JyaWVkIGFib3V0IOKAnHRvbyBsb3figJ0gRE5BIGFuZCBhcmUgbm90IGNsZWFuaW5nIHNhbXBsZXMgdGhhdCBhcmUgYmVsb3cgMTAwMG5nLiAgV2UgaGF2ZSBzdWNjZXNzZnVsbHkgZGlnZXN0ZWQgZG93biB0byAxMDBuZy4gICAKICAgICAgICAgICAgICogYW55dGhpbmcgdGhhdCBtYWtlcyBtb3JlIHRoYW4gNcK1ZyBvZiBETkEgd2hlbiB5b3UgbXVsdGlwbHkgdGhlIHF1YW50IHJlc3VsdCBieSAzMMK1TCAtIGFkZCAxNcK1TCBvZiBleHRyYWN0IHRvIHBsYXRlIGFuZCAxNcK1TCBwSDJPIC0gZG8gdGhlIG1hdGggdG8gbWFrZSBzdXJlIHRoaXMgZGlsdXRpb24gd2lsbCBzdGlsbCBiZSBsZXNzIHRoYW4gNcK1Zy4gCiAgICAgKiBGb3IgdGhlIHRpbWUgYmVpbmcsIGVudGVyIHRoZSBFeHRyYWN0SUQgaW4gdGhlIERpZ2VzdCBJRCBjb2x1bW4gZm9yIGVhc2Ugb2Ygc29ydGluZyAoaXQgaXMgZWFzaWVzdCB0byB3b3JrIG9uIGV4dHJhY3QgcGxhdGVzIGluIHNhbXBsZSBvcmRlcikgLSBkbyB0aGlzIGJ5IGVudGVyaW5nIHRoZSBmb3JtdWxhID1yaWdodChCMTg4Miw1KSBpbiBjb2x1bW4gQSAKICAgICAqIFNvcnQgYnkgRXh0cmFjdCBJZCAobm8gZGlnZXN0IG51bWJlciB5ZXQsIHdpbGwgc29ydCBieSBzYW1wbGUgbnVtYmVyKSwgb25seSB0aGUgcmFuZ2Ugb2YgdGhpcyBwbGF0ZSEhISAKICAgICAqIEZpbGwgaW4gZGF0ZSwgZW56eW1lLCBEaWdlc3QjIGFuZCByZXBsYWNlIHRoZSBFeHRyYWN0IyBpbiB0aGUgRGlnZXN0X0lEIGNvbHVtbiB3aXRoIHRoZSBmb3JtdWxhIHRvIGNvbmNhdGVuYXRlIGEgZGlnZXN0IElELiAKICAgICAqIHByaW50IGEgbWFwIG9mIHlvdXIgZXh0cmFjdGlvbiBwbGF0ZSBhbmQgbmV3IGRpZ2VzdCBwbGF0ZSAKICogaGlnaGxpZ2h0IHNhbXBsZXMgaW4gcHJpbnRlZCBleHRyYWN0aW9uIHBsYXRlIG1hcHMgCiAqIHBpcGV0ZWQgYWxpcXVvdCB0byBkaWdlc3QgcGxhdGUgZm9yIGEgNTDCtUwgZGlnZXN0aW9uIHJlYWN0aW9uIAogKiBQcmludCBhIHBsYXRlIG1hcCBhbmQgZGV0ZXJtaW5lIHdoaWNoIHNhbXBsZXMgY2FuIGJlIGRpZ2VzdGVkIGFzIGlzLCBhbmQgd2hpY2ggbmVlZCB0byBiZSBkaWx1dGVkIC0gaGlnaGxpZ2h0IGFjY29yZGluZ2x5IAoKCgogT3B0aW1pemluZyBSZXN0cmljdGlvbiBFbmRvbnVjbGVhc2UgUmVhY3Rpb25zIHwgTmV3IEVuZ2xhbmQgQmlvbGFicyAKIEZvciBhIDUwwrVMIHJ4biwgdXNlOiAKCiAxwrVnIEROQSAtIGZpbGwgdG8gdm9sdW1lIHcvIHBIMk8gCiA1wrVMIDEweCBidWZmZXIgKDUwwrVMLzEweD01KSAKCiBXYW50IGEgdG90YWwgb2YgMTBVIGluIHJ4biAKIEZvciBzaW5nbGUgZGlnZXN0OiAKIGlmIGVuenltZSBpcyAxMCwwMDBVL21MIC0gMcK1TCA9IDEwVSAKIGlmIGVuenltZSBpcyAyMCwwMDBVL21MIC0gMC41wrVMID0gMTBVIAoKIEZvciBkb3VibGUgZGlnZXN0IAogaWYgZW56eW1lIGlzIDEwLDAwMFUvbUwgLSAwLjXCtUwgPSA1VSAKIGlmIGVuenltZSBpcyAyMCwwMDBVL21MIC0gMC4yNcK1TCA9IDVVICAKCiBQc3RJIC0gY3V0c2l0ZSBpcyAgaHR0cHM6Ly93d3cubmViLmNvbS9wcm9kdWN0cy9yMDE0MC1wc3RpIAoKIE1sdUNJIC0gY3V0c2l0ZSBpcyAgaHR0cHM6Ly93d3cubmViLmNvbS9wcm9kdWN0cy9yMDUzOC1tbHVjaSAKCiBFY29SSSBjdXRzaXRlIGlzICBodHRwczovL3d3dy5uZWIuY29tL3Byb2R1Y3RzL3IwMTAxLWVjb3JpIAo=</div>
 
 
 

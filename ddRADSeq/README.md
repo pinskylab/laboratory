@@ -50,7 +50,7 @@ procedures.**
 
 ### Quantify
 
-[Procedure](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
+[Procedure](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
 
   - Takes 1/2 hour for each plate or qubit run
 

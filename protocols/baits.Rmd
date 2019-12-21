@@ -1,5 +1,6 @@
 ---
 title: "Baits Capture"
+output: html_notebook
 params:
   num_samples: 4
 ---
@@ -30,3 +31,4 @@ hybridization <- tribble(~item, ~quantity,
                          "falcon_50ml", 1))
 ```
 
+Follow the instructions in the [manufacturer's manual](https://github.com/pinskylab/laboratory/blob/master/documentation/MYbaits-manual-v3.pdf)

@@ -1,8 +1,6 @@
 ---
 title: "EecSeq Library Prep"
-output: 
-  github_document:
-    toc: TRUE
+output: github_document
 ---
 
 

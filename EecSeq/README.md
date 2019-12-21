@@ -17,13 +17,11 @@ procedures.**
 [RNA
 Extraction](https://pinskylab.github.io/laboratory/protocols/rna_extraction_tri.nb.html)
 
-  - Takes 1.5
-hours
+  - Takes 1.5 hours
 
 [Quantify](https://pinskylab.github.io/laboratory/protocols/quant_rna.nb.html)
 
-  - Takes 0.5
-hours
+  - Takes 0.5 hours
 
 [Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
 
@@ -42,8 +40,7 @@ adapters](https://pinskylab.github.io/laboratory/protocols/anneal.nb.html)
 capture](https://pinskylab.github.io/laboratory/protocols/mrna-hyper.nb.html)
 
   - Takes 6 hours  
-  - There are safe stopping points within this
-protocol.
+  - There are safe stopping points within this protocol.
 
 [Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
 
@@ -67,8 +64,7 @@ Treatment](https://pinskylab.github.io/laboratory/protocols/dsn-treat.nb.html)
 ### Safe Stopping Point
 
 This is a safe stopping point. If you are stopping, store your sample at
-‐15° to
-‐25°C.
+‐15° to ‐25°C.
 
 [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
 \- Takes 1/2 hour. - Use a sample volume of 80ul and an ampure volume of
@@ -78,15 +74,13 @@ This is a safe stopping point. If you are stopping, store your sample at
 
 [DSN Enrichment
 PCR](https://pinskylab.github.io/laboratory/protocols/dsn-pcr.nb.html)  
-\- Takes 1/2 hour plus thermocycler
-time.
+\- Takes 1/2 hour plus thermocycler time.
 
 [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)  
 \- Takes 1/2 hour  
 \- Use a sample volume of 50ul and an ampure volume of 80ul.  
 \- Conduct the cleanup in a 1.7mL tube.  
-\- Elute 22 μl of 10 mM Tris-HCl (pH 8.0) into a 200uL
-tube.
+\- Elute 22 μl of 10 mM Tris-HCl (pH 8.0) into a 200uL tube.
 
 [Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)  
 \- Takes 1/2 hour.
@@ -108,8 +102,7 @@ This is a safe stopping point. If you are stopping, store your sample at
 
 [Remove sequencing
 adapters](https://pinskylab.github.io/laboratory/protocols/remove-adapters_eecseq.nb.html)  
-\- Takes 17 hours, 16 is on thermocycler
-(overnight).
+\- Takes 17 hours, 16 is on thermocycler (overnight).
 
 [Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
 
@@ -122,8 +115,7 @@ adapters](https://pinskylab.github.io/laboratory/protocols/remove-adapters_eecse
 ### Safe Stopping Point
 
 This is a safe stopping point. If you are stopping, store your sample at
-‐15° to
-‐25°C.
+‐15° to ‐25°C.
 
 [Cleanup 1](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 
@@ -135,8 +127,7 @@ This is a safe stopping point. If you are stopping, store your sample at
 ### Safe Stopping Point
 
 This is a safe stopping point. If you are stopping, store your sample at
-‐15° to
-‐25°C.
+‐15° to ‐25°C.
 
 [Cleanup 2](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 
@@ -147,21 +138,18 @@ This is a safe stopping point. If you are stopping, store your sample at
 
 [Biotin
 Labeling](https://pinskylab.github.io/laboratory/protocols/biotin_eecseq.nb.html)  
-\- Takes 21 hours, 20 hours on heat
-block.
+\- Takes 21 hours, 20 hours on heat block.
 
 [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 
   - Takes 1/2 hour  
   - use 50ul of sample and 75ul of ampure.  
   - Conduct the cleanup in a 1.7mL tube.  
-  - Elute 20 μl of 10 mM Tris-HCl (pH 8.0) into a 200uL
-tube.
+  - Elute 20 μl of 10 mM Tris-HCl (pH 8.0) into a 200uL tube.
 
 [Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
 
-  - Takes 1/2
-hour
+  - Takes 1/2 hour
 
 [Visualize](https://pinskylab.github.io/laboratory/protocols/bioanalyzer.nb.html)
 
@@ -207,16 +195,14 @@ Repair](https://pinskylab.github.io/laboratory/protocols/end-repair.nb.html)
 [Adapter
 ligation](https://pinskylab.github.io/laboratory/protocols/ligation_eecseq.nb.html)
 
-  - Takes 3
-hours.
+  - Takes 3 hours.
 
 [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 
   - Takes 1/2 hour  
   - use 55ul of sample and 44ul of **Kapa Pure Beads**.  
   - Conduct the cleanup in plates.  
-  - Elute 11 μl of 12.5ul of 10 mM Tris-HCl (pH 8.0) into a fresh
-plate.
+  - Elute 11 μl of 12.5ul of 10 mM Tris-HCl (pH 8.0) into a fresh plate.
 
 [Quantify](https://pinskylab.github.io/laboratory/protocols/quant_dna.nb.html)
 
@@ -224,13 +210,11 @@ plate.
 
 [Pool](https://pinskylab.github.io/laboratory/protocols/pool.nb.html)
 
-  - Takes 1
-hour
+  - Takes 1 hour
 
 [Amplification](https://pinskylab.github.io/laboratory/protocols/lib-amp_eecseq.nb.html)
 
-  - Takes 1/2 hour plus thermocycler
-time
+  - Takes 1/2 hour plus thermocycler time
 
 [Cleanup](https://pinskylab.github.io/laboratory/protocols/ampure.nb.html)
 

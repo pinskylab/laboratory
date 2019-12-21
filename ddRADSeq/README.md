@@ -69,7 +69,9 @@ procedures.**
 ### Robot
 
 [Procedure](https://pinskylab.github.io/laboratory/protocols/robot.nb.html)  
-\- Takes 1/2 hour per plate plus travel to and from Princeton
+\- Takes 1/2 hour per plate plus travel to and from Princeton  
+\- [Quality control after
+robot](https://pinskylab.github.io/laboratory/protocols/post_robot_qc.nb.html)
 
 ### Ligate DNA
 

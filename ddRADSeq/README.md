@@ -26,7 +26,8 @@ procedures.**
 
 ### DNA Extraction
 
-[Procedure](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)
+[Procedure](https://pinskylab.github.io/laboratory/protocols/dna_extraction_ali.nb.html)  
+[Lab Notebook](https://github.com/pinskylab/laboratory/protocols/dna_extraction_ali.Rmd)
 
   - Takes 24 hours, 16 hours of overnight lysis
 

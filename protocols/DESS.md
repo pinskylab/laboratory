@@ -5,12 +5,12 @@ Updated by Kyra Fitz on 10/25/22, protocol has been adapted from Melissa Yoder (
 The protocol has two main parts: making a stock solution of 0.5M EDTA, and then using this stock solution to make DESS. Each part was done in the fume hood.
 
 Making 2L 0.5M disodium EDTA pH 8.0:
-372.24g of disodium EDTA
-NaOH pellets, approximately 45 grams
-HCl (only needed if pH goes above 8.0)
-Deionized water
-4L Erlenmeyer flask
-pH meter/probe
+* 372.24g of disodium EDTA
+* NaOH pellets, approximately 45 grams
+* HCl (only needed if pH goes above 8.0)
+* Deionized water
+* 4L Erlenmeyer flask
+* pH meter/probe
 
 1. Calibrate pH meter.
 2. Add 1L deionized water to 4L Erlenmeyer flask. Add a stir bar to the flask. Set the flask on a hot plate set to 30 degrees C and 340 RPM. The pH probe should be partially submerged in water.
@@ -19,11 +19,11 @@ pH meter/probe
 5. Add in NaOH pellets until the solution reaches a pH of 8.0. This step takes the most time (can take 1-2 hours). Add ~45 grams of NaOH pellets, then wait until they are all dissolved. Then, add pellets one at a time until the pH reaches 8.0. One pellet generally equals a 0.01 increase in pH. The solution will become clear as the pH approaches 8.0. If you go over 8.0, then small amounts of HCl (500uL at a time) need to be added until the pH returns to 8.0. 
 
 Making 3L DESS:
-1.5 L of 0.5M EDTA pH 8.0
-600 mL DMSO (store in flammable cabinet)
-900 mL deionized water
-NaCL (reagent-grade) approximately 575g
-4L Erlenmeyer flask
+* 1.5 L of 0.5M EDTA pH 8.0
+* 600 mL DMSO (store in flammable cabinet)
+* 900 mL deionized water
+* NaCL (reagent-grade) approximately 575g
+* 4L Erlenmeyer flask
 
 1. Add 1.5 L of 0.5M EDTA pH 8.0 to a 4L Erlenmeyer flask. Add a stir bar to the flask. Set the flask on a hot plate set to 30 degrees C and 340 RPM.
 2. Add 600 mL of DMSO to the flask. 

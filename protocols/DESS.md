@@ -1,10 +1,10 @@
-DESS Protocol
+# DESS Protocol
 
 Updated by Kyra Fitz on 10/25/22, protocol has been adapted from Melissa Yoder (http://www.faculty.ucr.edu/~pdeley/lab/melissa/DESS_protocol_f.doc). DESS is an EDTA/DMSO/NaCL solution used to preserve DNA in tissue samples.
 
 The protocol has two main parts: making a stock solution of 0.5M EDTA, and then using this stock solution to make DESS. Each part was done in the fume hood.
 
-Making 2L 0.5M disodium EDTA pH 8.0:
+## Making 2L 0.5M disodium EDTA pH 8.0:
 * 372.24g of disodium EDTA
 * NaOH pellets, approximately 45 grams
 * HCl (only needed if pH goes above 8.0)
@@ -18,7 +18,7 @@ Making 2L 0.5M disodium EDTA pH 8.0:
 4. Add deionized water until the total volume of the solution reaches 2L. This will be around 800 mL of water.
 5. Add in NaOH pellets until the solution reaches a pH of 8.0. This step takes the most time (can take 1-2 hours). Add ~45 grams of NaOH pellets, then wait until they are all dissolved. Then, add pellets one at a time until the pH reaches 8.0. One pellet generally equals a 0.01 increase in pH. The solution will become clear as the pH approaches 8.0. If you go over 8.0, then small amounts of HCl (500uL at a time) need to be added until the pH returns to 8.0. 
 
-Making 3L DESS:
+## Making 3L DESS:
 * 1.5 L of 0.5M EDTA pH 8.0
 * 600 mL DMSO (store in flammable cabinet)
 * 900 mL deionized water

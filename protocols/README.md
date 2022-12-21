@@ -109,7 +109,7 @@ protocols may contain useful procedures and insight into different methodologies
 
 ## [Nexterra Workflow](https://github.com/pinskylab/laboratory/tree/master/Nextera)
 
-## [Pire Project](https://github.com/philippinespire/Welcome-README)
+## [PIRE Project](https://github.com/philippinespire/Welcome-README)
 >https://sites.wp.odu.edu/PIRE/
 
 <details>
@@ -126,7 +126,7 @@ protocols may contain useful procedures and insight into different methodologies
 ### [ddRADSeq](https://github.com/pinskylab/laboratory/tree/master/ddRADSeq)
 > This was used in our Amphiprion clarkii clownfish project and our Paralichthys dentatus summer flounder project.
 
-### [MRS Lab Notebook](https://github.com/pinskylab/laboratory/tree/master/laboratory-notebooks)
+### [MRS Lab Notebook for Amphiprion clarkii](https://github.com/pinskylab/laboratory/tree/master/laboratory-notebooks)
 
 
 

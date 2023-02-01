@@ -74,7 +74,7 @@ protocols may contain useful procedures and insight into different methodologies
 
 ### [Ligate DNA](https://pinskylab.github.io/laboratory/protocols/ligation_ddradseq.nb.html)
   
-### [Qubit DNA](https://pinskylab.github.io/laboratory/protocols/qubit.md)
+### [Qubit DNA](qubit.md)
 
 ### [PCR](https://pinskylab.github.io/laboratory/protocols/lib-amp_ddradseq.nb.html)
 
@@ -82,7 +82,7 @@ protocols may contain useful procedures and insight into different methodologies
 
 ### [Sequencing Prep](https://pinskylab.github.io/laboratory/protocols/seq-prep_ddradseq.nb.html)
   
-### [TapeStation 4200](https://pinskylab.github.io/laboratory/protocols/tapestation4200.md)
+### [TapeStation 4200](tapestation4200.md)
 
 
 </details>

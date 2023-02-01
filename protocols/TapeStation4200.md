@@ -1,4 +1,4 @@
-#TapeStation 4200
+# TapeStation 4200
 
 
 Last updated by Ryan Snow on 2/1/23. The following protcol was designed and adapted from the Agilent D1000 Protocol. Please refer to the manufacturer's kit guide for additional protocol information.
@@ -6,7 +6,7 @@ Last updated by Ryan Snow on 2/1/23. The following protcol was designed and adap
 This protocol is intended for Genomic DNA.
 
 
-##Running the TapeStation
+## Running the TapeStation
 
 1. Remove samples and reagents from storage
 	* Allow sample to acclimate to RT for 30 minutes
@@ -58,9 +58,8 @@ This protocol is intended for Genomic DNA.
 	* Confirm information in pop-up dialogue box
 	* Move on to Data Analysis after run is complete
 
-========
 
-##Data Analysis
+## Data Analysis
 
 1. Follow instructions in Run Finished dialogue box
 	* Label and store any partially used ScreenTapes as such

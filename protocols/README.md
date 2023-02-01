@@ -73,12 +73,16 @@ protocols may contain useful procedures and insight into different methodologies
 ### [Digest](https://pinskylab.github.io/laboratory/protocols/digest_dna.nb.html)
 
 ### [Ligate DNA](https://pinskylab.github.io/laboratory/protocols/ligation_ddradseq.nb.html)
+  
+### [Qubit DNA](https://pinskylab.github.io/laboratory/protocols/qubit.md)
 
 ### [PCR](https://pinskylab.github.io/laboratory/protocols/lib-amp_ddradseq.nb.html)
 
 ### [Pippin](https://pinskylab.github.io/laboratory/protocols/pippin.nb.html)
 
 ### [Sequencing Prep](https://pinskylab.github.io/laboratory/protocols/seq-prep_ddradseq.nb.html)
+  
+### {TapeStation 4200](https://pinskylab.github.io/laboratory/protocols/tapestation4200.md)
 
 
 </details>

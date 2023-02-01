@@ -82,7 +82,7 @@ protocols may contain useful procedures and insight into different methodologies
 
 ### [Sequencing Prep](https://pinskylab.github.io/laboratory/protocols/seq-prep_ddradseq.nb.html)
   
-### {TapeStation 4200](https://pinskylab.github.io/laboratory/protocols/tapestation4200.md)
+### [TapeStation 4200](https://pinskylab.github.io/laboratory/protocols/tapestation4200.md)
 
 
 </details>

@@ -1,4 +1,4 @@
-Here you can find notes on all procedures conducted by MRS in the course of the APCL wetlab work.  
+Here you can find notes on all procedures conducted by MRS in the course of the APCL (Amphiprion clarkii) wetlab work (2013? through early 2020).  
 
 [Extractions](https://pinskylab.github.io/laboratory/laboratory-notebooks/extractions/index.html)
 

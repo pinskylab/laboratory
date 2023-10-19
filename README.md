@@ -1,7 +1,7 @@
 Laboratory Work
 ================
 
-## This repository holds the methods we use for sequencing library preparation.
+**This repository holds the methods we used for sequencing library preparation ~2019.**
 
 #### Suggested Use
 
@@ -22,8 +22,12 @@ This method is used in our *Myotis lucificus* little brown bat project.
 
 ### [EecSeq](EecSeq)
 
-This method is used in our *Amphiprion percula* clownfish project.
+This is the expresded exome capture sequencing method used in *Amphiprion percula* larval trait GWAS study by Katrina Calatano ~2021.
 
 ### [protocols](protocols)
 
 Ala carte menu of procedures used in the lab.
+
+### [Michelle Stuart *Amphiprion clarkii* Lab Notebooks 2014-2020](https://pinskylab.github.io/laboratory/laboratory-notebooks/)
+
+Documenting each day's lab work and connecting sample IDs to extraction, digest, and ligation IDs for sequencing.

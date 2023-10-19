@@ -30,4 +30,4 @@ Ala carte menu of procedures used in the lab.
 
 ### [Michelle Stuart *Amphiprion clarkii* Lab Notebooks 2014-2020](https://pinskylab.github.io/laboratory/laboratory-notebooks/)
 
-Documenting each day's lab work and connecting sample IDs to extraction, digest, and ligation IDs for sequencing.
+Documenting each day's lab work and connecting sample IDs to extraction, digest, and ligation IDs for sequencing. For bioinformatcs on these samples, see the [genomics repo](https://github.com/pinskylab/genomics)
